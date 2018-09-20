@@ -1,0 +1,12 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<task-flow-registry xmlns="http://xmlns.oracle.com/adf/controller/rc">
+   <task-flow-descriptor path="WEB-INF/create-edd-o-record.xml" id="create-edd-o-record" type="task-flow-definition" uses-page-fragments="false" library-internal="false" remote-invocable="false" train="false">
+      <input-parameter name="ThirdPartyCollectionId"/>
+      <input-parameter name="DataSourceCode"/>
+      <input-parameter name="DebtId"/>
+      <input-parameter name="DebtorNumber"/>
+      <input-parameter name="ReferralId"/>
+      <input-parameter name="ThirdPartyParentId"/>
+   </task-flow-descriptor>
+   <task-flow-descriptor path="WEB-INF/edd-o-record-test.xml" id="edd-o-record-test" type="task-flow-definition" uses-page-fragments="false" library-internal="false" remote-invocable="false" train="false"/>
+</task-flow-registry>

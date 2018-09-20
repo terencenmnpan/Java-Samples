@@ -1,0 +1,400 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1"
+          xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+          xmlns:f="http://java.sun.com/jsf/core">
+  <af:pageTemplate viewId="/use-case-template.jspx" id="pt1">
+    <f:facet name="main">
+      <af:panelGroupLayout id="pgl1" layout="scroll">
+      <af:resource type="javascript" source="/js/PhoneValidator.js"/>
+          <af:panelBox text="Party" id="pb1">
+            <f:facet name="toolbar">
+              <af:toolbar id="t1">
+              <af:commandToolbarButton
+                                       text="Create Employer"
+                                       id="ctb4"
+                                       action="#{pageFlowScope.CreateEmployerBean.sendBackEmployer}">
+                <af:setActionListener to="#{pageFlowScope.UseCase001EmployerPhone}"
+                                      from="#{requestScope.PhoneNumber}"/>
+                <af:setActionListener from="#{bindings.PartyId.inputValue}"
+                                    to="#{pageFlowScope.UseCase001EmployerPartyId}"/>
+                <af:setActionListener from="#{bindings.StreetAddress.inputValue}"
+                                    to="#{pageFlowScope.UseCase001EmployerStreetAddress}"/>
+                <af:setActionListener from="#{bindings.City.inputValue}"
+                                    to="#{pageFlowScope.UseCase001EmployerCity}"/>
+                <af:setActionListener from="#{bindings.StateCode.attributeValue}"
+                                    to="#{pageFlowScope.UseCase001EmployerStateCode}"/>
+                <af:setActionListener from="#{bindings.ZipCode.inputValue}"
+                                    to="#{pageFlowScope.UseCase001EmployerZipCode}"/>
+                <af:setActionListener to="#{pageFlowScope.UseCase001EmployerName}"
+                                      from="#{bindings.LegalName.inputValue}"/>
+                <af:setActionListener from="#{bindings.PartyCategoryCode.attributeValue}"
+                                      to="#{pageFlowScope.UseCase001EmployerPartyCategoryCode}"/>
+              </af:commandToolbarButton>
+              <af:commandToolbarButton actionListener="#{bindings.Rollback.execute}"
+                                       text="Back Without Save"
+                                       immediate="true" id="ctb5" action="back">
+                <af:resetActionListener/>
+              </af:commandToolbarButton>
+              </af:toolbar>
+          </f:facet>
+            <af:decorativeBox id="db1" topHeight="0" dimensionsFrom="auto">
+              <f:facet name="center">
+            </f:facet>
+              <f:facet name="top"/>
+            </af:decorativeBox>
+          </af:panelBox>
+        <af:panelBox text="Organization" id="pb3">
+          <f:facet name="toolbar">
+            <af:toolbar id="t3"/>
+          </f:facet>
+          <af:decorativeBox id="db3" topHeight="0" dimensionsFrom="auto">
+            <f:facet name="center">
+              <af:panelFormLayout id="pfl2" maxColumns="3" rows="3">
+                <af:inputText value="#{bindings.OrganizationName.inputValue}"
+                              label="#{bindings.OrganizationName.hints.label}"
+                              required="true"
+                              columns="#{bindings.OrganizationName.hints.displayWidth}"
+                              maximumLength="#{bindings.OrganizationName.hints.precision}"
+                              shortDesc="#{bindings.OrganizationName.hints.tooltip}"
+                              id="it8" showRequired="true">
+                  <f:validator binding="#{bindings.OrganizationName.validator}"/>
+                </af:inputText>
+                <af:inputText value="#{bindings.Dba.inputValue}"
+                              label="#{bindings.Dba.hints.label}"
+                              required="#{bindings.Dba.hints.mandatory}"
+                              columns="#{bindings.Dba.hints.displayWidth}"
+                              maximumLength="#{bindings.Dba.hints.precision}"
+                              shortDesc="#{bindings.Dba.hints.tooltip}"
+                              id="it9">
+                  <f:validator binding="#{bindings.Dba.validator}"/>
+                </af:inputText>
+                <af:inputText value="#{bindings.LegalName.inputValue}"
+                              label="#{bindings.LegalName.hints.label}"
+                              required="#{bindings.LegalName.hints.mandatory}"
+                              columns="#{bindings.LegalName.hints.displayWidth}"
+                              maximumLength="#{bindings.LegalName.hints.precision}"
+                              shortDesc="#{bindings.LegalName.hints.tooltip}"
+                              id="it10">
+                  <f:validator binding="#{bindings.LegalName.validator}"/>
+                </af:inputText>
+                <af:inputText value="#{bindings.Fein.inputValue}"
+                              label="#{bindings.Fein.hints.label}"
+                              required="#{bindings.Fein.hints.mandatory}"
+                              columns="#{bindings.Fein.hints.displayWidth}"
+                              maximumLength="#{bindings.Fein.hints.precision}"
+                              shortDesc="#{bindings.Fein.hints.tooltip}"
+                              id="it14">
+                  <f:validator binding="#{bindings.Fein.validator}"/>
+                </af:inputText>
+                <af:inputText value="#{bindings.SicCode.inputValue}"
+                              label="#{bindings.SicCode.hints.label}"
+                              required="#{bindings.SicCode.hints.mandatory}"
+                              columns="#{bindings.SicCode.hints.displayWidth}"
+                              maximumLength="#{bindings.SicCode.hints.precision}"
+                              shortDesc="#{bindings.SicCode.hints.tooltip}"
+                              id="it16">
+                  <f:validator binding="#{bindings.SicCode.validator}"/>
+                  <af:convertNumber groupingUsed="false"
+                                    pattern="#{bindings.SicCode.format}"/>
+                </af:inputText>
+                <af:inputText value="#{bindings.NaicsCode.inputValue}"
+                              label="#{bindings.NaicsCode.hints.label}"
+                              required="#{bindings.NaicsCode.hints.mandatory}"
+                              columns="#{bindings.NaicsCode.hints.displayWidth}"
+                              maximumLength="#{bindings.NaicsCode.hints.precision}"
+                              shortDesc="#{bindings.NaicsCode.hints.tooltip}"
+                              id="it15">
+                  <f:validator binding="#{bindings.NaicsCode.validator}"/>
+                  <af:convertNumber groupingUsed="false"
+                                    pattern="#{bindings.NaicsCode.format}"/>
+                </af:inputText>
+                <af:selectOneChoice value="#{bindings.PartyCategoryCode.inputValue}"
+                                    label="#{bindings.PartyCategoryCode.label}"
+                                    required="#{bindings.PartyCategoryCode.hints.mandatory}"
+                                    shortDesc="#{bindings.PartyCategoryCode.hints.tooltip}"
+                                    id="soc7" showRequired="true"
+                                    autoSubmit="true"
+                                    validator="#{pageFlowScope.CreateEmployerBean.partyCategoryCodeValidator}"
+                                    valueChangeListener="#{pageFlowScope.CreateEmployerBean.partyCategoryCodeValueChangeListener}"
+                                    valuePassThru="true" partialTriggers="soc8">
+                  <f:selectItems value="#{bindings.PartyCategoryCode.items}"
+                                 id="si7"/>
+                </af:selectOneChoice>
+                <af:selectOneChoice value="#{bindings.PartyClassficationCode.inputValue}"
+                                    label="#{bindings.PartyClassficationCode.label}"
+                                    required="#{bindings.PartyClassficationCode.hints.mandatory}"
+                                    shortDesc="#{bindings.PartyClassficationCode.hints.tooltip}"
+                                    id="soc8"
+                                    autoSubmit="true"
+                                    valueChangeListener="#{pageFlowScope.CreateEmployerBean.partyClassificationCodeValueChangeListener}"
+                                    valuePassThru="true"
+                                    validator="#{pageFlowScope.CreateEmployerBean.partyClassificationCodeValidator}"
+                                    partialTriggers="soc7">
+                  <f:selectItems value="#{bindings.PartyClassficationCode.items}"
+                                 id="si8"/>
+                </af:selectOneChoice>
+              </af:panelFormLayout>
+            </f:facet>
+            <f:facet name="top"/>
+          </af:decorativeBox>
+        </af:panelBox>
+        <af:panelBox text="Mailing Address" id="pb2">
+            <f:facet name="toolbar">
+            <af:toolbar id="t2"/>
+          </f:facet>
+            <af:decorativeBox id="db2" topHeight="0" dimensionsFrom="auto">
+              <f:facet name="center">
+              <af:panelFormLayout id="pfl1" maxColumns="3" rows="4">
+                <af:inputText value="#{bindings.StreetAddress.inputValue}"
+                                label="#{bindings.StreetAddress.hints.label}"
+                                required="#{bindings.StreetAddress.hints.mandatory}"
+                                columns="#{bindings.StreetAddress.hints.displayWidth}"
+                                maximumLength="#{bindings.StreetAddress.hints.precision}"
+                                shortDesc="#{bindings.StreetAddress.hints.tooltip}"
+                                id="it7">
+                    <f:validator binding="#{bindings.StreetAddress.validator}"/>
+                  </af:inputText>
+                  <af:inputText value="#{bindings.City.inputValue}"
+                                label="#{bindings.City.hints.label}"
+                                required="#{bindings.City.hints.mandatory}"
+                                columns="#{bindings.City.hints.displayWidth}"
+                                maximumLength="#{bindings.City.hints.precision}"
+                                shortDesc="#{bindings.City.hints.tooltip}"
+                                id="it6">
+                    <f:validator binding="#{bindings.City.validator}"/>
+                  </af:inputText>
+                <af:selectOneChoice value="#{bindings.State.inputValue}"
+                                    label="#{bindings.State.label}"
+                                    required="#{bindings.State.hints.mandatory}"
+                                    shortDesc="#{bindings.State.hints.tooltip}"
+                                    id="soc9">
+                  <f:selectItems value="#{bindings.State.items}" id="si9"/>
+                </af:selectOneChoice>
+                <af:selectOneChoice value="#{bindings.StateCode1.inputValue}"
+                                    label="#{bindings.StateCode1.label}"
+                                    required="#{bindings.StateCode1.hints.mandatory}"
+                                    shortDesc="#{bindings.StateCode1.hints.tooltip}"
+                                    id="soc2">
+                  <f:selectItems value="#{bindings.StateCode1.items}" id="si2"/>
+                </af:selectOneChoice>
+                <af:inputText value="#{bindings.ZipCode.inputValue}"
+                                label="#{bindings.ZipCode.hints.label}"
+                                required="true"
+                                columns="#{bindings.ZipCode.hints.displayWidth}"
+                                maximumLength="#{bindings.ZipCode.hints.precision}"
+                                shortDesc="#{bindings.ZipCode.hints.tooltip}"
+                                id="it2" showRequired="true">
+                    <f:validator binding="#{bindings.ZipCode.validator}"/>
+                  <af:clientListener type="keyDown"
+                                     method="handleNumberConversion('xxxxx')"/>
+                </af:inputText>
+                <af:inputText value="#{bindings.Zip4.inputValue}"
+                              required="#{bindings.Zip4.hints.mandatory}"
+                              columns="#{bindings.Zip4.hints.displayWidth}"
+                              maximumLength="#{bindings.Zip4.hints.precision}"
+                              shortDesc="#{bindings.Zip4.hints.tooltip}"
+                              id="it1">
+                  <f:validator binding="#{bindings.Zip4.validator}"/>
+                  <af:clientListener type="keyDown"
+                                     method="handleNumberConversion('xxxx')"/>
+                </af:inputText>
+                <af:inputText value="#{bindings.CountryCode.inputValue}"
+                                label="#{bindings.CountryCode.hints.label}"
+                                required="#{bindings.CountryCode.hints.mandatory}"
+                                columns="#{bindings.CountryCode.hints.displayWidth}"
+                                maximumLength="#{bindings.CountryCode.hints.precision}"
+                                shortDesc="#{bindings.CountryCode.hints.tooltip}"
+                                id="it4">
+                    <f:validator binding="#{bindings.CountryCode.validator}"/>
+                  </af:inputText>
+                  <af:inputText value="#{bindings.Country.inputValue}"
+                                label="#{bindings.Country.hints.label}"
+                                required="#{bindings.Country.hints.mandatory}"
+                                columns="#{bindings.Country.hints.displayWidth}"
+                                maximumLength="#{bindings.Country.hints.precision}"
+                                shortDesc="#{bindings.Country.hints.tooltip}"
+                                id="it5">
+                    <f:validator binding="#{bindings.Country.validator}"/>
+                  </af:inputText>
+                <af:inputText value="#{bindings.FsSequenceNumber.inputValue}"
+                              label="#{bindings.FsSequenceNumber.hints.label}"
+                              required="true"
+                              columns="#{bindings.FsSequenceNumber.hints.displayWidth}"
+                              maximumLength="#{bindings.FsSequenceNumber.hints.precision}"
+                              shortDesc="#{bindings.FsSequenceNumber.hints.tooltip}"
+                              id="it26">
+                  <f:validator binding="#{bindings.FsSequenceNumber.validator}"/>
+                  <af:convertNumber groupingUsed="false"
+                                    pattern="#{bindings.FsSequenceNumber.format}"/>
+                  <af:validateLongRange minimum="0" maximum="1"
+                                        hintNotInRange="Must be 0 or 1"/>
+                  <af:validateLength minimum="1" maximum="1"
+                                     hintNotInRange="Must be 1 digit"/>
+                </af:inputText>
+              </af:panelFormLayout>
+            </f:facet>
+              <f:facet name="top"/>
+            </af:decorativeBox>
+          </af:panelBox>
+        <af:panelBox text="Contact Methods" id="panelBox1">
+          <f:facet name="toolbar">
+            <af:toolbar id="toolbar1"/>
+          </f:facet>
+          <af:decorativeBox id="decorativeBox1" topHeight="0"
+                            dimensionsFrom="auto">
+            <f:facet name="center">
+              <af:panelFormLayout id="pfl5" maxColumns="5" rows="2">
+                <af:inputText label="Phone" id="it18"
+                              value="#{requestScope.PhoneNumber}">
+                  <af:validateLength minimum="10" maximum="10"/>
+                  <af:validateRegExp pattern="[0-9]+"
+                                     messageDetailNoMatch="Must be numbers only"/>
+                  <af:clientListener type="keyDown"
+                                     method="handleNumberConversion('xxxxxxxxxx')"/>
+                </af:inputText>
+                <af:inputText label="Cell Phone" id="it19"
+                              value="#{requestScope.CellPhoneNumber}">
+                  <af:validateLength minimum="10" maximum="10"/>
+                  <af:validateRegExp pattern="[0-9]+"
+                                     messageDetailNoMatch="Must be numbers only"/>
+                  <af:clientListener type="keyDown"
+                                     method="handleNumberConversion('xxxxxxxxxx')"/>
+                </af:inputText>
+                <af:inputText label="Work Phone" id="it20"
+                              value="#{requestScope.WorkPhoneNumber}">
+                  <af:validateLength minimum="10" maximum="10"/>
+                  <af:validateRegExp pattern="[0-9]+"
+                                     messageDetailNoMatch="Must be numbers only"/>
+                  <af:clientListener type="keyDown"
+                                     method="handleNumberConversion('xxxxxxxxxx')"/>
+                </af:inputText>
+                <af:inputText label="Email" id="it21"
+                              value="#{requestScope.Email}"/>
+                <af:inputText label="Fax" id="it22"
+                              value="#{requestScope.Fax}">
+                  <af:validateLength minimum="10" maximum="10"/>
+                  <af:validateRegExp pattern="[0-9]+"
+                                     messageDetailNoMatch="Must be numbers only"/>
+                  <af:clientListener type="keyDown"
+                                     method="handleNumberConversion('xxxxxxxxxx')"/>
+                </af:inputText>
+                <af:inputText label="Url" id="it23"
+                              value="#{requestScope.Url}"/>
+                <af:inputText label="Website" id="it24"
+                              value="#{requestScope.Website}"/>
+              </af:panelFormLayout>
+            </f:facet>
+            <f:facet name="top"/>
+          </af:decorativeBox>
+        </af:panelBox>
+        <af:panelBox text="Site Address" id="pb4">
+          <f:facet name="toolbar">
+            <af:toolbar id="t4"/>
+          </f:facet>
+          <af:decorativeBox id="db4" topHeight="0" dimensionsFrom="auto">
+            <f:facet name="center">
+              <af:panelFormLayout id="pfl4" maxColumns="2" rows="4">
+                <af:selectOneChoice value="#{bindings.CountyCode.inputValue}"
+                                    label="#{bindings.CountyCode.label}"
+                                    required="#{bindings.CountyCode.hints.mandatory}"
+                                    shortDesc="#{bindings.CountyCode.hints.tooltip}"
+                                    id="soc6">
+                  <f:selectItems value="#{bindings.CountyCode.items}" id="si6"/>
+                </af:selectOneChoice>
+                <af:inputText value="#{bindings.StreetAddress1.inputValue}"
+                              label="#{bindings.StreetAddress1.hints.label}"
+                              required="#{bindings.StreetAddress1.hints.mandatory}"
+                              columns="#{bindings.StreetAddress1.hints.displayWidth}"
+                              maximumLength="#{bindings.StreetAddress1.hints.precision}"
+                              shortDesc="#{bindings.StreetAddress1.hints.tooltip}"
+                              id="it11">
+                  <f:validator binding="#{bindings.StreetAddress1.validator}"/>
+                </af:inputText>
+                <af:inputText value="#{bindings.City1.inputValue}"
+                              label="#{bindings.City1.hints.label}"
+                              required="#{bindings.City1.hints.mandatory}"
+                              columns="#{bindings.City1.hints.displayWidth}"
+                              maximumLength="#{bindings.City1.hints.precision}"
+                              shortDesc="#{bindings.City1.hints.tooltip}"
+                              id="it3">
+                  <f:validator binding="#{bindings.City1.validator}"/>
+                </af:inputText>
+                <af:selectOneChoice value="#{bindings.State1.inputValue}"
+                                    label="#{bindings.State1.label}"
+                                    required="#{bindings.State1.hints.mandatory}"
+                                    shortDesc="#{bindings.State1.hints.tooltip}"
+                                    id="soc3">
+                  <f:selectItems value="#{bindings.State1.items}" id="si3"/>
+                </af:selectOneChoice>
+                <af:selectOneChoice value="#{bindings.StateCode2.inputValue}"
+                                    label="#{bindings.StateCode2.label}"
+                                    required="#{bindings.StateCode2.hints.mandatory}"
+                                    shortDesc="#{bindings.StateCode2.hints.tooltip}"
+                                    id="soc5">
+                  <f:selectItems value="#{bindings.StateCode2.items}" id="si5"/>
+                </af:selectOneChoice>
+                <af:inputText value="#{bindings.ZipCode1.inputValue}"
+                              label="#{bindings.ZipCode1.hints.label}"
+                              required="true"
+                              columns="#{bindings.ZipCode1.hints.displayWidth}"
+                              maximumLength="#{bindings.ZipCode1.hints.precision}"
+                              shortDesc="#{bindings.ZipCode1.hints.tooltip}"
+                              id="it17" showRequired="true">
+                  <f:validator binding="#{bindings.ZipCode1.validator}"/>
+                  <af:clientListener type="keyDown"
+                                     method="handleNumberConversion('xxxxx')"/>
+                </af:inputText>
+                <af:inputText value="#{bindings.Zip41.inputValue}"
+                              required="#{bindings.Zip41.hints.mandatory}"
+                              columns="#{bindings.Zip41.hints.displayWidth}"
+                              maximumLength="#{bindings.Zip41.hints.precision}"
+                              shortDesc="#{bindings.Zip41.hints.tooltip}"
+                              id="it25">
+                  <af:clientListener type="keyDown"
+                                     method="handleNumberConversion('xxxx')"/>
+                  <f:validator binding="#{bindings.Zip41.validator}"/>
+                </af:inputText>
+                <af:inputText value="#{bindings.CountryCode1.inputValue}"
+                              label="#{bindings.CountryCode1.hints.label}"
+                              required="#{bindings.CountryCode1.hints.mandatory}"
+                              columns="#{bindings.CountryCode1.hints.displayWidth}"
+                              maximumLength="#{bindings.CountryCode1.hints.precision}"
+                              shortDesc="#{bindings.CountryCode1.hints.tooltip}"
+                              id="it12">
+                  <f:validator binding="#{bindings.CountryCode1.validator}"/>
+                </af:inputText>
+                <af:inputText value="#{bindings.Country1.inputValue}"
+                              label="#{bindings.Country1.hints.label}"
+                              required="#{bindings.Country1.hints.mandatory}"
+                              columns="#{bindings.Country1.hints.displayWidth}"
+                              maximumLength="#{bindings.Country1.hints.precision}"
+                              shortDesc="#{bindings.Country1.hints.tooltip}"
+                              id="it13">
+                  <f:validator binding="#{bindings.Country1.validator}"/>
+                </af:inputText>
+                <af:inputText value="#{bindings.FsSequenceNumber1.inputValue}"
+                              label="#{bindings.FsSequenceNumber1.hints.label}"
+                              required="true"
+                              columns="#{bindings.FsSequenceNumber1.hints.displayWidth}"
+                              maximumLength="#{bindings.FsSequenceNumber1.hints.precision}"
+                              shortDesc="#{bindings.FsSequenceNumber1.hints.tooltip}"
+                              id="inputText1">
+                  <af:validateLength minimum="1" maximum="1"
+                                     hintNotInRange="Must be 1 digit"/>
+                  <f:validator binding="#{bindings.FsSequenceNumber1.validator}"/>
+                  <af:convertNumber groupingUsed="false"
+                                    pattern="#{bindings.FsSequenceNumber1.format}"/>
+                  <af:validateLongRange minimum="0" maximum="1"
+                                        hintNotInRange="Must be 0 or 1"/>
+                </af:inputText>
+              </af:panelFormLayout>
+            </f:facet>
+            <f:facet name="top"/>
+          </af:decorativeBox>
+        </af:panelBox>
+      </af:panelGroupLayout>
+    </f:facet>
+    <f:attribute name="title" value="Create Employer"/>
+  </af:pageTemplate>
+  <!--oracle-jdev-comment:preferred-managed-bean-name:CreateEmployerBean-->
+</jsp:root>

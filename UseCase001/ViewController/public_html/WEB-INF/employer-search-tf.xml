@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
+  <task-flow-definition id="employer-search-tf">
+    <default-activity id="__1">router1</default-activity>
+    <data-control-scope id="__28">
+      <isolated/>
+    </data-control-scope>
+    <input-parameter-definition id="__94">
+      <name id="__93">inputPartyId</name>
+      <value>#{pageFlowScope.inputPartyId}</value>
+      <class>java.lang.String</class>
+    </input-parameter-definition>
+    <return-value-definition id="__10">
+      <name id="__9">returnEmployerLegalName</name>
+      <value>#{pageFlowScope.UseCase001EmployerName}</value>
+      <class>java.lang.String</class>
+    </return-value-definition>
+    <return-value-definition id="__27">
+      <name id="__26">returnEmployerPartyId</name>
+      <value>#{pageFlowScope.UseCase001EmployerPartyId}</value>
+      <class>java.lang.String</class>
+    </return-value-definition>
+    <return-value-definition id="__7">
+      <name id="__8">returnEmployerStreetAddress</name>
+      <value>#{pageFlowScope.UseCase001EmployerStreetAddress}</value>
+      <class>java.lang.String</class>
+    </return-value-definition>
+    <return-value-definition id="__11">
+      <name id="__12">returnEmployerCity</name>
+      <value>#{pageFlowScope.UseCase001EmployerCity}</value>
+      <class>java.lang.String</class>
+    </return-value-definition>
+    <return-value-definition id="__14">
+      <name id="__13">returnEmployerStateCode</name>
+      <value>#{pageFlowScope.UseCase001EmployerStateCode}</value>
+      <class>java.lang.String</class>
+    </return-value-definition>
+    <return-value-definition id="__15">
+      <name id="__16">returnEmployerZipCode</name>
+      <value>#{pageFlowScope.UseCase001EmployerZipCode}</value>
+      <class>java.lang.String</class>
+    </return-value-definition>
+    <return-value-definition id="__30">
+      <name id="__29">returnEmployerPhone</name>
+      <value>#{pageFlowScope.UseCase001EmployerPhone}</value>
+      <class>java.lang.String</class>
+    </return-value-definition>
+    <managed-bean id="__48">
+      <managed-bean-name id="__35">CreateEmployerBean</managed-bean-name>
+      <managed-bean-class id="__42">createEmployerBean</managed-bean-class>
+      <managed-bean-scope id="__49">pageFlow</managed-bean-scope>
+    </managed-bean>
+    <view id="EmployerSearch">
+      <page>/EmployerSearch.jsff</page>
+    </view>
+    <task-flow-return id="taskFlowReturn1">
+      <outcome id="__2">
+        <name>taskFlowReturn1</name>
+      </outcome>
+    </task-flow-return>
+    <view id="UpdateEmployer">
+      <page>/UpdateEmployer.jsff</page>
+    </view>
+    <view id="CreateEmployer">
+      <page>/CreateEmployer.jsff</page>
+    </view>
+    <method-call id="CreateParty">
+      <method>#{bindings.CreateInsert.execute}</method>
+      <outcome id="__50">
+        <fixed-outcome>CreateInsert</fixed-outcome>
+      </outcome>
+    </method-call>
+    <method-call id="CreateOrganization">
+      <method>#{bindings.CreateInsert.execute}</method>
+      <outcome id="__57">
+        <fixed-outcome>CreateInsert</fixed-outcome>
+      </outcome>
+    </method-call>
+    <method-call id="CreateAddress">
+      <method>#{bindings.CreateInsert.execute}</method>
+      <outcome id="__87">
+        <fixed-outcome>CreateInsert</fixed-outcome>
+      </outcome>
+    </method-call>
+    <method-call id="CreateSite">
+      <method>#{bindings.CreateInsert.execute}</method>
+      <outcome id="__51">
+        <fixed-outcome>CreateInsert</fixed-outcome>
+      </outcome>
+    </method-call>
+    <method-call id="CreatePartyClassification">
+      <method>#{bindings.CreateInsert.execute}</method>
+      <outcome id="__17">
+        <fixed-outcome>CreateInsert</fixed-outcome>
+      </outcome>
+    </method-call>
+    <router id="router1">
+      <case>
+        <expression>#{not empty pageFlowScope.inputPartyId}</expression>
+        <outcome id="__95">updateEmployer</outcome>
+      </case>
+      <case>
+        <expression>#{empty pageFlowScope.inputPartyId}</expression>
+        <outcome id="__96">employerSearch</outcome>
+      </case>
+      <default-outcome>employerSearch</default-outcome>
+    </router>
+    <method-call id="SetCurrentRowWithKeyValue">
+      <method>#{bindings.setCurrentRowWithKeyValue.execute}</method>
+      <outcome id="__81">
+        <fixed-outcome>setCurrentRowWithKeyValue</fixed-outcome>
+      </outcome>
+    </method-call>
+    <method-call id="SetCurrentRowWithKeyValue1">
+      <method>#{bindings.setCurrentRowWithKeyValue.execute}</method>
+      <outcome id="__97">
+        <fixed-outcome>setCurrentRowWithKeyValue</fixed-outcome>
+      </outcome>
+    </method-call>
+    <control-flow-rule id="__3">
+      <from-activity-id id="__4">EmployerSearch</from-activity-id>
+      <control-flow-case id="__5">
+        <from-outcome id="__25">selectEmployer</from-outcome>
+        <to-activity-id id="__6">taskFlowReturn1</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__37">
+        <from-outcome id="__38">updateEmployer</from-outcome>
+        <to-activity-id id="__36">UpdateEmployer</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__18">
+        <from-outcome id="__20">createEmployer</from-outcome>
+        <to-activity-id id="__19">CreateParty</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__22">
+      <from-activity-id id="__23">UpdateEmployer</from-activity-id>
+      <control-flow-case id="__24">
+        <from-outcome id="__32">selectUpdatedEmployer</from-outcome>
+        <to-activity-id id="__31">taskFlowReturn1</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__39">
+        <from-outcome id="__41">back</from-outcome>
+        <to-activity-id id="__40">EmployerSearch</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__43">
+      <from-activity-id id="__44">CreateEmployer</from-activity-id>
+      <control-flow-case id="__45">
+        <from-outcome id="__47">selectCreatedEmployer</from-outcome>
+        <to-activity-id id="__46">taskFlowReturn1</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__70">
+        <from-outcome id="__72">back</from-outcome>
+        <to-activity-id id="__71">EmployerSearch</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__52">
+      <from-activity-id id="__53">CreateParty</from-activity-id>
+      <control-flow-case id="__54">
+        <from-outcome id="__56">CreateInsert</from-outcome>
+        <to-activity-id id="__55">CreateAddress</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__63">
+      <from-activity-id id="__64">CreateOrganization</from-activity-id>
+      <control-flow-case id="__65">
+        <from-outcome id="__66">CreateInsert</from-outcome>
+        <to-activity-id id="__67">CreateSite</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__88">
+      <from-activity-id id="__89">CreateAddress</from-activity-id>
+      <control-flow-case id="__90">
+        <from-outcome id="__91">CreateInsert</from-outcome>
+        <to-activity-id id="__92">CreateOrganization</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__58">
+      <from-activity-id id="__59">CreateSite</from-activity-id>
+      <control-flow-case id="__73">
+        <from-outcome id="__74">CreateInsert</from-outcome>
+        <to-activity-id id="__75">CreatePartyClassification</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__21">
+      <from-activity-id id="__33">CreatePartyClassification</from-activity-id>
+      <control-flow-case id="__61">
+        <from-outcome id="__60">CreateInsert</from-outcome>
+        <to-activity-id id="__34">CreateEmployer</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__62">
+      <from-activity-id id="__68">router1</from-activity-id>
+      <control-flow-case id="__76">
+        <from-outcome id="__77">employerSearch</from-outcome>
+        <to-activity-id id="__69">EmployerSearch</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__79">
+        <from-outcome id="__80">updateEmployer</from-outcome>
+        <to-activity-id id="__78">SetCurrentRowWithKeyValue1</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__82">
+      <from-activity-id id="__83">SetCurrentRowWithKeyValue</from-activity-id>
+      <control-flow-case id="__85">
+        <from-outcome id="__86">setCurrentRowWithKeyValue</from-outcome>
+        <to-activity-id id="__84">UpdateEmployer</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__98">
+      <from-activity-id id="__99">SetCurrentRowWithKeyValue1</from-activity-id>
+      <control-flow-case id="__100">
+        <from-outcome id="__101">setCurrentRowWithKeyValue</from-outcome>
+        <to-activity-id id="__102">SetCurrentRowWithKeyValue</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <use-page-fragments/>
+  </task-flow-definition>
+</adfc-config>

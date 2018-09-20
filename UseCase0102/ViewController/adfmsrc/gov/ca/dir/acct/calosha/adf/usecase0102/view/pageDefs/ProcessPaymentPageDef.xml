@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel"
+                version="11.1.1.64.93" id="ProcessPaymentPageDef"
+                Package="gov.ca.dir.acct.calosha.adf.usecase0102.view.pageDefs"
+                SkipValidation="true">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="InspectionInformationView1" RangeSize="25"
+              DataControl="ProcessPaymentAMDataControl"
+              id="InspectionInformationView1Iterator" ChangeEventPolicy="ppr"/>
+    <iterator Binds="PaymentView1" RangeSize="25"
+              DataControl="ProcessPaymentAMDataControl"
+              id="PaymentView1Iterator" ChangeEventPolicy="ppr"/>
+    <iterator Binds="UnbilledItemsView1" RangeSize="25"
+              DataControl="ProcessPaymentAMDataControl"
+              id="UnbilledItemsView1Iterator" ChangeEventPolicy="ppr"/>
+    <iterator Binds="BilledItemsView1" RangeSize="25"
+              DataControl="ProcessPaymentAMDataControl"
+              id="BilledItemsView1Iterator" ChangeEventPolicy="ppr"/>
+    <iterator id="UnbilledItemView1Iterator" Binds="UnbilledItemView1"
+              DataControl="ProcessPaymentAMDataControl" RangeSize="25"/>
+    <iterator Binds="DepositTransmittalView1" RangeSize="25"
+              DataControl="ProcessPaymentAMDataControl"
+              id="DepositTransmittalView1Iterator"/>
+    <iterator id="PaymentPlanAllocationView1Iterator"
+              Binds="PaymentPlanAllocationView1"
+              DataControl="ProcessPaymentAMDataControl" RangeSize="25"/>
+  </executables>
+  <bindings>
+    <attributeValues IterBinding="InspectionInformationView1Iterator"
+                     id="InspectionNumber">
+      <AttrNames>
+        <Item Value="InspectionNumber"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="InspectionInformationView1Iterator"
+                     id="LegalName">
+      <AttrNames>
+        <Item Value="LegalName"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="InspectionInformationView1Iterator"
+                     id="StreetAddress">
+      <AttrNames>
+        <Item Value="StreetAddress"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="InspectionInformationView1Iterator"
+                     id="AddressLine2">
+      <AttrNames>
+        <Item Value="AddressLine2"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="InspectionInformationView1Iterator" id="City">
+      <AttrNames>
+        <Item Value="City"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="InspectionInformationView1Iterator"
+                     id="StateCode">
+      <AttrNames>
+        <Item Value="StateCode"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="InspectionInformationView1Iterator"
+                     id="State">
+      <AttrNames>
+        <Item Value="State"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="InspectionInformationView1Iterator"
+                     id="ZipCode">
+      <AttrNames>
+        <Item Value="ZipCode"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="InspectionInformationView1Iterator"
+                     id="ContactMethodValue">
+      <AttrNames>
+        <Item Value="ContactMethodValue"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PaymentView1Iterator"
+                     id="PaymentControlNumber">
+      <AttrNames>
+        <Item Value="PaymentControlNumber"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PaymentView1Iterator"
+                     id="AuthorizationNumber">
+      <AttrNames>
+        <Item Value="AuthorizationNumber"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PaymentView1Iterator" id="BatchNumber">
+      <AttrNames>
+        <Item Value="BatchNumber"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PaymentView1Iterator" id="PaymentDate">
+      <AttrNames>
+        <Item Value="PaymentDate"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PaymentView1Iterator" id="PaymentAmount">
+      <AttrNames>
+        <Item Value="PaymentAmount"/>
+      </AttrNames>
+    </attributeValues>
+    <tree IterBinding="UnbilledItemsView1Iterator" id="UnbilledItemsView1">
+      <nodeDefinition DefName="gov.ca.dir.acct.calosha.adf.usecase0102.model.view.UnbilledItemsView"
+                      Name="UnbilledItemsView10">
+        <AttrNames>
+          <Item Value="BillTypeCode"/>
+          <Item Value="SetupDate"/>
+          <Item Value="FromDate"/>
+          <Item Value="ThroughDate"/>
+          <Item Value="UnbilledAmount"/>
+          <Item Value="AllocatedAmount"/>
+          <Item Value="Comments"/>
+          <Item Value="Balance"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <tree IterBinding="BilledItemsView1Iterator" id="BilledItemsView1">
+      <nodeDefinition DefName="gov.ca.dir.acct.calosha.adf.usecase0102.model.view.BilledItemsView"
+                      Name="BilledItemsView10">
+        <AttrNames>
+          <Item Value="CitationNumber"/>
+          <Item Value="CitationItemNumber"/>
+          <Item Value="ViolationCode"/>
+          <Item Value="CitationIssueDate"/>
+          <Item Value="CurrentAmount"/>
+          <Item Value="CurrentFtaAmount"/>
+          <Item Value="AllocatedAmount"/>
+          <Item Value="Balance"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <attributeValues IterBinding="PaymentView1Iterator" id="UnappliedAmount">
+      <AttrNames>
+        <Item Value="UnappliedAmount"/>
+      </AttrNames>
+    </attributeValues>
+    <listOfValues StaticList="false" IterBinding="PaymentView1Iterator"
+                  Uses="LOV_PaymentTypeCode" id="PaymentTypeCode1"/>
+    <attributeValues IterBinding="InspectionInformationView1Iterator"
+                     id="InspectionId">
+      <AttrNames>
+        <Item Value="InspectionId"/>
+      </AttrNames>
+    </attributeValues>
+    <methodAction id="commitProcessPayment"
+                  InstanceName="ProcessPaymentAMDataControl.dataProvider"
+                  DataControl="ProcessPaymentAMDataControl"
+                  RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="commitProcessPayment" IsViewObjectMethod="false"/>
+    <methodAction id="allocatePaymentAmount"
+                  InstanceName="ProcessPaymentAMDataControl.dataProvider"
+                  DataControl="ProcessPaymentAMDataControl"
+                  RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="allocatePaymentAmount"
+                  IsViewObjectMethod="false"/>
+    <methodAction id="processPayments"
+                  InstanceName="ProcessPaymentAMDataControl.dataProvider"
+                  DataControl="ProcessPaymentAMDataControl"
+                  RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="processPayments" IsViewObjectMethod="false"/>
+    <methodAction id="undoPaymentAllocations"
+                  InstanceName="ProcessPaymentAMDataControl.dataProvider"
+                  DataControl="ProcessPaymentAMDataControl"
+                  RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="undoPaymentAllocations"
+                  IsViewObjectMethod="false"/>
+    <attributeValues IterBinding="PaymentView1Iterator"
+                     id="TransmittalDate">
+      <AttrNames>
+        <Item Value="TransmittalDate"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PaymentView1Iterator"
+                     id="DepositSlipNumber">
+      <AttrNames>
+        <Item Value="DepositSlipNumber"/>
+      </AttrNames>
+    </attributeValues>
+    <methodAction id="ifCreateDepositTransmittal"
+                  InstanceName="ProcessPaymentAMDataControl.dataProvider"
+                  DataControl="ProcessPaymentAMDataControl"
+                  RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="ifCreateDepositTransmittal"
+                  IsViewObjectMethod="false"
+                  ReturnName="data.ProcessPaymentAMDataControl.methodResults.ifCreateDepositTransmittal_ProcessPaymentAMDataControl_dataProvider_ifCreateDepositTransmittal_result">
+      <NamedData NDName="depositSlipNumber" NDType="java.lang.String"/>
+      <NamedData NDName="transmittalDate" NDType="oracle.jbo.domain.Date"/>
+      <NamedData NDName="paymentType" NDType="java.lang.String"/>
+    </methodAction>
+    <attributeValues IterBinding="PaymentView1Iterator" id="PostJudgmentInterest">
+      <AttrNames>
+        <Item Value="PostJudgmentInterest"/>
+      </AttrNames>
+    </attributeValues>
+    <methodAction id="isTPCReferred"
+                  InstanceName="ProcessPaymentAMDataControl.dataProvider"
+                  DataControl="ProcessPaymentAMDataControl"
+                  RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="isTPCReferred" IsViewObjectMethod="false"
+                  ReturnName="data.ProcessPaymentAMDataControl.methodResults.isTPCReferred_ProcessPaymentAMDataControl_dataProvider_isTPCReferred_result">
+      <NamedData NDName="invoiceNumber" NDType="java.lang.String"/>
+    </methodAction>
+    <methodAction id="recalculateUnappliedAfterManualAllocation" InstanceName="ProcessPaymentAMDataControl.dataProvider" DataControl="ProcessPaymentAMDataControl" RequiresUpdateModel="true"
+                  Action="invokeMethod" MethodName="recalculateUnappliedAfterManualAllocation" IsViewObjectMethod="false"/>
+  </bindings>
+</pageDefinition>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Application xmlns="http://xmlns.oracle.com/adfm/application"
+             version="11.1.1.64.93" id="DataBindings" SeparateXMLFiles="false"
+             Package="gov.ca.dir.acct.calosha.adf.usecase0161.view"
+             ClientType="Generic">
+  <pageMap>
+    <page path="/CreateEddNRecord.jspx"
+          usageId="gov_ca_dir_acct_calosha_adf_usecase0161_view_CreateEddNRecordPageDef"/>
+    <page path="/WEB-INF/create-edd-n-record.xml#create-edd-n-record@CreateWithParamsEddNRecord"
+          usageId="gov_ca_dir_acct_calosha_adf_usecase0161_view_create_edd_n_record_create_edd_n_record_CreateWithParametersPageDef"/>
+    <page path="/WEB-INF/create-edd-n-record.xml#create-edd-n-record@Execute"
+          usageId="gov_ca_dir_acct_calosha_adf_usecase0161_view_create_edd_n_record_create_edd_n_record_ExecutePageDef"/>
+    <page path="/WEB-INF/create-edd-n-record.xml#create-edd-n-record@updateHeaderIdForNewEddRecord"
+          usageId="gov_ca_dir_acct_calosha_adf_usecase0161_view_create_edd_n_record_create_edd_n_record_updateHeaderIdForNewEddRecordPageDef"/>
+    <page path="/WEB-INF/create-edd-n-record.xml#create-edd-n-record@SetCurrentRowWithKeyValue"
+          usageId="gov_ca_dir_acct_calosha_adf_usecase0161_view_create_edd_n_record_create_edd_n_record_SetCurrentRowWithKeyValuePageDef"/>
+    <page path="/WEB-INF/create-edd-n-record.xml#create-edd-n-record@DeleteNRecord"
+          usageId="gov_ca_dir_acct_calosha_adf_usecase0161_view_create_edd_n_record_create_edd_n_record_DeletePageDef"/>
+    <page path="/WEB-INF/create-edd-n-record.xml#create-edd-n-record@CreateWithParamsEddRAssoc"
+          usageId="gov_ca_dir_acct_calosha_adf_usecase0161_view_create_edd_n_record_create_edd_n_record_CreateWithParametersPageDef1"/>
+    <page path="/WEB-INF/create-edd-n-record.xml#create-edd-n-record@DeleteRAssoc"
+          usageId="gov_ca_dir_acct_calosha_adf_usecase0161_view_create_edd_n_record_create_edd_n_record_DeletePageDef1"/>
+    <page path="/WEB-INF/create-edd-n-record.xml#create-edd-n-record@deleteChildrenPendingRecords"
+          usageId="gov_ca_dir_acct_calosha_adf_usecase0161_view_create_edd_n_record_create_edd_n_record_deleteChildrenPendingRecordsPageDef"/>
+    <page path="/WEB-INF/create-edd-n-record.xml#create-edd-n-record@setCalculatedFinalTotalAmount"
+          usageId="gov_ca_dir_acct_calosha_adf_usecase0161_view_create_edd_n_record_create_edd_n_record_setCalculatedFinalTotalAmountPageDef"/>
+    <page path="/WEB-INF/create-edd-n-record.xml#create-edd-n-record@RecordTypeDeleteEvaluatorRouter"
+          usageId="gov_ca_dir_acct_calosha_adf_usecase0161_view_create_edd_n_record_create_edd_n_record_RecordTypeDeleteEvaluatorRouterPageDef"/>
+    <page path="/WEB-INF/create-edd-n-record.xml#create-edd-n-record@copyPreviousRecord"
+          usageId="gov_ca_dir_acct_calosha_adf_usecase0161_view_create_edd_n_record_create_edd_n_record_copyPreviousRecordPageDef"/>
+    <page path="/WEB-INF/create-edd-n-record.xml#create-edd-n-record@createPersonRelatedParty"
+          usageId="gov_ca_dir_acct_calosha_adf_usecase0161_view_create_edd_n_record_create_edd_n_record_createPersonRelatedPartyPageDef"/>
+    <page path="/WEB-INF/create-edd-n-record.xml#create-edd-n-record@SetCurrentRowWithKeyValue1"
+          usageId="gov_ca_dir_acct_calosha_adf_usecase0161_view_create_edd_n_record_create_edd_n_record_SetCurrentRowWithKeyValue1PageDef"/>
+  </pageMap>
+  <pageDefinitionUsages>
+    <page id="gov_ca_dir_acct_calosha_adf_usecase0161_view_CreateEddNRecordPageDef"
+          path="gov.ca.dir.acct.calosha.adf.usecase0161.view.pageDefs.CreateEddNRecordPageDef"/>
+    <page id="gov_ca_dir_acct_calosha_adf_usecase0161_view_create_edd_n_record_create_edd_n_record_CreateWithParametersPageDef"
+          path="gov.ca.dir.acct.calosha.adf.usecase0161.view.pageDefs.create_edd_n_record_create_edd_n_record_CreateWithParametersPageDef"/>
+    <page id="gov_ca_dir_acct_calosha_adf_usecase0161_view_create_edd_n_record_create_edd_n_record_ExecutePageDef"
+          path="gov.ca.dir.acct.calosha.adf.usecase0161.view.pageDefs.create_edd_n_record_create_edd_n_record_ExecutePageDef"/>
+    <page id="gov_ca_dir_acct_calosha_adf_usecase0161_view_create_edd_n_record_create_edd_n_record_updateHeaderIdForNewEddRecordPageDef"
+          path="gov.ca.dir.acct.calosha.adf.usecase0161.view.pageDefs.create_edd_n_record_create_edd_n_record_updateHeaderIdForNewEddRecordPageDef"/>
+    <page id="gov_ca_dir_acct_calosha_adf_usecase0161_view_create_edd_n_record_create_edd_n_record_DeletePageDef"
+          path="gov.ca.dir.acct.calosha.adf.usecase0161.view.pageDefs.create_edd_n_record_create_edd_n_record_DeletePageDef"/>
+    <page id="gov_ca_dir_acct_calosha_adf_usecase0161_view_create_edd_n_record_create_edd_n_record_SetCurrentRowWithKeyValuePageDef"
+          path="gov.ca.dir.acct.calosha.adf.usecase0161.view.pageDefs.create_edd_n_record_create_edd_n_record_SetCurrentRowWithKeyValuePageDef"/>
+    <page id="gov_ca_dir_acct_calosha_adf_usecase0161_view_create_edd_n_record_create_edd_n_record_CreateWithParametersPageDef1"
+          path="gov.ca.dir.acct.calosha.adf.usecase0161.view.pageDefs.create_edd_n_record_create_edd_n_record_CreateWithParametersPageDef1"/>
+    <page id="gov_ca_dir_acct_calosha_adf_usecase0161_view_create_edd_n_record_create_edd_n_record_DeletePageDef1"
+          path="gov.ca.dir.acct.calosha.adf.usecase0161.view.pageDefs.create_edd_n_record_create_edd_n_record_DeletePageDef1"/>
+    <page id="gov_ca_dir_acct_calosha_adf_usecase0161_view_create_edd_n_record_create_edd_n_record_deleteChildrenPendingRecordsPageDef"
+          path="gov.ca.dir.acct.calosha.adf.usecase0161.view.pageDefs.create_edd_n_record_create_edd_n_record_deleteChildrenPendingRecordsPageDef"/>
+    <page id="gov_ca_dir_acct_calosha_adf_usecase0161_view_create_edd_n_record_create_edd_n_record_setCalculatedFinalTotalAmountPageDef"
+          path="gov.ca.dir.acct.calosha.adf.usecase0161.view.pageDefs.create_edd_n_record_create_edd_n_record_setCalculatedFinalTotalAmountPageDef"/>
+    <page id="gov_ca_dir_acct_calosha_adf_usecase0161_view_create_edd_n_record_create_edd_n_record_RecordTypeDeleteEvaluatorRouterPageDef"
+          path="gov.ca.dir.acct.calosha.adf.usecase0161.view.pageDefs.create_edd_n_record_create_edd_n_record_RecordTypeDeleteEvaluatorRouterPageDef"/>
+    <page id="gov_ca_dir_acct_calosha_adf_usecase0161_view_create_edd_n_record_create_edd_n_record_copyPreviousRecordPageDef"
+          path="gov.ca.dir.acct.calosha.adf.usecase0161.view.pageDefs.create_edd_n_record_create_edd_n_record_copyPreviousRecordPageDef"/>
+    <page id="gov_ca_dir_acct_calosha_adf_usecase0161_view_create_edd_n_record_create_edd_n_record_createPersonRelatedPartyPageDef"
+          path="gov.ca.dir.acct.calosha.adf.usecase0161.view.pageDefs.create_edd_n_record_create_edd_n_record_createPersonRelatedPartyPageDef"/>
+    <page id="gov_ca_dir_acct_calosha_adf_usecase0161_view_create_edd_n_record_create_edd_n_record_SetCurrentRowWithKeyValue1PageDef"
+          path="gov.ca.dir.acct.calosha.adf.usecase0161.view.pageDefs.create_edd_n_record_create_edd_n_record_SetCurrentRowWithKeyValue1PageDef"/>
+  </pageDefinitionUsages>
+  <dataControlUsages>
+    <BC4JDataControl id="ReferralSearchInvoiceAMDataControl"
+                     Package="gov.ca.dir.acct.calosha.adf.usecase024.model.view.appmodule"
+                     FactoryClass="oracle.adf.model.bc4j.DataControlFactoryImpl"
+                     SupportsTransactions="true" SupportsFindMode="true"
+                     SupportsRangesize="true" SupportsResetState="true"
+                     SupportsSortCollection="true"
+                     Configuration="SearchInvoiceAMLocal" syncMode="Immediate"
+                     xmlns="http://xmlns.oracle.com/adfm/datacontrol"/>
+  </dataControlUsages>
+</Application>

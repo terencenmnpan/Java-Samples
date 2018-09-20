@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="11.1.1.64.93" id="MainSharedPageDef" Package="gov.ca.dir.acct.calosha.adf.usecase0102.view.pageDefs" SkipValidation="true">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <taskFlow id="processpaymentsharedtf1" taskFlowId="/WEB-INF/process-payment-shared-tf.xml#process-payment-shared-tf" activation="deferred" xmlns="http://xmlns.oracle.com/adf/controller/binding">
+      <parameters>
+        <parameter id="InputInspectionId" value="3626"/>
+        <parameter id="PaymentId" value="1414"/>
+        <parameter id="PaymentAmount" value="900"/>
+        <parameter id="ReferenceNumber" value="TP80001"/>
+      </parameters>
+    </taskFlow>
+  </executables>
+  <bindings/>
+</pageDefinition>

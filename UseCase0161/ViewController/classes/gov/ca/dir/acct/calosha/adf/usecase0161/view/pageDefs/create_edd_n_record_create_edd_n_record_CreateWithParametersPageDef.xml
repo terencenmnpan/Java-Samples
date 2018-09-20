@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel"
+                version="11.1.1.64.93"
+                id="create_edd_n_record_create_edd_n_record_CreateWithParametersPageDef"
+                Package="gov.ca.dir.acct.calosha.adf.usecase0161.view.pageDefs"
+                SkipValidation="true">
+  <parameters/>
+  <executables>
+    <iterator id="ThirdPartyCollectionNView2Iterator"
+              Binds="ThirdPartyCollectionNView2"
+              DataControl="ReferralSearchInvoiceAMDataControl" RangeSize="25"/>
+  </executables>
+  <bindings>
+    <action IterBinding="ThirdPartyCollectionNView2Iterator"
+            id="CreateWithParams"
+            InstanceName="ReferralSearchInvoiceAMDataControl.ThirdPartyCollectionNView2"
+            DataControl="ReferralSearchInvoiceAMDataControl"
+            RequiresUpdateModel="true" Action="createWithParams">
+      <NamedData NDName="RecordType" NDType="java.lang.String"
+                 NDValue="#{pageFlowScope.CreateEddNRecordBean.recordType}"/>
+      <NamedData NDName="DebtId" NDType="java.lang.String"
+                 NDValue="#{pageFlowScope.CreateEddNRecordBean.debtId}"/>
+      <NamedData NDName="DebtorNumber" NDType="java.lang.String"
+                 NDValue="#{pageFlowScope.CreateEddNRecordBean.debtorNumber}"/>
+      <NamedData NDName="ReferralId" NDType="oracle.jbo.domain.Number"
+                 NDValue="#{pageFlowScope.CreateEddNRecordBean.referralId}"/>
+      <NamedData NDName="DebtorType" NDType="java.lang.String"
+                 NDValue="#{pageFlowScope.CreateEddNRecordBean.debtorType}"/>
+      <NamedData NDName="DebtorId" NDType="java.lang.String"
+                 NDValue="#{pageFlowScope.CreateEddNRecordBean.debtorId}"/>
+      <NamedData NDName="EmployerName" NDType="java.lang.String"
+                 NDValue="#{empty pageFlowScope.CreateEddNRecordBean.employerName ? pageFlowScope.CreateEddNRecordBean.entityLegalName : pageFlowScope.CreateEddNRecordBean.employerName}"/>
+      <NamedData NDName="EntityLegalName" NDType="java.lang.String"/>
+      <NamedData
+                 NDType="java.lang.String" NDName="EntityFirstName"/>
+      <NamedData
+                 NDType="java.lang.String" NDName="EntityLastName"/>
+      <NamedData NDName="IndexCode" NDType="java.lang.String"
+                 NDValue="#{pageFlowScope.CreateEddNRecordBean.indexCode}"/>
+      <NamedData NDName="RevenueSourceCode" NDType="java.lang.String"
+                 NDValue="#{pageFlowScope.CreateEddNRecordBean.revenueSourceCode}"/>
+      <NamedData NDName="AgencySourceCode" NDType="java.lang.String"
+                 NDValue="#{pageFlowScope.CreateEddNRecordBean.agencySourceCode}"/>
+      <NamedData NDName="PcaCode" NDType="oracle.jbo.domain.Number"
+                 NDValue="#{pageFlowScope.CreateEddNRecordBean.pcaCode}"/>
+      <NamedData NDName="FundId" NDType="java.lang.String"
+                 NDValue="#{pageFlowScope.CreateEddNRecordBean.fundId}"/>
+      <NamedData NDName="FiscalYearName" NDType="java.lang.String"
+                 NDValue="#{pageFlowScope.CreateEddNRecordBean.fiscalYearName}"/>
+      <NamedData NDName="City" NDType="java.lang.String"
+                 NDValue="#{pageFlowScope.CreateEddNRecordBean.city}"/>
+      <NamedData NDName="StreetAddress" NDType="java.lang.String"
+                 NDValue="#{pageFlowScope.CreateEddNRecordBean.streetAddress}"/>
+      <NamedData NDName="StateCode" NDType="java.lang.String"
+                 NDValue="#{pageFlowScope.CreateEddNRecordBean.stateCode}"/>
+      <NamedData NDName="ZipCode" NDType="java.lang.String"
+                 NDValue="#{pageFlowScope.CreateEddNRecordBean.zipCode}"/>
+      <NamedData NDName="City1" NDType="java.lang.String"
+                 NDValue="#{pageFlowScope.CreateEddNRecordBean.city1}"/>
+      <NamedData NDName="StreetAddress1" NDType="java.lang.String"
+                 NDValue="#{pageFlowScope.CreateEddNRecordBean.streetAddress1}"/>
+      <NamedData NDName="StateCode1" NDType="java.lang.String"
+                 NDValue="#{pageFlowScope.CreateEddNRecordBean.stateCode1}"/>
+      <NamedData NDName="ZipCode1" NDType="java.lang.String"
+                 NDValue="#{pageFlowScope.CreateEddNRecordBean.zipCode1}"/>
+      <NamedData NDName="IssueDate" NDType="oracle.jbo.domain.Date"
+                 NDValue="#{pageFlowScope.CreateEddNRecordBean.issueDate}"/>
+      <NamedData NDName="SubmissionDate" NDType="oracle.jbo.domain.Date"
+                 NDValue="#{pageFlowScope.CreateEddNRecordBean.submissionDate}"/>
+      <NamedData NDName="LiabilityFinalityDate" NDType="oracle.jbo.domain.Date"
+                 NDValue="#{pageFlowScope.CreateEddNRecordBean.liabilityFinalityDate}"/>
+      <NamedData NDName="DemandLetterDate" NDType="oracle.jbo.domain.Date"
+                 NDValue="#{pageFlowScope.CreateEddNRecordBean.demandLetterDate}"/>
+      <NamedData NDName="JudgmentDate"
+                 NDValue="#{pageFlowScope.CreateEddNRecordBean.judgmentDate}"
+                 NDType="oracle.jbo.domain.Date"/>
+      <NamedData NDName="InterestThroughDate"
+                 NDValue="#{pageFlowScope.CreateEddNRecordBean.interestThroughDate}"
+                 NDType="oracle.jbo.domain.Date"/>
+      <NamedData NDName="CollectionFeeBalance" NDType="oracle.jbo.domain.Number"
+                 NDValue="#{pageFlowScope.CreateEddNRecordBean.collectionFeeBalance}"/>
+      <NamedData NDName="CourtFilingFeeBalance"
+                 NDType="oracle.jbo.domain.Number"
+                 NDValue="#{pageFlowScope.CreateEddNRecordBean.courtFilingFeeBalance}"/>
+      <NamedData NDName="InterestBalance" NDType="oracle.jbo.domain.Number"
+                 NDValue="#{pageFlowScope.CreateEddNRecordBean.interestBalance}"/>
+      <NamedData NDName="NsfFeeBalance" NDType="oracle.jbo.domain.Number"
+                 NDValue="#{pageFlowScope.CreateEddNRecordBean.nsfFeeBalance}"/>
+      <NamedData NDName="FinalPenalty" NDType="oracle.jbo.domain.Number"
+                 NDValue="#{pageFlowScope.CreateEddNRecordBean.finalPenalty}"/>
+      <NamedData NDName="FinalTotalAmountDue" NDType="oracle.jbo.domain.Number"
+                 NDValue="#{not empty pageFlowScope.CreateEddNRecordBean.finalTotalAmountDue ? pageFlowScope.CreateEddNRecordBean.finalTotalAmountDue : pageFlowScope.CreateEddNRecordBean.zeroNumber}"/>
+      <NamedData NDName="PhoneType" NDType="java.lang.String"
+                 NDValue="#{pageFlowScope.CreateEddNRecordBean.phoneType}"/>
+      <NamedData NDName="PhoneType1" NDType="java.lang.String"
+                 NDValue="#{pageFlowScope.CreateEddNRecordBean.phoneType1}"/>
+      <NamedData NDName="PhoneAreaCode" NDType="oracle.jbo.domain.Number"
+                 NDValue="#{pageFlowScope.CreateEddNRecordBean.phoneAreaCode}"/>
+      <NamedData NDName="PhoneAreaCode1" NDType="oracle.jbo.domain.Number"
+                 NDValue="#{pageFlowScope.CreateEddNRecordBean.phoneAreaCode1}"/>
+      <NamedData NDName="PhoneNumber" NDType="oracle.jbo.domain.Number"
+                 NDValue="#{pageFlowScope.CreateEddNRecordBean.phoneNumber}"/>
+      <NamedData NDName="PhoneNumber1" NDType="oracle.jbo.domain.Number"
+                 NDValue="#{pageFlowScope.CreateEddNRecordBean.phoneNumber1}"/>
+      <NamedData NDName="DataSourceCode" NDType="java.lang.String"
+                 NDValue="#{pageFlowScope.CreateEddNRecordBean.dataSourceCode}"/>
+      <NamedData NDName="PartyAgencyFundMapId"
+                 NDType="oracle.jbo.domain.Number"
+                 NDValue="#{pageFlowScope.CreateEddNRecordBean.partyAgencyFundMapId}"/>
+      <NamedData NDName="ReportingId" NDType="java.lang.String"
+                 NDValue="#{pageFlowScope.CreateEddNRecordBean.reportingId}"/>
+    </action>
+  </bindings>
+</pageDefinition>

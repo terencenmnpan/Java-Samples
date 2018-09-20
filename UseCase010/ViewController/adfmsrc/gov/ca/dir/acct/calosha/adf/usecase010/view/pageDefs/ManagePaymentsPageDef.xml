@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel"
+                version="11.1.1.64.93" id="ManagePaymentsPageDef"
+                Package="gov.ca.dir.acct.calosha.adf.usecase010.view.pageDefs">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="PaymentForInspectionView1" RangeSize="25"
+              DataControl="ManagePaymentsAMDataControl"
+              id="PaymentForInspectionView1Iterator"/>
+    <iterator Binds="InspectionView1" RangeSize="10"
+              DataControl="ManagePaymentsAMDataControl"
+              id="InspectionView1Iterator"/>
+    <iterator Binds="PaymentView1" RangeSize="25"
+              DataControl="ModifyPaymentAMDataControl"
+              id="PaymentView1Iterator"/>
+    <iterator id="PaymentView1Iterator1" Binds="PaymentView1"
+              DataControl="ManagePaymentsAMDataControl" RangeSize="25"/>
+  </executables>
+  <bindings>
+    <tree IterBinding="PaymentForInspectionView1Iterator"
+          id="PaymentForInspectionView1">
+      <nodeDefinition DefName="gov.ca.dir.acct.calosha.adf.usecase010.model.view.PaymentForInspectionView"
+                      Name="PaymentForInspectionView10">
+        <AttrNames>
+          <Item Value="PaymentDate"/>
+          <Item Value="PaymentControlNumber"/>
+          <Item Value="DepositSlipNumber"/>
+          <Item Value="TransmittalDate"/>
+          <Item Value="PaymentTypeCode"/>
+          <Item Value="Billed"/>
+          <Item Value="CourtFee"/>
+          <Item Value="CollectionFee"/>
+          <Item Value="Interest"/>
+          <Item Value="PostJudInterest"/>
+          <Item Value="Unapplied"/>
+          <Item Value="NsfFee"/>
+          <Item Value="NsfAmount"/>
+          <Item Value="InspectionId"/>
+          <Item Value="PaymentId"/>
+          <Item Value="TotalAmount"/>
+          <Item Value="InspectionNumber"/>
+          <Item Value="Status"/>
+          <Item Value="StatusDate"/>
+          <Item Value="ReferenceNumber"/>
+          <Item Value="Comments"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <attributeValues IterBinding="PaymentForInspectionView1Iterator"
+                     id="PaymentId">
+      <AttrNames>
+        <Item Value="PaymentId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="InspectionView1Iterator"
+                     id="InspectionNumber">
+      <AttrNames>
+        <Item Value="InspectionNumber"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PaymentForInspectionView1Iterator"
+                     id="Status">
+      <AttrNames>
+        <Item Value="Status"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PaymentForInspectionView1Iterator"
+                     id="PaymentsTotal">
+      <AttrNames>
+        <Item Value="PaymentsTotal"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PaymentForInspectionView1Iterator"
+                     id="BilledTotal">
+      <AttrNames>
+        <Item Value="BilledTotal"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PaymentForInspectionView1Iterator"
+                     id="CollectionTotal">
+      <AttrNames>
+        <Item Value="CollectionTotal"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PaymentForInspectionView1Iterator"
+                     id="CourtTotal">
+      <AttrNames>
+        <Item Value="CourtTotal"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PaymentForInspectionView1Iterator"
+                     id="InterestTotal">
+      <AttrNames>
+        <Item Value="InterestTotal"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PaymentForInspectionView1Iterator"
+                     id="PosJudIntTotal">
+      <AttrNames>
+        <Item Value="PosJudIntTotal"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PaymentForInspectionView1Iterator"
+                     id="UnappliedTotal">
+      <AttrNames>
+        <Item Value="UnappliedTotal"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PaymentForInspectionView1Iterator"
+                     id="NsfFeeTotal">
+      <AttrNames>
+        <Item Value="NsfFeeTotal"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PaymentForInspectionView1Iterator"
+                     id="NsfTotal">
+      <AttrNames>
+        <Item Value="NsfTotal"/>
+      </AttrNames>
+    </attributeValues>
+    <action id="Commit" DataControl="ModifyPaymentAMDataControl"
+            RequiresUpdateModel="true" Action="commitTransaction"/>
+    <attributeValues IterBinding="PaymentView1Iterator1" id="Comments">
+      <AttrNames>
+        <Item Value="Comments"/>
+      </AttrNames>
+    </attributeValues>
+  </bindings>
+</pageDefinition>

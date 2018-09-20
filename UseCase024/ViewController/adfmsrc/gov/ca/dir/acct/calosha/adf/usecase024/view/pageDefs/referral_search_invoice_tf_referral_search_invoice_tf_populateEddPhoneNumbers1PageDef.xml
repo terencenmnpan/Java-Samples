@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel"
+                version="11.1.1.64.93"
+                id="referral_search_invoice_tf_referral_search_invoice_tf_populateEddPhoneNumbers1PageDef"
+                Package="gov.ca.dir.acct.calosha.adf.usecase024.view.pageDefs"
+                SkipValidation="true">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator id="ContactPhoneView1Iterator" Binds="ContactPhoneView1"
+              DataControl="ReferralSearchInvoiceAMDataControl" RangeSize="25"/>
+  </executables>
+  <bindings/>
+</pageDefinition>

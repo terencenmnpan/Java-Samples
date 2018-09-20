@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1"
+          xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:h="http://java.sun.com/jsf/html"
+          xmlns:af="http://xmlns.oracle.com/adf/faces/rich">
+  <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+  <f:view>
+    <af:document id="d1">
+      <af:form id="f1">
+        <af:pageTemplate viewId="/use-case-template.jspx" id="pt1">
+          <f:facet name="main">
+            <af:group id="g1">
+              <p>
+                <af:outputText value="Recording being modified or deleted has already been processed"
+                               id="ot1" inlineStyle="font-size:large;"
+                               noWrap="true"/>
+              </p>
+              <p>
+                <af:commandButton text="Go Back" id="cb1" action="rollback"/>
+              </p>
+            </af:group>
+          </f:facet>
+          <f:attribute name="title" value="Invalid Header Status"/>
+        </af:pageTemplate>
+      </af:form>
+    </af:document>
+  </f:view>
+</jsp:root>

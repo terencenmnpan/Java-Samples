@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel"
+                version="11.1.1.64.93"
+                id="create_edd_d_record_create_edd_d_record_CreateWithParametersPageDef"
+                Package="gov.ca.dir.acct.calosha.adf.usecase0164.view.pageDefs"
+                SkipValidation="true">
+  <parameters/>
+  <executables>
+    <iterator Binds="ThirdPartyCollectionDView2" RangeSize="25"
+              DataControl="ReferralSearchInvoiceAMDataControl"
+              id="ThirdPartyCollectionDView2Iterator"/>
+  </executables>
+  <bindings>
+    <action IterBinding="ThirdPartyCollectionDView2Iterator"
+            id="CreateWithParams" RequiresUpdateModel="true"
+            Action="createWithParams">
+      <NamedData NDName="DebtId"
+                 NDValue="#{pageFlowScope.CreateEddDRecordBean.debtId}"
+                 NDType="java.lang.String"/>
+      <NamedData NDName="DebtorNumber" NDType="java.lang.String"
+                 NDValue="#{pageFlowScope.CreateEddDRecordBean.debtorNumber}"/>
+      <NamedData NDName="DataSourceCode" NDType="java.lang.String"
+                 NDValue="#{pageFlowScope.CreateEddDRecordBean.dataSourceCode}"/>
+      <NamedData NDType="oracle.jbo.domain.Number"
+                 NDValue="#{pageFlowScope.CreateEddDRecordBean.partyAgencyFundMapId}"
+                 NDName="PartyAgencyFundMapId"/>
+      <NamedData NDName="ReferralId" NDType="oracle.jbo.domain.Number"
+                 NDValue="#{pageFlowScope.CreateEddDRecordBean.referralId}"/>
+    </action>
+  </bindings>
+</pageDefinition>

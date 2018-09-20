@@ -1,0 +1,488 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1"
+          xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:h="http://java.sun.com/jsf/html"
+          xmlns:af="http://xmlns.oracle.com/adf/faces/rich">
+  <af:pageTemplate viewId="/use-case-template.jspx" id="pt1">
+    <f:facet name="main">
+      <af:panelGroupLayout id="pgl1" layout="scroll">
+        <af:panelBox text="Invoice Information" id="pb1">
+          <f:facet name="toolbar"/>
+          <af:panelFormLayout id="pfl1" maxColumns="3" rows="3" fieldWidth="250"
+                              labelWidth="25">
+            <af:inputText value="#{bindings.InspectionNumber.inputValue}"
+                          label="#{bindings.InspectionNumber.hints.label}"
+                          required="#{bindings.InspectionNumber.hints.mandatory}"
+                          columns="#{bindings.InspectionNumber.hints.displayWidth}"
+                          maximumLength="#{bindings.InspectionNumber.hints.precision}"
+                          shortDesc="#{bindings.InspectionNumber.hints.tooltip}"
+                          id="it8"
+                          binding="#{ProcessPaymentBean.inspectionNumber}">
+              <f:validator binding="#{bindings.InspectionNumber.validator}"/>
+            </af:inputText>
+            <af:inputText value="#{bindings.LegalName.inputValue}"
+                          label="#{bindings.LegalName.hints.label}"
+                          required="#{bindings.LegalName.hints.mandatory}"
+                          columns="#{bindings.LegalName.hints.displayWidth}"
+                          maximumLength="#{bindings.LegalName.hints.precision}"
+                          shortDesc="#{bindings.LegalName.hints.tooltip}"
+                          id="it5">
+              <f:validator binding="#{bindings.LegalName.validator}"/>
+            </af:inputText>
+            <af:inputText value="#{bindings.StreetAddress.inputValue}"
+                          label="#{bindings.StreetAddress.hints.label}"
+                          required="#{bindings.StreetAddress.hints.mandatory}"
+                          columns="#{bindings.StreetAddress.hints.displayWidth}"
+                          maximumLength="#{bindings.StreetAddress.hints.precision}"
+                          shortDesc="#{bindings.StreetAddress.hints.tooltip}"
+                          id="it3">
+              <f:validator binding="#{bindings.StreetAddress.validator}"/>
+            </af:inputText>
+            <af:inputText value="#{bindings.AddressLine2.inputValue}"
+                          label="#{bindings.AddressLine2.hints.label}"
+                          required="#{bindings.AddressLine2.hints.mandatory}"
+                          columns="#{bindings.AddressLine2.hints.displayWidth}"
+                          maximumLength="#{bindings.AddressLine2.hints.precision}"
+                          shortDesc="#{bindings.AddressLine2.hints.tooltip}"
+                          id="it9">
+              <f:validator binding="#{bindings.AddressLine2.validator}"/>
+            </af:inputText>
+            <af:inputText value="#{bindings.City.inputValue}"
+                          label="#{bindings.City.hints.label}"
+                          required="#{bindings.City.hints.mandatory}"
+                          columns="#{bindings.City.hints.displayWidth}"
+                          maximumLength="#{bindings.City.hints.precision}"
+                          shortDesc="#{bindings.City.hints.tooltip}" id="it7">
+              <f:validator binding="#{bindings.City.validator}"/>
+            </af:inputText>
+            <af:inputText value="#{bindings.StateCode.inputValue}"
+                          label="#{bindings.StateCode.hints.label}"
+                          required="#{bindings.StateCode.hints.mandatory}"
+                          columns="#{bindings.StateCode.hints.displayWidth}"
+                          maximumLength="#{bindings.StateCode.hints.precision}"
+                          shortDesc="#{bindings.StateCode.hints.tooltip}"
+                          id="it2">
+              <f:validator binding="#{bindings.StateCode.validator}"/>
+            </af:inputText>
+            <af:inputText value="#{bindings.State.inputValue}"
+                          label="#{bindings.State.hints.label}"
+                          required="#{bindings.State.hints.mandatory}"
+                          columns="#{bindings.State.hints.displayWidth}"
+                          maximumLength="#{bindings.State.hints.precision}"
+                          shortDesc="#{bindings.State.hints.tooltip}" id="it4">
+              <f:validator binding="#{bindings.State.validator}"/>
+            </af:inputText>
+            <af:inputText value="#{bindings.ZipCode.inputValue}"
+                          label="#{bindings.ZipCode.hints.label}"
+                          required="#{bindings.ZipCode.hints.mandatory}"
+                          columns="#{bindings.ZipCode.hints.displayWidth}"
+                          maximumLength="#{bindings.ZipCode.hints.precision}"
+                          shortDesc="#{bindings.ZipCode.hints.tooltip}"
+                          id="it1">
+              <f:validator binding="#{bindings.ZipCode.validator}"/>
+              <af:convertNumber groupingUsed="false"
+                                pattern="#{bindings.ZipCode.format}"/>
+            </af:inputText>
+            <af:inputText value="#{bindings.ContactMethodValue.inputValue}"
+                          label="#{bindings.ContactMethodValue.hints.label}"
+                          required="#{bindings.ContactMethodValue.hints.mandatory}"
+                          columns="#{bindings.ContactMethodValue.hints.displayWidth}"
+                          maximumLength="#{bindings.ContactMethodValue.hints.precision}"
+                          shortDesc="#{bindings.ContactMethodValue.hints.tooltip}"
+                          id="it6">
+              <f:validator binding="#{bindings.ContactMethodValue.validator}"/>
+            </af:inputText>
+          </af:panelFormLayout>
+        </af:panelBox>
+        <af:panelBox text="Payment Information" id="pb2">
+          <f:facet name="toolbar">
+            <af:toolbar id="t4">
+              <af:commandToolbarButton text="Commit Allocation" id="ctb3"
+                                       action="#{ProcessPaymentBean.commitAllocationButton}"
+                                       binding="#{ProcessPaymentBean.commitAllocationButtonBinding}"
+                                       visible="#{not pageFlowScope.SharedTransaction}"/>
+              <af:commandToolbarButton text="Submit" id="ctb2" action="submit"
+                                       visible="#{pageFlowScope.SharedTransaction}"
+                                       immediate="false"/>
+              <af:commandToolbarButton text="Cancel" id="ctb4"
+                                       action="#{ProcessPaymentBean.undoPaymentAllocations}" immediate="true"/>
+            </af:toolbar>
+          </f:facet>
+          <af:panelFormLayout id="pfl2" rows="3" maxColumns="4"
+                              binding="#{ProcessPaymentBean.paymentForm}">
+            <af:inputComboboxListOfValues id="paymentTypeCode1Id"
+                                          popupTitle="Search and Select: #{bindings.PaymentTypeCode1.hints.label}"
+                                          value="#{bindings.PaymentTypeCode1.inputValue}"
+                                          label="#{bindings.PaymentTypeCode1.hints.label}"
+                                          model="#{bindings.PaymentTypeCode1.listOfValuesModel}"
+                                          required="#{bindings.PaymentTypeCode1.hints.mandatory}"
+                                          columns="#{bindings.PaymentTypeCode1.hints.displayWidth}"
+                                          shortDesc="#{bindings.PaymentTypeCode1.hints.tooltip}"
+                                          autoSubmit="true"
+                                          readOnly="#{pageFlowScope.SharedTransaction}"
+                                          binding="#{ProcessPaymentBean.paymentType}"
+                                          valueChangeListener="#{ProcessPaymentBean.paymentTypeChangeListener}"
+                                          immediate="false" showRequired="true">
+              <f:validator binding="#{bindings.PaymentTypeCode1.validator}"/>
+            </af:inputComboboxListOfValues>
+            <af:inputText columns="#{bindings.DepositSlipNumber.hints.displayWidth}"
+                          maximumLength="#{bindings.DepositSlipNumber.hints.precision}"
+                          shortDesc="#{bindings.DepositSlipNumber.hints.tooltip}"
+                          id="it17"
+                          binding="#{ProcessPaymentBean.depositSlipNumber}"
+                          readOnly="false" partialTriggers="paymentTypeCode1Id"
+                          autoSubmit="true"
+                          validator="#{ProcessPaymentBean.ATNumberValidation}"
+                          visible="#{pageFlowScope.SharedTransaction ? false : true}"
+                          label="ZBA/AT Number">
+              <f:validator binding="#{bindings.DepositSlipNumber.validator}"/>
+            </af:inputText>
+            <af:inputDate columns="#{bindings.TransmittalDate.hints.displayWidth}"
+                          shortDesc="#{bindings.TransmittalDate.hints.tooltip}"
+                          id="it19"
+                          binding="#{ProcessPaymentBean.transmittalDate}"
+                          readOnly="false" partialTriggers="paymentTypeCode1Id"
+                          autoSubmit="true"
+                          visible="#{pageFlowScope.SharedTransaction ? false : true}"
+                          label="Processed Date">
+              <f:validator binding="#{bindings.TransmittalDate.validator}"/>
+              <af:convertDateTime pattern="#{bindings.TransmittalDate.format}"/>
+            </af:inputDate>
+            <af:panelLabelAndMessage label="ZBA/AT Number" id="plam1"
+                                     visible="#{pageFlowScope.SharedTransaction ? true : false}">
+              <af:outputText value="#{pageFlowScope.SharedTransaction ? bindings.DepositSlipNumber.inputValue : ' '}" id="ot5"/>
+            </af:panelLabelAndMessage>
+            <af:panelLabelAndMessage label="Processed Date" id="plam2"
+                                     visible="#{pageFlowScope.SharedTransaction ? true : false}">
+              <af:outputText value="#{pageFlowScope.SharedTransaction ? bindings.TransmittalDate.inputValue : ' '}" id="ot4"/>
+            </af:panelLabelAndMessage>
+            <af:inputText value="#{bindings.PaymentControlNumber.inputValue}"
+                          label="#{bindings.PaymentControlNumber.hints.label}"
+                          required="#{bindings.PaymentControlNumber.hints.mandatory}"
+                          columns="#{bindings.PaymentControlNumber.hints.displayWidth}"
+                          maximumLength="#{bindings.PaymentControlNumber.hints.precision}"
+                          shortDesc="#{bindings.PaymentControlNumber.hints.tooltip}"
+                          id="it22" autoSubmit="true"
+                          readOnly="#{pageFlowScope.SharedTransaction}">
+              <f:validator binding="#{bindings.PaymentControlNumber.validator}"/>
+              <af:validateRegExp messageDetailNoMatch="Must contain at least one number"
+                                 pattern=".*[0-9].*"/>
+            </af:inputText>
+            <af:inputText value="#{bindings.AuthorizationNumber.inputValue}"
+                          label="#{bindings.AuthorizationNumber.hints.label}"
+                          required="#{bindings.AuthorizationNumber.hints.mandatory}"
+                          columns="#{bindings.AuthorizationNumber.hints.displayWidth}"
+                          maximumLength="#{bindings.AuthorizationNumber.hints.precision}"
+                          shortDesc="#{bindings.AuthorizationNumber.hints.tooltip}"
+                          id="it18" autoSubmit="true"
+                          readOnly="#{pageFlowScope.SharedTransaction}">
+              <f:validator binding="#{bindings.AuthorizationNumber.validator}"/>
+            </af:inputText>
+            <af:inputText value="#{bindings.BatchNumber.inputValue}"
+                          label="#{bindings.BatchNumber.hints.label}"
+                          required="#{bindings.BatchNumber.hints.mandatory}"
+                          columns="#{bindings.BatchNumber.hints.displayWidth}"
+                          maximumLength="#{bindings.BatchNumber.hints.precision}"
+                          shortDesc="#{bindings.BatchNumber.hints.tooltip}"
+                          id="it20" autoSubmit="true"
+                          readOnly="#{pageFlowScope.SharedTransaction}">
+              <f:validator binding="#{bindings.BatchNumber.validator}"/>
+            </af:inputText>
+            <af:inputDate value="#{bindings.PaymentDate.inputValue}"
+                          label="#{bindings.PaymentDate.hints.label}"
+                          required="#{bindings.PaymentDate.hints.mandatory}"
+                          shortDesc="#{bindings.PaymentDate.hints.tooltip}"
+                          id="id5" autoSubmit="true"
+                          readOnly="#{pageFlowScope.SharedTransaction}">
+              <f:validator binding="#{bindings.PaymentDate.validator}"/>
+              <af:convertDateTime pattern="#{bindings.PaymentDate.format}"/>
+            </af:inputDate>
+            <af:inputText value="#{bindings.PaymentAmount.inputValue}"
+                          label="#{bindings.PaymentAmount.hints.label}"
+                          required="#{bindings.PaymentAmount.hints.mandatory}"
+                          columns="#{bindings.PaymentAmount.hints.displayWidth}"
+                          maximumLength="#{bindings.PaymentAmount.hints.precision}"
+                          shortDesc="#{bindings.PaymentAmount.hints.tooltip}"
+                          id="it21"
+                          valueChangeListener="#{ProcessPaymentBean.paymentAmountChangeListener}"
+                          autoSubmit="true"
+                          binding="#{ProcessPaymentBean.paymentAmountInputText}"
+                          readOnly="#{pageFlowScope.SharedTransaction}">
+              <f:validator binding="#{bindings.PaymentAmount.validator}"/>
+              <af:convertNumber groupingUsed="false"
+                                pattern="#{bindings.PaymentAmount.format}"/>
+            </af:inputText>
+            <af:inputText value="#{bindings.PostJudgmentInterest.inputValue}" label="Post Judgment Interest" required="#{bindings.PostJudgmentInterest.hints.mandatory}"
+                          columns="#{bindings.PostJudgmentInterest.hints.displayWidth}" maximumLength="#{bindings.PostJudgmentInterest.hints.precision}"
+                          shortDesc="#{bindings.PostJudgmentInterest.hints.tooltip}" id="it25" valueChangeListener="#{ProcessPaymentBean.paymentAmountChangeListener}"
+                          binding="#{ProcessPaymentBean.postJudgmentInterest}" autoSubmit="true"
+                          partialTriggers="paymentTypeCode1Id" readOnly="false" disabled="false">
+              <f:validator binding="#{bindings.PostJudgmentInterest.validator}"/>
+              <af:convertNumber groupingUsed="false" pattern="#{bindings.PostJudgmentInterest.format}"/>
+            </af:inputText>
+            <af:inputText value="#{bindings.UnappliedAmount.inputValue}"
+                          label="#{bindings.UnappliedAmount.hints.label}"
+                          required="#{bindings.UnappliedAmount.hints.mandatory}"
+                          columns="#{bindings.UnappliedAmount.hints.displayWidth}"
+                          maximumLength="#{bindings.UnappliedAmount.hints.precision}"
+                          shortDesc="#{bindings.UnappliedAmount.hints.tooltip}"
+                          id="it24"
+                          binding="#{ProcessPaymentBean.unappliedAmount}"
+                          partialTriggers="it21 pc1:t1:it15 pc2:t2:it10"
+                          autoSubmit="true" readOnly="#{pageFlowScope.SharedTransaction}">
+              <f:validator binding="#{bindings.UnappliedAmount.validator}"/>
+              <af:convertNumber groupingUsed="false"
+                                pattern="#{bindings.UnappliedAmount.format}"/>
+            </af:inputText>
+            <af:inputText value="#{pageFlowScope.PaymentAmount}"
+                          label="Allocated Amount"
+                          required="#{bindings.PaymentAmount.hints.mandatory}"
+                          columns="#{bindings.PaymentAmount.hints.displayWidth}"
+                          maximumLength="#{bindings.PaymentAmount.hints.precision}"
+                          id="inputText1"
+                          valueChangeListener="#{ProcessPaymentBean.paymentAmountChangeListener}"
+                          autoSubmit="true"
+                          readOnly="true"
+                          visible="#{pageFlowScope.SharedTransaction}" binding="#{ProcessPaymentBean.transferAllocatedAmount}">
+              <f:validator binding="#{bindings.PaymentAmount.validator}"/>
+              <af:convertNumber groupingUsed="false"
+                                pattern="#{bindings.PaymentAmount.format}"/>
+            </af:inputText>
+          </af:panelFormLayout>
+        </af:panelBox>
+        <af:panelBox text="Unbilled Items" id="pb3">
+          <f:facet name="toolbar"/>
+          <af:panelCollection id="pc1" styleClass="AFStretchWidth"
+                              inlineStyle="height:150px;">
+            <f:facet name="menus"/>
+            <f:facet name="toolbar"/>
+            <f:facet name="statusbar"/>
+            <af:table value="#{bindings.UnbilledItemsView1.collectionModel}"
+                      var="row" rows="#{bindings.UnbilledItemsView1.rangeSize}"
+                      emptyText="#{bindings.UnbilledItemsView1.viewable ? 'No data to display.' : 'Access Denied.'}"
+                      fetchSize="#{bindings.UnbilledItemsView1.rangeSize}"
+                      rowBandingInterval="0"
+                      selectedRowKeys="#{bindings.UnbilledItemsView1.collectionModel.selectedRow}"
+                      selectionListener="#{bindings.UnbilledItemsView1.collectionModel.makeCurrent}"
+                      rowSelection="single" id="t1"
+                      binding="#{ProcessPaymentBean.unbilledItemsTable}">
+              <af:column sortProperty="#{bindings.UnbilledItemsView1.hints.BillTypeCode.name}"
+                         sortable="false"
+                         headerText="#{bindings.UnbilledItemsView1.hints.BillTypeCode.label}"
+                         id="c6" width="206">
+                <af:inputText value="#{row.bindings.BillTypeCode.inputValue}"
+                              label="#{bindings.UnbilledItemsView1.hints.BillTypeCode.label}"
+                              required="#{bindings.UnbilledItemsView1.hints.BillTypeCode.mandatory}"
+                              columns="#{bindings.UnbilledItemsView1.hints.BillTypeCode.displayWidth}"
+                              maximumLength="#{bindings.UnbilledItemsView1.hints.BillTypeCode.precision}"
+                              shortDesc="#{bindings.UnbilledItemsView1.hints.BillTypeCode.tooltip}"
+                              id="it11">
+                  <f:validator binding="#{row.bindings.BillTypeCode.validator}"/>
+                </af:inputText>
+              </af:column>
+              <af:column sortProperty="#{bindings.UnbilledItemsView1.hints.SetupDate.name}"
+                         sortable="false"
+                         headerText="#{bindings.UnbilledItemsView1.hints.SetupDate.label}"
+                         id="c7" width="88">
+                <af:inputDate value="#{row.bindings.SetupDate.inputValue}"
+                              label="#{bindings.UnbilledItemsView1.hints.SetupDate.label}"
+                              required="#{bindings.UnbilledItemsView1.hints.SetupDate.mandatory}"
+                              shortDesc="#{bindings.UnbilledItemsView1.hints.SetupDate.tooltip}"
+                              id="id3">
+                  <f:validator binding="#{row.bindings.SetupDate.validator}"/>
+                  <af:convertDateTime pattern="#{bindings.UnbilledItemsView1.hints.SetupDate.format}"/>
+                </af:inputDate>
+              </af:column>
+              <af:column sortProperty="#{bindings.UnbilledItemsView1.hints.FromDate.name}"
+                         sortable="false"
+                         headerText="#{bindings.UnbilledItemsView1.hints.FromDate.label}"
+                         id="c2" width="81">
+                <af:inputDate value="#{row.bindings.FromDate.inputValue}"
+                              label="#{bindings.UnbilledItemsView1.hints.FromDate.label}"
+                              required="#{bindings.UnbilledItemsView1.hints.FromDate.mandatory}"
+                              shortDesc="#{bindings.UnbilledItemsView1.hints.FromDate.tooltip}"
+                              id="id1">
+                  <f:validator binding="#{row.bindings.FromDate.validator}"/>
+                  <af:convertDateTime pattern="#{bindings.UnbilledItemsView1.hints.FromDate.format}"/>
+                </af:inputDate>
+              </af:column>
+              <af:column sortProperty="#{bindings.UnbilledItemsView1.hints.ThroughDate.name}"
+                         sortable="false"
+                         headerText="#{bindings.UnbilledItemsView1.hints.ThroughDate.label}"
+                         id="c1" width="125">
+                <af:inputDate value="#{row.bindings.ThroughDate.inputValue}"
+                              label="#{bindings.UnbilledItemsView1.hints.ThroughDate.label}"
+                              required="#{bindings.UnbilledItemsView1.hints.ThroughDate.mandatory}"
+                              shortDesc="#{bindings.UnbilledItemsView1.hints.ThroughDate.tooltip}"
+                              id="id2">
+                  <f:validator binding="#{row.bindings.ThroughDate.validator}"/>
+                  <af:convertDateTime pattern="#{bindings.UnbilledItemsView1.hints.ThroughDate.format}"/>
+                </af:inputDate>
+              </af:column>
+              <af:column sortProperty="#{bindings.UnbilledItemsView1.hints.UnbilledAmount.name}"
+                         sortable="false"
+                         headerText="#{bindings.UnbilledItemsView1.hints.UnbilledAmount.label}"
+                         id="c3" width="125">
+                <af:inputText value="#{row.bindings.UnbilledAmount.inputValue}"
+                              label="#{bindings.UnbilledItemsView1.hints.UnbilledAmount.label}"
+                              required="#{bindings.UnbilledItemsView1.hints.UnbilledAmount.mandatory}"
+                              columns="#{bindings.UnbilledItemsView1.hints.UnbilledAmount.displayWidth}"
+                              maximumLength="#{bindings.UnbilledItemsView1.hints.UnbilledAmount.precision}"
+                              shortDesc="#{bindings.UnbilledItemsView1.hints.UnbilledAmount.tooltip}"
+                              id="it12">
+                  <f:validator binding="#{row.bindings.UnbilledAmount.validator}"/>
+                  <af:convertNumber groupingUsed="false"
+                                    pattern="#{bindings.UnbilledItemsView1.hints.UnbilledAmount.format}"/>
+                </af:inputText>
+              </af:column>
+              <af:column headerText="#{bindings.UnbilledItemsView1.hints.Balance.label}"
+                         id="c15" width="125">
+                <af:outputText value="#{row.Balance}" id="ot2"
+                               binding="#{ProcessPaymentBean.unbilledBalance}">
+                  <af:convertNumber groupingUsed="false"
+                                    pattern="#{bindings.UnbilledItemsView1.hints.Balance.format}"/>
+                </af:outputText>
+              </af:column>
+              <af:column headerText="#{bindings.UnbilledItemsView1.hints.AllocatedAmount.label}"
+                         id="c14" width="125">
+                <af:inputText value="#{row.bindings.AllocatedAmount.inputValue}"
+                              label="#{bindings.UnbilledItemsView1.hints.AllocatedAmount.label}"
+                              required="#{bindings.UnbilledItemsView1.hints.AllocatedAmount.mandatory}"
+                              columns="#{bindings.UnbilledItemsView1.hints.AllocatedAmount.displayWidth}"
+                              maximumLength="#{bindings.UnbilledItemsView1.hints.AllocatedAmount.precision}"
+                              shortDesc="#{bindings.UnbilledItemsView1.hints.AllocatedAmount.tooltip}"
+                              id="it15" autoSubmit="true"
+                              valueChangeListener="#{ProcessPaymentBean.unbilledAllocatedAmountChangeListener}"
+                              validator="#{ProcessPaymentBean.unbilledAllocatedAmountValidator}">
+                  <f:validator binding="#{row.bindings.AllocatedAmount.validator}"/>
+                  <af:convertNumber groupingUsed="false"
+                                    pattern="#{bindings.UnbilledItemsView1.hints.AllocatedAmount.format}"/>
+                </af:inputText>
+              </af:column>
+            </af:table>
+          </af:panelCollection>
+        </af:panelBox>
+        <af:panelBox text="Billed Items" id="pb4">
+          <f:facet name="toolbar"/>
+          <af:panelCollection id="pc2" styleClass="AFStretchWidth">
+            <f:facet name="menus"/>
+            <f:facet name="toolbar"/>
+            <f:facet name="statusbar"/>
+            <af:table value="#{bindings.BilledItemsView1.collectionModel}"
+                      var="row" rows="#{bindings.BilledItemsView1.rangeSize}"
+                      emptyText="#{bindings.BilledItemsView1.viewable ? 'No data to display.' : 'Access Denied.'}"
+                      fetchSize="#{bindings.BilledItemsView1.rangeSize}"
+                      rowBandingInterval="0" id="t2"
+                      binding="#{ProcessPaymentBean.billedItemsTable}">
+              <af:column sortProperty="#{bindings.BilledItemsView1.hints.CitationNumber.name}"
+                         sortable="false"
+                         headerText="#{bindings.BilledItemsView1.hints.CitationNumber.label}"
+                         id="c10" width="105">
+                <af:inputText value="#{row.bindings.CitationNumber.inputValue}"
+                              label="#{bindings.BilledItemsView1.hints.CitationNumber.label}"
+                              required="#{bindings.BilledItemsView1.hints.CitationNumber.mandatory}"
+                              columns="#{bindings.BilledItemsView1.hints.CitationNumber.displayWidth}"
+                              maximumLength="#{bindings.BilledItemsView1.hints.CitationNumber.precision}"
+                              shortDesc="#{bindings.BilledItemsView1.hints.CitationNumber.tooltip}"
+                              id="it13">
+                  <f:validator binding="#{row.bindings.CitationNumber.validator}"/>
+                  <af:convertNumber groupingUsed="false"
+                                    pattern="#{bindings.BilledItemsView1.hints.CitationNumber.format}"/>
+                </af:inputText>
+              </af:column>
+              <af:column sortProperty="#{bindings.BilledItemsView1.hints.CitationItemNumber.name}"
+                         sortable="false"
+                         headerText="#{bindings.BilledItemsView1.hints.CitationItemNumber.label}"
+                         id="c5" width="105">
+                <af:inputText value="#{row.bindings.CitationItemNumber.inputValue}"
+                              label="#{bindings.BilledItemsView1.hints.CitationItemNumber.label}"
+                              required="#{bindings.BilledItemsView1.hints.CitationItemNumber.mandatory}"
+                              columns="#{bindings.BilledItemsView1.hints.CitationItemNumber.displayWidth}"
+                              maximumLength="#{bindings.BilledItemsView1.hints.CitationItemNumber.precision}"
+                              shortDesc="#{bindings.BilledItemsView1.hints.CitationItemNumber.tooltip}"
+                              id="it16">
+                  <f:validator binding="#{row.bindings.CitationItemNumber.validator}"/>
+                  <af:convertNumber groupingUsed="false"
+                                    pattern="#{bindings.BilledItemsView1.hints.CitationItemNumber.format}"/>
+                </af:inputText>
+              </af:column>
+              <af:column sortProperty="#{bindings.BilledItemsView1.hints.ViolationCode.name}"
+                         sortable="false"
+                         headerText="#{bindings.BilledItemsView1.hints.ViolationCode.label}"
+                         id="c11" width="105">
+                <af:inputText value="#{row.bindings.ViolationCode.inputValue}"
+                              label="#{bindings.BilledItemsView1.hints.ViolationCode.label}"
+                              required="#{bindings.BilledItemsView1.hints.ViolationCode.mandatory}"
+                              columns="#{bindings.BilledItemsView1.hints.ViolationCode.displayWidth}"
+                              maximumLength="#{bindings.BilledItemsView1.hints.ViolationCode.precision}"
+                              shortDesc="#{bindings.BilledItemsView1.hints.ViolationCode.tooltip}"
+                              id="it23">
+                  <f:validator binding="#{row.bindings.ViolationCode.validator}"/>
+                </af:inputText>
+              </af:column>
+              <af:column id="c8"
+                         headerText="#{bindings.BilledItemsView1.hints.Appealed.label}"
+                         width="56">
+                <af:outputText value="#{row.Appealed}" id="ot3"/>
+              </af:column>
+              <af:column sortProperty="#{bindings.BilledItemsView1.hints.CitationIssueDate.name}"
+                         sortable="false"
+                         headerText="#{bindings.BilledItemsView1.hints.CitationIssueDate.label}"
+                         id="c13" width="154">
+                <af:inputDate value="#{row.bindings.CitationIssueDate.inputValue}"
+                              label="#{bindings.BilledItemsView1.hints.CitationIssueDate.label}"
+                              required="#{bindings.BilledItemsView1.hints.CitationIssueDate.mandatory}"
+                              shortDesc="#{bindings.BilledItemsView1.hints.CitationIssueDate.tooltip}"
+                              id="id4">
+                  <f:validator binding="#{row.bindings.CitationIssueDate.validator}"/>
+                  <af:convertDateTime pattern="#{bindings.BilledItemsView1.hints.CitationIssueDate.format}"/>
+                </af:inputDate>
+              </af:column>
+              <af:column sortProperty="#{bindings.BilledItemsView1.hints.CurrentAmount.name}"
+                         sortable="false"
+                         headerText="#{bindings.BilledItemsView1.hints.CurrentAmount.label}"
+                         id="c12" width="105">
+                <af:inputText value="#{row.bindings.CurrentAmount.inputValue}"
+                              label="#{bindings.BilledItemsView1.hints.CurrentAmount.label}"
+                              required="#{bindings.BilledItemsView1.hints.CurrentAmount.mandatory}"
+                              columns="#{bindings.BilledItemsView1.hints.CurrentAmount.displayWidth}"
+                              maximumLength="#{bindings.BilledItemsView1.hints.CurrentAmount.precision}"
+                              shortDesc="#{bindings.BilledItemsView1.hints.CurrentAmount.tooltip}"
+                              id="it14">
+                  <f:validator binding="#{row.bindings.CurrentAmount.validator}"/>
+                  <af:convertNumber groupingUsed="false"
+                                    pattern="#{bindings.BilledItemsView1.hints.CurrentAmount.format}"/>
+                </af:inputText>
+              </af:column>
+              <af:column headerText="#{bindings.BilledItemsView1.hints.Balance.label}"
+                         id="c9" width="105">
+                <af:outputText value="#{row.Balance}" id="ot1"
+                               binding="#{ProcessPaymentBean.billedBalance}">
+                  <af:convertNumber groupingUsed="false"
+                                    pattern="#{bindings.BilledItemsView1.hints.Balance.format}"/>
+                </af:outputText>
+              </af:column>
+              <af:column headerText="#{bindings.BilledItemsView1.hints.AllocatedAmount.label}"
+                         id="c4" width="105">
+                <af:inputText value="#{row.bindings.AllocatedAmount.inputValue}"
+                              label="#{bindings.BilledItemsView1.hints.AllocatedAmount.label}"
+                              required="#{bindings.BilledItemsView1.hints.AllocatedAmount.mandatory}"
+                              columns="#{bindings.BilledItemsView1.hints.AllocatedAmount.displayWidth}"
+                              maximumLength="#{bindings.BilledItemsView1.hints.AllocatedAmount.precision}"
+                              shortDesc="#{bindings.BilledItemsView1.hints.AllocatedAmount.tooltip}"
+                              id="it10" autoSubmit="true"
+                              valueChangeListener="#{ProcessPaymentBean.billedAllocatedAmountChangeListener}"
+                              validator="#{ProcessPaymentBean.billedAllocatedAmountValidator}">
+                  <f:validator binding="#{row.bindings.AllocatedAmount.validator}"/>
+                  <af:convertNumber groupingUsed="false"
+                                    pattern="#{bindings.BilledItemsView1.hints.AllocatedAmount.format}"/>
+                </af:inputText>
+              </af:column>
+            </af:table>
+          </af:panelCollection>
+        </af:panelBox>
+      </af:panelGroupLayout>
+    </f:facet>
+    <f:attribute name="title" value="Process Payment"/>
+  </af:pageTemplate>
+</jsp:root>

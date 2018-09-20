@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="BilledItemsView"
+  Version="11.1.1.64.93"
+  InheritPersonalization="true"
+  BindingStyle="OracleName"
+  CustomQuery="true"
+  PageIterMode="Full"
+  UseGlueCode="false"
+  xmlns:validation="http://xmlns.oracle.com/adfm/validation">
+  <DesignTime>
+    <Attr Name="_codeGenFlag2" Value="Access|VarAccess"/>
+    <Attr Name="_isExpertMode" Value="true"/>
+  </DesignTime>
+  <Properties>
+    <SchemaBasedProperties>
+      <LABEL
+        ResId="gov.ca.dir.acct.calosha.adf.usecase0102.model.view.BilledItemsView_LABEL"/>
+    </SchemaBasedProperties>
+  </Properties>
+  <SQLQuery>
+    <![CDATA[SELECT  CITATION_NUMBER,
+         CITATION_ITEM_NUMBER,
+         CITATION_ISSUE_DATE,
+         CURRENT_AMOUNT,
+         CITATION.INSPECTION_ID,
+         CURRENT_FTA_AMOUNT,
+         CITATION_ITEM.VIOLATION_CODE,
+         CITATION.CITATION_ID,
+         CITATION_ITEM.CITATION_ITEM_ID,
+         CITATION_ITEM.PARTY_AGENCY_FUND_MAP_ID,
+         ((CASE WHEN APPEAL_DETAIL.STATUS = 'DELETED' AND APPEAL.STATUS = 'ACTIVE' THEN 'N'
+         WHEN DECISION_DATE IS NULL   AND APPEAL.STATUS = 'ACTIVE' THEN 'Y'
+         WHEN DECISION_DATE IS NOT NULL  AND APPEAL.STATUS = 'ACTIVE' AND  CITATION.INSPECTION_ID NOT IN (SELECT INSPECTION_ID FROM INSPECTION_HISTORY WHERE STATUS_CODE LIKE '%APPEAL_CLOSE_ACTIVATED%') THEN 'Y'
+         WHEN DECISION_DATE IS NOT NULL  AND APPEAL.STATUS = 'ACTIVE' THEN 'N'
+         ELSE 'N'
+         END)) APPEALED,
+         NVL(((CASE 
+         WHEN APPEAL_DETAIL.STATUS = 'DELETED' AND APPEAL.STATUS = 'ACTIVE' THEN 0
+         WHEN DECISION_DATE IS NOT NULL  AND APPEAL.STATUS = 'ACTIVE' AND  CITATION.INSPECTION_ID NOT IN (SELECT INSPECTION_ID FROM INSPECTION_HISTORY WHERE STATUS_CODE LIKE '%APPEAL_CLOSE_ACTIVATED%') THEN 0       
+         WHEN DECISION_DATE IS NULL AND APPEAL.STATUS = 'ACTIVE' THEN 0
+         ELSE DECISION_AMOUNT
+         END)),0) APPEAL_DECISION_AMT,
+         CURRENT_AMOUNT - SUM (NVL (ALLOCATED_AMOUNT, 0)) - NVL(((CASE 
+         WHEN APPEAL_DETAIL.STATUS = 'DELETED' AND APPEAL.STATUS = 'ACTIVE'  THEN 0
+         WHEN DECISION_DATE IS NULL AND APPEAL.STATUS = 'ACTIVE' THEN APPEALED_AMOUNT
+         WHEN DECISION_DATE IS NOT NULL  AND APPEAL.STATUS = 'ACTIVE' AND  CITATION.INSPECTION_ID NOT IN (SELECT INSPECTION_ID FROM INSPECTION_HISTORY WHERE STATUS_CODE LIKE '%APPEAL_CLOSE_ACTIVATED%') THEN CURRENT_AMOUNT
+         ELSE CURRENT_AMOUNT - DECISION_AMOUNT
+         END)),0) BALANCE
+    FROM CALOSHA.CITATION
+         INNER JOIN
+         CALOSHA.CITATION_ITEM
+            ON     (CITATION.CITATION_ID = CITATION_ITEM.CITATION_ID)
+               AND (CITATION.INSPECTION_ID = CITATION_ITEM.INSPECTION_ID)
+         LEFT OUTER JOIN
+         CALOSHA.PAYMENT_ALLOCATION
+            ON     (CITATION_ITEM.CITATION_ITEM_ID =
+                       PAYMENT_ALLOCATION.CITATION_ITEM_ID)
+               AND (CITATION_ITEM.CITATION_ID = PAYMENT_ALLOCATION.CITATION_ID)
+               AND (CITATION_ITEM.INSPECTION_ID =
+                       PAYMENT_ALLOCATION.INSPECTION_ID)
+         LEFT JOIN 
+          APPEAL_DETAIL
+         ON     (CITATION_ITEM.CITATION_ITEM_ID = APPEAL_DETAIL.CITATION_ITEM_ID)
+            AND (CITATION_ITEM.CITATION_ID = APPEAL_DETAIL.CITATION_ID)
+               AND (CITATION_ITEM.INSPECTION_ID =
+                       APPEAL_DETAIL.INSPECTION_ID)  
+         LEFT JOIN 
+         APPEAL
+         ON (APPEAL.APPEAL_ID = APPEAL_DETAIL.APPEAL_ID)
+GROUP BY CITATION_NUMBER,
+         CITATION_ITEM.INSPECTION_ID,
+         CITATION_ITEM_NUMBER,
+         CITATION_ISSUE_DATE,
+         CURRENT_AMOUNT,
+         CITATION.INSPECTION_ID,
+         CURRENT_FTA_AMOUNT,
+         CITATION_ITEM.VIOLATION_CODE,
+         CITATION.CITATION_ID,
+         CITATION_ITEM.CITATION_ITEM_ID,
+         CITATION_ITEM.PARTY_AGENCY_FUND_MAP_ID,
+         APPEALED_AMOUNT,
+         APPEAL.STATUS,
+         APPEAL_DETAIL.STATUS,
+         DECISION_DATE,
+         DECISION_AMOUNT,
+         DOCKET_NUMBER
+       
+ORDER BY INSPECTION_ID, CITATION_NUMBER,CITATION_ITEM_NUMBER desc]]>
+  </SQLQuery>
+  <ViewAttribute
+    Name="CitationNumber"
+    IsUpdateable="false"
+    IsPersistent="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    Precision="2"
+    Scale="0"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="CITATION_NUMBER"
+    Expression="CITATION_NUMBER"
+    SQLType="NUMERIC">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="3"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="CitationItemNumber"
+    IsUpdateable="false"
+    IsPersistent="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    Precision="3"
+    Scale="0"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="CITATION_ITEM_NUMBER"
+    Expression="CITATION_ITEM_NUMBER"
+    SQLType="NUMERIC">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="4"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="CitationIssueDate"
+    IsUpdateable="false"
+    IsPersistent="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Date"
+    ColumnType="DATE"
+    AliasName="CITATION_ISSUE_DATE"
+    Expression="CITATION_ISSUE_DATE"
+    SQLType="DATE">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="7"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="CurrentAmount"
+    IsUpdateable="false"
+    IsPersistent="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    Precision="13"
+    Scale="2"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="CURRENT_AMOUNT"
+    Expression="CURRENT_AMOUNT"
+    SQLType="NUMERIC">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="15"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="InspectionId"
+    IsUpdateable="false"
+    IsPersistent="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="INSPECTION_ID"
+    Expression="INSPECTION_ID"
+    SQLType="NUMERIC">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="39"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="CurrentFtaAmount"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="13"
+    Scale="2"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="CURRENT_FTA_AMOUNT"
+    Expression="CURRENT_FTA_AMOUNT"
+    SQLType="NUMERIC">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="15"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="ViolationCode"
+    IsUpdateable="false"
+    IsPersistent="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    Precision="40"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="VIOLATION_CODE"
+    Expression="VIOLATION_CODE"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="40"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="CitationId"
+    IsUpdateable="false"
+    IsPersistent="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="CITATION_ID"
+    Expression="CITATION_ID"
+    SQLType="NUMERIC">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="39"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="CitationItemId"
+    IsUpdateable="false"
+    IsPersistent="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="CITATION_ITEM_ID"
+    Expression="CITATION_ITEM_ID"
+    SQLType="NUMERIC">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="39"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="PartyAgencyFundMapId"
+    IsUpdateable="false"
+    IsPersistent="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="PARTY_AGENCY_FUND_MAP_ID"
+    Expression="PARTY_AGENCY_FUND_MAP_ID"
+    SQLType="NUMERIC">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="22"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="Appealed"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="1"
+    Type="java.lang.String"
+    ColumnType="CHAR"
+    AliasName="APPEALED"
+    Expression="APPEALED"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="1"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="AppealDecisionAmt"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="APPEAL_DECISION_AMT"
+    Expression="APPEAL_DECISION_AMT"
+    SQLType="NUMERIC">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="22"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="Balance"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="BALANCE"
+    Expression="BALANCE"
+    SQLType="NUMERIC">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="39"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="AllocatedAmount"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="VIEW_ATTR"
+    SQLType="NUMERIC">
+    <validation:CompareValidationBean
+      Name="AllocatedAmount_Rule_0"
+      ResId="gov.ca.dir.acct.calosha.adf.usecase0102.model.view.BilledItemsView.AllocatedAmount_Rule_0"
+      OnAttribute="AllocatedAmount"
+      OperandType="LITERAL"
+      Inverse="false"
+      CompareType="GREATERTHANEQUALTO"
+      CompareValue="0"/>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="ItemType"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="VIEW_ATTR"
+    SQLType="VARCHAR"/>
+  <AttrArray Name="KeyAttributes">
+    <Item Value="CitationItemId"/>
+  </AttrArray>
+  <ViewLinkAccessor
+    Name="PaymentAllocationView"
+    ViewLink="gov.ca.dir.acct.calosha.adf.usecase0102.model.view.BilledItemsViewPaymentAllocationLink"
+    Type="oracle.jbo.RowIterator"
+    IsUpdateable="false"/>
+  <ResourceBundle>
+    <PropertiesBundle
+      PropertiesFile="gov.ca.dir.acct.calosha.adf.usecase0102.model.ModelBundle"/>
+  </ResourceBundle>
+</ViewObject>

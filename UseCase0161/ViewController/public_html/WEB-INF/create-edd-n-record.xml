@@ -1,0 +1,521 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
+  <task-flow-definition id="create-edd-n-record">
+    <default-activity id="__1">EditOrCreateRouter</default-activity>
+    <transaction id="__169">
+      <new-transaction/>
+    </transaction>
+    <data-control-scope id="__145">
+      <isolated/>
+    </data-control-scope>
+    <input-parameter-definition id="__25">
+      <name id="__26">RecordType</name>
+      <value>#{pageFlowScope.CreateEddNRecordBean.recordType}</value>
+      <class>java.lang.String</class>
+    </input-parameter-definition>
+    <input-parameter-definition id="__28">
+      <name id="__27">DebtId</name>
+      <value>#{pageFlowScope.CreateEddNRecordBean.debtId}</value>
+      <class>java.lang.String</class>
+    </input-parameter-definition>
+    <input-parameter-definition id="__29">
+      <name id="__30">DebtorNumber</name>
+      <value>#{pageFlowScope.CreateEddNRecordBean.debtorNumber}</value>
+      <class>java.lang.String</class>
+    </input-parameter-definition>
+    <input-parameter-definition id="__32">
+      <name id="__31">ReferralId</name>
+      <value>#{pageFlowScope.CreateEddNRecordBean.referralId}</value>
+      <class>oracle.jbo.domain.Number</class>
+    </input-parameter-definition>
+    <input-parameter-definition id="__34">
+      <name id="__33">DebtorType</name>
+      <value>#{pageFlowScope.CreateEddNRecordBean.debtorType}</value>
+      <class>java.lang.String</class>
+    </input-parameter-definition>
+    <input-parameter-definition id="__36">
+      <name id="__35">DebtorId</name>
+      <value>#{pageFlowScope.CreateEddNRecordBean.debtorId}</value>
+      <class>java.lang.String</class>
+    </input-parameter-definition>
+    <input-parameter-definition id="__38">
+      <name id="__37">EmployerName</name>
+      <value>#{pageFlowScope.CreateEddNRecordBean.employerName}</value>
+      <class>java.lang.String</class>
+    </input-parameter-definition>
+    <input-parameter-definition id="__39">
+      <name id="__40">EntityLegalName</name>
+      <value>#{pageFlowScope.CreateEddNRecordBean.entityLegalName}</value>
+      <class>java.lang.String</class>
+    </input-parameter-definition>
+    <input-parameter-definition id="__42">
+      <name id="__41">IndexCode</name>
+      <value>#{pageFlowScope.CreateEddNRecordBean.indexCode}</value>
+      <class>java.lang.String</class>
+    </input-parameter-definition>
+    <input-parameter-definition id="__44">
+      <name id="__43">RevenueSourceCode</name>
+      <value>#{pageFlowScope.CreateEddNRecordBean.revenueSourceCode}</value>
+      <class>java.lang.String</class>
+    </input-parameter-definition>
+    <input-parameter-definition id="__205">
+      <name id="__203">ReportingId</name>
+      <value>#{pageFlowScope.CreateEddNRecordBean.reportingId}</value>
+      <class>java.lang.String</class>
+    </input-parameter-definition>
+    <input-parameter-definition id="__45">
+      <name id="__46">AgencySourceCode</name>
+      <value>#{pageFlowScope.CreateEddNRecordBean.agencySourceCode}</value>
+      <class>java.lang.String</class>
+    </input-parameter-definition>
+    <input-parameter-definition id="__47">
+      <name id="__48">PcaCode</name>
+      <value>#{pageFlowScope.CreateEddNRecordBean.pcaCode}</value>
+      <class>oracle.jbo.domain.Number</class>
+    </input-parameter-definition>
+    <input-parameter-definition id="__50">
+      <name id="__49">FundId</name>
+      <value>#{pageFlowScope.CreateEddNRecordBean.fundId}</value>
+      <class>java.lang.String</class>
+    </input-parameter-definition>
+    <input-parameter-definition id="__51">
+      <name id="__52">FiscalYearName</name>
+      <value>#{pageFlowScope.CreateEddNRecordBean.fiscalYearName}</value>
+      <class>java.lang.String</class>
+    </input-parameter-definition>
+    <input-parameter-definition id="__54">
+      <name id="__53">City</name>
+      <value>#{pageFlowScope.CreateEddNRecordBean.city}</value>
+      <class>java.lang.String</class>
+    </input-parameter-definition>
+    <input-parameter-definition id="__55">
+      <name id="__56">StreetAddress</name>
+      <value>#{pageFlowScope.CreateEddNRecordBean.streetAddress}</value>
+      <class>java.lang.String</class>
+    </input-parameter-definition>
+    <input-parameter-definition id="__58">
+      <name id="__57">StateCode</name>
+      <value>#{pageFlowScope.CreateEddNRecordBean.stateCode}</value>
+      <class>java.lang.String</class>
+    </input-parameter-definition>
+    <input-parameter-definition id="__60">
+      <name id="__59">ZipCode</name>
+      <value>#{pageFlowScope.CreateEddNRecordBean.zipCode}</value>
+      <class>java.lang.String</class>
+    </input-parameter-definition>
+    <input-parameter-definition id="__98">
+      <name id="__97">City1</name>
+      <value>#{pageFlowScope.CreateEddNRecordBean.city1}</value>
+      <class>java.lang.String</class>
+    </input-parameter-definition>
+    <input-parameter-definition id="__100">
+      <name id="__99">StreetAddress1</name>
+      <value>#{pageFlowScope.CreateEddNRecordBean.streetAddress1}</value>
+      <class>java.lang.String</class>
+    </input-parameter-definition>
+    <input-parameter-definition id="__101">
+      <name id="__102">StateCode1</name>
+      <value>#{pageFlowScope.CreateEddNRecordBean.stateCode1}</value>
+      <class>java.lang.String</class>
+    </input-parameter-definition>
+    <input-parameter-definition id="__104">
+      <name id="__103">ZipCode1</name>
+      <value>#{pageFlowScope.CreateEddNRecordBean.zipCode1}</value>
+      <class>java.lang.String</class>
+    </input-parameter-definition>
+    <input-parameter-definition id="__62">
+      <name id="__61">IssueDate</name>
+      <value>#{pageFlowScope.CreateEddNRecordBean.issueDate}</value>
+      <class>oracle.jbo.domain.Date</class>
+    </input-parameter-definition>
+    <input-parameter-definition id="__64">
+      <name id="__63">SubmissionDate</name>
+      <value>#{pageFlowScope.CreateEddNRecordBean.submissionDate}</value>
+      <class>java.sql.Date</class>
+    </input-parameter-definition>
+    <input-parameter-definition id="__65">
+      <name id="__66">LiabilityFinalityDate</name>
+      <value>#{pageFlowScope.CreateEddNRecordBean.liabilityFinalityDate}</value>
+      <class>oracle.jbo.domain.Date</class>
+    </input-parameter-definition>
+    <input-parameter-definition id="__68">
+      <name id="__67">DemandLetterDate</name>
+      <value>#{pageFlowScope.CreateEddNRecordBean.demandLetterDate}</value>
+      <class>oracle.jbo.domain.Date</class>
+    </input-parameter-definition>
+    <input-parameter-definition id="__70">
+      <name id="__69">JudgmentDate</name>
+      <value>#{pageFlowScope.CreateEddNRecordBean.judgmentDate}</value>
+      <class>oracle.jbo.domain.Date</class>
+    </input-parameter-definition>
+    <input-parameter-definition id="__71">
+      <name id="__72">InterestThroughDate</name>
+      <value>#{pageFlowScope.CreateEddNRecordBean.interestThroughDate}</value>
+      <class>oracle.jbo.domain.Date</class>
+    </input-parameter-definition>
+    <input-parameter-definition id="__74">
+      <name id="__73">CollectionFeeBalance</name>
+      <value>#{pageFlowScope.CreateEddNRecordBean.collectionFeeBalance}</value>
+      <class>oracle.jbo.domain.Number</class>
+    </input-parameter-definition>
+    <input-parameter-definition id="__75">
+      <name id="__76">CourtFilingFeeBalance</name>
+      <value>#{pageFlowScope.CreateEddNRecordBean.courtFilingFeeBalance}</value>
+      <class>oracle.jbo.domain.Number</class>
+    </input-parameter-definition>
+    <input-parameter-definition id="__78">
+      <name id="__77">InterestBalance</name>
+      <value>#{pageFlowScope.CreateEddNRecordBean.interestBalance}</value>
+      <class>oracle.jbo.domain.Number</class>
+    </input-parameter-definition>
+    <input-parameter-definition id="__80">
+      <name id="__79">NsfFeeBalance</name>
+      <value>#{pageFlowScope.CreateEddNRecordBean.nsfFeeBalance}</value>
+      <class>oracle.jbo.domain.Number</class>
+    </input-parameter-definition>
+    <input-parameter-definition id="__82">
+      <name id="__81">FinalPenalty</name>
+      <value>#{pageFlowScope.CreateEddNRecordBean.finalPenalty}</value>
+      <class>oracle.jbo.domain.Number</class>
+    </input-parameter-definition>
+    <input-parameter-definition id="__84">
+      <name id="__83">FinalTotalAmountDue</name>
+      <value>#{pageFlowScope.CreateEddNRecordBean.finalTotalAmountDue}</value>
+      <class>oracle.jbo.domain.Number</class>
+    </input-parameter-definition>
+    <input-parameter-definition id="__86">
+      <name id="__85">PhoneType</name>
+      <value>#{pageFlowScope.CreateEddNRecordBean.phoneType}</value>
+      <class>java.lang.String</class>
+    </input-parameter-definition>
+    <input-parameter-definition id="__88">
+      <name id="__87">PhoneType1</name>
+      <value>#{pageFlowScope.CreateEddNRecordBean.phoneType1}</value>
+      <class>java.lang.String</class>
+    </input-parameter-definition>
+    <input-parameter-definition id="__90">
+      <name id="__89">PhoneAreaCode</name>
+      <value>#{pageFlowScope.CreateEddNRecordBean.phoneAreaCode}</value>
+      <class>oracle.jbo.domain.Number</class>
+    </input-parameter-definition>
+    <input-parameter-definition id="__91">
+      <name id="__92">PhoneAreaCode1</name>
+      <value>#{pageFlowScope.CreateEddNRecordBean.phoneAreaCode1}</value>
+      <class>oracle.jbo.domain.Number</class>
+    </input-parameter-definition>
+    <input-parameter-definition id="__94">
+      <name id="__93">PhoneNumber</name>
+      <value>#{pageFlowScope.CreateEddNRecordBean.phoneNumber}</value>
+      <class>oracle.jbo.domain.Number</class>
+    </input-parameter-definition>
+    <input-parameter-definition id="__96">
+      <name id="__95">PhoneNumber1</name>
+      <value>#{pageFlowScope.CreateEddNRecordBean.phoneNumber1}</value>
+      <class>oracle.jbo.domain.Number</class>
+    </input-parameter-definition>
+    <input-parameter-definition id="__20">
+      <name id="__19">DataSourceCode</name>
+      <value>#{pageFlowScope.CreateEddNRecordBean.dataSourceCode}</value>
+      <class id="__117">java.lang.String</class>
+    </input-parameter-definition>
+    <input-parameter-definition id="__134">
+      <name id="__135">ThirdPartyCollectionId</name>
+      <value>#{pageFlowScope.CreateEddNRecordBean.thirdPartyCollectionId}</value>
+      <class>oracle.jbo.domain.Number</class>
+    </input-parameter-definition>
+    <input-parameter-definition id="__147">
+      <name id="__9">PartyAgencyFundMapId</name>
+      <value>#{pageFlowScope.CreateEddNRecordBean.partyAgencyFundMapId}</value>
+      <class>oracle.jbo.domain.Number</class>
+    </input-parameter-definition>
+    <input-parameter-definition id="__167">
+      <name id="__168">ThirdPartyParentId</name>
+      <value>#{pageFlowScope.CreateEddNRecordBean.thirdPartyParentId}</value>
+      <class>oracle.jbo.domain.Number</class>
+    </input-parameter-definition>
+    <input-parameter-definition id="__204">
+      <name id="__206">EntityFirstName</name>
+      <value>#{pageFlowScope.CreateEddNRecordBean.entityFirstName}</value>
+      <class>java.lang.String</class>
+    </input-parameter-definition>
+    <input-parameter-definition id="__208">
+      <name id="__207">EntityLastName</name>
+      <value>#{pageFlowScope.CreateEddNRecordBean.entityLastName}</value>
+      <class>java.lang.String</class>
+    </input-parameter-definition>
+    <managed-bean id="__23">
+      <managed-bean-name id="__24">CreateEddNRecordBean</managed-bean-name>
+      <managed-bean-class id="__22">gov.ca.dir.acct.calosha.adf.usecase0161.view.beans.createEddNRecordBean</managed-bean-class>
+      <managed-bean-scope id="__21">pageFlow</managed-bean-scope>
+    </managed-bean>
+    <view id="CreateEddNRecord">
+      <page>/CreateEddNRecord.jspx</page>
+    </view>
+    <task-flow-return id="Commit">
+      <outcome id="__2">
+        <name>Commit</name>
+        <commit/>
+      </outcome>
+    </task-flow-return>
+    <task-flow-return id="Rollback">
+      <outcome id="__8">
+        <name>Rollback</name>
+        <rollback/>
+      </outcome>
+    </task-flow-return>
+    <method-call id="CreateWithParamsEddNRecord">
+      <method>#{bindings.CreateWithParams.execute}</method>
+      <outcome id="__13">
+        <fixed-outcome>CreateWithParams</fixed-outcome>
+      </outcome>
+    </method-call>
+    <method-call id="Execute">
+      <method>#{bindings.Execute.execute}</method>
+      <outcome id="__105">
+        <fixed-outcome>Execute</fixed-outcome>
+      </outcome>
+    </method-call>
+    <method-call id="updateHeaderIdForNewEddRecord">
+      <method>#{pageFlowScope.CreateEddNRecordBean.updateHeaderIdForNewTpcRecord}</method>
+      <outcome id="__116">
+        <fixed-outcome>updateHeaderIdForNewEddRecord</fixed-outcome>
+      </outcome>
+    </method-call>
+    <router id="EditOrCreateRouter">
+      <case>
+        <expression>#{empty
+                    pageFlowScope.CreateEddNRecordBean.thirdPartyCollectionId}</expression>
+        <outcome id="__118">CreateNewNRecord</outcome>
+      </case>
+      <case>
+        <expression>#{not empty
+                    pageFlowScope.CreateEddNRecordBean.thirdPartyCollectionId}</expression>
+        <outcome id="__133">EditCurrentPretransmittalNRecord</outcome>
+      </case>
+      <default-outcome>CreateNewNRecord</default-outcome>
+    </router>
+    <method-call id="SetCurrentRowWithKeyValue">
+      <method>#{bindings.setCurrentRowWithKeyValue.execute}</method>
+      <outcome id="__124">
+        <fixed-outcome>setCurrentRowWithKeyValue</fixed-outcome>
+      </outcome>
+    </method-call>
+    <router id="RecordTypeEvaluatorRouter">
+      <case>
+        <expression>#{pageFlowScope.CreateEddNRecordBean.recordType == 'N'}</expression>
+        <outcome id="__160">NRecord</outcome>
+      </case>
+      <case>
+        <expression>#{pageFlowScope.CreateEddNRecordBean.recordType == 'R'}</expression>
+        <outcome id="__166">RRecord</outcome>
+      </case>
+      <default-outcome>NRecord</default-outcome>
+    </router>
+    <method-call id="CreateWithParamsEddRAssoc">
+      <method>#{bindings.CreateWithParams.execute}</method>
+      <outcome id="__183">
+        <fixed-outcome>CreateWithParams</fixed-outcome>
+      </outcome>
+    </method-call>
+    
+    <view id="invalidHeader">
+      <page>/invalidHeader.jspx</page>
+    </view>
+    <method-call id="deleteChildrenPendingRecords">
+      <method>#{pageFlowScope.CreateEddNRecordBean.deleteChildrenPendingRecords}</method>
+      <outcome id="__158">
+        <fixed-outcome>deleteNRRecord</fixed-outcome>
+      </outcome>
+    </method-call>
+    <method-call id="setCalculatedFinalTotalAmount">
+      <method>#{pageFlowScope.CreateEddNRecordBean.setCalculatedFinalTotalAmount}</method>
+      <outcome id="__202">
+        <fixed-outcome>setCalculatedFinalTotalAmount</fixed-outcome>
+      </outcome>
+    </method-call>
+    <method-call id="copyPreviousRecord">
+      <method>#{pageFlowScope.CreateEddNRecordBean.copyPreviousRecordCalold}</method>
+      <outcome id="__144">
+        <fixed-outcome>copyPreviousRecord</fixed-outcome>
+      </outcome>
+    </method-call>
+    <router id="DatasourceEvaluator">
+      <case>
+        <expression>#{pageFlowScope.CreateEddNRecordBean.dataSourceCode ==
+                    'CALOLD'}</expression>
+        <outcome id="__193">caloldRRecord</outcome>
+      </case>
+      <case>
+        <expression>#{pageFlowScope.CreateEddNRecordBean.dataSourceCode ==
+                    'CALOSHA'}</expression>
+        <outcome id="__194">caloshaRRecord</outcome>
+      </case>
+      <default-outcome>caloshaRRecord</default-outcome>
+    </router>
+    <router id="checkIfIndividual">
+      <case>
+        <expression>#{not empty pageFlowScope.CreateEddNRecordBean.entityFirstName  &amp;&amp;
+                    not empty pageFlowScope.CreateEddNRecordBean.entityLastName
+                    &amp;&amp; pageFlowScope.CreateEddNRecordBean.dataSourceCode
+                    == 'CALOSHA'}</expression>
+        <outcome id="__217">Individual</outcome>
+      </case>
+      <default-outcome>notIndividual</default-outcome>
+    </router>
+    <method-call id="createPersonRelatedParty">
+      <method>#{pageFlowScope.CreateEddNRecordBean.createPersonRelatedParty}</method>
+      <outcome id="__223">
+        <fixed-outcome>createPersonRelatedParty</fixed-outcome>
+      </outcome>
+    </method-call>
+    <method-call id="SetCurrentRowWithKeyValue1">
+      <method>#{bindings.setCurrentRowWithKeyValue.execute}</method>
+      <outcome id="__224">
+        <fixed-outcome>setCurrentRowWithKeyValue</fixed-outcome>
+      </outcome>
+    </method-call>
+    <control-flow-rule id="__3">
+      <from-activity-id id="__4">CreateEddNRecord</from-activity-id>
+      <control-flow-case id="__11">
+        <from-outcome id="__12">rollback</from-outcome>
+        <to-activity-id id="__10">Rollback</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__138">
+        <from-outcome id="__139">DeleteNRecord</from-outcome>
+        <to-activity-id id="__137">deleteChildrenPendingRecords</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__173">
+        <from-outcome id="__174">commit</from-outcome>
+        <to-activity-id id="__175">checkIfIndividual</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__6">
+        <from-outcome id="__7">invalidHeaderStatus</from-outcome>
+        <to-activity-id id="__5">invalidHeader</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__14">
+      <from-activity-id id="__15">CreateWithParamsEddNRecord</from-activity-id>
+      <control-flow-case id="__18">
+        <from-outcome id="__17">CreateWithParams</from-outcome>
+        <to-activity-id id="__16">RecordTypeEvaluatorRouter</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__106">
+      <from-activity-id id="__107">updateHeaderIdForNewEddRecord</from-activity-id>
+      <control-flow-case id="__109">
+        <from-outcome id="__110">updateHeaderIdForNewEddRecord</from-outcome>
+        <to-activity-id id="__108">Commit</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__111">
+      <from-activity-id id="__112">Execute</from-activity-id>
+      <control-flow-case id="__115">
+        <from-outcome id="__113">Execute</from-outcome>
+        <to-activity-id id="__114">updateHeaderIdForNewEddRecord</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__119">
+      <from-activity-id id="__120">EditOrCreateRouter</from-activity-id>
+      <control-flow-case id="__122">
+        <from-outcome id="__123">CreateNewNRecord</from-outcome>
+        <to-activity-id id="__121">CreateWithParamsEddNRecord</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__130">
+        <from-outcome id="__132">EditCurrentPretransmittalNRecord</from-outcome>
+        <to-activity-id id="__131">SetCurrentRowWithKeyValue</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__125">
+      <from-activity-id id="__126">SetCurrentRowWithKeyValue</from-activity-id>
+      <control-flow-case id="__128">
+        <from-outcome id="__127">setCurrentRowWithKeyValue</from-outcome>
+        <to-activity-id id="__129">setCalculatedFinalTotalAmount</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__161">
+      <from-activity-id id="__162">RecordTypeEvaluatorRouter</from-activity-id>
+      <control-flow-case id="__163">
+        <from-outcome id="__165">NRecord</from-outcome>
+        <to-activity-id id="__164">CreateEddNRecord</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__189">
+        <from-outcome id="__190">RRecord</from-outcome>
+        <to-activity-id id="__191">CreateWithParamsEddRAssoc</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__184">
+      <from-activity-id id="__185">CreateWithParamsEddRAssoc</from-activity-id>
+      <control-flow-case id="__187">
+        <from-outcome id="__186">CreateWithParams</from-outcome>
+        <to-activity-id id="__188">DatasourceEvaluator</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__148">
+      <from-activity-id id="__149">invalidHeader</from-activity-id>
+      <control-flow-case id="__151">
+        <from-outcome id="__152">rollback</from-outcome>
+        <to-activity-id id="__150">Rollback</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__153">
+      <from-activity-id id="__154">deleteChildrenPendingRecords</from-activity-id>
+      <control-flow-case id="__155">
+        <from-outcome id="__157">deleteNRRecord</from-outcome>
+        <to-activity-id id="__156">Commit</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__159">
+      <from-activity-id id="__170">setCalculatedFinalTotalAmount</from-activity-id>
+      <control-flow-case id="__171">
+        <from-outcome id="__201">setCalculatedFinalTotalAmount</from-outcome>
+        <to-activity-id id="__172">CreateEddNRecord</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__136">
+      <from-activity-id id="__140">copyPreviousRecord</from-activity-id>
+      <control-flow-case id="__141">
+        <from-outcome id="__143">copyPreviousRecord</from-outcome>
+        <to-activity-id id="__142">CreateEddNRecord</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__176">
+      <from-activity-id id="__177">DatasourceEvaluator</from-activity-id>
+      <control-flow-case id="__178">
+        <from-outcome id="__180">caloshaRRecord</from-outcome>
+        <to-activity-id id="__179">CreateEddNRecord</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__182">
+        <from-outcome id="__192">caloldRRecord</from-outcome>
+        <to-activity-id id="__181">SetCurrentRowWithKeyValue1</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__209">
+      <from-activity-id id="__210">checkIfIndividual</from-activity-id>
+      <control-flow-case id="__212">
+        <from-outcome id="__213">notIndividual</from-outcome>
+        <to-activity-id id="__211">Execute</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__215">
+        <from-outcome id="__216">Individual</from-outcome>
+        <to-activity-id id="__214">createPersonRelatedParty</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__218">
+      <from-activity-id id="__219">createPersonRelatedParty</from-activity-id>
+      <control-flow-case id="__221">
+        <from-outcome id="__222">createPersonRelatedParty</from-outcome>
+        <to-activity-id id="__220">Execute</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__225">
+      <from-activity-id id="__226">SetCurrentRowWithKeyValue1</from-activity-id>
+      <control-flow-case id="__227">
+        <from-outcome id="__228">setCurrentRowWithKeyValue</from-outcome>
+        <to-activity-id id="__229">copyPreviousRecord</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <visibility id="__146">
+      <url-invoke-allowed/>
+    </visibility>
+  </task-flow-definition>
+</adfc-config>

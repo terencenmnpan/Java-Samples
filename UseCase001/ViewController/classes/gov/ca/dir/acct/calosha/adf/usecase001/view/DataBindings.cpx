@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Application xmlns="http://xmlns.oracle.com/adfm/application"
+             version="11.1.1.64.93" id="DataBindings" SeparateXMLFiles="false"
+             Package="gov.ca.dir.acct.calosha.adf.usecase001.view" ClientType="Generic">
+  <definitionFactories>
+    <factory nameSpace="http://xmlns.oracle.com/adf/controller/binding"
+             className="oracle.adf.controller.internal.binding.TaskFlowBindingDefFactoryImpl"/>
+    <dtfactory className="oracle.adf.controller.internal.dtrt.binding.BindingDTObjectFactory"/>
+  </definitionFactories>
+  <pageMap>
+    <page path="/EmployerSearch.jsff"
+          usageId="gov_ca_dir_acct_calosha_adf_usecase001_view_EmployerSearchPageDef"/>
+    <page path="/UpdateEmployer.jsff"
+          usageId="gov_ca_dir_acct_calosha_adf_usecase001_view_UpdateEmployerPageDef"/>
+    <page path="/CreateEmployer.jsff"
+          usageId="gov_ca_dir_acct_calosha_adf_usecase001_view_CreateEmployerPageDef"/>
+    <page path="/WEB-INF/employer-search-tf.xml#employer-search-tf@CreateParty"
+          usageId="gov_ca_dir_acct_calosha_adf_usecase001_view_employer_search_tf_employer_search_tf_CreateInsertPageDef"/>
+    <page path="/WEB-INF/employer-search-tf.xml#employer-search-tf@CreateOrganization"
+          usageId="gov_ca_dir_acct_calosha_adf_usecase001_view_employer_search_tf_employer_search_tf_CreateInsert2PageDef"/>
+    <page path="/WEB-INF/employer-search-tf.xml#employer-search-tf@CreateAddress"
+          usageId="gov_ca_dir_acct_calosha_adf_usecase001_view_employer_search_tf_employer_search_tf_CreateInsertPageDef1"/>
+    <page path="/WEB-INF/employer-search-tf.xml#employer-search-tf@CreateSite"
+          usageId="gov_ca_dir_acct_calosha_adf_usecase001_view_employer_search_tf_employer_search_tf_CreateInsertPageDef11"/>
+    <page path="/WEB-INF/employer-search-tf.xml#employer-search-tf@CreatePartyClassification"
+          usageId="gov_ca_dir_acct_calosha_adf_usecase001_view_employer_search_tf_employer_search_tf_CreateInsertPageDef111"/>
+    <page path="/WEB-INF/employer-search-tf.xml#employer-search-tf@SetCurrentRowWithKeyValue"
+          usageId="gov_ca_dir_acct_calosha_adf_usecase001_view_employer_search_tf_employer_search_tf_SetCurrentRowWithKeyValuePageDef"/>
+    <page path="/WEB-INF/employer-search-tf.xml#employer-search-tf@SetCurrentRowWithKeyValue1"
+          usageId="gov_ca_dir_acct_calosha_adf_usecase001_view_employer_search_tf_employer_search_tf_SetCurrentRowWithKeyValue1PageDef"/>
+    <page path="/EmployerMain.jspx"
+          usageId="gov_ca_dir_acct_calosha_adf_usecase001_view_EmployerMainPageDef"/>
+    <page path="/WEB-INF/employer-search-tf.xml#employer-search-tf@SetCurrentRowWithKeyValue2"
+          usageId="gov_ca_dir_acct_calosha_adf_usecase001_view_employer_search_tf_employer_search_tf_SetCurrentRowWithKeyValue2PageDef"/>
+  </pageMap>
+  <pageDefinitionUsages>
+    <page id="gov_ca_dir_acct_calosha_adf_usecase001_view_EmployerSearchPageDef"
+          path="gov.ca.dir.acct.calosha.adf.usecase001.view.pageDefs.EmployerSearchPageDef"/>
+    <page id="gov_ca_dir_acct_calosha_adf_usecase001_view_UpdateEmployerPageDef"
+          path="gov.ca.dir.acct.calosha.adf.usecase001.view.pageDefs.UpdateEmployerPageDef"/>
+    <page id="gov_ca_dir_acct_calosha_adf_usecase001_view_mainPageDef"
+          path="gov.ca.dir.acct.calosha.adf.usecase001.view.pageDefs.mainPageDef"/>
+    <page id="gov_ca_dir_acct_calosha_adf_usecase001_view_CreateEmployerPageDef"
+          path="gov.ca.dir.acct.calosha.adf.usecase001.view.pageDefs.CreateEmployerPageDef"/>
+    <page id="gov_ca_dir_acct_calosha_adf_usecase001_view_employer_search_tf_employer_search_tf_CreateInsertPageDef"
+          path="gov.ca.dir.acct.calosha.adf.usecase001.view.pageDefs.employer_search_tf_employer_search_tf_CreateInsertPageDef"/>
+    <page id="gov_ca_dir_acct_calosha_adf_usecase001_view_employer_search_tf_employer_search_tf_CreateInsert2PageDef"
+          path="gov.ca.dir.acct.calosha.adf.usecase001.view.pageDefs.employer_search_tf_employer_search_tf_CreateInsert2PageDef"/>
+    <page id="gov_ca_dir_acct_calosha_adf_usecase001_view_employer_search_tf_employer_search_tf_CreateInsertPageDef1"
+          path="gov.ca.dir.acct.calosha.adf.usecase001.view.pageDefs.employer_search_tf_employer_search_tf_CreateInsertPageDef1"/>
+    <page id="gov_ca_dir_acct_calosha_adf_usecase001_view_employer_search_tf_employer_search_tf_CreateInsertPageDef11"
+          path="gov.ca.dir.acct.calosha.adf.usecase001.view.pageDefs.employer_search_tf_employer_search_tf_CreateInsertPageDef11"/>
+    <page id="gov_ca_dir_acct_calosha_adf_usecase001_view_employer_search_tf_employer_search_tf_CreateInsertPageDef111"
+          path="gov.ca.dir.acct.calosha.adf.usecase001.view.pageDefs.employer_search_tf_employer_search_tf_CreateInsertPageDef111"/>
+    <page id="gov_ca_dir_acct_calosha_adf_usecase001_view_employer_search_tf_employer_search_tf_SetCurrentRowWithKeyValuePageDef"
+          path="gov.ca.dir.acct.calosha.adf.usecase001.view.pageDefs.employer_search_tf_employer_search_tf_SetCurrentRowWithKeyValuePageDef"/>
+    <page id="gov_ca_dir_acct_calosha_adf_usecase001_view_employer_search_tf_employer_search_tf_SetCurrentRowWithKeyValue1PageDef"
+          path="gov.ca.dir.acct.calosha.adf.usecase001.view.pageDefs.employer_search_tf_employer_search_tf_SetCurrentRowWithKeyValue1PageDef"/>
+    <page id="gov_ca_dir_acct_calosha_adf_usecase001_view_EmployerMainPageDef"
+          path="gov.ca.dir.acct.calosha.adf.usecase001.view.pageDefs.EmployerMainPageDef"/>
+    <page id="gov_ca_dir_acct_calosha_adf_usecase001_view_employer_search_tf_employer_search_tf_SetCurrentRowWithKeyValue2PageDef"
+          path="gov.ca.dir.acct.calosha.adf.usecase001.view.pageDefs.employer_search_tf_employer_search_tf_SetCurrentRowWithKeyValue2PageDef"/>
+  </pageDefinitionUsages>
+  <dataControlUsages>
+    <BC4JDataControl id="EmployerSearchAMDataControl"
+                     Package="gov.ca.dir.acct.calosha.adf.usecase001.model.appmodule"
+                     FactoryClass="oracle.adf.model.bc4j.DataControlFactoryImpl"
+                     SupportsTransactions="true" SupportsFindMode="true"
+                     SupportsRangesize="true" SupportsResetState="true"
+                     SupportsSortCollection="true"
+                     Configuration="EmployerSearchAMLocal" syncMode="Immediate"
+                     xmlns="http://xmlns.oracle.com/adfm/datacontrol"/>
+  </dataControlUsages>
+</Application>

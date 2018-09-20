@@ -1,0 +1,365 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1"
+          xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+          xmlns:f="http://java.sun.com/jsf/core">
+  <af:pageTemplate viewId="/use-case-template.jspx" id="pt1">
+    <f:facet name="main">
+      <af:panelGroupLayout id="pgl1" layout="scroll">
+        <af:resource type="javascript" source="/js/PhoneValidator.js"/>
+        <af:panelBox text="Employer Info" id="pb1">
+            <f:facet name="toolbar"/>
+            <af:panelFormLayout id="pfl1" maxColumns="2" rows="2">
+              <f:facet name="footer">
+                <af:toolbar id="t1">
+                  <af:commandToolbarButton text="Save &amp; Exit" id="ctb1"
+                                           actionListener="#{bindings.Commit.execute}"
+                                           action="selectUpdatedEmployer">
+                    <af:setActionListener from="#{bindings.LegalName.inputValue}"
+                                          to="#{pageFlowScope.UseCase001EmployerName}"/>
+                    <af:setActionListener from="#{bindings.StreetAddress.inputValue}"
+                                          to="#{pageFlowScope.UseCase001EmployerStreetAddress}"/>
+                    <af:setActionListener from="#{bindings.City.inputValue}"
+                                          to="#{pageFlowScope.UseCase001EmployerCity}"/>
+                    <af:setActionListener from="#{bindings.StateCode.inputValue}"
+                                          to="#{pageFlowScope.UseCase001EmployerStateCode}"/>
+                    <af:setActionListener from="#{bindings.ZipCode.inputValue}"
+                                          to="#{pageFlowScope.UseCase001EmployerZipCode}"/>
+                    <af:setActionListener from="#{bindings.ContactMethodValue.inputValue}"
+                                          to="#{pageFlowScope.UseCase001EmployerPhone}"/>
+                  </af:commandToolbarButton>
+                  <af:commandToolbarButton text="Back to Search" id="ctb2"
+                                           action="back"
+                                           actionListener="#{bindings.Rollback.execute}"
+                                           immediate="true"
+                                           rendered="#{empty pageFlowScope.inputPartyId}">
+                    <af:resetActionListener/>
+                  </af:commandToolbarButton>
+                </af:toolbar>
+              </f:facet>
+              <af:inputText value="#{bindings.LegalName.inputValue}"
+                            label="#{bindings.LegalName.hints.label}"
+                            required="#{bindings.LegalName.hints.mandatory}"
+                            columns="#{bindings.LegalName.hints.displayWidth}"
+                            maximumLength="#{bindings.LegalName.hints.precision}"
+                            shortDesc="#{bindings.LegalName.hints.tooltip}"
+                            id="it10" autoSubmit="true">
+                <f:validator binding="#{bindings.LegalName.validator}"/>
+              </af:inputText>
+              <af:inputText value="#{bindings.Dba.inputValue}"
+                            label="#{bindings.Dba.hints.label}"
+                            required="#{bindings.Dba.hints.mandatory}"
+                            columns="#{bindings.Dba.hints.displayWidth}"
+                            maximumLength="#{bindings.Dba.hints.precision}"
+                            shortDesc="#{bindings.Dba.hints.tooltip}" id="it9"
+                            autoSubmit="true">
+                <f:validator binding="#{bindings.Dba.validator}"/>
+              </af:inputText>
+              <af:inputText value="#{bindings.NaicsCode.inputValue}"
+                            label="#{bindings.NaicsCode.hints.label}"
+                            required="#{bindings.NaicsCode.hints.mandatory}"
+                            columns="#{bindings.NaicsCode.hints.displayWidth}"
+                            maximumLength="#{bindings.NaicsCode.hints.precision}"
+                            shortDesc="#{bindings.NaicsCode.hints.tooltip}"
+                            id="it12" autoSubmit="true">
+                <f:validator binding="#{bindings.NaicsCode.validator}"/>
+                <af:convertNumber groupingUsed="false"
+                                  pattern="#{bindings.NaicsCode.format}"/>
+              </af:inputText>
+              <af:inputText value="#{bindings.SicCode.inputValue}"
+                            label="#{bindings.SicCode.hints.label}"
+                            required="#{bindings.SicCode.hints.mandatory}"
+                            columns="#{bindings.SicCode.hints.displayWidth}"
+                            maximumLength="#{bindings.SicCode.hints.precision}"
+                            shortDesc="#{bindings.SicCode.hints.tooltip}"
+                            id="it13" autoSubmit="true">
+                <f:validator binding="#{bindings.SicCode.validator}"/>
+                <af:convertNumber groupingUsed="false"
+                                  pattern="#{bindings.SicCode.format}"/>
+              </af:inputText>
+            <af:inputText value="#{bindings.Fein.inputValue}"
+                          label="#{bindings.Fein.hints.label}"
+                          required="#{bindings.Fein.hints.mandatory}"
+                          columns="#{bindings.Fein.hints.displayWidth}"
+                          maximumLength="#{bindings.Fein.hints.precision}"
+                          shortDesc="#{bindings.Fein.hints.tooltip}" id="it7">
+              <f:validator binding="#{bindings.Fein.validator}"/>
+            </af:inputText>
+          </af:panelFormLayout>
+          </af:panelBox>
+          <af:panelBox text="Address" id="pb2">
+            <f:facet name="toolbar">
+              <af:toolbar id="t5">
+                <af:commandButton text="Add Site" id="cb8" partialTriggers="cb8"
+                                  actionListener="#{bindings.CreateSite.execute}"
+                                  visible="#{pageFlowScope.CreateEmployerBean.addressSiteExists}"/>
+                <af:commandButton text="Add Mailing" id="cb9"
+                                  partialTriggers="cb9"
+                                  actionListener="#{bindings.CreateMailing.execute}"
+                                  visible="#{pageFlowScope.CreateEmployerBean.addressMailingExists}"/>
+              </af:toolbar>
+          </f:facet>
+          <af:table value="#{bindings.AddressView2.collectionModel}" var="row"
+                    rows="#{bindings.AddressView2.rangeSize}"
+                    emptyText="#{bindings.AddressView2.viewable ? 'Employer has no addresses.' : 'Something Wrong.'}"
+                    fetchSize="#{bindings.AddressView2.rangeSize}"
+                    rowBandingInterval="0"
+                    selectedRowKeys="#{bindings.AddressView2.collectionModel.selectedRow}"
+                    selectionListener="#{bindings.AddressView2.collectionModel.makeCurrent}"
+                    rowSelection="single" id="t2" autoHeightRows="0"
+                    inlineStyle="width:100.0px;" width="AFStretchWidth"
+                    partialTriggers="::cb9">
+            <af:column sortProperty="#{bindings.AddressView2.hints.AddressTypeCode.name}"
+                       sortable="false"
+                       headerText="#{bindings.AddressView2.hints.AddressTypeCode.label}"
+                       id="c1" inlineStyle="width:100.0px;">
+              <af:outputText value="#{row.AddressTypeCode}" id="ot1"/>
+            </af:column>
+          </af:table>
+          <af:panelFormLayout id="pfl3" rows="3" partialTriggers="t2">
+            <af:inputText value="#{bindings.StreetAddress.inputValue}"
+                          label="#{bindings.StreetAddress.hints.label}"
+                          required="#{bindings.StreetAddress.hints.mandatory}"
+                          columns="#{bindings.StreetAddress.hints.displayWidth}"
+                          maximumLength="#{bindings.StreetAddress.hints.precision}"
+                          shortDesc="#{bindings.StreetAddress.hints.tooltip}"
+                          id="it5" autoSubmit="true">
+              <f:validator binding="#{bindings.StreetAddress.validator}"/>
+            </af:inputText>
+            <af:inputText value="#{bindings.AddressLine2.inputValue}"
+                          label="#{bindings.AddressLine2.hints.label}"
+                          required="#{bindings.AddressLine2.hints.mandatory}"
+                          columns="#{bindings.AddressLine2.hints.displayWidth}"
+                          maximumLength="#{bindings.AddressLine2.hints.precision}"
+                          shortDesc="#{bindings.AddressLine2.hints.tooltip}"
+                          id="it1" autoSubmit="true">
+              <f:validator binding="#{bindings.AddressLine2.validator}"/>
+            </af:inputText>
+            <af:inputText value="#{bindings.City.inputValue}"
+                          label="#{bindings.City.hints.label}"
+                          required="#{bindings.City.hints.mandatory}"
+                          columns="#{bindings.City.hints.displayWidth}"
+                          maximumLength="#{bindings.City.hints.precision}"
+                          shortDesc="#{bindings.City.hints.tooltip}" id="it2"
+                          autoSubmit="true">
+              <f:validator binding="#{bindings.City.validator}"/>
+            </af:inputText>
+            <af:selectOneChoice value="#{bindings.StateCode1.inputValue}"
+                                label="#{bindings.StateCode1.label}"
+                                required="#{bindings.StateCode1.hints.mandatory}"
+                                shortDesc="#{bindings.StateCode1.hints.tooltip}"
+                                id="soc1">
+              <f:selectItems value="#{bindings.StateCode1.items}" id="si1"/>
+            </af:selectOneChoice>
+            <af:inputText value="#{bindings.ZipCode.inputValue}"
+                          label="#{bindings.ZipCode.hints.label}"
+                          required="#{bindings.ZipCode.hints.mandatory}"
+                          columns="#{bindings.ZipCode.hints.displayWidth}"
+                          maximumLength="#{bindings.ZipCode.hints.precision}"
+                          shortDesc="#{bindings.ZipCode.hints.tooltip}" id="it3"
+                          autoSubmit="true">
+              <f:validator binding="#{bindings.ZipCode.validator}"/>
+            </af:inputText>
+            <af:inputText value="#{bindings.Zip4.inputValue}"
+                          label="#{bindings.Zip4.hints.label}"
+                          required="#{bindings.Zip4.hints.mandatory}"
+                          columns="#{bindings.Zip4.hints.displayWidth}"
+                          maximumLength="#{bindings.Zip4.hints.precision}"
+                          shortDesc="#{bindings.Zip4.hints.tooltip}" id="it4"
+                          autoSubmit="true">
+              <f:validator binding="#{bindings.Zip4.validator}"/>
+            </af:inputText>
+            <af:inputText value="#{bindings.FsSequenceNumber.inputValue}"
+                          label="#{bindings.FsSequenceNumber.hints.label}"
+                          required="true"
+                          columns="#{bindings.FsSequenceNumber.hints.displayWidth}"
+                          maximumLength="#{bindings.FsSequenceNumber.hints.precision}"
+                          shortDesc="#{bindings.FsSequenceNumber.hints.tooltip}"
+                          id="it8">
+              <f:validator binding="#{bindings.FsSequenceNumber.validator}"/>
+              <af:convertNumber groupingUsed="false"
+                                pattern="#{bindings.FsSequenceNumber.format}"/>
+              <af:validateLongRange minimum="0" maximum="1"
+                                    hintNotInRange="Must be 0 or 1"/>
+              <af:validateLength minimum="1"
+                                 hintNotInRange="Must be one digit"/>
+            </af:inputText>
+          </af:panelFormLayout>
+        </af:panelBox>
+        <af:panelBox text="Contact Methods" id="pb3">
+          <f:facet name="toolbar">
+            <af:toolbar id="t3">
+              <af:popup id="p1"
+                        binding="#{pageFlowScope.CreateEmployerBean.phoneTypePopup}">
+                <af:dialog id="d1"
+                           title="Enter #{pageFlowScope.CreateEmployerBean.contactMethodType}"
+                           dialogListener="#{pageFlowScope.CreateEmployerBean.addContactMethod}">
+                  <af:panelFormLayout id="pfl4">
+                    <af:inputText id="inputContactMethodValue" maximumLength="10"
+                                  showRequired="true" immediate="true"
+                                  label="#{pageFlowScope.CreateEmployerBean.contactMethodTypeCode} :">
+                      <af:validateRegExp pattern="[0-9]{10}"
+                                         hint="#{pageFlowScope.CreateEmployerBean.contactMethodTypeCode} should be only Digits"
+                                         messageDetailNoMatch="#{pageFlowScope.CreateEmployerBean.contactMethodTypeCode} should be only Digits"/>
+                      <af:validateLength minimum="1"
+                                         hintMinimum="field must not be blank"/>
+                    </af:inputText>
+                  </af:panelFormLayout>
+                </af:dialog>
+              </af:popup>
+              <af:popup id="p2"
+                        binding="#{pageFlowScope.CreateEmployerBean.emailTypePopup}">
+                <af:dialog id="d2" title="Enter Email"
+                           dialogListener="#{pageFlowScope.CreateEmployerBean.addContactMethod}">
+                  <af:panelFormLayout id="panelFormLayout1">
+                    <af:inputText id="inputEmailMethodValue" maximumLength="100"
+                                  showRequired="true" immediate="true"
+                                  label="Email: ">
+                      <af:validateRegExp pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}"
+                                         hint="Invalid Email Format"
+                                         messageDetailNoMatch="i.e. example@company.com"/>
+                      <af:validateLength minimum="1"
+                                         hintMinimum="field must not be blank"/>
+                    </af:inputText>
+                  </af:panelFormLayout>
+                </af:dialog>
+              </af:popup>
+              <af:popup id="p3"
+                        binding="#{pageFlowScope.CreateEmployerBean.websiteUrlTypePopup}">
+                <af:dialog id="d3" title="Enter Website/Url"
+                           dialogListener="#{pageFlowScope.CreateEmployerBean.addContactMethod}">
+                  <af:panelFormLayout id="panelFormLayout2">
+                    <af:inputText id="inputWebsiteUrlMethodValue" maximumLength="100"
+                                  showRequired="true" immediate="true"
+                                  label="Website/Url: ">
+                      <af:validateRegExp pattern="^(https?|ftp|file)://[-a-zA-Z0-9+&amp;@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&amp;@#/%=~_|]"
+                                         hint="Invalid Website/Url Format"
+                                         messageDetailNoMatch="i.e. http://www.company.com/whatever"/>
+                      <af:validateLength minimum="1"
+                                         hintMinimum="field must not be blank"/>
+                    </af:inputText>
+                  </af:panelFormLayout>
+                </af:dialog>
+              </af:popup>
+              <af:commandButton text="Add Phone" id="cb1"
+                                useWindow="true"
+                                windowEmbedStyle="inlineDocument"
+                                windowModalityType="applicationModal"
+                                actionListener="#{pageFlowScope.CreateEmployerBean.showPhonePopup}"
+                                partialSubmit="true" partialTriggers="d1 d2 d3"
+                                visible="#{pageFlowScope.CreateEmployerBean.contactPhoneExists}">
+              </af:commandButton>
+              <af:commandButton text="Add Work Phone" id="cb2"
+                                useWindow="true"
+                                windowEmbedStyle="inlineDocument"
+                                windowModalityType="applicationModal"
+                                actionListener="#{pageFlowScope.CreateEmployerBean.showWorkPopup}"
+                                partialSubmit="true" partialTriggers="d1 d2 d3"
+                                visible="#{pageFlowScope.CreateEmployerBean.contactWorkExists}">
+              </af:commandButton>
+              <af:commandButton text="Add Cell Phone" id="cb3"
+                                useWindow="true"
+                                windowEmbedStyle="inlineDocument"
+                                windowModalityType="applicationModal"
+                                actionListener="#{pageFlowScope.CreateEmployerBean.showCellPopup}"
+                                partialSubmit="true" partialTriggers="d1 d2 d3"
+                                visible="#{pageFlowScope.CreateEmployerBean.contactCellExists}">
+              </af:commandButton>
+              <af:commandButton text="Add E-mail" id="cb4"
+                                useWindow="true"
+                                windowEmbedStyle="inlineDocument"
+                                windowModalityType="applicationModal"
+                                actionListener="#{pageFlowScope.CreateEmployerBean.showEmailPopup}"
+                                partialSubmit="true" partialTriggers="d1 d2 d3"
+                                visible="#{pageFlowScope.CreateEmployerBean.contactEmailExists}">
+              </af:commandButton>
+              <af:commandButton text="Add Fax" id="cb5"
+                                useWindow="true"
+                                windowEmbedStyle="inlineDocument"
+                                windowModalityType="applicationModal"
+                                actionListener="#{pageFlowScope.CreateEmployerBean.showFaxPopup}"
+                                partialSubmit="true" partialTriggers="d1 d2 d3"
+                                visible="#{pageFlowScope.CreateEmployerBean.contactFaxExists}">
+              </af:commandButton>
+              <af:commandButton text="Add URL" id="cb6"
+                                useWindow="true"
+                                windowEmbedStyle="inlineDocument"
+                                windowModalityType="applicationModal"
+                                actionListener="#{pageFlowScope.CreateEmployerBean.showUrlPopup}"
+                                partialSubmit="true" partialTriggers="d1 d2 d3"
+                                visible="#{pageFlowScope.CreateEmployerBean.contactUrlExists}">
+              </af:commandButton>
+              <af:commandButton text="Add Website" id="cb7"
+                                useWindow="true"
+                                windowEmbedStyle="inlineDocument"
+                                windowModalityType="applicationModal"
+                                actionListener="#{pageFlowScope.CreateEmployerBean.showWebsitePopup}"
+                                partialSubmit="true" partialTriggers="d1 d2 d3"
+                                visible="#{pageFlowScope.CreateEmployerBean.contactWebsiteExists}">
+                                
+              </af:commandButton>
+            </af:toolbar>
+          </f:facet>
+          <af:table value="#{bindings.ContactMethodView1.collectionModel}"
+                    var="row" rows="#{bindings.ContactMethodView1.rangeSize}"
+                    emptyText="#{bindings.ContactMethodView1.viewable ? 'Employer has no contact methods.' : 'Something Wrong.'}"
+                    fetchSize="#{bindings.ContactMethodView1.rangeSize}"
+                    rowBandingInterval="0" id="t4" styleClass="AFStretchWidth"
+                    autoHeightRows="0" partialTriggers="::d1 ::d2 ::d3">
+            <af:column sortProperty="#{bindings.ContactMethodView1.hints.ContactMethodTypeCode.name}"
+                       sortable="false"
+                       headerText="#{bindings.ContactMethodView1.hints.ContactMethodTypeCode.label}"
+                       id="c6" width="80">
+              <af:outputText value="#{row.ContactMethodTypeCode}" id="ot2"/>
+            </af:column>
+            <af:column sortProperty="#{bindings.ContactMethodView1.hints.ContactMethodValue.name}"
+                       sortable="false"
+                       headerText="#{bindings.ContactMethodView1.hints.ContactMethodValue.label}"
+                       id="c2" width="120">
+              <af:inputText value="#{row.bindings.ContactMethodValue.inputValue}"
+                            required="#{bindings.ContactMethodView1.hints.ContactMethodValue.mandatory}"
+                            columns="#{bindings.ContactMethodView1.hints.ContactMethodValue.displayWidth}"
+                            maximumLength="#{bindings.ContactMethodView1.hints.ContactMethodValue.precision}"
+                            shortDesc="#{bindings.ContactMethodView1.hints.ContactMethodValue.tooltip}"
+                            id="it6">
+                <f:validator binding="#{row.bindings.ContactMethodValue.validator}"/>
+              </af:inputText>
+            </af:column>
+            <af:column sortProperty="#{bindings.ContactMethodView1.hints.EffectiveStartDate.name}"
+                       sortable="false"
+                       headerText="#{bindings.ContactMethodView1.hints.EffectiveStartDate.label}"
+                       id="c5" width="80">
+              <af:outputText value="#{row.EffectiveStartDate}" id="ot6">
+                <af:convertDateTime pattern="#{bindings.ContactMethodView1.hints.EffectiveStartDate.format}"/>
+              </af:outputText>
+            </af:column>
+            <af:column sortProperty="#{bindings.ContactMethodView1.hints.EffectiveEndDate.name}"
+                       sortable="false"
+                       headerText="#{bindings.ContactMethodView1.hints.EffectiveEndDate.label}"
+                       id="c7" width="100" rendered="false">
+              <af:outputText value="#{row.EffectiveEndDate}" id="ot4"
+                             visible="#{empty row.EffectiveEndDate ? false : true}">
+                <af:convertDateTime pattern="#{bindings.ContactMethodView1.hints.EffectiveEndDate.format}"/>
+              </af:outputText>
+              <af:inputDate value="#{row.bindings.EffectiveEndDate.inputValue}"
+                            visible="#{empty row.EffectiveEndDate ? true : false}"
+                            label="#{bindings.ContactMethodView1.hints.EffectiveEndDate.label}"
+                            required="#{bindings.ContactMethodView1.hints.EffectiveEndDate.mandatory}"
+                            shortDesc="#{bindings.ContactMethodView1.hints.EffectiveEndDate.tooltip}"
+                            id="id1">
+                <f:validator binding="#{row.bindings.EffectiveEndDate.validator}"/>
+                <af:convertDateTime pattern="#{bindings.ContactMethodView1.hints.EffectiveEndDate.format}"/>
+              </af:inputDate>
+            </af:column>
+            <af:column sortProperty="#{bindings.ContactMethodView1.hints.CreatedBy.name}"
+                       sortable="false"
+                       headerText="#{bindings.ContactMethodView1.hints.CreatedBy.label}"
+                       id="c3" width="80">
+              <af:outputText value="#{row.CreatedBy}" id="ot7"/>
+            </af:column>
+          </af:table>
+        </af:panelBox>
+      </af:panelGroupLayout>
+    </f:facet>
+    <f:attribute name="title" value="Update Employer"/>
+  </af:pageTemplate>
+</jsp:root>

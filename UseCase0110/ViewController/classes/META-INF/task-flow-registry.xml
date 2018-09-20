@@ -1,0 +1,7 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<task-flow-registry xmlns="http://xmlns.oracle.com/adf/controller/rc">
+   <task-flow-descriptor path="WEB-INF/modify-payment-tf.xml" id="modify-payment-tf" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false">
+      <input-parameter name="inputPaymentId"/>
+      <input-parameter name="inputModifyPaymentsViewOnly"/>
+   </task-flow-descriptor>
+</task-flow-registry>

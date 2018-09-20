@@ -1,0 +1,781 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel"
+                version="11.1.1.64.93" id="SearchInvoicePageDef"
+                Package="gov.ca.dir.acct.calosha.adf.usecase024.view.pageDefs">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <searchRegion Criteria="SearchInvoiceCriteria"
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer"
+                  Binds="InvoiceView1Iterator" id="SearchInvoiceCriteriaQuery"/>
+    <iterator Binds="CitationItemView1" RangeSize="10"
+              DataControl="ReferralSearchInvoiceAMDataControl"
+              id="CitationItemView1Iterator" ChangeEventPolicy="ppr"/>
+    <iterator Binds="CitationView1" RangeSize="25"
+              DataControl="ReferralSearchInvoiceAMDataControl"
+              id="CitationView1Iterator" ChangeEventPolicy="ppr"/>
+    <iterator Binds="PersonView1" RangeSize="25"
+              DataControl="ReferralSearchInvoiceAMDataControl"
+              id="PersonView1Iterator" ChangeEventPolicy="ppr"/>
+    <iterator Binds="MailingAddress" RangeSize="25"
+              DataControl="ReferralSearchInvoiceAMDataControl"
+              id="MailingAddressIterator" ChangeEventPolicy="ppr"/>
+    <iterator Binds="SiteAddress" RangeSize="25"
+              DataControl="ReferralSearchInvoiceAMDataControl"
+              id="SiteAddressIterator" ChangeEventPolicy="ppr"/>
+    <iterator Binds="ContactMethodView1" RangeSize="25"
+              DataControl="ReferralSearchInvoiceAMDataControl"
+              id="ContactMethodView1Iterator" ChangeEventPolicy="ppr"/>
+    <iterator Binds="AppealDetailView1" RangeSize="10"
+              DataControl="ReferralSearchInvoiceAMDataControl"
+              id="AppealDetailView1Iterator" ChangeEventPolicy="ppr"/>
+    <iterator Binds="InvoiceAllPaymentView2" RangeSize="10"
+              DataControl="ReferralSearchInvoiceAMDataControl"
+              id="InvoiceAllPaymentView2Iterator" ChangeEventPolicy="ppr"
+              Refresh="ifNeeded"/>
+    <iterator Binds="JudgmentView1" RangeSize="25"
+              DataControl="ReferralSearchInvoiceAMDataControl"
+              id="JudgmentView1Iterator" ChangeEventPolicy="ppr"
+              Refresh="always"/>
+    <iterator Binds="JudgmentDetailsView1" RangeSize="15"
+              DataControl="ReferralSearchInvoiceAMDataControl"
+              id="JudgmentDetailsView1Iterator" ChangeEventPolicy="ppr"
+              Refresh="always"/>
+    <iterator Binds="InvoiceView1" RangeSize="25"
+              DataControl="ReferralSearchInvoiceAMDataControl"
+              id="InvoiceView1Iterator" ChangeEventPolicy="ppr"
+              Refresh="always">
+      <sortCriteria>
+        <sort attribute="InspectionNumber" ascending="true"/>
+      </sortCriteria>
+    </iterator>
+    <iterator Binds="PaymentPlanView1" RangeSize="25"
+              DataControl="ReferralSearchInvoiceAMDataControl"
+              id="PaymentPlanView1Iterator" ChangeEventPolicy="ppr"/>
+    <iterator Binds="PaymentPlanDetailView1" RangeSize="25"
+              DataControl="ReferralSearchInvoiceAMDataControl"
+              id="PaymentPlanDetailView1Iterator" ChangeEventPolicy="ppr">
+      <sortCriteria>
+        <sort attribute="PayPlanAgreementId" ascending="true"/>
+        <sort attribute="InstallmentNumber" ascending="true"/>
+      </sortCriteria>
+    </iterator>
+    <iterator Binds="OrganizaitonClassView1" RangeSize="25"
+              DataControl="ReferralSearchInvoiceAMDataControl"
+              id="OrganizaitonClassView1Iterator" ChangeEventPolicy="ppr"/>
+    <iterator id="ReportingtoIndexMapView1Iterator"
+              Binds="ReportingtoIndexMapView1"
+              DataControl="ReferralSearchInvoiceAMDataControl" RangeSize="25"/>
+    <iterator id="ReferralView1Iterator" Binds="ReferralView1"
+              DataControl="ReferralSearchInvoiceAMDataControl" RangeSize="25"/>
+    <iterator id="ContactPhoneView1Iterator" Binds="ContactPhoneView1"
+              DataControl="ReferralSearchInvoiceAMDataControl" RangeSize="25"/>
+    <iterator id="ThirdPartyCollectionHeaderView1Iterator"
+              Binds="ThirdPartyCollectionHeaderView1"
+              DataControl="ReferralSearchInvoiceAMDataControl" RangeSize="25"
+              ChangeEventPolicy="ppr"/>
+    <iterator id="PartyClassificationView1Iterator"
+              Binds="PartyClassificationView1"
+              DataControl="ReferralSearchInvoiceAMDataControl" RangeSize="25"/>
+    <iterator id="FeeView1Iterator" Binds="FeeView1"
+              DataControl="ReferralSearchInvoiceAMDataControl" RangeSize="25"/>
+    <iterator id="CallLogView1Iterator" Binds="CallLogView1"
+              DataControl="ReferralSearchInvoiceAMDataControl" RangeSize="25"
+              ChangeEventPolicy="ppr"/>
+    <searchRegion Binds="CallLogView1Iterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer"
+                  id="CallLogView1Query"/>
+    <iterator id="ValidCoeRequestViewIterator" Binds="ValidCoeRequestView"
+              DataControl="ReferralSearchInvoiceAMDataControl" RangeSize="25"/>
+    <iterator id="ValidJudgmentViewIterator" Binds="ValidJudgmentView"
+              DataControl="ReferralSearchInvoiceAMDataControl" RangeSize="25"/>
+    <iterator id="ValidPaymentPlanViewIterator" Binds="ValidPaymentPlanView"
+              DataControl="ReferralSearchInvoiceAMDataControl" RangeSize="25"/>
+    <iterator id="DelinquentPayPlanViewIterator" Binds="DelinquentPayPlanView"
+              DataControl="ReferralSearchInvoiceAMDataControl" RangeSize="25"
+              Refresh="ifNeeded"/>
+    <iterator Binds="ThirdPartyCollectionLastNRCeasedRecall" RangeSize="10"
+              DataControl="ReferralSearchInvoiceAMDataControl"
+              id="ThirdPartyCollectionLastNRCeasedRecallIterator"/>
+  </executables>
+  <bindings>
+    <tree IterBinding="InvoiceView1Iterator" id="InvoiceView1">
+      <nodeDefinition DefName="gov.ca.dir.acct.calosha.adf.usecase024.model.view.InvoiceView"
+                      Name="InvoiceView10">
+        <AttrNames>
+          <Item Value="ReferralDate"/>
+          <Item Value="Status"/>
+          <Item Value="ReferredTo"/>
+          <Item Value="DocketNumber"/>
+          <Item Value="DocketThroughNumber"/>
+          <Item Value="IndexCode"/>
+          <Item Value="Citationissuedate"/>
+          <Item Value="AppealDate"/>
+          <Item Value="ClosedDate"/>
+          <Item Value="Currentamount"/>
+          <Item Value="Invoicedecisionamount"/>
+          <Item Value="Invoiceappealamount"/>
+          <Item Value="AcctgLetter"/>
+          <Item Value="CollLetter"/>
+          <Item Value="OnepLetter"/>
+          <Item Value="LegalName"/>
+          <Item Value="InspectionNumber"/>
+          <Item Value="Judgmentfilingdate"/>
+          <Item Value="PmtPlanSetupdate"/>
+          <Item Value="Totalpayments"/>
+          <Item Value="InspectionId"/>
+          <Item Value="Initialamount"/>
+          <Item Value="DemandLetter"/>
+          <Item Value="DoshCoeDate"/>
+          <Item Value="OshabCoeDate"/>
+          <Item Value="EddEligible"/>
+          <Item Value="CurrentDate"/>
+          <Item Value="Invoicebalance"/>
+          <Item Value="CountIMIS"/>
+          <Item Value="ReferredEdd"/>
+          <Item Value="AppealTypeCode"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <tree IterBinding="CitationItemView1Iterator" id="CitationItemView1">
+      <nodeDefinition DefName="gov.ca.dir.acct.calosha.adf.usecase024.model.view.CitationItemView"
+                      Name="CitationItemView10">
+        <AttrNames>
+          <Item Value="CitationAbateDate"/>
+          <Item Value="CitationId"/>
+          <Item Value="CitationIssueDate"/>
+          <Item Value="CitationItemId"/>
+          <Item Value="CitationItemNumber"/>
+          <Item Value="CitationType"/>
+          <Item Value="Comments"/>
+          <Item Value="ContestedFlag"/>
+          <Item Value="CreatedBy"/>
+          <Item Value="CreatedDate"/>
+          <Item Value="CurrentAmount"/>
+          <Item Value="CurrentFtaAmount"/>
+          <Item Value="DataSourceCode"/>
+          <Item Value="InitialAmount"/>
+          <Item Value="InspectionId"/>
+          <Item Value="ModifiedBy"/>
+          <Item Value="ModifiedDate"/>
+          <Item Value="SettleDispositionOrder"/>
+          <Item Value="Status"/>
+          <Item Value="ViolationCode"/>
+          <Item Value="ViolationEventFlag"/>
+          <Item Value="CitationNumber"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <tree IterBinding="CitationView1Iterator" id="CitationView1">
+      <nodeDefinition DefName="gov.ca.dir.acct.calosha.adf.usecase024.model.view.CitationView"
+                      Name="CitationView10">
+        <AttrNames>
+          <Item Value="CitationNumber"/>
+          <Item Value="CitationLineTotal"/>
+          <Item Value="CitationInitialTotal"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <attributeValues IterBinding="PersonView1Iterator" id="FirstName">
+      <AttrNames>
+        <Item Value="FirstName"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PersonView1Iterator" id="LastName">
+      <AttrNames>
+        <Item Value="LastName"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="MailingAddressIterator" id="StreetAddress">
+      <AttrNames>
+        <Item Value="StreetAddress"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="MailingAddressIterator" id="AddressLine2">
+      <AttrNames>
+        <Item Value="AddressLine2"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="MailingAddressIterator" id="City">
+      <AttrNames>
+        <Item Value="City"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="MailingAddressIterator" id="State">
+      <AttrNames>
+        <Item Value="State"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="MailingAddressIterator" id="StateCode">
+      <AttrNames>
+        <Item Value="StateCode"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="MailingAddressIterator" id="ZipCode">
+      <AttrNames>
+        <Item Value="ZipCode"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="SiteAddressIterator" id="StreetAddress1">
+      <AttrNames>
+        <Item Value="StreetAddress"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="SiteAddressIterator" id="AddressLine21">
+      <AttrNames>
+        <Item Value="AddressLine2"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="SiteAddressIterator" id="City1">
+      <AttrNames>
+        <Item Value="City"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="SiteAddressIterator" id="State1">
+      <AttrNames>
+        <Item Value="State"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="SiteAddressIterator" id="StateCode1">
+      <AttrNames>
+        <Item Value="StateCode"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="SiteAddressIterator" id="ZipCode1">
+      <AttrNames>
+        <Item Value="ZipCode"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="InvoiceView1Iterator" id="CountIMIS">
+      <AttrNames>
+        <Item Value="CountIMIS"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="InvoiceView1Iterator" id="Citationissuedate">
+      <AttrNames>
+        <Item Value="Citationissuedate"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="InvoiceView1Iterator" id="InspectionNumber">
+      <AttrNames>
+        <Item Value="InspectionNumber"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="InvoiceView1Iterator" id="IndexCode">
+      <AttrNames>
+        <Item Value="IndexCode"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="InvoiceView1Iterator" id="Currentamount">
+      <AttrNames>
+        <Item Value="Currentamount"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="InvoiceView1Iterator" id="CshoId">
+      <AttrNames>
+        <Item Value="CshoId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PersonView1Iterator" id="DriversLicence">
+      <AttrNames>
+        <Item Value="DriversLicence"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PersonView1Iterator" id="DateOfBirth">
+      <AttrNames>
+        <Item Value="DateOfBirth"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PersonView1Iterator" id="DateOfDeath">
+      <AttrNames>
+        <Item Value="DateOfDeath"/>
+      </AttrNames>
+    </attributeValues>
+    <tree IterBinding="ContactMethodView1Iterator" id="ContactMethodView1">
+      <nodeDefinition DefName="gov.ca.dir.acct.calosha.adf.usecase024.model.view.ContactMethodView"
+                      Name="ContactMethodView10">
+        <AttrNames>
+          <Item Value="ContactMethodTypeCode"/>
+          <Item Value="ContactMethodValue"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <attributeValues IterBinding="InvoiceView1Iterator" id="AppealDate">
+      <AttrNames>
+        <Item Value="AppealDate"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="InvoiceView1Iterator" id="ClosedDate">
+      <AttrNames>
+        <Item Value="ClosedDate"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="InvoiceView1Iterator"
+                     id="Invoiceappealamount">
+      <AttrNames>
+        <Item Value="Invoiceappealamount"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="InvoiceView1Iterator"
+                     id="Invoicedecisionamount">
+      <AttrNames>
+        <Item Value="Invoicedecisionamount"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="InvoiceView1Iterator" id="Totalpayments">
+      <AttrNames>
+        <Item Value="Totalpayments"/>
+      </AttrNames>
+    </attributeValues>
+    <tree IterBinding="AppealDetailView1Iterator" id="AppealDetailView1">
+      <nodeDefinition DefName="gov.ca.dir.acct.calosha.adf.usecase024.model.view.AppealDetailView"
+                      Name="AppealDetailView10">
+        <AttrNames>
+          <Item Value="CitationNumber"/>
+          <Item Value="CitationItemNumber"/>
+          <Item Value="DocketNumber"/>
+          <Item Value="DocketThroughNumber"/>
+          <Item Value="DocketDate"/>
+          <Item Value="DecisionDate"/>
+          <Item Value="CurrentAmount"/>
+          <Item Value="AppealedAmount"/>
+          <Item Value="DecisionAmount"/>
+          <Item Value="InitialAmount"/>
+          <Item Value="CreatedBy"/>
+          <Item Value="CreatedDate"/>
+          <Item Value="ModifiedDate"/>
+          <Item Value="Status"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <tree IterBinding="InvoiceAllPaymentView2Iterator"
+          id="InvoiceAllPaymentView2">
+      <nodeDefinition DefName="gov.ca.dir.acct.calosha.adf.usecase024.model.view.InvoiceAllPaymentView"
+                      Name="InvoiceAllPaymentView20">
+        <AttrNames>
+          <Item Value="DepositSlipNumber"/>
+          <Item Value="TransmittalDate"/>
+          <Item Value="PaymentControlNumber"/>
+          <Item Value="PaymentTypeCode"/>
+          <Item Value="PaymentDate"/>
+          <Item Value="PaymentAmount"/>
+          <Item Value="AllocatedAmount"/>
+          <Item Value="BillTypeCode"/>
+          <Item Value="AllocationDate"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <tree IterBinding="PaymentPlanView1Iterator" id="PaymentPlanView1">
+      <nodeDefinition DefName="gov.ca.dir.acct.calosha.adf.usecase024.model.view.PaymentPlanView"
+                      Name="PaymentPlanView10">
+        <AttrNames>
+          <Item Value="InspectionId"/>
+          <Item Value="PayPlanAgreementId"/>
+          <Item Value="AgreementReferenceNumber"/>
+          <Item Value="Authority"/>
+          <Item Value="EffectiveEndDate"/>
+          <Item Value="EffectiveStartDate"/>
+          <Item Value="PaymentPlanStartDate"/>
+          <Item Value="SetupDate"/>
+          <Item Value="StatusDate"/>
+          <Item Value="TotalInstallment"/>
+          <Item Value="DownPayment"/>
+          <Item Value="AmountDue"/>
+          <Item Value="Status"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <tree IterBinding="JudgmentView1Iterator" id="JudgmentView1">
+      <nodeDefinition DefName="gov.ca.dir.acct.calosha.adf.usecase024.model.view.JudgmentView"
+                      Name="JudgmentView10">
+        <AttrNames>
+          <Item Value="JudgmentId"/>
+          <Item Value="JudgmentFromId"/>
+          <Item Value="InspectionId"/>
+          <Item Value="JudgmentFileTypeCode"/>
+          <Item Value="CourtNumber"/>
+          <Item Value="StateCaseNumber"/>
+          <Item Value="Comments"/>
+          <Item Value="Status"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <tree IterBinding="JudgmentDetailsView1Iterator" id="JudgmentDetailsView1">
+      <nodeDefinition DefName="gov.ca.dir.acct.calosha.adf.usecase024.model.view.JudgmentDetailsView"
+                      Name="JudgmentDetailsView10">
+        <AttrNames>
+          <Item Value="JudgmentId"/>
+          <Item Value="JudgmentDetailId"/>
+          <Item Value="FilingDate"/>
+          <Item Value="EnterDate"/>
+          <Item Value="ReceiptDate"/>
+          <Item Value="RejectDate"/>
+          <Item Value="RenewalDate"/>
+          <Item Value="ReversalDate"/>
+          <Item Value="InvoiceAmount"/>
+          <Item Value="CourtFilingFee"/>
+          <Item Value="PreJudgmentInterest"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <tree IterBinding="PaymentPlanDetailView1Iterator"
+          id="PaymentPlanDetailView1">
+      <nodeDefinition DefName="gov.ca.dir.acct.calosha.adf.usecase024.model.view.PaymentPlanDetailView"
+                      Name="PaymentPlanDetailView10">
+        <AttrNames>
+          <Item Value="PayPlanAgreementId"/>
+          <Item Value="PaymentPlanDetailId"/>
+          <Item Value="InstallmentNumber"/>
+          <Item Value="AmountDue"/>
+          <Item Value="DueDate"/>
+          <Item Value="StatusDate"/>
+          <Item Value="Status"/>
+          <Item Value="PaymentPlanDetailPaidAmount"/>
+          <Item Value="PaymentPlanDetailPaidDate"/>
+          <Item Value="PaymentPlanInstallmentStatus"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <attributeValues IterBinding="InvoiceView1Iterator"
+                     id="Totalunbillpayments">
+      <AttrNames>
+        <Item Value="Totalunbillpayments"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="OrganizaitonClassView1Iterator"
+                     id="LegalName">
+      <AttrNames>
+        <Item Value="LegalName"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="OrganizaitonClassView1Iterator" id="Dba1">
+      <AttrNames>
+        <Item Value="Dba"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="OrganizaitonClassView1Iterator" id="Fein1">
+      <AttrNames>
+        <Item Value="Fein"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="OrganizaitonClassView1Iterator"
+                     id="NaicsCode">
+      <AttrNames>
+        <Item Value="NaicsCode"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="OrganizaitonClassView1Iterator" id="PartyId">
+      <AttrNames>
+        <Item Value="PartyId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="OrganizaitonClassView1Iterator" id="Sein">
+      <AttrNames>
+        <Item Value="Sein"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="OrganizaitonClassView1Iterator" id="SicCode">
+      <AttrNames>
+        <Item Value="SicCode"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="OrganizaitonClassView1Iterator"
+                     id="PartyCategoryCode1">
+      <AttrNames>
+        <Item Value="PartyCategoryCode"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="OrganizaitonClassView1Iterator"
+                     id="PartyClassficationCode1">
+      <AttrNames>
+        <Item Value="PartyClassficationCode"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="SiteAddressIterator" id="Zip4">
+      <AttrNames>
+        <Item Value="Zip4"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="SiteAddressIterator" id="CountyCode">
+      <AttrNames>
+        <Item Value="CountyCode"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="SiteAddressIterator" id="Country">
+      <AttrNames>
+        <Item Value="Country"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="SiteAddressIterator" id="CountryCode">
+      <AttrNames>
+        <Item Value="CountryCode"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="SiteAddressIterator" id="AddressTypeCode">
+      <AttrNames>
+        <Item Value="AddressTypeCode"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="SiteAddressIterator" id="AddressId">
+      <AttrNames>
+        <Item Value="AddressId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="SiteAddressIterator" id="PartyId1">
+      <AttrNames>
+        <Item Value="PartyId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="InvoiceView1Iterator" id="ReferredTo">
+      <AttrNames>
+        <Item Value="ReferredTo"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="InvoiceView1Iterator" id="LastName1">
+      <AttrNames>
+        <Item Value="LastName"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="InvoiceView1Iterator" id="FirstName1">
+      <AttrNames>
+        <Item Value="FirstName"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="InvoiceView1Iterator" id="MiddleName">
+      <AttrNames>
+        <Item Value="MiddleName"/>
+      </AttrNames>
+    </attributeValues>
+    <methodAction id="doQueryResultReset"
+                  InstanceName="ReferralSearchInvoiceAMDataControl.dataProvider"
+                  DataControl="ReferralSearchInvoiceAMDataControl"
+                  RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="doQueryResultReset" IsViewObjectMethod="false"/>
+    <attributeValues IterBinding="InvoiceView1Iterator" id="InspectionId">
+      <AttrNames>
+        <Item Value="InspectionId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="ThirdPartyCollectionHeaderView1Iterator"
+                     id="TpCollectionHeaderId">
+      <AttrNames>
+        <Item Value="TpCollectionHeaderId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="InvoiceView1Iterator" id="Initialamount">
+      <AttrNames>
+        <Item Value="Initialamount"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="InvoiceView1Iterator" id="EddEligible">
+      <AttrNames>
+        <Item Value="EddEligible"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="InvoiceView1Iterator" id="CurrentDate">
+      <AttrNames>
+        <Item Value="CurrentDate"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="JudgmentDetailsView1Iterator" id="FilingDate">
+      <AttrNames>
+        <Item Value="FilingDate"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="CitationItemView1Iterator" id="PcaCode">
+      <AttrNames>
+        <Item Value="PcaCode"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="CitationItemView1Iterator"
+                     id="AgencySourceCode">
+      <AttrNames>
+        <Item Value="AgencySourceCode"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="CitationItemView1Iterator" id="FundId">
+      <AttrNames>
+        <Item Value="FundId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="CitationItemView1Iterator" id="FiscalYear">
+      <AttrNames>
+        <Item Value="FiscalYear"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="CitationItemView1Iterator"
+                     id="RevenueSourceCode">
+      <AttrNames>
+        <Item Value="RevenueSourceCode"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="ReportingtoIndexMapView1Iterator"
+                     id="ReportingId">
+      <AttrNames>
+        <Item Value="ReportingId"/>
+      </AttrNames>
+    </attributeValues>
+    <action id="Commit" DataControl="ReferralSearchInvoiceAMDataControl"
+            RequiresUpdateModel="true" Action="commitTransaction"/>
+    <action id="Rollback" RequiresUpdateModel="false"
+            Action="rollbackTransaction"
+            DataControl="ReferralSearchInvoiceAMDataControl"/>
+    <attributeValues IterBinding="ReferralView1Iterator" id="ReferralId">
+      <AttrNames>
+        <Item Value="ReferralId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="InvoiceView1Iterator" id="DemandLetter">
+      <AttrNames>
+        <Item Value="DemandLetter"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="InvoiceView1Iterator" id="CourtDue">
+      <AttrNames>
+        <Item Value="CourtDue"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="InvoiceView1Iterator" id="InterestDue">
+      <AttrNames>
+        <Item Value="InterestDue"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="InvoiceView1Iterator" id="NsfDue">
+      <AttrNames>
+        <Item Value="NsfDue"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="InvoiceView1Iterator" id="FinalTotalAmtDue">
+      <AttrNames>
+        <Item Value="FinalTotalAmtDue"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="InvoiceView1Iterator" id="Invoicebalance">
+      <AttrNames>
+        <Item Value="Invoicebalance"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="CitationItemView1Iterator"
+                     id="PartyAgencyFundMapIdCollectFee">
+      <AttrNames>
+        <Item Value="PartyAgencyFundMapIdCollectFee"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="InvoiceView1Iterator"
+                     id="ThirdPartyCollectParentId">
+      <AttrNames>
+        <Item Value="ThirdPartyCollectParentId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="FeeView1Iterator" id="Amount">
+      <AttrNames>
+        <Item Value="Amount"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="InvoiceView1Iterator" id="CollectFeeDue">
+      <AttrNames>
+        <Item Value="CollectFeeDue"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="InvoiceView1Iterator"
+                     id="ThirdPartyCollectRParentId">
+      <AttrNames>
+        <Item Value="ThirdPartyCollectRParentId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="InvoiceView1Iterator" id="FinalTotalAmtDueR">
+      <AttrNames>
+        <Item Value="FinalTotalAmtDueR"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="JudgmentDetailsView1Iterator"
+                     id="InterestThruDate">
+      <AttrNames>
+        <Item Value="InterestThruDate"/>
+      </AttrNames>
+    </attributeValues>
+    <action IterBinding="CallLogView1Iterator" id="CreateCallLogNote"
+            InstanceName="ReferralSearchInvoiceAMDataControl.CallLogView1"
+            DataControl="ReferralSearchInvoiceAMDataControl"
+            RequiresUpdateModel="true" Action="createWithParams">
+      <NamedData NDName="InspectionId" NDType="oracle.jbo.domain.Number"
+                 NDValue="#{bindings.InspectionId.attributeValue}"/>
+    </action>
+    <action IterBinding="CallLogView1Iterator" id="DeleteCallLogNote"
+            InstanceName="ReferralSearchInvoiceAMDataControl.CallLogView1"
+            DataControl="ReferralSearchInvoiceAMDataControl"
+            RequiresUpdateModel="false" Action="removeCurrentRow"/>
+    <tree IterBinding="CallLogView1Iterator" id="CallLogView1">
+      <nodeDefinition DefName="gov.ca.dir.acct.calosha.adf.usecase024.model.view.CallLogView"
+                      Name="CallLogView10">
+        <AttrNames>
+          <Item Value="CreatedBy"/>
+          <Item Value="CallDate"/>
+          <Item Value="TelephoneNumber"/>
+          <Item Value="Comments"/>
+          <Item Value="CreatedDate"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <attributeValues IterBinding="InvoiceView1Iterator" id="Status">
+      <AttrNames>
+        <Item Value="Status"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="CallLogView1Iterator" id="Comments">
+      <AttrNames>
+        <Item Value="Comments"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="InvoiceView1Iterator" id="OnepLetter">
+      <AttrNames>
+        <Item Value="OnepLetter"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="InvoiceView1Iterator" id="CollLetter">
+      <AttrNames>
+        <Item Value="CollLetter"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="InvoiceView1Iterator" id="AppealTypeCode">
+      <AttrNames>
+        <Item Value="AppealTypeCode"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="InvoiceView1Iterator" id="PersonId">
+      <AttrNames>
+        <Item Value="PersonId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="InvoiceView1Iterator" id="Pmtplanstatus">
+      <AttrNames>
+        <Item Value="Pmtplanstatus"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="InvoiceView1Iterator" id="IsAppealOpen">
+      <AttrNames>
+        <Item Value="IsAppealOpen"/>
+      </AttrNames>
+    </attributeValues>
+    <action IterBinding="ThirdPartyCollectionLastNRCeasedRecallIterator"
+            id="ExecuteWithParamsTpcLastNrCeasedRecall"
+            InstanceName="ReferralSearchInvoiceAMDataControl.ThirdPartyCollectionLastNRCeasedRecall"
+            DataControl="ReferralSearchInvoiceAMDataControl"
+            RequiresUpdateModel="true" Action="executeWithParams">
+      <NamedData NDName="varInspectionNumber"
+                 NDValue="#{backingBeanScope.EddFunctionsBean.debtorNumber}"
+                 NDType="java.lang.String"/>
+    </action>
+    <attributeValues IterBinding="ThirdPartyCollectionLastNRCeasedRecallIterator"
+                     id="LiabilityFinalityDate">
+      <AttrNames>
+        <Item Value="LiabilityFinalityDate"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="InvoiceView1Iterator" id="InspectionId2">
+      <AttrNames>
+        <Item Value="InspectionId2"/>
+      </AttrNames>
+    </attributeValues>
+  </bindings>
+</pageDefinition>

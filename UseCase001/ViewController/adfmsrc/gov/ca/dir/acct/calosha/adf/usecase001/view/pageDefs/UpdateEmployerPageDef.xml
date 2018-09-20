@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel"
+                version="11.1.1.64.93" id="UpdateEmployerPageDef"
+                Package="gov.ca.dir.acct.calosha.adf.UseCase001.view.pageDefs">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator id="UpdateEmployerView1Iterator" Binds="UpdateEmployerView1"
+              DataControl="EmployerSearchAMDataControl" RangeSize="25"/>
+    <iterator Binds="AddressView2" RangeSize="25"
+              DataControl="EmployerSearchAMDataControl"
+              id="AddressView2Iterator"/>
+    <iterator Binds="OrganizationView1" RangeSize="25"
+              DataControl="EmployerSearchAMDataControl"
+              id="OrganizationView1Iterator"/>
+    <iterator Binds="EmployerSearchView1" RangeSize="25"
+              DataControl="EmployerSearchAMDataControl"
+              id="EmployerSearchView1Iterator"/>
+    <iterator Binds="ContactMethodView1" RangeSize="25"
+              DataControl="EmployerSearchAMDataControl"
+              id="ContactMethodView1Iterator"/>
+    <iterator Binds="AddressView1" RangeSize="25"
+              DataControl="EmployerSearchAMDataControl"
+              id="AddressView1Iterator"/>
+  </executables>
+  <bindings>
+    <action id="Commit" RequiresUpdateModel="false" Action="commitTransaction"
+            DataControl="EmployerSearchAMDataControl"/>
+    <action id="Rollback" DataControl="EmployerSearchAMDataControl"
+            RequiresUpdateModel="false" Action="rollbackTransaction"/>
+    <attributeValues IterBinding="AddressView2Iterator" id="AddressLine2">
+      <AttrNames>
+        <Item Value="AddressLine2"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="AddressView2Iterator" id="City">
+      <AttrNames>
+        <Item Value="City"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="AddressView2Iterator" id="ZipCode">
+      <AttrNames>
+        <Item Value="ZipCode"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="AddressView2Iterator" id="Zip4">
+      <AttrNames>
+        <Item Value="Zip4"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="AddressView2Iterator" id="StreetAddress">
+      <AttrNames>
+        <Item Value="StreetAddress"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="OrganizationView1Iterator" id="Dba">
+      <AttrNames>
+        <Item Value="Dba"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="OrganizationView1Iterator" id="LegalName">
+      <AttrNames>
+        <Item Value="LegalName"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="OrganizationView1Iterator" id="NaicsCode">
+      <AttrNames>
+        <Item Value="NaicsCode"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="OrganizationView1Iterator" id="SicCode">
+      <AttrNames>
+        <Item Value="SicCode"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="AddressView2Iterator" id="StateCode">
+      <AttrNames>
+        <Item Value="StateCode"/>
+      </AttrNames>
+    </attributeValues>
+    <list IterBinding="AddressView2Iterator" StaticList="false"
+          Uses="LOV_StateCode" id="StateCode1" DTSupportsMRU="true"/>
+    <tree IterBinding="AddressView2Iterator" id="AddressView2">
+      <nodeDefinition DefName="gov.ca.dir.acct.calosha.adf.usecase001.model.view.AddressView"
+                      Name="AddressView20">
+        <AttrNames>
+          <Item Value="AddressTypeCode"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <attributeValues IterBinding="UpdateEmployerView1Iterator" id="PartyId">
+      <AttrNames>
+        <Item Value="PartyId"/>
+      </AttrNames>
+    </attributeValues>
+    <tree IterBinding="ContactMethodView1Iterator" id="ContactMethodView1">
+      <nodeDefinition DefName="gov.ca.dir.acct.calosha.adf.usecase001.model.view.ContactMethodView"
+                      Name="ContactMethodView10">
+        <AttrNames>
+          <Item Value="ContactMethodTypeCode"/>
+          <Item Value="ContactMethodValue"/>
+          <Item Value="EffectiveStartDate"/>
+          <Item Value="EffectiveEndDate"/>
+          <Item Value="CreatedBy"/>
+          <Item Value="CreatedDate"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <action IterBinding="ContactMethodView1Iterator" id="CreateContactMethod"
+            InstanceName="EmployerSearchAMDataControl.ContactMethodView1"
+            DataControl="EmployerSearchAMDataControl" RequiresUpdateModel="true"
+            Action="createWithParams">
+      <NamedData NDType="java.lang.String" NDName="ContactMethodValue"
+                 NDValue="#{requestScope.inputContactMethodTypeCode}"/>
+      <NamedData NDName="ContactMethodTypeCode" NDType="java.lang.String"
+                 NDValue="#{requestScope.inputContactMethodTypeCode}"/>
+    </action>
+    <action IterBinding="AddressView2Iterator" id="CreateSite"
+            InstanceName="EmployerSearchAMDataControl.AddressView2"
+            DataControl="EmployerSearchAMDataControl" RequiresUpdateModel="true"
+            Action="createWithParams">
+      <NamedData NDName="AddressTypeCode" NDType="java.lang.String"
+                 NDValue="SITE"/>
+    </action>
+    <action IterBinding="AddressView2Iterator" id="CreateMailing"
+            InstanceName="EmployerSearchAMDataControl.AddressView2"
+            DataControl="EmployerSearchAMDataControl" RequiresUpdateModel="true"
+            Action="createWithParams">
+      <NamedData NDName="AddressTypeCode" NDType="java.lang.String"
+                 NDValue="MAILING"/>
+    </action>
+    <attributeValues IterBinding="ContactMethodView1Iterator"
+                     id="ContactMethodValue">
+      <AttrNames>
+        <Item Value="ContactMethodValue"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="OrganizationView1Iterator" id="Fein">
+      <AttrNames>
+        <Item Value="Fein"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="AddressView1Iterator" id="FsSequenceNumber">
+      <AttrNames>
+        <Item Value="FsSequenceNumber"/>
+      </AttrNames>
+    </attributeValues>
+  </bindings>
+</pageDefinition>

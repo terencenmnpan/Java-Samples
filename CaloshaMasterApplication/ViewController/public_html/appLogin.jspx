@@ -1,0 +1,80 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1"
+          xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:h="http://java.sun.com/jsf/html"
+          xmlns:af="http://xmlns.oracle.com/adf/faces/rich" xmlns:c="http://java.sun.com/jsp/jstl/core">
+  <c:set var="viewcontrollerBundle" value="#{adfBundle['gov.ca.dir.acct.calosha.adf.master.viewcontroller.ViewControllerBundle']}"/>
+  <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+  <f:view>
+    <af:document id="d1">
+      <af:form id="f1" defaultCommand="pt1:cb1">
+        <af:pageTemplate viewId="/oracle/ui/pattern/dynamicShell/dynamicTabShell.jspx"
+                         value="#{bindings.pageTemplateBinding}" id="pt1">
+          <f:facet name="copyright">
+            <af:group id="group1">
+              <af:panelGroupLayout id="pgl3" layout="vertical">
+                <af:outputText value="CalOSHA Accounts Receivable System (CalOSHA-AR)"
+                               id="ot2"
+                               inlineStyle="font-size:small; font-weight:bold;"/>
+                <af:goLink id="goLink1" text="#{viewcontrollerBundle.DIR_COPYRIGHT}" targetFrame="_blank" destination="http://www.dir.ca.gov/"/>
+              </af:panelGroupLayout>
+            </af:group>
+          </f:facet>
+          <f:facet name="about">
+            <af:commandLink text="About CalOSHA-AR" id="cl1"/>
+          </f:facet>
+          <f:facet name="navigation"/>
+          <f:facet name="globalLinks"/>
+          <f:facet name="status"/>
+          <f:facet name="globalToolbar"/>
+          <f:facet name="globalSearch"/>
+          <f:facet name="globalTabs"/>
+          <f:facet name="welcome">
+            <af:group id="g1">
+              <af:panelGroupLayout id="pgl1"
+                                   layout="scroll" halign="center"
+                                   inlineStyle="background-image:url(&quot;CALOSHAGraphics.png&quot;); background-color:inherit;">
+                <af:spacer width="10" height="200" id="s1"/>
+                <af:panelGroupLayout id="pgl2" halign="end"
+                                     styleClass="AFStretchWidth"
+                                     layout="horizontal">
+                  <af:panelFormLayout id="pfl1" styleClass="AFStretchWidth"
+                                      inlineStyle="background-color:InfoBackground; border-color:Blue; border-style:inset; border-width:thin; padding:10%;"
+                                      fieldWidth="250" labelWidth="50">
+                    <f:facet name="footer"/>
+                    <af:outputFormatted value="Please Sign-In" id="of1"
+                                        inlineStyle="font-weight:bold;"/>
+                    <af:inputText label="Username" id="it1"
+                                  value="#{securityBean.username}"
+                                  autoSubmit="true"/>
+                    <af:inputText label="Password" id="it2" secret="true"
+                                  value="#{securityBean.password}"
+                                  autoSubmit="true"/>
+                    <af:commandButton text="Submit" id="cb1"
+                                      action="#{securityBean.doLogin}"
+                                      partialSubmit="true"/>
+                  </af:panelFormLayout>
+                  <af:spacer height="10" id="s2" width="80"/>
+                </af:panelGroupLayout>
+              </af:panelGroupLayout>
+            </af:group>
+          </f:facet>
+          <f:facet name="innerToolbar"/>
+          <f:attribute name="navSplitterDisabled" value="true"/>
+          <f:attribute name="navSplitterPosition" value="0"/>
+          <f:attribute name="brandingTitle"
+                       value="Department of Industrial Relations"/>
+        </af:pageTemplate>
+        <af:popup id="p1" popupCanceledListener="#{securityBean.updatePasswordPopupCanceledListener}" launcherVar="popupVar">
+          <af:dialog id="d2" title="Change Default Password" dialogListener="#{securityBean.updatePasswordDialogListener}">
+            <af:inputText label="New Password" id="NewPasswordInputText" binding="#{securityBean._newPassword}" validator="#{changePasswordBean.passwordValidator}" autoSubmit="true"
+                          shortDesc="Password must be minimum of 8 characters with at least one uppercase char, one lowercase char, one number and one of special char (#?!@$%^&amp;*-)."
+                          secret="true"/>
+            <af:inputText label="Confirm Password" id="ConfirmPasswordInputText" binding="#{securityBean._confirmPassword}" autoSubmit="false" secret="true"
+                          immediate="true" validator="#{securityBean.confirmPasswordValidator}"/>
+          </af:dialog>
+        </af:popup>
+      </af:form>
+    </af:document>
+  </f:view>
+</jsp:root>

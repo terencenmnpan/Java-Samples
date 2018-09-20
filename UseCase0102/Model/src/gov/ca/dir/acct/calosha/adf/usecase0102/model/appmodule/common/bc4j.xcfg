@@ -1,0 +1,15 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<BC4JConfig version="11.1" xmlns="http://xmlns.oracle.com/bc4j/configuration">
+   <AppModuleConfigBag ApplicationName="gov.ca.dir.acct.calosha.adf.usecase0102.model.appmodule.ProcessPaymentAM">
+      <AppModuleConfig name="ProcessPaymentAMLocal" DeployPlatform="LOCAL" jbo.project="gov.ca.dir.acct.calosha.adf.usecase0102.model.Model" java.naming.factory.initial="oracle.jbo.common.JboInitialContextFactory" ApplicationName="gov.ca.dir.acct.calosha.adf.usecase0102.model.appmodule.ProcessPaymentAM">
+         <Security AppModuleJndiName="gov.ca.dir.acct.calosha.adf.usecase0102.model.appmodule.ProcessPaymentAM"/>
+         <Custom JDBCDataSource="java:comp/env/jdbc/calodevDS"/>
+      </AppModuleConfig>
+      <AppModuleConfig name="ProcessPaymentAMShared" DeployPlatform="LOCAL" jbo.project="gov.ca.dir.acct.calosha.adf.usecase0102.model.Model" java.naming.factory.initial="oracle.jbo.common.JboInitialContextFactory" ApplicationName="gov.ca.dir.acct.calosha.adf.usecase0102.model.appmodule.ProcessPaymentAM">
+         <AM-Pooling jbo.ampool.isuseexclusive="false" jbo.ampool.maxpoolsize="1"/>
+         <Security AppModuleJndiName="gov.ca.dir.acct.calosha.adf.usecase0102.model.appmodule.ProcessPaymentAM"/>
+         <Custom JDBCDataSource="java:comp/env/jdbc/calodevDS"/>
+      </AppModuleConfig>
+   </AppModuleConfigBag>
+   <AppModuleConfigBag ApplicationName="gov.ca.dir.acct.calosha.adf.usecase0102.model.appmodule.ProcessUnappliedPaymentAM"/>
+</BC4JConfig>

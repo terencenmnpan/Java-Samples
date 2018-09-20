@@ -1,0 +1,1632 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="InvoiceView"
+  Version="11.1.1.64.93"
+  InheritPersonalization="true"
+  BindingStyle="OracleName"
+  CustomQuery="true"
+  PageIterMode="Full"
+  UseGlueCode="false"
+  OrderBy='"INSPECTION_NUMBER"'>
+  <DesignTime>
+    <Attr Name="_isExpertMode" Value="true"/>
+  </DesignTime>
+  <Properties>
+    <SchemaBasedProperties>
+      <LABEL
+        ResId="gov.ca.dir.acct.calosha.adf.usecase024.model.view.InvoiceView_LABEL"/>
+    </SchemaBasedProperties>
+  </Properties>
+  <Variable
+    Name="varInspectionNumnber"
+    Kind="viewcriteria"
+    Type="java.lang.String"/>
+  <Variable
+    Name="varLegalName"
+    Kind="viewcriteria"
+    Type="java.lang.String"/>
+  <Variable
+    Name="varDocketNumber"
+    Kind="viewcriteria"
+    Type="java.lang.String"/>
+  <Variable
+    Name="p_ReferredTo"
+    Kind="viewcriteria"
+    Type="java.lang.String"/>
+  <Variable
+    Name="p_Index"
+    Kind="viewcriteria"
+    Type="java.lang.String"/>
+  <Variable
+    Name="p_AppealDate"
+    Kind="viewcriteria"
+    Type="java.sql.Date"/>
+  <Variable
+    Name="p_LastName"
+    Kind="viewcriteria"
+    Type="java.lang.String"/>
+  <Variable
+    Name="p_FirstName"
+    Kind="viewcriteria"
+    Type="java.lang.String"/>
+  <Variable
+    Name="p_ReferralDate"
+    Kind="viewcriteria"
+    Type="java.sql.Date"/>
+  <Variable
+    Name="p_InvoiceDate"
+    Kind="viewcriteria"
+    Type="java.sql.Date"/>
+  <Variable
+    Name="p_Status"
+    Kind="viewcriteria"
+    Type="java.lang.String">
+    <Properties>
+      <SchemaBasedProperties>
+        <CONTROLTYPE
+          Value="choice"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </Variable>
+  <ViewAccessor
+    Name="ReferralStatusView1"
+    ViewObjectName="gov.ca.dir.acct.calosha.adf.usecase024.model.view.ReferralStatusView"
+    RowLevelBinds="true"/>
+  <ViewAccessor
+    Name="IndexView1"
+    ViewObjectName="gov.ca.dir.acct.calosha.adf.usecase024.model.view.IndexView"
+    RowLevelBinds="true"/>
+  <ViewAccessor
+    Name="ThirdPartyCollectionLatestNRView"
+    ViewObjectName="gov.ca.dir.acct.calosha.adf.usecase024.model.view.ThirdPartyCollectionNView">
+    <ViewCriteriaUsage
+      Name="TpcCheckValidEddDORRecordViewCriteria"
+      FullName="gov.ca.dir.acct.calosha.adf.usecase024.model.view.ThirdPartyCollectionNView.TpcCheckValidEddDORRecordViewCriteria"/>
+    <ParameterMap>
+      <PIMap Variable="varInspectionNumber">
+        <TransientExpression><![CDATA[InspectionNumber]]></TransientExpression>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>
+  <ViewAccessor
+    Name="FeeView1"
+    ViewObjectName="gov.ca.dir.acct.calosha.adf.usecase024.model.view.FeeView"
+    RowLevelBinds="true"/>
+  <ViewAccessor
+    Name="YesNoVo1"
+    ViewObjectName="gov.ca.dir.acct.calosha.adf.usecase024.model.view.YesNoVo"
+    RowLevelBinds="true"/>
+  <ViewAccessor
+    Name="ThirdPartyCollectionLatestNRDView"
+    ViewObjectName="gov.ca.dir.acct.calosha.adf.usecase024.model.view.ThirdPartyCollectionNView">
+    <ViewCriteriaUsage
+      Name="TpcLatestNRDRecord"
+      FullName="gov.ca.dir.acct.calosha.adf.usecase024.model.view.ThirdPartyCollectionNView.TpcLatestNRDRecord"/>
+    <ParameterMap>
+      <PIMap Variable="varInspectionNumber">
+        <TransientExpression><![CDATA[InspectionNumber]]></TransientExpression>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>
+  <ViewAccessor
+    Name="CollectionStaffList1"
+    ViewObjectName="gov.ca.dir.acct.calosha.adf.usecase024.model.view.CollectionStaffList"
+    RowLevelBinds="true"/>
+  <ListBinding
+    Name="LOV_Status"
+    ListVOName="ReferralStatusView1"
+    ListRangeSize="-1"
+    NullValueFlag="start"
+    NullValueId="${adfBundle['oracle.javatools.resourcebundle.SystemBundle']['NULL_VALUE_RESID']}"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="Status"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="Status"/>
+    </AttrArray>
+    <DisplayCriteria/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_IndexCode"
+    ListVOName="IndexView1"
+    ListRangeSize="-1"
+    NullValueFlag="start"
+    NullValueId="${adfBundle['oracle.javatools.resourcebundle.SystemBundle']['NULL_VALUE_RESID']}"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="IndexCode"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="IndexCode"/>
+    </AttrArray>
+    <DisplayCriteria/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_EddReferrable"
+    ListVOName="YesNoVo1"
+    ListRangeSize="-1"
+    NullValueFlag="start"
+    NullValueId="${adfBundle['oracle.javatools.resourcebundle.SystemBundle']['NULL_VALUE_RESID']}"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="EddReferrable"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="YesNo"/>
+    </AttrArray>
+    <DisplayCriteria/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_ReferredTo"
+    ListVOName="CollectionStaffList1"
+    ListRangeSize="-1"
+    NullValueFlag="start"
+    NullValueId="${adfBundle['oracle.javatools.resourcebundle.SystemBundle']['NULL_VALUE_RESID']}"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="ReferredTo"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="ReferredTo"/>
+    </AttrArray>
+    <DisplayCriteria/>
+  </ListBinding>
+  <SQLQuery>
+    <![CDATA[SELECT I.INSPECTION_ID,
+  I.INSPECTION_NUMBER,
+  trunc(I.invoice_date) CitationIssueDate, 
+  O.LEGAL_NAME,
+  O.ORGANIZATION_NAME, 
+  trunc(INS_APPEAL.APPEAL_DATE) APPEAL_DATE, 
+  trunc(R.REFERRAL_DATE) REFERRAL_DATE,
+  RTIM.INDEX_CODE,
+  P.FIRST_NAME, 
+  P.MIDDLE_NAME, 
+  P.LAST_NAME,
+  initcap(P.LAST_NAME)||', '||initcap(P.FIRST_NAME) REFERRED_TO,
+  I.CSHO_ID,
+  R.STATUS,
+  PR.PARTY_ID,
+  INS_APPEAL.APPEAL_ID,
+  trunc(INS_APPEAL.CLOSED_DATE) CLOSED_DATE,
+  INS_APPEAL.APPEAL_TYPE_CODE,
+  NULL DOCKET_NUMBER ,        --INS_APPEAL.DOCKET_NUMBER,
+  NULL DOCKET_THROUGH_NUMBER, --INS_APPEAL.docket_through_number,
+  INV_PAY.INITIAL_AMOUNT InitialAmount,
+  NVL(INV_PAY.INITIAL_AMOUNT, 0) + NVL(INV_PAY.AdjustmentAmount, 0) CurrentAmount,
+  INV_PAY.APPEAL_AMOUNT InvoiceAppealAmount, 
+  INV_PAY.APPEAL_DECISION_AMOUNT InvoiceDecisionAmount,
+  INV_PAY.TOTAL_BILLED_PAYMENT totalPayments,
+  INV_PAY.TOTAL_UNBILLED_PAYMENT totalUnbillPayments, 
+  --INV_PAY.INVOICE_BALANCE InvoiceBalance,
+  JudgmentFilingDate,
+  PPA.Pmt_Plan_SetupDate,      
+    TRUNC(INV_REFERRAL_PKG.FUNC_LETTER_SEND_DATE( p_InspectionId          => I.INSPECTION_ID,
+                                            p_CorrespondenceType    => 'ACCOUNTING_REMINDER',
+                                            p_Status                => 'GENERATED'
+                                            )) ACCTG_LETTER,
+    TRUNC(INV_REFERRAL_PKG.FUNC_LETTER_SEND_DATE( p_InspectionId          => I.INSPECTION_ID,
+                                            p_CorrespondenceType    => 'COLLECTION_REMINDER',
+                                            p_Status                => 'GENERATED'
+                                            )) COLL_LETTER,
+    TRUNC(INV_REFERRAL_PKG.FUNC_LETTER_SEND_DATE( p_InspectionId          => I.INSPECTION_ID,
+                                            p_CorrespondenceType    => '1P_LETTER',
+                                            p_Status                => 'GENERATED'
+                                            )) ONEP_LETTER,
+    TRUNC(INV_REFERRAL_PKG.FUNC_LETTER_SEND_DATE( p_InspectionId          => I.INSPECTION_ID,
+                                            p_CorrespondenceType    => 'DEMAND_LETTER',
+                                            p_Status                => 'GENERATED'
+                                            )) DEMAND_LETTER,
+    TRUNC(INV_REFERRAL_PKG.FUNC_LETTER_SEND_DATE( p_InspectionId          => I.INSPECTION_ID,
+                                            p_CorrespondenceType    => 'DEMAND_LETTER',
+                                            p_Status                => 'GENERATED'
+                                            ) + 30) EDD_ELIGIBLE,
+    TRUNC(SYSDATE) CURRENT_DATE,
+    COE_DOSH.RECEIVED_DATE DOSH_COE_DATE,
+    COE_OSHAB.RECEIVED_DATE OSHAB_COE_DATE,
+    I.REPORT_INDEX_MAP_ID,
+    NVL(COURT_DUE,0) COURT_DUE,
+    NVL(INTEREST_DUE,0) INTEREST_DUE,
+    NVL(NSF_DUE,0) NSF_DUE,
+    NVL(COLLECT_FEE_DUE,0) COLLECT_FEE_DUE,
+    INSPECTION_HISTORY.STATUS_DATE REFERRED_EDD,
+    R.REFERRAL_ID,
+    P.PARTY_ID AS PERSON_ID,
+    NVL2(PPA.Pmt_Plan_Status, PPA.Pmt_Plan_Status, 'NO_PAY_PLAN') as PmtPlanStatus,
+    NVL2(NVL2(APPEAL_DATE, TO_CHAR(INS_APPEAL.CLOSED_DATE), 'NO_APPEAL'), 'NOT_OPEN','OPEN') IS_APPEAL_OPEN
+
+FROM 
+    INSPECTION I,
+    REPORTING_TO_INDEX_MAP RTIM, 
+    PARTICIPANT_ROLE PR,
+    ORGANIZATION O, 
+    REFERRAL R,
+    RELATED_PARTY RP,
+    PERSON P,
+    (SELECT distinct 
+              AD.inspection_id,
+              A.appeal_date, 
+              A.appeal_id,
+              A.closed_date,
+              A.appeal_type_code
+   from APPEAL A, APPEAL_DETAIL AD
+   where A.appeal_id = AD.appeal_id AND AD.STATUS <> 'DELETED'
+   ) INS_APPEAL,
+   (
+    SELECT  CIT_ITEM.INSPECTION_ID,  
+            CIT_ITEM.CurrentAmount CURRENT_AMOUNT, 
+            CIT_ITEM.InitialAmount INITIAL_AMOUNT,
+            NVL(BILLED_AMOUNT.totalPayments,0) TOTAL_BILLED_PAYMENT, 
+            NVL(UNBILLED_AMOUNT.totalUnbilledPayments,0) TOTAL_UNBILLED_PAYMENT, 
+            NVL(APPEAL_AMOUNT.InvoiceAppealAmount,0) APPEAL_AMOUNT,
+            NVL(APPEAL_AMOUNT.InvoiceDecisionAmount,0) APPEAL_DECISION_AMOUNT,
+            ADJ_AMT.AdjustmentAmount AdjustmentAmount
+    FROM 
+        (  
+        SELECT  PA.inspection_id INSPECTION_ID, sum(nvl(PA.allocated_amount,0)) totalPayments       
+        FROM    payment_allocation PA   
+        WHERE   PA.inspection_id IS NOT NULL 
+        GROUP BY PA.inspection_id 
+        ) BILLED_AMOUNT,
+        (
+        SELECT  PA.unbilled_inspection_id INSPECTION_ID, sum(nvl(PA.allocated_amount,0)) totalUnbilledPayments       
+        FROM    payment_allocation PA    
+        WHERE   PA.unbilled_inspection_id IS NOT NULL
+        GROUP BY PA.unbilled_inspection_id 
+        ) UNBILLED_AMOUNT,
+        (
+        SELECT  ADL.inspection_id INSPECTION_ID, sum(nvl(ADL.appealed_amount,0)) InvoiceAppealAmount, sum(nvl(ADL.decision_amount,0)) InvoiceDecisionAmount      
+        FROM    appeal_detail ADL  
+        WHERE ADL.STATUS <> 'DELETED'
+        GROUP BY ADL.inspection_id 
+        ) APPEAL_AMOUNT,
+        (
+        SELECT CI.inspection_id, sum(nvl(CI.current_amount,0) + nvl(CI.current_fta_amount,0)) CurrentAmount, sum(nvl(CI.initial_amount,0) + nvl(CI.initial_fta_amount,0)) InitialAmount
+        FROM   CITATION_ITEM CI
+        GROUP BY CI.inspection_id
+        ) CIT_ITEM,
+        (
+        SELECT ADJUSTMENT.INSPECTION_ID, SUM(ADJUSTMENT.ADJUSTMENT_AMOUNT) AdjustmentAmount
+        FROM   ADJUSTMENT
+        GROUP BY inspection_id
+        ) ADJ_AMT
+    WHERE BILLED_AMOUNT.INSPECTION_ID (+)   = CIT_ITEM.INSPECTION_ID
+    AND   UNBILLED_AMOUNT.INSPECTION_ID (+) = CIT_ITEM.INSPECTION_ID 
+    AND   APPEAL_AMOUNT.INSPECTION_ID (+)   = CIT_ITEM.INSPECTION_ID 
+    AND   ADJ_AMT.INSPECTION_ID (+)   = CIT_ITEM.INSPECTION_ID 
+    ) INV_PAY,
+    (SELECT INSPECTION_ID, TRUNC(STATUS_DATE) RECEIVED_DATE
+    FROM COE_REQUEST
+        INNER JOIN RELATED_PARTY ON (COE_REQUEST.COE_REQUEST_ID = RELATED_PARTY.COE_REQUEST_ID)
+        INNER JOIN ORGANIZATION ON (RELATED_PARTY.PARTY_ID = ORGANIZATION.PARTY_ID)
+    WHERE COE_REQUEST.STATUS = 'RECEIVED' AND ORGANIZATION_NAME = 'CALOSHA OFFICE HEADQUARTERS') COE_DOSH,
+    (SELECT INSPECTION_ID, TRUNC(STATUS_DATE) RECEIVED_DATE
+    FROM COE_REQUEST
+        INNER JOIN RELATED_PARTY ON (COE_REQUEST.COE_REQUEST_ID = RELATED_PARTY.COE_REQUEST_ID)
+        INNER JOIN ORGANIZATION ON (RELATED_PARTY.PARTY_ID = ORGANIZATION.PARTY_ID)
+    WHERE COE_REQUEST.STATUS = 'RECEIVED' AND ORGANIZATION_NAME = 'OCCUPATIONAL SAFETY AND HEALTH APPEALS BOARD') COE_OSHAB,
+    (
+    SELECT INSPECTION_ID, 
+            NVL("'UNBILLED_COLLECTION_FEE'_AMT_", 0) -
+            NVL("'UNBILLED_COLLECTION_FEE'_ALLO", 0) COLLECT_FEE_DUE,
+            NVL("'UNBILLED_COURT_FEE'_AMT_DUE", 0) -
+            NVL("'UNBILLED_COURT_FEE'_ALLOCATED", 0) COURT_DUE,
+            NVL("'UNBILLED_INTEREST'_AMT_DUE", 0) -
+            NVL("'UNBILLED_INTEREST'_ALLOCATED_", 0) INTEREST_DUE,
+            NVL("'UNBILLED_NSF_FEE'_AMT_DUE", 0) -
+            NVL("'UNBILLED_NSF_FEE'_ALLOCATED_A", 0) NSF_DUE
+           
+    FROM
+    (
+    SELECT UnbilledItem.INSPECTION_ID, SUM(UnbilledItem.UNBILLED_AMOUNT) AMT_DUE, SUM(PAID_TOWARD_UNBILLED.ALLOCATED_AMOUNT) ALLOCATED_AMOUNT, PartyAgencyFundMap.BILL_TYPE_CODE AMT_TYPE
+
+    FROM    UNBILLED_ITEM UnbilledItem
+
+    LEFT OUTER JOIN  (
+        SELECT  PaymentAllocation.UNBILLED_ITEM_ID, SUM(PaymentAllocation.ALLOCATED_AMOUNT) ALLOCATED_AMOUNT
+        FROM    PAYMENT_ALLOCATION PaymentAllocation
+        GROUP BY PaymentAllocation.UNBILLED_ITEM_ID
+        ) PAID_TOWARD_UNBILLED
+        ON PAID_TOWARD_UNBILLED.UNBILLED_ITEM_ID = UnbilledItem.UNBILLED_ITEM_ID
+        
+    LEFT OUTER JOIN PARTY_AGENCY_FUND_MAP PartyAgencyFundMap
+        ON PartyAgencyFundMap.PARTY_AGENCY_FUND_MAP_ID = UnbilledItem.PARTY_AGENCY_FUND_ID
+        
+
+    WHERE PartyAgencyFundMap.BILL_TYPE_CODE <> 'UNAPPLIED'
+      and UnbilledItem.status <> 'CANCELLED'
+
+    GROUP BY UnbilledItem.INSPECTION_ID, UnbilledItem.UNBILLED_ITEM_ID, PartyAgencyFundMap.BILL_TYPE_CODE)
+
+    PIVOT
+    (
+    SUM(AMT_DUE) AMT_DUE, SUM(ALLOCATED_AMOUNT) ALLOCATED_AMOUNT
+        FOR AMT_TYPE IN ('UNBILLED_COLLECTION_FEE', 'UNBILLED_COURT_FEE', 'UNBILLED_INTEREST', 'UNBILLED_NSF_FEE')
+    )
+    ) UNBILLED_AMTS_DUE,
+    (SELECT TRUNC(MAX(STATUS_DATE)) STATUS_DATE, INSPECTION_ID
+     FROM INSPECTION_HISTORY
+     WHERE STATUS_CODE = 'REFERRED_TO_EDD'
+     GROUP BY INSPECTION_ID) INSPECTION_HISTORY,
+    (select max(trunc(filing_date)) JudgmentFilingDate, J.inspection_id  
+        from JUDGMENT J, JUDGMENT_DETAIL JD, INSPECTION I
+        where J.judgment_id = JD.judgment_id and J.inspection_id = I.INSPECTION_ID 
+            AND J.STATUS NOT IN ('CANCELLED', 'VACATED')
+            AND JUDGMENT_FILE_TYPE_CODE = 'JUDGMENT_FILE' GROUP BY J.inspection_id)  JudgmentFiling,
+    
+    (select MAX(trunc(setup_date)) Pmt_Plan_SetupDate, MAX(STATUS) Pmt_Plan_Status, inspection_id       
+    from PAYMENT_PLAN_AGREEMENT PPA group by inspection_id) PPA
+WHERE   I.INSPECTION_ID                 =   PR.INSPECTION_ID
+AND     I.INSPECTION_ID                 =   PPA.INSPECTION_ID (+)
+AND     I.INSPECTION_ID                 =   R.INSPECTION_ID
+AND     R.REFERRAL_ID                   =   RP.REFERRAL_ID
+AND     R.STATUS                       <>   'DELETED'
+AND     RP.PARTY_ID                     =   P.PARTY_ID
+AND     RP.STATUS                       =   'NEW'
+AND     I.INSPECTION_ID                 =   INV_PAY.INSPECTION_ID
+and     I.REPORT_INDEX_MAP_ID           =   RTIM.REPORT_INDEX_MAP_ID
+AND     PR.PARTY_ID                     =   O.PARTY_ID
+and     I.INSPECTION_ID                 =   INS_APPEAL.INSPECTION_ID (+)
+AND     PR.PARTICIPANT_ROLE_TYPE_CODE   =   'RES_PARTY'
+and     I.STATUS                        =   'ACTIVE'
+AND     RP.PARTICIPANT_ROLE_TYPE_CODE   =   'REFERRED'
+AND     COE_DOSH.INSPECTION_ID (+)      =   I.INSPECTION_ID 
+AND     COE_OSHAB.INSPECTION_ID (+)     =   I.INSPECTION_ID 
+AND     I.INSPECTION_ID                 =   UNBILLED_AMTS_DUE.INSPECTION_ID (+)
+AND     I.INSPECTION_ID                 =   INSPECTION_HISTORY.INSPECTION_ID (+)
+AND     I.INSPECTION_ID                 =   JudgmentFiling.INSPECTION_ID (+)]]>
+  </SQLQuery>
+  <ViewAttribute
+    Name="InspectionId"
+    IsUpdateable="false"
+    IsPersistent="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="INSPECTION_ID"
+    Expression="INSPECTION_ID"
+    SQLType="NUMERIC">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="39"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="InspectionNumber"
+    IsUpdateable="false"
+    IsPersistent="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    Precision="9"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="INSPECTION_NUMBER"
+    Expression="INSPECTION_NUMBER"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="9"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="gov.ca.dir.acct.calosha.adf.usecase024.model.view.InvoiceView.InspectionNumber_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="Citationissuedate"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.sql.Date"
+    ColumnType="DATE"
+    AliasName="CITATIONISSUEDATE"
+    Expression="CITATIONISSUEDATE"
+    SQLType="DATE">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="7"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="gov.ca.dir.acct.calosha.adf.usecase024.model.view.InvoiceView.Citationissuedate_LABEL"/>
+        <DISPLAYWIDTH
+          Value="10"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="LegalName"
+    IsUpdateable="false"
+    IsPersistent="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    Precision="60"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="LEGAL_NAME"
+    Expression="LEGAL_NAME"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="100"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="gov.ca.dir.acct.calosha.adf.usecase024.model.view.InvoiceView.LegalName_LABEL"/>
+        <DISPLAYWIDTH
+          Value="20"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="OrganizationName"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="100"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="ORGANIZATION_NAME"
+    Expression="ORGANIZATION_NAME"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="100"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="gov.ca.dir.acct.calosha.adf.usecase024.model.view.InvoiceView.OrganizationName_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="AppealDate"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.sql.Date"
+    ColumnType="DATE"
+    AliasName="APPEAL_DATE"
+    Expression="APPEAL_DATE"
+    SQLType="DATE">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="7"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="ReferralDate"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.sql.Date"
+    ColumnType="DATE"
+    AliasName="REFERRAL_DATE"
+    Expression="REFERRAL_DATE"
+    SQLType="DATE">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="7"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <DISPLAYWIDTH
+          Value="10"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="IndexCode"
+    IsUpdateable="false"
+    IsPersistent="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    Precision="4"
+    Scale="0"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="INDEX_CODE"
+    Expression="INDEX_CODE"
+    SQLType="NUMERIC"
+    LOVName="LOV_IndexCode">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="5"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="gov.ca.dir.acct.calosha.adf.usecase024.model.view.InvoiceView.IndexCode_LABEL"/>
+        <CONTROLTYPE
+          Value="choice"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="FirstName"
+    IsUpdateable="false"
+    IsPersistent="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    Precision="50"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="FIRST_NAME"
+    Expression="FIRST_NAME"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="50"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="gov.ca.dir.acct.calosha.adf.usecase024.model.view.InvoiceView.FirstName_LABEL"/>
+        <DISPLAYWIDTH
+          Value="20"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="MiddleName"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="50"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="MIDDLE_NAME"
+    Expression="MIDDLE_NAME"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="50"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="gov.ca.dir.acct.calosha.adf.usecase024.model.view.InvoiceView.MiddleName_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="LastName"
+    IsUpdateable="false"
+    IsPersistent="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    Precision="50"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="LAST_NAME"
+    Expression="LAST_NAME"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="50"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="gov.ca.dir.acct.calosha.adf.usecase024.model.view.InvoiceView.LastName_LABEL"/>
+        <DISPLAYWIDTH
+          Value="20"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="ReferredTo"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="102"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="REFERRED_TO"
+    Expression="REFERRED_TO"
+    SQLType="VARCHAR"
+    LOVName="LOV_ReferredTo">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="102"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="gov.ca.dir.acct.calosha.adf.usecase024.model.view.InvoiceView.ReferredTo_LABEL"/>
+        <CONTROLTYPE
+          Value="choice"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="CshoId"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="5"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="CSHO_ID"
+    Expression="CSHO_ID"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="5"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="gov.ca.dir.acct.calosha.adf.usecase024.model.view.InvoiceView.CshoId_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="Status"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="25"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="STATUS"
+    Expression="STATUS"
+    SQLType="VARCHAR"
+    LOVName="LOV_Status">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="25"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="gov.ca.dir.acct.calosha.adf.usecase024.model.view.InvoiceView.Status_LABEL"/>
+        <CONTROLTYPE
+          Value="choice"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="PartyId"
+    IsUpdateable="false"
+    IsPersistent="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="PARTY_ID"
+    Expression="PARTY_ID"
+    SQLType="NUMERIC">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="39"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="AppealId"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.math.BigDecimal"
+    ColumnType="NUMBER"
+    AliasName="APPEAL_ID"
+    Expression="APPEAL_ID"
+    SQLType="NUMERIC">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="39"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="ClosedDate"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.sql.Date"
+    ColumnType="DATE"
+    AliasName="CLOSED_DATE"
+    Expression="CLOSED_DATE"
+    SQLType="DATE">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="7"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="AppealTypeCode"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="25"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="APPEAL_TYPE_CODE"
+    Expression="APPEAL_TYPE_CODE"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="25"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="gov.ca.dir.acct.calosha.adf.usecase024.model.view.InvoiceView.AppealTypeCode_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="DocketNumber"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="15"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="DOCKET_NUMBER"
+    Expression="DOCKET_NUMBER"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="15"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="gov.ca.dir.acct.calosha.adf.usecase024.model.view.InvoiceView.DocketNumber_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="DocketThroughNumber"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="15"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="DOCKET_THROUGH_NUMBER"
+    Expression="DOCKET_THROUGH_NUMBER"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="15"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="Initialamount"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="INITIALAMOUNT"
+    Expression="INITIALAMOUNT"
+    SQLType="NUMERIC">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="39"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <FMT_FORMATTER
+          ResId="gov.ca.dir.acct.calosha.adf.usecase024.model.view.InvoiceView.Initialamount_FMT_FORMATTER"/>
+        <LABEL
+          ResId="gov.ca.dir.acct.calosha.adf.usecase024.model.view.InvoiceView.Initialamount_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="Currentamount"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="CURRENTAMOUNT"
+    Expression="CURRENTAMOUNT"
+    SQLType="NUMERIC">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="39"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <FMT_FORMATTER
+          ResId="gov.ca.dir.acct.calosha.adf.usecase024.model.view.InvoiceView.Currentamount_FMT_FORMATTER"/>
+        <LABEL
+          ResId="gov.ca.dir.acct.calosha.adf.usecase024.model.view.InvoiceView.Currentamount_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="Invoiceappealamount"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="INVOICEAPPEALAMOUNT"
+    Expression="INVOICEAPPEALAMOUNT"
+    SQLType="NUMERIC">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="39"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <FMT_FORMATTER
+          ResId="gov.ca.dir.acct.calosha.adf.usecase024.model.view.InvoiceView.Invoiceappealamount_FMT_FORMATTER"/>
+        <LABEL
+          ResId="gov.ca.dir.acct.calosha.adf.usecase024.model.view.InvoiceView.Invoiceappealamount_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="Invoicedecisionamount"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="INVOICEDECISIONAMOUNT"
+    Expression="INVOICEDECISIONAMOUNT"
+    SQLType="NUMERIC">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="39"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <FMT_FORMATTER
+          ResId="gov.ca.dir.acct.calosha.adf.usecase024.model.view.InvoiceView.Invoicedecisionamount_FMT_FORMATTER"/>
+        <LABEL
+          ResId="gov.ca.dir.acct.calosha.adf.usecase024.model.view.InvoiceView.Invoicedecisionamount_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="Totalpayments"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="TOTALPAYMENTS"
+    Expression="TOTALPAYMENTS"
+    SQLType="NUMERIC">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="39"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <FMT_FORMATTER
+          ResId="gov.ca.dir.acct.calosha.adf.usecase024.model.view.InvoiceView.Totalpayments_FMT_FORMATTER"/>
+        <LABEL
+          ResId="gov.ca.dir.acct.calosha.adf.usecase024.model.view.InvoiceView.Totalpayments_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="Totalunbillpayments"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="TOTALUNBILLPAYMENTS"
+    Expression="TOTALUNBILLPAYMENTS"
+    SQLType="NUMERIC">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="22"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <FMT_FORMATTER
+          ResId="gov.ca.dir.acct.calosha.adf.usecase024.model.view.InvoiceView.Totalunbillpayments_FMT_FORMATTER"/>
+        <LABEL
+          ResId="gov.ca.dir.acct.calosha.adf.usecase024.model.view.InvoiceView.Totalunbillpayments_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="Judgmentfilingdate"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Date"
+    ColumnType="DATE"
+    AliasName="JUDGMENTFILINGDATE"
+    Expression="JUDGMENTFILINGDATE"
+    SQLType="DATE">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="7"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <FMT_FORMATTER
+          ResId="gov.ca.dir.acct.calosha.adf.usecase024.model.view.InvoiceView.Judgmentfilingdate_FMT_FORMATTER"/>
+        <FMT_FORMAT
+          ResId="gov.ca.dir.acct.calosha.adf.usecase024.model.view.InvoiceView.Judgmentfilingdate_FMT_FORMAT"/>
+        <LABEL
+          ResId="gov.ca.dir.acct.calosha.adf.usecase024.model.view.InvoiceView.Judgmentfilingdate_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="PmtPlanSetupdate"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.sql.Date"
+    ColumnType="DATE"
+    AliasName="PMT_PLAN_SETUPDATE"
+    Expression="PMT_PLAN_SETUPDATE"
+    SQLType="DATE">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="7"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <FMT_FORMATTER
+          ResId="gov.ca.dir.acct.calosha.adf.usecase024.model.view.InvoiceView.PmtPlanSetupdate_FMT_FORMATTER"/>
+        <LABEL
+          ResId="gov.ca.dir.acct.calosha.adf.usecase024.model.view.InvoiceView.PmtPlanSetupdate_LABEL"/>
+        <FMT_FORMAT
+          ResId="gov.ca.dir.acct.calosha.adf.usecase024.model.view.InvoiceView.PmtPlanSetupdate_FMT_FORMAT"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="AcctgLetter"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.sql.Date"
+    ColumnType="DATE"
+    AliasName="ACCTG_LETTER"
+    Expression="ACCTG_LETTER"
+    SQLType="DATE">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="7"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="gov.ca.dir.acct.calosha.adf.usecase024.model.view.InvoiceView.AcctgLetter_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="CollLetter"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.sql.Date"
+    ColumnType="DATE"
+    AliasName="COLL_LETTER"
+    Expression="COLL_LETTER"
+    SQLType="DATE">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="7"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="gov.ca.dir.acct.calosha.adf.usecase024.model.view.InvoiceView.CollLetter_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="OnepLetter"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.sql.Date"
+    ColumnType="DATE"
+    AliasName="ONEP_LETTER"
+    Expression="ONEP_LETTER"
+    SQLType="DATE">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="7"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="gov.ca.dir.acct.calosha.adf.usecase024.model.view.InvoiceView.OnepLetter_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="DemandLetter"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.sql.Date"
+    ColumnType="DATE"
+    AliasName="DEMAND_LETTER"
+    Expression="DEMAND_LETTER"
+    SQLType="DATE">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="7"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="gov.ca.dir.acct.calosha.adf.usecase024.model.view.InvoiceView.DemandLetter_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="EddEligible"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.sql.Date"
+    ColumnType="DATE"
+    AliasName="EDD_ELIGIBLE"
+    Expression="EDD_ELIGIBLE"
+    SQLType="DATE">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="7"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="CurrentDate"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Date"
+    ColumnType="DATE"
+    AliasName="CURRENT_DATE"
+    Expression="CURRENT_DATE"
+    SQLType="DATE">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="7"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="DoshCoeDate"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.sql.Date"
+    ColumnType="DATE"
+    AliasName="DOSH_COE_DATE"
+    Expression="DOSH_COE_DATE"
+    SQLType="DATE">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="7"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="gov.ca.dir.acct.calosha.adf.usecase024.model.view.InvoiceView.DoshCoeDate_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="OshabCoeDate"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.sql.Date"
+    ColumnType="DATE"
+    AliasName="OSHAB_COE_DATE"
+    Expression="OSHAB_COE_DATE"
+    SQLType="DATE">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="7"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="gov.ca.dir.acct.calosha.adf.usecase024.model.view.InvoiceView.OshabCoeDate_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="ReportIndexMapId"
+    IsUpdateable="false"
+    IsPersistent="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="REPORT_INDEX_MAP_ID"
+    Expression="REPORT_INDEX_MAP_ID"
+    SQLType="NUMERIC">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="39"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="CourtDue"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="COURT_DUE"
+    Expression="COURT_DUE"
+    SQLType="NUMERIC">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="39"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="InterestDue"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="INTEREST_DUE"
+    Expression="INTEREST_DUE"
+    SQLType="NUMERIC">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="39"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="NsfDue"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="NSF_DUE"
+    Expression="NSF_DUE"
+    SQLType="NUMERIC">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="39"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="CollectFeeDue"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="COLLECT_FEE_DUE"
+    Expression="COLLECT_FEE_DUE"
+    SQLType="NUMERIC">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="39"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="ReferredEdd"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.sql.Date"
+    ColumnType="DATE"
+    AliasName="REFERRED_EDD"
+    Expression="REFERRED_EDD"
+    SQLType="DATE">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="7"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <DISPLAYWIDTH
+          Value="10"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="ReferralId"
+    IsUpdateable="false"
+    IsPersistent="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    Type="java.math.BigDecimal"
+    ColumnType="NUMBER"
+    AliasName="REFERRAL_ID"
+    Expression="REFERRAL_ID"
+    SQLType="NUMERIC">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="39"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="PersonId"
+    IsUpdateable="false"
+    IsPersistent="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    Type="java.math.BigDecimal"
+    ColumnType="NUMBER"
+    AliasName="PERSON_ID"
+    Expression="PERSON_ID"
+    SQLType="NUMERIC">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="39"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="Pmtplanstatus"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="25"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="PMTPLANSTATUS"
+    Expression="PMTPLANSTATUS"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="25"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="IsAppealOpen"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="8"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="IS_APPEAL_OPEN"
+    Expression="IS_APPEAL_OPEN"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="8"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="Dummy"
+    IsUpdateable="false"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.lang.String"
+    ColumnType="CHAR"
+    AliasName="VIEW_ATTR"
+    SQLType="VARCHAR">
+    <RecalcCondition><![CDATA[true]]></RecalcCondition>
+    <TransientExpression><![CDATA[InspectionId]]></TransientExpression>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="CountIMIS"
+    IsUpdateable="false"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.lang.Integer"
+    ColumnType="INTEGER"
+    AliasName="VIEW_ATTR"
+    SQLType="INTEGER">
+    <RecalcCondition><![CDATA[true]]></RecalcCondition>
+    <TransientExpression><![CDATA[adf.object.findRowSetForRow("").count("InspectionNumber")]]></TransientExpression>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="Invoicebalance"
+    IsUpdateable="false"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="BIGINT"
+    AliasName="VIEW_ATTR"
+    SQLType="NUMERIC">
+    <RecalcCondition><![CDATA[true]]></RecalcCondition>
+    <TransientExpression><![CDATA[AppealDate != null && ClosedDate == null ? Currentamount - Invoiceappealamount - Totalpayments : Currentamount - Totalpayments]]></TransientExpression>
+    <Dependencies>
+      <Item
+        Value="Currentamount"/>
+      <Item
+        Value="Totalpayments"/>
+    </Dependencies>
+    <Properties>
+      <SchemaBasedProperties>
+        <FMT_FORMATTER
+          ResId="gov.ca.dir.acct.calosha.adf.usecase024.model.view.InvoiceView.Invoicebalance_FMT_FORMATTER"/>
+        <LABEL
+          ResId="gov.ca.dir.acct.calosha.adf.usecase024.model.view.InvoiceView.Invoicebalance_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="FinalTotalAmtDue"
+    IsUpdateable="false"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="BIGINT"
+    AliasName="VIEW_ATTR"
+    SQLType="NUMERIC">
+    <RecalcCondition><![CDATA[true]]></RecalcCondition>
+    <TransientExpression><![CDATA[Invoicebalance + NsfDue + InterestDue + CourtDue + CollectDue]]></TransientExpression>
+    <Dependencies>
+      <Item
+        Value="CollectDue"/>
+      <Item
+        Value="CourtDue"/>
+      <Item
+        Value="InterestDue"/>
+      <Item
+        Value="Invoicebalance"/>
+      <Item
+        Value="NsfDue"/>
+    </Dependencies>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="CurrentGroovyDate"
+    IsUpdateable="false"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.sql.Date"
+    ColumnType="DATE"
+    AliasName="VIEW_ATTR"
+    SQLType="DATE">
+    <TransientExpression><![CDATA[adf.currentDate]]></TransientExpression>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="ThirdPartyCollectParentId"
+    IsUpdateable="false"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="BIGINT"
+    AliasName="VIEW_ATTR"
+    SQLType="NUMERIC">
+    <TransientExpression><![CDATA[ThirdPartyCollectionLatestNRView.max("ThirdPartyCollectId")]]></TransientExpression>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="CollectDue"
+    IsUpdateable="false"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="VARCHAR2"
+    AliasName="VIEW_ATTR"
+    SQLType="VARCHAR">
+    <TransientExpression><![CDATA[FeeView1.max("Amount")]]></TransientExpression>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="EddReferrable"
+    IsUpdateable="false"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="VIEW_ATTR"
+    SQLType="VARCHAR"
+    LOVName="LOV_EddReferrable">
+    <RecalcCondition><![CDATA[true]]></RecalcCondition>
+    <TransientExpression><![CDATA[EddEligible != null && CurrentDate > EddEligible && ReferredEdd == null && Status == "NEW" && Invoicebalance > 0 && IsAppealOpen == "NOT_OPEN" && Pmtplanstatus != "PAID" && Pmtplanstatus != "NEW" ? "YES" : "NO"]]></TransientExpression>
+    <Properties>
+      <SchemaBasedProperties>
+        <CONTROLTYPE
+          Value="choice"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="ThirdPartyCollectRParentId"
+    IsUpdateable="false"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="BIGINT"
+    AliasName="VIEW_ATTR"
+    SQLType="NUMERIC">
+    <TransientExpression><![CDATA[ThirdPartyCollectionLatestNRDView.max("ThirdPartyCollectId")]]></TransientExpression>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="FinalTotalAmtDueR"
+    IsUpdateable="false"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="VARCHAR2"
+    AliasName="VIEW_ATTR"
+    SQLType="VARCHAR">
+    <TransientExpression><![CDATA[Invoicebalance + NsfDue + InterestDue + CourtDue + CollectFeeDue]]></TransientExpression>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="InspectionId2"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="VIEW_ATTR"
+    SQLType="VARCHAR">
+    <RecalcCondition><![CDATA[true]]></RecalcCondition>
+    <TransientExpression><![CDATA[InspectionId]]></TransientExpression>
+    <Dependencies>
+      <Item
+        Value="InspectionId"/>
+    </Dependencies>
+  </ViewAttribute>
+  <ViewCriteria
+    Name="SearchInvoiceCriteria"
+    ViewObjectName="gov.ca.dir.acct.calosha.adf.usecase024.model.view.InvoiceView"
+    Conjunction="AND"
+    Mode="3">
+    <Properties>
+      <CustomProperties>
+        <Property
+          Name="displayOperators"
+          Value="InAdvancedMode"/>
+        <Property
+          Name="autoExecute"
+          Value="false"/>
+        <Property
+          Name="allowConjunctionOverride"
+          Value="false"/>
+        <Property
+          Name="showInList"
+          Value="true"/>
+        <Property
+          Name="mode"
+          Value="Basic"/>
+      </CustomProperties>
+    </Properties>
+    <ViewCriteriaRow
+      Name="vcrow8"
+      UpperColumns="1">
+      <ViewCriteriaItem
+        Name="InspectionNumber"
+        ViewAttribute="InspectionNumber"
+        Operator="CONTAINS"
+        Conjunction="AND"
+        Value=":varInspectionNumnber"
+        IsBindVarValue="true"
+        Required="Optional"/>
+      <ViewCriteriaItem
+        Name="Citationissuedate"
+        ViewAttribute="Citationissuedate"
+        Operator="="
+        Conjunction="AND"
+        Value=":p_InvoiceDate"
+        IsBindVarValue="true"
+        Required="Optional"/>
+      <ViewCriteriaItem
+        Name="LegalName"
+        ViewAttribute="LegalName"
+        Operator="CONTAINS"
+        Conjunction="AND"
+        Value=":varLegalName"
+        IsBindVarValue="true"
+        Required="Optional"/>
+      <ViewCriteriaItem
+        Name="ReferralDate"
+        ViewAttribute="ReferralDate"
+        Operator="="
+        Conjunction="AND"
+        Value=":p_ReferralDate"
+        IsBindVarValue="true"
+        Required="Optional"/>
+      <ViewCriteriaItem
+        Name="IndexCode"
+        ViewAttribute="IndexCode"
+        Operator="="
+        Conjunction="AND"
+        Value=":p_Index"
+        IsBindVarValue="true"
+        Required="Optional"/>
+      <ViewCriteriaItem
+        Name="ReferredTo"
+        ViewAttribute="ReferredTo"
+        Operator="="
+        Conjunction="AND"
+        Required="Optional"/>
+      <ViewCriteriaItem
+        Name="Status"
+        ViewAttribute="Status"
+        Operator="="
+        Conjunction="AND"
+        Value=":p_Status"
+        IsBindVarValue="true"
+        Required="Optional"/>
+      <ViewCriteriaItem
+        Name="AppealTypeCode"
+        ViewAttribute="AppealTypeCode"
+        Operator="="
+        Conjunction="AND"
+        Required="Optional"/>
+      <ViewCriteriaItem
+        Name="ReferredEdd"
+        ViewAttribute="ReferredEdd"
+        Operator="BETWEEN"
+        Conjunction="AND"
+        Required="Optional"/>
+      <ViewCriteriaItem
+        Name="EddReferrable"
+        ViewAttribute="EddReferrable"
+        Operator="="
+        Conjunction="AND"
+        Required="Optional"/>
+    </ViewCriteriaRow>
+  </ViewCriteria>
+  <AttrArray Name="KeyAttributes">
+    <Item Value="InspectionId"/>
+    <Item Value="DocketNumber"/>
+  </AttrArray>
+  <ViewLinkAccessor
+    Name="CitationItemView"
+    ViewLink="gov.ca.dir.acct.calosha.adf.usecase024.model.view.InvoiceCitationItemLink"
+    Type="oracle.jbo.RowIterator"
+    IsUpdateable="false"/>
+  <ViewLinkAccessor
+    Name="JudgmentView"
+    ViewLink="gov.ca.dir.acct.calosha.adf.usecase024.model.view.InvoiceJudgmentLink"
+    Type="oracle.jbo.RowIterator"
+    IsUpdateable="false"/>
+  <ViewLinkAccessor
+    Name="CitationView"
+    ViewLink="gov.ca.dir.acct.calosha.adf.usecase024.model.view.InvoiceCitationLink"
+    Type="oracle.jbo.RowIterator"
+    IsUpdateable="false"/>
+  <ViewLinkAccessor
+    Name="PersonView"
+    ViewLink="gov.ca.dir.acct.calosha.adf.usecase024.model.view.InvoicePersonLink"
+    Type="oracle.jbo.RowIterator"
+    IsUpdateable="false"/>
+  <ViewLinkAccessor
+    Name="AddressView"
+    ViewLink="gov.ca.dir.acct.calosha.adf.usecase024.model.view.InvoiceAddressLink"
+    Type="oracle.jbo.RowIterator"
+    IsUpdateable="false"/>
+  <ViewLinkAccessor
+    Name="AppealDetailView"
+    ViewLink="gov.ca.dir.acct.calosha.adf.usecase024.model.view.InvoiceAppealDetailLink"
+    Type="oracle.jbo.RowIterator"
+    IsUpdateable="false"/>
+  <ViewLinkAccessor
+    Name="ContactMethodView"
+    ViewLink="gov.ca.dir.acct.calosha.adf.usecase024.model.view.InvoiceContactMethodLink"
+    Type="oracle.jbo.RowIterator"
+    IsUpdateable="false"/>
+  <ViewLinkAccessor
+    Name="InvoiceAllPaymentView"
+    ViewLink="gov.ca.dir.acct.calosha.adf.usecase024.model.view.InvoicePaymentLink"
+    Type="oracle.jbo.RowIterator"
+    IsUpdateable="false"/>
+  <ViewLinkAccessor
+    Name="PaymentPlanView"
+    ViewLink="gov.ca.dir.acct.calosha.adf.usecase024.model.view.InvoicePaymentPlanLink"
+    Type="oracle.jbo.RowIterator"
+    IsUpdateable="false"/>
+  <ViewLinkAccessor
+    Name="OrganizaitonClassView"
+    ViewLink="gov.ca.dir.acct.calosha.adf.usecase024.model.view.InvoiceOrganizationViewLink"
+    Type="oracle.jbo.RowIterator"
+    IsUpdateable="false"/>
+  <ViewLinkAccessor
+    Name="ReportingtoIndexMapView"
+    ViewLink="gov.ca.dir.acct.calosha.adf.usecase024.model.view.InvoiceReportingToIndexMapViewLink"
+    Type="oracle.jbo.RowIterator"
+    IsUpdateable="false"/>
+  <ViewLinkAccessor
+    Name="ThirdPartyCollectionNView"
+    ViewLink="gov.ca.dir.acct.calosha.adf.usecase024.model.view.InvoiceThirdPartyCollectionNViewLink"
+    Type="oracle.jbo.RowIterator"
+    IsUpdateable="false"/>
+  <ViewLinkAccessor
+    Name="ReferralView"
+    ViewLink="gov.ca.dir.acct.calosha.adf.usecase024.model.view.InvoiceReferralLink"
+    Type="oracle.jbo.RowIterator"
+    IsUpdateable="false"/>
+  <ViewLinkAccessor
+    Name="PartyClassificationView"
+    ViewLink="gov.ca.dir.acct.calosha.adf.usecase024.model.view.InvoicePartyClassificationLink"
+    Type="oracle.jbo.RowIterator"
+    IsUpdateable="false"/>
+  <ViewLinkAccessor
+    Name="CallLogView"
+    ViewLink="gov.ca.dir.acct.calosha.adf.usecase024.model.view.InvoiceViewCallLogViewLink"
+    Type="oracle.jbo.RowIterator"
+    IsUpdateable="false"/>
+  <ViewLinkAccessor
+    Name="CoeRequestView"
+    ViewLink="gov.ca.dir.acct.calosha.adf.usecase024.model.view.InvoiceCoeRequestLink"
+    Type="oracle.jbo.RowIterator"
+    IsUpdateable="false"/>
+  <ViewLinkAccessor
+    Name="RelatedPartyView"
+    ViewLink="gov.ca.dir.acct.calosha.adf.usecase024.model.view.RelatedPartyCollectionStaffInvoiceViewLink"
+    Type="oracle.jbo.RowIterator"
+    IsUpdateable="false"/>
+  <ResourceBundle>
+    <PropertiesBundle
+      PropertiesFile="gov.ca.dir.acct.calosha.adf.usecase024.model.ModelBundle"/>
+  </ResourceBundle>
+</ViewObject>

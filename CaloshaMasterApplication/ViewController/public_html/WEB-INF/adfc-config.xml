@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
+  <exception-handler id="__17">mainScreen</exception-handler>
+  <view id="mainScreen">
+    <page>/mainScreen.jspx</page>
+  </view>
+  <view id="adminScreen">
+    <page>/adminScreen.jspx</page>
+  </view>
+  <control-flow-rule id="__1">
+    <from-activity-id id="__2">*</from-activity-id>
+    <control-flow-case id="__3">
+      <from-outcome id="__7">gotoMainScreen</from-outcome>
+      <to-activity-id id="__4">mainScreen</to-activity-id>
+    </control-flow-case>
+    <control-flow-case id="__6">
+      <from-outcome id="__8">gotoAdminScreen</from-outcome>
+      <to-activity-id id="__5">adminScreen</to-activity-id>
+    </control-flow-case>
+  </control-flow-rule>
+  <managed-bean id="__16">
+    <managed-bean-name id="__14">dynamicWorkspaceRegion</managed-bean-name>
+    <managed-bean-class id="__13">gov.ca.dir.acct.calosha.adf.master.viewcontroller.dynamicWorkspaceRegion</managed-bean-class>
+    <managed-bean-scope id="__15">backingBean</managed-bean-scope>
+  </managed-bean>
+  <managed-bean id="__21">
+    <managed-bean-name id="__20">securityBean</managed-bean-name>
+    <managed-bean-class id="__18">gov.ca.dir.acct.calosha.adf.master.viewcontroller.SecurityBean</managed-bean-class>
+    <managed-bean-scope id="__19">request</managed-bean-scope>
+  </managed-bean>
+  <managed-bean id="__24">
+    <managed-bean-name id="__23">tabManagerBean</managed-bean-name>
+    <managed-bean-class id="__22">gov.ca.dir.acct.calosha.adf.master.viewcontroller.TabManager</managed-bean-class>
+    <managed-bean-scope id="__25">backingBean</managed-bean-scope>
+  </managed-bean>
+  <managed-bean id="__29">
+    <managed-bean-name id="__26">changePasswordBean</managed-bean-name>
+    <managed-bean-class id="__27">gov.ca.dir.acct.calosha.adf.master.viewcontroller.ChangePasswordBean</managed-bean-class>
+    <managed-bean-scope id="__28">request</managed-bean-scope>
+  </managed-bean>
+  <managed-bean id="__33">
+    <managed-bean-name id="__30">reportParameterBean</managed-bean-name>
+    <managed-bean-class id="__32">gov.ca.dir.acct.calosha.adf.master.viewcontroller.ReportParameterBean</managed-bean-class>
+    <managed-bean-scope id="__31">backingBean</managed-bean-scope>
+  </managed-bean>
+<!-- reportParameterBean backingbean
+  <managed-bean id="__42">
+    <managed-bean-name id="__43">ReportCallerBean2</managed-bean-name>
+    <managed-bean-class id="__45">gov.ca.dir.acct.cars.adf.master.viewcontroller.ReportCallerBean2</managed-bean-class>
+    <managed-bean-scope id="__44">backingBean</managed-bean-scope>
+  </managed-bean>
+ -->
+  <managed-bean id="__10">
+    <managed-bean-name id="__12">moduleLauncher</managed-bean-name>
+    <managed-bean-class id="__11">gov.ca.dir.acct.calosha.adf.master.viewcontroller.ModuleLauncher</managed-bean-class>
+    <managed-bean-scope id="__9">backingBean</managed-bean-scope>
+  </managed-bean>
+  <managed-bean id="__37">
+    <managed-bean-name id="__34">currentDateMBean</managed-bean-name>
+    <managed-bean-class id="__35">java.util.Date</managed-bean-class>
+    <managed-bean-scope id="__36">request</managed-bean-scope>
+  </managed-bean>
+</adfc-config>

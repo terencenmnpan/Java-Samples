@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<ojdeploy-log>
+  <deploy-task>
+    <target>
+      <profile>adflibCaloshaUseCase0163</profile>
+      <workspace>/C:/Eclipse/workspace/CaloshaADF/CaloshaUseCaseImplementation/UseCase0163/CaloUseCase0163.jws</workspace>
+      <project>ViewController.jpr</project>
+      <output-file>/C:/Temp/caloshalibrary/UIDeploy/adflibCaloshaUseCase0163.jar</output-file>
+    </target>
+    <status exitcode="0">SUCCESS</status>
+  </deploy-task>
+  <summary>
+    <start-time>2018-03-17 17:20:51 PDT</start-time>
+    <end-time>2018-03-17 17:20:56 PDT</end-time>
+    <total-tasks>1</total-tasks>
+    <failures>0</failures>
+    <status exitcode="0">SUCCESS</status>
+  </summary>
+</ojdeploy-log>

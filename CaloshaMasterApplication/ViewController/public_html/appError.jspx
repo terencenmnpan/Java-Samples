@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1"
+          xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:h="http://java.sun.com/jsf/html"
+          xmlns:af="http://xmlns.oracle.com/adf/faces/rich">
+  <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+  <f:view>
+    <af:document id="d1" initialFocusId="it1">
+      <af:form id="f1" defaultCommand="cb1">
+        <af:group id="g1">
+          <af:panelGroupLayout id="pgl1" layout="scroll" halign="center"
+                               inlineStyle='background-color:inherit; background-image:url("CALOSHAGraphics.png");'>
+            <af:spacer width="10" height="200" id="s1"/>
+            <af:panelGroupLayout id="pgl2" halign="end"
+                                 styleClass="AFStretchWidth"
+                                 layout="horizontal">
+              <af:panelFormLayout id="pfl1" styleClass="AFStretchWidth"
+                                  inlineStyle="background-color:InfoBackground; border-color:Blue; border-style:inset; border-width:thin; padding:10%;"
+                                  fieldWidth="250" labelWidth="50" rows="10">
+                <af:outputFormatted value="Application Failure. Re-login" id="outputFormatted1"
+                                    inlineStyle="font-weight:bold;"/>
+                <af:inputText label="Username" id="it1"
+                              value="#{securityBean.username}"
+                              clientComponent="true"/>
+                <af:inputText label="Password" id="it2" secret="true"
+                              value="#{securityBean.password}"/>
+                <af:commandButton text="Submit" id="cb1"
+                                  action="#{securityBean.doLogin}"/>
+              </af:panelFormLayout>
+              <af:spacer height="10" id="s2" width="280"/>
+            </af:panelGroupLayout>
+          </af:panelGroupLayout>
+        </af:group>
+      </af:form>
+    </af:document>
+  </f:view>
+</jsp:root>

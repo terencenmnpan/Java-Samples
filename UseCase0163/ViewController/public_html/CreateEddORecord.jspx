@@ -1,0 +1,131 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1"
+          xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:h="http://java.sun.com/jsf/html"
+          xmlns:af="http://xmlns.oracle.com/adf/faces/rich">
+  <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+  <f:view>
+    <af:document id="d1">
+      <af:messages id="m1"/>
+      <af:form id="f1">
+        <af:pageTemplate viewId="/use-case-template.jspx" id="pt1">
+          <f:facet name="main">
+            <af:panelGroupLayout id="pgl1" layout="scroll">
+              <af:panelBox id="pb1" text="Additional Name Details">
+                <af:panelFormLayout id="pfl1">
+                  <f:facet name="footer">
+                    <af:panelGroupLayout id="panelGroupLayout1"
+                                         layout="horizontal" halign="right">
+                      <af:toolbar id="t1">
+                        <af:commandToolbarButton text="Save" id="ctb1"
+                                                 action="#{pageFlowScope.CreateEddORecordBean.checkIfEddDeleteIsValid}"
+                                                 disabled="#{not empty pageFlowScope.CreateEddORecordBean.thirdPartyCollectionId &amp;&amp; bindings.DataSourceCode.inputValue == 'CALOSHA' ? true : false}">
+                          <af:setPropertyListener from="#{bindings.ThirdPartyCollectId.attributeValue}"
+                                                  to="#{pageFlowScope.CreateEddORecordBean.thirdPartyCollectionAssocToId}"
+                                                  type="action"/>
+                          <af:setPropertyListener from="#{bindings.EntityLegalName.attributeValue}"
+                                                  to="#{pageFlowScope.CreateEddORecordBean.entityLegalName}"
+                                                  type="action"/>
+                          <af:setPropertyListener from="#{bindings.EntityFirstName.attributeValue}"
+                                                  to="#{pageFlowScope.CreateEddORecordBean.entityFirstName}"
+                                                  type="action"/>
+                          <af:setPropertyListener from="#{bindings.EntityLastName.attributeValue}"
+                                                  to="#{pageFlowScope.CreateEddORecordBean.entityLastName}"
+                                                  type="action"/>
+                          <af:setPropertyListener from="commit"
+                                                  to="#{pageFlowScope.CreateEddORecordBean.navigate}"
+                                                  type="action"/>
+                        </af:commandToolbarButton>
+                        <af:commandToolbarButton text="Undo" id="ctb2"
+                                                 immediate="true"
+                                                 action="rollback">
+                          <af:resetActionListener/>
+                        </af:commandToolbarButton>
+                        <af:commandToolbarButton text="Delete" id="ctb3"
+                                                 action="#{pageFlowScope.CreateEddORecordBean.checkIfEddDeleteIsValid}"
+                                                 rendered="#{not empty pageFlowScope.CreateEddORecordBean.thirdPartyCollectionId}">
+                          <af:setPropertyListener from="DeleteORecord"
+                                                  to="#{pageFlowScope.CreateEddORecordBean.navigate}"
+                                                  type="action"/>
+                        </af:commandToolbarButton>
+                      </af:toolbar>
+                    </af:panelGroupLayout>
+                  </f:facet>
+                  <af:selectOneChoice value="#{bindings.DebtId.inputValue}"
+                                      label="#{bindings.DebtId.label}"
+                                      required="true"
+                                      shortDesc="#{bindings.DebtId.hints.tooltip}"
+                                      id="soc2"
+                                      disabled="#{not empty pageFlowScope.CreateEddORecordBean.debtId}">
+                    <f:selectItems value="#{bindings.DebtId.items}" id="si2"/>
+                  </af:selectOneChoice>
+                  <af:inputText value="#{bindings.DebtorNumber.inputValue}"
+                                label="#{bindings.DebtorNumber.hints.label}"
+                                required="true"
+                                columns="#{bindings.DebtorNumber.hints.displayWidth}"
+                                maximumLength="#{bindings.DebtorNumber.hints.precision}"
+                                shortDesc="#{bindings.DebtorNumber.hints.tooltip}"
+                                id="it2"
+                                validator="#{pageFlowScope.CreateEddORecordBean.validORecordDebtorNumber}"
+                                autoSubmit="true"
+                                readOnly="#{not empty pageFlowScope.CreateEddORecordBean.debtorNumber}">
+                    <f:validator binding="#{bindings.DebtorNumber.validator}"/>
+                  </af:inputText>
+                  <af:selectOneChoice value="#{bindings.DebtorType.inputValue}"
+                                      label="#{bindings.DebtorType.label}"
+                                      required="#{bindings.DebtorType.hints.mandatory}"
+                                      shortDesc="#{bindings.DebtorType.hints.tooltip}"
+                                      id="soc1">
+                    <f:selectItems value="#{bindings.DebtorType.items}"
+                                   id="si1"/>
+                  </af:selectOneChoice>
+                  <af:inputText value="#{bindings.DebtorId.inputValue}"
+                                label="#{bindings.DebtorId.hints.label}"
+                                required="#{bindings.DebtorId.hints.mandatory}"
+                                columns="#{bindings.DebtorId.hints.displayWidth}"
+                                maximumLength="#{bindings.DebtorId.hints.precision}"
+                                shortDesc="#{bindings.DebtorId.hints.tooltip}"
+                                id="it3">
+                    <f:validator binding="#{bindings.DebtorId.validator}"/>
+                  </af:inputText>
+                  <af:inputText value="#{bindings.EntityLegalName.inputValue}"
+                                label="#{bindings.EntityLegalName.hints.label}"
+                                columns="#{bindings.EntityLegalName.hints.displayWidth}"
+                                maximumLength="#{bindings.EntityLegalName.hints.precision}"
+                                shortDesc="#{bindings.EntityLegalName.hints.tooltip}"
+                                id="it4"
+                                binding="#{pageFlowScope.CreateEddORecordBean.entityLegalNameIt}"
+                                autoSubmit="true">
+                    <f:validator binding="#{bindings.EntityLegalName.validator}"/>
+                  </af:inputText>
+                  <af:inputText value="#{bindings.EntityFirstName.inputValue}"
+                                label="#{bindings.EntityFirstName.hints.label}"
+                                columns="#{bindings.EntityFirstName.hints.displayWidth}"
+                                maximumLength="#{bindings.EntityFirstName.hints.precision}"
+                                shortDesc="#{bindings.EntityFirstName.hints.tooltip}"
+                                id="it5"
+                                binding="#{pageFlowScope.CreateEddORecordBean.entityFirstNameIt}"
+                                autoSubmit="true">
+                    <f:validator binding="#{bindings.EntityFirstName.validator}"/>
+                  </af:inputText>
+                  <af:inputText value="#{bindings.EntityLastName.inputValue}"
+                                label="#{bindings.EntityLastName.hints.label}"
+                                columns="#{bindings.EntityLastName.hints.displayWidth}"
+                                maximumLength="#{bindings.EntityLastName.hints.precision}"
+                                shortDesc="#{bindings.EntityLastName.hints.tooltip}"
+                                id="it6"
+                                binding="#{pageFlowScope.CreateEddORecordBean.entityLastNameIt}"
+                                autoSubmit="true">
+                    <f:validator binding="#{bindings.EntityLastName.validator}"/>
+                  </af:inputText>
+                </af:panelFormLayout>
+              </af:panelBox>
+            </af:panelGroupLayout>
+          </f:facet>
+          <f:attribute name="title"
+                       value="#{not empty pageFlowScope.CreateEddORecordBean.thirdPartyCollectionId ? 'Edit' : 'Create New'} Edd O Record"/>
+        </af:pageTemplate>
+      </af:form>
+    </af:document>
+  </f:view>
+</jsp:root>

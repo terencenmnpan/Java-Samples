@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel"
+                version="11.1.1.64.93"
+                id="create_edd_n_record_create_edd_n_record_RecordTypeDeleteEvaluatorRouterPageDef"
+                Package="gov.ca.dir.acct.calosha.adf.usecase0161.view.pageDefs"
+                SkipValidation="true">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator id="ThirdPartyCollAssocView5Iterator"
+              Binds="ThirdPartyCollAssocView5"
+              DataControl="ReferralSearchInvoiceAMDataControl" RangeSize="25"/>
+  </executables>
+  <bindings/>
+</pageDefinition>

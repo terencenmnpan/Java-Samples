@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Application xmlns="http://xmlns.oracle.com/adfm/application"
+             version="11.1.1.64.93" id="DataBindings" SeparateXMLFiles="false"
+             Package="gov.ca.dir.acct.calosha.adf.usecase0102.view" ClientType="Generic">
+  <definitionFactories>
+    <factory nameSpace="http://xmlns.oracle.com/adf/controller/binding"
+             className="oracle.adf.controller.internal.binding.TaskFlowBindingDefFactoryImpl"/>
+    <dtfactory className="oracle.adf.controller.internal.dtrt.binding.BindingDTObjectFactory"/>
+  </definitionFactories>
+  <pageMap>
+    <page path="/WEB-INF/process-payment-tf.xml#process-payment-tf@SetCurrentRowWithKeyValue"
+          usageId="gov_ca_dir_acct_calosha_adf_usecase0102_view_process_payment_tf_process_payment_tf_SetCurrentRowWithKeyValuePageDef"/>
+    <page path="/ProcessPayment.jsff"
+          usageId="gov_ca_dir_acct_calosha_adf_usecase0102_view_ProcessPaymentPageDef"/>
+    <page path="/Main.jspx"
+          usageId="gov_ca_dir_acct_calosha_adf_usecase0102_view_MainPageDef"/>
+    <page path="/WEB-INF/process-payment-tf.xml#process-payment-tf@CreateInsert"
+          usageId="gov_ca_dir_acct_calosha_adf_usecase0102_view_process_payment_tf_process_payment_tf_CreateInsertPageDef"/>
+    <page path="/WEB-INF/process-payment-shared-tf.xml#process-payment-shared-tf@SetCurrentRowWithKeyValueInspection"
+          usageId="gov_ca_dir_acct_calosha_adf_usecase0102_view_process_payment_shared_tf_process_payment_shared_tf_SetCurrentRowWithKeyValueInspectionPageDef"/>
+    <page path="/WEB-INF/process-payment-shared-tf.xml#process-payment-shared-tf@SetCurrentRowWithKeyValuePayment"
+          usageId="gov_ca_dir_acct_calosha_adf_usecase0102_view_process_payment_shared_tf_process_payment_shared_tf_SetCurrentRowWithKeyValuePaymentPageDef"/>
+    <page path="/WEB-INF/process-payment-shared-tf.xml#process-payment-shared-tf@setPaymentId"
+          usageId="gov_ca_dir_acct_calosha_adf_usecase0102_view_process_payment_shared_tf_process_payment_shared_tf_setPaymentIdPageDef"/>
+    <page path="/WEB-INF/process-payment-tf.xml#process-payment-tf@setPaymentId"
+          usageId="gov_ca_dir_acct_calosha_adf_usecase0102_view_process_payment_tf_process_payment_tf_setPaymentIdPageDef"/>
+    <page path="/WEB-INF/process-payment-shared-tf.xml#process-payment-shared-tf@setIsPaymentExist"
+          usageId="gov_ca_dir_acct_calosha_adf_usecase0102_view_process_payment_shared_tf_process_payment_shared_tf_setIsPaymentExistPageDef"/>
+    <page path="/WEB-INF/process-payment-shared-tf.xml#process-payment-shared-tf@processPayments"
+          usageId="gov_ca_dir_acct_calosha_adf_usecase0102_view_process_payment_shared_tf_process_payment_shared_tf_processPaymentsPageDef"/>
+    <page path="/WEB-INF/process-payment-shared-tf.xml#process-payment-shared-tf@allocatePaymentAmount"
+          usageId="gov_ca_dir_acct_calosha_adf_usecase0102_view_process_payment_shared_tf_process_payment_shared_tf_allocatePaymentAmountPageDef"/>
+    <page path="/MainShared.jspx" usageId="gov_ca_dir_acct_calosha_adf_usecase0102_view_MainSharedPageDef"/>
+    <page path="/WEB-INF/process-payment-shared-tf.xml#process-payment-shared-tf@setReferenceNumber"
+          usageId="gov_ca_dir_acct_calosha_adf_usecase0102_view_process_payment_shared_tf_process_payment_shared_tf_setReferenceNumberPageDef"/>
+    <page path="/WEB-INF/process-payment-shared-tf.xml#process-payment-shared-tf@prepareInputFields"
+          usageId="gov_ca_dir_acct_calosha_adf_usecase0102_view_process_payment_shared_tf_process_payment_shared_tf_prepareInputFieldsPageDef"/>
+  </pageMap>
+  <pageDefinitionUsages>
+    <page id="gov_ca_dir_acct_calosha_adf_usecase0102_view_ProcessPaymentPageDef"
+          path="gov.ca.dir.acct.calosha.adf.usecase0102.view.pageDefs.ProcessPaymentPageDef"/>
+    <page id="gov_ca_dir_acct_calosha_adf_usecase0102_view_process_payment_tf_process_payment_tf_SetCurrentRowWithKeyValuePageDef"
+          path="gov.ca.dir.acct.calosha.adf.usecase0102.view.pageDefs.process_payment_tf_process_payment_tf_SetCurrentRowWithKeyValuePageDef"/>
+    <page id="gov_ca_dir_acct_calosha_adf_usecase0102_view_MainPageDef"
+          path="gov.ca.dir.acct.calosha.adf.usecase0102.view.pageDefs.MainPageDef"/>
+    <page id="gov_ca_dir_acct_calosha_adf_usecase0102_view_process_payment_tf_process_payment_tf_CreateInsertPageDef"
+          path="gov.ca.dir.acct.calosha.adf.usecase0102.view.pageDefs.process_payment_tf_process_payment_tf_CreateInsertPageDef"/>
+    <page id="gov_ca_dir_acct_calosha_adf_usecase0102_view_process_payment_shared_tf_process_payment_shared_tf_SetCurrentRowWithKeyValueInspectionPageDef"
+          path="gov.ca.dir.acct.calosha.adf.usecase0102.view.pageDefs.process_payment_shared_tf_process_payment_shared_tf_SetCurrentRowWithKeyValueInspectionPageDef"/>
+    <page id="gov_ca_dir_acct_calosha_adf_usecase0102_view_process_payment_shared_tf_process_payment_shared_tf_SetCurrentRowWithKeyValuePaymentPageDef"
+          path="gov.ca.dir.acct.calosha.adf.usecase0102.view.pageDefs.process_payment_shared_tf_process_payment_shared_tf_SetCurrentRowWithKeyValuePaymentPageDef"/>
+    <page id="gov_ca_dir_acct_calosha_adf_usecase0102_view_process_payment_shared_tf_process_payment_shared_tf_setPaymentIdPageDef"
+          path="gov.ca.dir.acct.calosha.adf.usecase0102.view.pageDefs.process_payment_shared_tf_process_payment_shared_tf_setPaymentIdPageDef"/>
+    <page id="gov_ca_dir_acct_calosha_adf_usecase0102_view_process_payment_tf_process_payment_tf_setPaymentIdPageDef"
+          path="gov.ca.dir.acct.calosha.adf.usecase0102.view.pageDefs.process_payment_tf_process_payment_tf_setPaymentIdPageDef"/>
+    <page id="gov_ca_dir_acct_calosha_adf_usecase0102_view_process_payment_shared_tf_process_payment_shared_tf_setIsPaymentExistPageDef"
+          path="gov.ca.dir.acct.calosha.adf.usecase0102.view.pageDefs.process_payment_shared_tf_process_payment_shared_tf_setIsPaymentExistPageDef"/>
+    <page id="gov_ca_dir_acct_calosha_adf_usecase0102_view_process_payment_shared_tf_process_payment_shared_tf_processPaymentsPageDef"
+          path="gov.ca.dir.acct.calosha.adf.usecase0102.view.pageDefs.process_payment_shared_tf_process_payment_shared_tf_processPaymentsPageDef"/>
+    <page id="gov_ca_dir_acct_calosha_adf_usecase0102_view_process_payment_shared_tf_process_payment_shared_tf_allocatePaymentAmountPageDef"
+          path="gov.ca.dir.acct.calosha.adf.usecase0102.view.pageDefs.process_payment_shared_tf_process_payment_shared_tf_allocatePaymentAmountPageDef"/>
+    <page id="gov_ca_dir_acct_calosha_adf_usecase0102_view_MainSharedPageDef" path="gov.ca.dir.acct.calosha.adf.usecase0102.view.pageDefs.MainSharedPageDef"/>
+    <page id="gov_ca_dir_acct_calosha_adf_usecase0102_view_process_payment_shared_tf_process_payment_shared_tf_setReferenceNumberPageDef"
+          path="gov.ca.dir.acct.calosha.adf.usecase0102.view.pageDefs.process_payment_shared_tf_process_payment_shared_tf_setReferenceNumberPageDef"/>
+    <page id="gov_ca_dir_acct_calosha_adf_usecase0102_view_process_payment_shared_tf_process_payment_shared_tf_prepareInputFieldsPageDef"
+          path="gov.ca.dir.acct.calosha.adf.usecase0102.view.pageDefs.process_payment_shared_tf_process_payment_shared_tf_prepareInputFieldsPageDef"/>
+  </pageDefinitionUsages>
+  <dataControlUsages>
+    <BC4JDataControl id="ProcessPaymentAMDataControl"
+                     Package="gov.ca.dir.acct.calosha.adf.usecase0102.model.appmodule"
+                     FactoryClass="oracle.adf.model.bc4j.DataControlFactoryImpl"
+                     SupportsTransactions="true" SupportsFindMode="true"
+                     SupportsRangesize="true" SupportsResetState="true"
+                     SupportsSortCollection="true"
+                     Configuration="ProcessPaymentAMLocal" syncMode="Immediate"
+                     xmlns="http://xmlns.oracle.com/adfm/datacontrol"/>
+  </dataControlUsages>
+</Application>

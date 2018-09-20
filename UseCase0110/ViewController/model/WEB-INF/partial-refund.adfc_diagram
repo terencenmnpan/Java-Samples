@@ -1,0 +1,50 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<SDM>
+   <OverallProperties
+      id="OverallProperties1">
+      <property
+         name="y">258.8506</property>
+      <property
+         name="x">97.03223</property>
+   </OverallProperties>
+   <TaskFlowReturn
+      id="TaskFlowReturn2">
+      <property
+         name="activityId">Commit</property>
+      <property
+         name="finish">true</property>
+      <property
+         name="description">&lt;html>&lt;p>&lt;b>Commit&lt;/b>&lt;/p>&lt;p>Activity Type:  Task Flow Return&lt;/p>&lt;p>Outcome:  Commit&lt;/p></property>
+      <property
+         name="exceptionHandler">false</property>
+      <property
+         name="y">98.79883</property>
+      <property
+         name="x">285.56445</property>
+   </TaskFlowReturn>
+   <MethodCall
+      id="MethodCall3">
+      <property
+         name="activityId">activatePartialRefund</property>
+      <property
+         name="start">true</property>
+      <property
+         name="description">&lt;html>&lt;p>&lt;b>activatePartialRefund&lt;/b> (Default Activity)&lt;/p>&lt;p>Activity Type:  Method Call&lt;/p></property>
+      <property
+         name="exceptionHandler">false</property>
+      <property
+         name="y">91.149414</property>
+      <property
+         name="x">97.03223</property>
+   </MethodCall>
+   <ControlFlowCase
+      islink="true"
+      id="ControlFlowCase4"
+      from="MethodCall3"
+      to="TaskFlowReturn2">
+      <property
+         name="fromOutcome">Save</property>
+      <property
+         name="sdm:polyPoints">R50,138.03223,90.79883,244.56445,98.44824,L50</property>
+   </ControlFlowCase>
+</SDM>

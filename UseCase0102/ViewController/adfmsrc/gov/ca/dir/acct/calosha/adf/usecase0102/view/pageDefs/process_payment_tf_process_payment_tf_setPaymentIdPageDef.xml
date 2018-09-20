@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel"
+                version="11.1.1.64.93"
+                id="process_payment_tf_process_payment_tf_setPaymentIdPageDef"
+                Package="gov.ca.dir.acct.calosha.adf.usecase0102.view.pageDefs"
+                SkipValidation="true">
+  <parameters/>
+  <executables/>
+  <bindings>
+    <methodAction id="setPaymentId" RequiresUpdateModel="true"
+                  Action="invokeMethod" MethodName="setPaymentId"
+                  IsViewObjectMethod="false"
+                  DataControl="ProcessPaymentAMDataControl"
+                  InstanceName="ProcessPaymentAMDataControl.dataProvider">
+      <NamedData NDName="paymentId" NDType="oracle.jbo.domain.Number"/>
+    </methodAction>
+  </bindings>
+</pageDefinition>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel"
+                version="11.1.1.64.93" id="CreateEddDRecordPageDef"
+                Package="gov.ca.dir.acct.calosha.adf.usecase0164.view.pageDefs">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="ThirdPartyCollectionDView2" RangeSize="25"
+              DataControl="ReferralSearchInvoiceAMDataControl"
+              id="ThirdPartyCollectionDView2Iterator"/>
+    <iterator id="ThirdPartyCollectionHeaderView1Iterator"
+              Binds="ThirdPartyCollectionHeaderView1"
+              DataControl="ReferralSearchInvoiceAMDataControl" RangeSize="25"/>
+  </executables>
+  <bindings>
+    <list IterBinding="ThirdPartyCollectionDView2Iterator" StaticList="false"
+          Uses="LOV_StatusCode" id="StatusCode" DTSupportsMRU="true"/>
+    <attributeValues IterBinding="ThirdPartyCollectionDView2Iterator"
+                     id="StatusDate">
+      <AttrNames>
+        <Item Value="StatusDate"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="ThirdPartyCollectionDView2Iterator"
+                     id="DeathDate">
+      <AttrNames>
+        <Item Value="DeathDate"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="ThirdPartyCollectionDView2Iterator"
+                     id="ThirdPartyCollectId">
+      <AttrNames>
+        <Item Value="ThirdPartyCollectId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="ThirdPartyCollectionDView2Iterator"
+                     id="DebtId">
+      <AttrNames>
+        <Item Value="DebtId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="ThirdPartyCollectionDView2Iterator"
+                     id="DebtorNumber">
+      <AttrNames>
+        <Item Value="DebtorNumber"/>
+      </AttrNames>
+    </attributeValues>
+  </bindings>
+</pageDefinition>

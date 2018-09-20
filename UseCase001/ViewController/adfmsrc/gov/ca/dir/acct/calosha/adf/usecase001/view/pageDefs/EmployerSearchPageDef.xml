@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel"
+                version="11.1.1.64.93" id="EmployerSearchPageDef"
+                Package="gov.ca.dir.acct.calosha.adf.usecase001.view.pageDefs">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="EmployerSearchView1" RangeSize="25"
+              DataControl="EmployerSearchAMDataControl"
+              id="EmployerSearchView1Iterator"/>
+    <searchRegion Criteria="EmployerSearchViewCriteria"
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer"
+                  Binds="EmployerSearchView1Iterator"
+                  id="EmployerSearchViewCriteriaQuery"/>
+    <iterator Binds="UpdateEmployerView1" RangeSize="25"
+              DataControl="EmployerSearchAMDataControl"
+              id="UpdateEmployerView1Iterator"/>
+  </executables>
+  <bindings>
+    <tree IterBinding="EmployerSearchView1Iterator" id="EmployerSearchView1">
+      <nodeDefinition DefName="gov.ca.dir.acct.calosha.adf.usecase001.model.view.EmployerSearchView"
+                      Name="EmployerSearchView10">
+        <AttrNames>
+          <Item Value="PartyId"/>
+          <Item Value="LegalName"/>
+          <Item Value="OrganizationName"/>
+          <Item Value="StreetAddress"/>
+          <Item Value="City"/>
+          <Item Value="StateCode"/>
+          <Item Value="ZipCode"/>
+          <Item Value="Phone"/>
+          <Item Value="Email"/>
+          <Item Value="Fax"/>
+          <Item Value="CellPhone"/>
+          <Item Value="Url"/>
+          <Item Value="WebSite"/>
+          <Item Value="WorkPhone"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <action IterBinding="UpdateEmployerView1Iterator"
+            id="setCurrentRowWithKeyValue" RequiresUpdateModel="false"
+            Action="setCurrentRowWithKeyValue">
+      <NamedData NDName="rowKey" NDValue="#{row.PartyId}"
+                 NDType="java.lang.String"/>
+    </action>
+  </bindings>
+</pageDefinition>

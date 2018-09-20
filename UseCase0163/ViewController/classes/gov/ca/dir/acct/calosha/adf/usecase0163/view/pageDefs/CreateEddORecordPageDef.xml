@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel"
+                version="11.1.1.64.93" id="CreateEddORecordPageDef"
+                Package="gov.ca.dir.acct.calosha.adf.usecase0163.view.pageDefs">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="ThirdPartyCollectionOView1" RangeSize="25"
+              DataControl="ReferralSearchInvoiceAMDataControl"
+              id="ThirdPartyCollectionOView1Iterator"/>
+    <iterator id="ThirdPartyCollectionHeaderView1Iterator"
+              Binds="ThirdPartyCollectionHeaderView1"
+              DataControl="ReferralSearchInvoiceAMDataControl" RangeSize="25"/>
+  </executables>
+  <bindings>
+    <attributeValues IterBinding="ThirdPartyCollectionOView1Iterator"
+                     id="DebtorNumber">
+      <AttrNames>
+        <Item Value="DebtorNumber"/>
+      </AttrNames>
+    </attributeValues>
+    <list IterBinding="ThirdPartyCollectionOView1Iterator" StaticList="false"
+          Uses="LOV_DebtorType" id="DebtorType" DTSupportsMRU="true"/>
+    <attributeValues IterBinding="ThirdPartyCollectionOView1Iterator"
+                     id="DebtorId">
+      <AttrNames>
+        <Item Value="DebtorId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="ThirdPartyCollectionOView1Iterator"
+                     id="EntityLegalName">
+      <AttrNames>
+        <Item Value="EntityLegalName"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="ThirdPartyCollectionOView1Iterator"
+                     id="EntityFirstName">
+      <AttrNames>
+        <Item Value="EntityFirstName"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="ThirdPartyCollectionOView1Iterator"
+                     id="EntityLastName">
+      <AttrNames>
+        <Item Value="EntityLastName"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="ThirdPartyCollectionOView1Iterator"
+                     id="ThirdPartyCollectId">
+      <AttrNames>
+        <Item Value="ThirdPartyCollectId"/>
+      </AttrNames>
+    </attributeValues>
+    <list IterBinding="ThirdPartyCollectionOView1Iterator" StaticList="false"
+          Uses="LOV_DebtId" id="DebtId" DTSupportsMRU="true"/>
+    <attributeValues IterBinding="ThirdPartyCollectionOView1Iterator"
+                     id="DataSourceCode">
+      <AttrNames>
+        <Item Value="DataSourceCode"/>
+      </AttrNames>
+    </attributeValues>
+  </bindings>
+</pageDefinition>

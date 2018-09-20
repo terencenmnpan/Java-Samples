@@ -1,0 +1,99 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1"
+          xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:h="http://java.sun.com/jsf/html"
+          xmlns:af="http://xmlns.oracle.com/adf/faces/rich">
+  <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+  <f:view>
+    <af:document id="d1">
+      <af:messages id="m1"/>
+      <af:form id="f1">
+        <af:pageTemplate viewId="/use-case-template.jspx" id="pt1">
+          <f:facet name="main">
+            <af:panelGroupLayout id="pgl1" layout="scroll">
+              <af:panelBox id="pb1" text="Debt Recall Details">
+                <af:panelFormLayout id="pfl1">
+                  <f:facet name="footer">
+                    <af:panelGroupLayout id="panelGroupLayout1"
+                                         layout="horizontal" halign="right">
+                      <af:toolbar id="t1">
+                        <af:commandToolbarButton text="Save" id="ctb1"
+                                                 action="#{pageFlowScope.CreateEddDRecordBean.checkIfEddDeleteIsValid}"
+                                                 disabled="#{not empty pageFlowScope.CreateEddDRecordBean.thirdPartyCollectionId &amp;&amp; pageFlowScope.CreateEddDRecordBean.dataSourceCode == 'CALOSHA' ? true : false}">
+                          <af:setPropertyListener from="#{bindings.ThirdPartyCollectId.attributeValue}"
+                                                  to="#{pageFlowScope.CreateEddDRecordBean.thirdPartyCollectionAssocToId}"
+                                                  type="action"/>
+                          <af:setPropertyListener from="commit"
+                                                  to="#{pageFlowScope.CreateEddDRecordBean.navigate}"
+                                                  type="action"/>
+                        </af:commandToolbarButton>
+                        <af:commandToolbarButton text="Undo" id="ctb2"
+                                                 immediate="true"
+                                                 action="rollback">
+                          <af:resetActionListener/>
+                        </af:commandToolbarButton>
+                        <af:commandToolbarButton text="Delete" id="ctb3"
+                                                 action="#{pageFlowScope.CreateEddDRecordBean.checkIfEddDeleteIsValid}"
+                                                 rendered="#{not empty pageFlowScope.CreateEddDRecordBean.thirdPartyCollectionId}">
+                          <af:setPropertyListener from="DeleteDRecord"
+                                                  to="#{pageFlowScope.CreateEddDRecordBean.navigate}"
+                                                  type="action"/>
+                        </af:commandToolbarButton>
+                      </af:toolbar>
+                    </af:panelGroupLayout>
+                  </f:facet>
+                  <af:inputText value="#{bindings.DebtId.inputValue}"
+                                label="#{bindings.DebtId.hints.label}"
+                                required="#{bindings.DebtId.hints.mandatory}"
+                                columns="#{bindings.DebtId.hints.displayWidth}"
+                                maximumLength="#{bindings.DebtId.hints.precision}"
+                                shortDesc="#{bindings.DebtId.hints.tooltip}"
+                                id="it1"
+                                readOnly="#{not empty pageFlowScope.CreateEddDRecordBean.debtId}">
+                    <f:validator binding="#{bindings.DebtId.validator}"/>
+                  </af:inputText>
+                  <af:inputText value="#{bindings.DebtorNumber.inputValue}"
+                                label="#{bindings.DebtorNumber.hints.label}"
+                                required="#{bindings.DebtorNumber.hints.mandatory}"
+                                columns="#{bindings.DebtorNumber.hints.displayWidth}"
+                                maximumLength="#{bindings.DebtorNumber.hints.precision}"
+                                shortDesc="#{bindings.DebtorNumber.hints.tooltip}"
+                                id="it2"
+                                readOnly="#{not empty pageFlowScope.CreateEddDRecordBean.debtorNumber}">
+                    <f:validator binding="#{bindings.DebtorNumber.validator}"/>
+                  </af:inputText>
+                  <af:selectOneChoice value="#{bindings.StatusCode.inputValue}"
+                                      label="#{bindings.StatusCode.label}"
+                                      required="#{bindings.StatusCode.hints.mandatory}"
+                                      shortDesc="#{bindings.StatusCode.hints.tooltip}"
+                                      id="soc1">
+                    <f:selectItems value="#{bindings.StatusCode.items}"
+                                   id="si1"/>
+                  </af:selectOneChoice>
+                  <af:inputDate value="#{bindings.StatusDate.inputValue}"
+                                label="#{bindings.StatusDate.hints.label}"
+                                required="#{bindings.StatusDate.hints.mandatory}"
+                                shortDesc="#{bindings.StatusDate.hints.tooltip}"
+                                id="id1">
+                    <f:validator binding="#{bindings.StatusDate.validator}"/>
+                    <af:convertDateTime pattern="#{bindings.StatusDate.format}"/>
+                  </af:inputDate>
+                  <af:inputDate value="#{bindings.DeathDate.inputValue}"
+                                label="#{bindings.DeathDate.hints.label}"
+                                required="#{bindings.DeathDate.hints.mandatory}"
+                                shortDesc="#{bindings.DeathDate.hints.tooltip}"
+                                id="id2">
+                    <f:validator binding="#{bindings.DeathDate.validator}"/>
+                    <af:convertDateTime pattern="#{bindings.DeathDate.format}"/>
+                  </af:inputDate>
+                </af:panelFormLayout>
+              </af:panelBox>
+            </af:panelGroupLayout>
+          </f:facet>
+          <f:attribute name="title"
+                       value="#{not empty pageFlowScope.CreateEddDRecordBean.thirdPartyCollectionId ? 'Edit' : 'Create New'} Edd D Record"/>
+        </af:pageTemplate>
+      </af:form>
+    </af:document>
+  </f:view>
+</jsp:root>

@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
+  <task-flow-definition id="manage-payments-tf">
+    <default-activity id="__1">InspectionIdProvidedRouter</default-activity>
+    <transaction id="__54">
+      <new-transaction/>
+    </transaction>
+    <data-control-scope id="__53">
+      <isolated/>
+    </data-control-scope>
+    <input-parameter-definition id="__46">
+      <name id="__45">inputManagePaymentsInspectionId</name>
+      <value>#{pageFlowScope.inputManagePaymentsInspectionId}</value>
+      <class>java.lang.String</class>
+    </input-parameter-definition>
+    <managed-bean id="__22">
+      <managed-bean-name id="__25">modifyPaymentBean</managed-bean-name>
+      <managed-bean-class id="__24">gov.ca.dir.acct.calosha.adf.usecase010.view.ModifyPaymentBean</managed-bean-class>
+      <managed-bean-scope id="__23">pageFlow</managed-bean-scope>
+    </managed-bean>
+    <view id="ManagePayments">
+      <page>/ManagePayments.jsff</page>
+    </view>
+    <method-call id="ExecuteWithParams">
+      <method>#{bindings.ExecuteWithParams.execute}</method>
+      <outcome id="__2">
+        <fixed-outcome>ExecuteWithParams</fixed-outcome>
+      </outcome>
+    </method-call>
+    <task-flow-call id="modify-payment-tf">
+      <task-flow-reference>
+        <document>/WEB-INF/modify-payment-tf.xml</document>
+        <id>modify-payment-tf</id>
+      </task-flow-reference>
+      <input-parameter id="__26">
+        <name>inputPaymentId</name>
+        <value>#{pageFlowScope.ManagePaymentsPaymentId}</value>
+      </input-parameter>
+    </task-flow-call>
+    <task-flow-call id="modify-payment-tf1">
+      <task-flow-reference>
+        <document>/WEB-INF/modify-payment-tf.xml</document>
+        <id>modify-payment-tf</id>
+      </task-flow-reference>
+      <input-parameter id="__27">
+        <name>inputPaymentId</name>
+        <value>#{pageFlowScope.ManagePaymentsPaymentId}</value>
+      </input-parameter>
+      <input-parameter id="__28">
+        <name>inputModifyPaymentsViewOnly</name>
+        <value>YES</value>
+      </input-parameter>
+    </task-flow-call>
+    <task-flow-call id="search-invoice-tf">
+      <task-flow-reference>
+        <document>/WEB-INF/search-invoice-tf.xml</document>
+        <id>search-invoice-tf</id>
+      </task-flow-reference>
+      <input-parameter id="__32">
+        <name>calledIndicator</name>
+        <value>Y</value>
+      </input-parameter>
+      <return-value id="__31">
+        <name>returnInspectID</name>
+        <value>#{pageFlowScope.returnManagePaymentInspectionId}</value>
+      </return-value>
+    </task-flow-call>
+    <task-flow-call id="process-payment-tf">
+      <task-flow-reference>
+        <document>/WEB-INF/process-payment-tf.xml</document>
+        <id>process-payment-tf</id>
+      </task-flow-reference>
+      <input-parameter id="__36">
+        <name>InputInspectionId</name>
+        <value>#{pageFlowScope.returnManagePaymentInspectionId}</value>
+      </input-parameter>
+    </task-flow-call>
+    <router id="InspectionIdProvidedRouter">
+      <case>
+        <expression>#{empty pageFlowScope.inputManagePaymentsInspectionId}</expression>
+        <outcome id="__47">noInspectionIdprovided</outcome>
+      </case>
+      <case>
+        <expression>#{not empty pageFlowScope.inputManagePaymentsInspectionId}</expression>
+        <outcome id="__48">inspectionIdprovided</outcome>
+      </case>
+      <default-outcome>noInspectionIdprovided</default-outcome>
+    </router>
+    <task-flow-return id="taskFlowReturn1">
+      <outcome id="__52">
+        <name>taskFlowReturn1</name>
+        <commit/>
+      </outcome>
+    </task-flow-return>
+    <method-call id="Execute">
+      <method>#{bindings.Execute.execute}</method>
+      <outcome id="__63">
+        <fixed-outcome>Execute</fixed-outcome>
+      </outcome>
+    </method-call>
+    <method-call id="ExecuteWithParams1">
+      <method>#{bindings.ExecuteWithParams.execute}</method>
+      <outcome id="__60">
+        <fixed-outcome>ExecuteWithParams</fixed-outcome>
+      </outcome>
+    </method-call>
+    <control-flow-rule id="__5">
+      <from-activity-id id="__6">ExecuteWithParams</from-activity-id>
+      <control-flow-case id="__9">
+        <from-outcome id="__8">ExecuteWithParams</from-outcome>
+        <to-activity-id id="__7">ExecuteWithParams1</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__10">
+      <from-activity-id id="__11">ManagePayments</from-activity-id>
+      <control-flow-case id="__13">
+        <from-outcome id="__14">ModifyPayment</from-outcome>
+        <to-activity-id id="__12">modify-payment-tf</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__15">
+        <from-outcome id="__17">ViewPayment</from-outcome>
+        <to-activity-id id="__16">modify-payment-tf1</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__29">
+        <from-outcome id="__30">backToNoInspectionIdProvided</from-outcome>
+        <to-activity-id id="__21">search-invoice-tf</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__34">
+        <from-outcome id="__35">ProcessPayment</from-outcome>
+        <to-activity-id id="__33">process-payment-tf</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__50">
+        <from-outcome id="__51">backToInspectionIdProvided</from-outcome>
+        <to-activity-id id="__49">taskFlowReturn1</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__3">
+      <from-activity-id id="__4">search-invoice-tf</from-activity-id>
+      <control-flow-case id="__20">
+        <from-outcome id="__18">taskFlowReturn1</from-outcome>
+        <to-activity-id id="__19">ExecuteWithParams</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__37">
+      <from-activity-id id="__38">InspectionIdProvidedRouter</from-activity-id>
+      <control-flow-case id="__40">
+        <from-outcome id="__41">noInspectionIdprovided</from-outcome>
+        <to-activity-id id="__39">search-invoice-tf</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__43">
+        <from-outcome id="__44">inspectionIdprovided</from-outcome>
+        <to-activity-id id="__42">ExecuteWithParams</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__55">
+      <from-activity-id id="__56">process-payment-tf</from-activity-id>
+      <control-flow-case id="__58">
+        <from-outcome id="__57">CommitReturn</from-outcome>
+        <to-activity-id id="__59">Execute</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__64">
+      <from-activity-id id="__65">Execute</from-activity-id>
+      <control-flow-case id="__68">
+        <from-outcome id="__67">Execute</from-outcome>
+        <to-activity-id id="__66">ManagePayments</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__69">
+      <from-activity-id id="__70">modify-payment-tf</from-activity-id>
+      <control-flow-case id="__73">
+        <from-outcome id="__72">taskFlowReturn2</from-outcome>
+        <to-activity-id id="__71">Execute</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__61">
+      <from-activity-id id="__62">ExecuteWithParams1</from-activity-id>
+      <control-flow-case id="__74">
+        <from-outcome id="__76">ExecuteWithParams</from-outcome>
+        <to-activity-id id="__75">ManagePayments</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <use-page-fragments/>
+  </task-flow-definition>
+</adfc-config>

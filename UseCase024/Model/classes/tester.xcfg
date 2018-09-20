@@ -1,0 +1,11 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<BC4JConfig version="11.1" xmlns="http://xmlns.oracle.com/bc4j/configuration">
+   <AppModuleConfigBag ApplicationName="gov.ca.dir.acct.calosha.adf.usecase024.model.view.appmodule.ReferralSearchInvoiceAM">
+      <AppModuleConfig name="16549EB277C" java.naming.factory.initial="oracle.jbo.common.JboInitialContextFactory" DBconnection="java:comp/env/jdbc/calodevDS" IsLazyLoadingTrue="true" JDBCName="calodev" jbo.project="gov.ca.dir.acct.calosha.adf.usecase024.model.Model" BC4JConfigName="SearchInvoiceAMLocal" DeployPlatform="LOCAL" ApplicationName="gov.ca.dir.acct.calosha.adf.usecase024.model.view.appmodule.ReferralSearchInvoiceAM">
+         <Database jbo.SQLBuilder="Oracle" jbo.TypeMapEntries="Java"/>
+         <Security AppModuleJndiName="gov.ca.dir.acct.calosha.adf.usecase024.model.view.appmodule.ReferralSearchInvoiceAM"/>
+         <Tester FullProxyInterfaceName="gov.ca.dir.acct.calosha.adf.usecase024.model.view.appmodule.common.ReferralSearchInvoiceAM"/>
+         <Custom LastUsedConfiguration="SearchInvoiceAMLocal" JDBCDataSource="java:comp/env/jdbc/calodevDS"/>
+      </AppModuleConfig>
+   </AppModuleConfigBag>
+</BC4JConfig>

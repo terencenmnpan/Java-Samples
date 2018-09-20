@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Application xmlns="http://xmlns.oracle.com/adfm/application"
+             version="11.1.1.64.93" id="DataBindings" SeparateXMLFiles="false"
+             Package="gov.ca.dir.acct.calosha.adf.master.viewcontroller"
+             ClientType="Generic">
+  <definitionFactories>
+    <factory nameSpace="http://xmlns.oracle.com/adf/controller/binding"
+             className="oracle.adf.controller.internal.binding.TaskFlowBindingDefFactoryImpl"/>
+    <dtfactory className="oracle.adf.controller.internal.dtrt.binding.BindingDTObjectFactory"/>
+  </definitionFactories>
+  <pageMap>
+    <page path="/mainScreen.jspx"
+          usageId="gov_ca_dir_acct_calosha_adf_master_viewcontroller_mainScreenPageDef"/>
+    <page path="/adminScreen.jspx"
+          usageId="gov_ca_dir_acct_calosha_adf_master_viewcontroller_adminScreenPageDef"/>
+    <page path="/appLogin.jspx"
+          usageId="gov_ca_dir_acct_calosha_adf_master_viewcontroller_loginPageDef"/>
+    <page path="/appError.jspx"
+          usageId="gov_ca_dir_acct_calosha_adf_master_viewcontroller_appErrorPageDef"/>
+  </pageMap>
+  <pageDefinitionUsages>
+    <page id="gov_ca_dir_acct_calosha_adf_master_viewcontroller_mainScreenPageDef"
+          path="gov.ca.dir.acct.calosha.adf.master.viewcontroller.pageDefs.mainScreenPageDef"/>
+    <page id="gov_ca_dir_acct_calosha_adf_master_viewcontroller_adminScreenPageDef"
+          path="gov.ca.dir.acct.calosha.adf.master.viewcontroller.pageDefs.adminScreenPageDef"/>
+    <page id="gov_ca_dir_acct_calosha_adf_master_viewcontroller_loginPageDef"
+          path="gov.ca.dir.acct.calosha.adf.master.viewcontroller.pageDefs.loginPageDef"/>
+    <page id="gov_ca_dir_acct_calosha_adf_master_viewcontroller_appErrorPageDef"
+          path="gov.ca.dir.acct.calosha.adf.master.viewcontroller.pageDefs.appErrorPageDef"/>
+  </pageDefinitionUsages> 
+  <dataControlUsages>
+    <BC4JDataControl id="MasterUIAMDataControl"
+                     Package="gov.ca.dir.acct.calosha.adf.master.appmodule"
+                     FactoryClass="oracle.adf.model.bc4j.DataControlFactoryImpl"
+                     SupportsTransactions="true" SupportsFindMode="true"
+                     SupportsRangesize="true" SupportsResetState="true"
+                     SupportsSortCollection="true"
+                     Configuration="MasterUIAMLocal" syncMode="Immediate"
+                     xmlns="http://xmlns.oracle.com/adfm/datacontrol"/>
+    <BC4JDataControl id="PartyUtilsAMDataControl"
+                     Package="gov.ca.dir.acct.calosha.adf.common.code.model.appmodule"
+                     FactoryClass="oracle.adf.model.bc4j.DataControlFactoryImpl"
+                     SupportsTransactions="true" SupportsFindMode="true"
+                     SupportsRangesize="true" SupportsResetState="true"
+                     SupportsSortCollection="true"
+                     Configuration="PartyUtilsAMLocal" syncMode="Immediate"
+                     xmlns="http://xmlns.oracle.com/adfm/datacontrol"/>
+  </dataControlUsages>
+</Application>

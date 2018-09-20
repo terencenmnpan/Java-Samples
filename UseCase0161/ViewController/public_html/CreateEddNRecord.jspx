@@ -1,0 +1,491 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1"
+          xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:h="http://java.sun.com/jsf/html"
+          xmlns:af="http://xmlns.oracle.com/adf/faces/rich">
+  <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+  <f:view>
+    <af:document id="d1">
+      <af:messages id="m1"/>
+      <af:form id="f1">
+        <af:pageTemplate viewId="/use-case-template.jspx" id="pt1">
+          <f:facet name="main">
+            <af:panelGroupLayout id="panelGroupLayout4" layout="scroll">
+              <af:panelBox text="Employer Info" id="pb1"
+                           styleClass="AFStretchWidth">
+                <af:panelFormLayout id="panelFormLayout1" rows="3"
+                                    maxColumns="4">
+                  <af:inputText value="#{bindings.DebtId.inputValue}" id="ot158"
+                                label="#{bindings.DebtId.hints.label}"
+                                contentStyle="width:50px"
+                                readOnly="#{pageFlowScope.CreateEddNRecordBean.dataSourceCode eq 'CALOSHA' ? true : false}"
+                                showRequired="true">
+                    <af:validateLength maximum="4"/>
+                  </af:inputText>
+                  <af:inputText value="#{bindings.DebtorNumber.inputValue}"
+                                id="ot159"
+                                label="#{bindings.DebtorNumber.hints.label}"
+                                contentStyle="width:100px"
+                                readOnly="#{pageFlowScope.CreateEddNRecordBean.dataSourceCode eq 'CALOSHA' or pageFlowScope.CreateEddNRecordBean.recordType == 'R' or not empty pageFlowScope.CreateEddNRecordBean.thirdPartyCollectionId ? true : false}"
+                                validator="#{pageFlowScope.CreateEddNRecordBean.validNRecordDebtorNumber}"
+                                showRequired="true" autoSubmit="true"
+                                partialTriggers="ot159">
+                    <af:validateLength maximum="9" minimum="9"/>
+                  </af:inputText>
+                  <af:selectOneChoice value="#{bindings.DebtorType.inputValue}"
+                                      required="#{bindings.DebtorType.hints.mandatory}"
+                                      shortDesc="#{bindings.DebtorType.hints.tooltip}"
+                                      id="soc11"
+                                      label="#{bindings.DebtorType.label}"
+                                      valueChangeListener="#{pageFlowScope.CreateEddNRecordBean.debtorTypeValueChangeListener}"
+                                      immediate="true" autoSubmit="true">
+                    <f:selectItems id="si11"
+                                   value="#{bindings.DebtorType.items}"/>
+                  </af:selectOneChoice>
+                  <af:inputText value="#{bindings.DebtorId.inputValue}"
+                                label="#{bindings.DebtorId.hints.label}"
+                                required="#{bindings.DebtorId.hints.mandatory}"
+                                columns="#{bindings.DebtorId.hints.displayWidth}"
+                                maximumLength="#{bindings.DebtorId.hints.precision}"
+                                shortDesc="#{bindings.DebtorId.hints.tooltip}"
+                                id="it1"
+                                binding="#{pageFlowScope.CreateEddNRecordBean.debtorIdIt}"
+                                partialTriggers="soc11">
+                    <f:validator binding="#{bindings.DebtorId.validator}"/>
+                    <af:validateRegExp messageDetailNoMatch="Debtor ID should contain only Numbers"
+                                       pattern="[0-9]{9}"/>
+                  </af:inputText>
+                  <af:inputText value="#{bindings.EmployerName.inputValue}"
+                                id="ot162"
+                                label="#{bindings.EmployerName.hints.label}"
+                                readOnly="#{pageFlowScope.CreateEddNRecordBean.dataSourceCode eq 'CALOSHA' ? true : false}"/>
+                  <af:selectOneChoice value="#{bindings.LegalEntityType.inputValue}"
+                                      label="#{bindings.LegalEntityType.label}"
+                                      required="true"
+                                      shortDesc="#{bindings.LegalEntityType.hints.tooltip}"
+                                      id="soc10" autoSubmit="true"
+                                      immediate="true"
+                                      valueChangeListener="#{pageFlowScope.CreateEddNRecordBean.legalEntityTypeValueChangeListener}">
+                    <f:selectItems value="#{bindings.LegalEntityType.items}"
+                                   id="si10"/>
+                  </af:selectOneChoice>
+                  <af:inputText value="#{bindings.EntityLegalName.inputValue}"
+                                id="ot163"
+                                label="#{bindings.EntityLegalName.hints.label}"
+                                readOnly="#{pageFlowScope.CreateEddNRecordBean.dataSourceCode eq 'CALOSHA'? true : false}"
+                                partialTriggers="soc10"
+                                binding="#{pageFlowScope.CreateEddNRecordBean.entityLegalEntityIt}"/>
+                  <af:inputText value="#{bindings.EntityFirstName.inputValue}"
+                                id="ot164"
+                                label="#{bindings.EntityFirstName.hints.label}"
+                                readOnly="#{pageFlowScope.CreateEddNRecordBean.dataSourceCode eq 'CALOSHA'? true : false}"
+                                partialTriggers="soc10"
+                                binding="#{pageFlowScope.CreateEddNRecordBean.entityFirstNameIt}"/>
+                  <af:inputText value="#{bindings.EntityLastName.inputValue}"
+                                id="ot165"
+                                label="#{bindings.EntityLastName.hints.label}"
+                                readOnly="#{pageFlowScope.CreateEddNRecordBean.dataSourceCode eq 'CALOSHA'? true : false}"
+                                partialTriggers="soc10"
+                                binding="#{pageFlowScope.CreateEddNRecordBean.entityLastNameIt}"/>
+                </af:panelFormLayout>
+              </af:panelBox>
+              <af:panelBox text="Contact Information" id="pb5"
+                           styleClass="AFStretchWidth">
+                <af:panelGroupLayout id="panelGroupLayout5" layout="horizontal">
+                  <af:panelLabelAndMessage label="Phone Number 1"
+                                           id="panelLabelAndMessage11">
+                    <af:panelGroupLayout id="panelGroupLayout6"
+                                         layout="horizontal">
+                      <af:selectOneChoice value="#{bindings.PhoneType.inputValue}"
+                                          label="#{bindings.PhoneType.label}"
+                                          readOnly="#{pageFlowScope.CreateEddNRecordBean.dataSourceCode eq 'CALOSHA' ? true : false}"
+                                          required="#{bindings.PhoneType.hints.mandatory}"
+                                          shortDesc="#{bindings.PhoneType.hints.tooltip}"
+                                          id="soc1">
+                        <f:selectItems value="#{bindings.PhoneType.items}"
+                                       id="si1"/>
+                      </af:selectOneChoice>
+                      (
+                      <af:inputText id="ot194"
+                                    value="#{bindings.PhoneAreaCode.inputValue}"
+                                    readOnly="#{pageFlowScope.CreateEddNRecordBean.dataSourceCode eq 'CALOSHA' ? true : false}"
+                                    maximumLength="3"
+                                    contentStyle="width:25px"/>
+                      )
+                      <af:inputText value="#{bindings.PhoneNumber.inputValue}"
+                                    id="ot166"
+                                    readOnly="#{pageFlowScope.CreateEddNRecordBean.dataSourceCode eq 'CALOSHA' ? true : false}"
+                                    maximumLength="7" contentStyle="width:60px">
+                        <af:convertNumber groupingUsed="false"
+                                          pattern="#{bindings.PhoneNumber.format}"/>
+                      </af:inputText>
+                    </af:panelGroupLayout>
+                  </af:panelLabelAndMessage>
+                  <af:spacer width="10" height="10" id="s2"/>
+                  <af:panelLabelAndMessage label="Phone Number 2"
+                                           id="panelLabelAndMessage12">
+                    <af:panelGroupLayout id="panelGroupLayout7"
+                                         layout="horizontal">
+                      <af:selectOneChoice value="#{bindings.PhoneType2.inputValue}"
+                                          label="#{bindings.PhoneType2.label}"
+                                          readOnly="#{pageFlowScope.CreateEddNRecordBean.dataSourceCode eq 'CALOSHA' ? true : false}"
+                                          required="#{bindings.PhoneType2.hints.mandatory}"
+                                          shortDesc="#{bindings.PhoneType2.hints.tooltip}"
+                                          id="selectOneChoice1">
+                        <f:selectItems value="#{bindings.PhoneType2.items}"
+                                       id="selectItems1"/>
+                      </af:selectOneChoice>
+                      (
+                      <af:inputText value="#{bindings.PhoneAreaCode1.inputValue}"
+                                    id="ot195"
+                                    readOnly="#{pageFlowScope.CreateEddNRecordBean.dataSourceCode eq 'CALOSHA' ? true : false}"
+                                    maximumLength="3"
+                                    contentStyle="width:25px"/>
+                      )
+                      <af:inputText value="#{bindings.PhoneNumber1.inputValue}"
+                                    id="ot169" simple="true"
+                                    readOnly="#{pageFlowScope.CreateEddNRecordBean.dataSourceCode eq 'CALOSHA' ? true : false}"
+                                    maximumLength="7" contentStyle="width:60px">
+                        <af:convertNumber groupingUsed="false"
+                                          pattern="#{bindings.PhoneNumber1.format}"/>
+                      </af:inputText>
+                    </af:panelGroupLayout>
+                  </af:panelLabelAndMessage>
+                </af:panelGroupLayout>
+              </af:panelBox>
+              <af:panelGroupLayout id="panelGroupLayout8" layout="horizontal">
+                <af:panelBox text="Mailing Address" id="pb2"
+                             styleClass="AFStretchWidth">
+                  <af:panelFormLayout id="panelFormLayout2" rows="4"
+                                      partialTriggers="">
+                    <af:panelLabelAndMessage label="#{bindings.StreetAddress.hints.label}"
+                                             id="plam82">
+                      <af:spacer width="10" height="10" id="s1"/>
+                      <af:inputText value="#{bindings.StreetAddress.inputValue}"
+                                    id="ot170" autoSubmit="true"
+                                    readOnly="#{pageFlowScope.CreateEddNRecordBean.dataSourceCode eq 'CALOSHA' ? true : false}"
+                                    required="true"/>
+                    </af:panelLabelAndMessage>
+                    <af:panelLabelAndMessage label="City"
+                                             id="panelLabelAndMessage14">
+                      <af:panelGroupLayout id="pgl2" layout="horizontal"
+                                           halign="left">
+                        <af:inputText value="#{bindings.City.inputValue}"
+                                      id="ot173" contentStyle="width:120px"
+                                      readOnly="#{pageFlowScope.CreateEddNRecordBean.dataSourceCode eq 'CALOSHA' ? true : false}"
+                                      required="true"></af:inputText>
+                        <af:selectOneChoice value="#{bindings.StateCode.inputValue}"
+                                            label="#{bindings.StateCode.label}"
+                                            readOnly="#{pageFlowScope.CreateEddNRecordBean.dataSourceCode eq 'CALOSHA' ? true : false}"
+                                            required="true"
+                                            shortDesc="#{bindings.StateCode.hints.tooltip}"
+                                            id="soc2">
+                          <f:selectItems value="#{bindings.StateCode.items}"
+                                         id="si2"/>
+                        </af:selectOneChoice>
+                        <af:inputText value="#{bindings.ZipCode.inputValue}"
+                                      id="ot172"
+                                      label="#{bindings.ZipCode.hints.label}"
+                                      readOnly="#{pageFlowScope.CreateEddNRecordBean.dataSourceCode eq 'CALOSHA' ? true : false}"
+                                      required="true" maximumLength="9"
+                                      contentStyle="width:75px"/>
+                        <h:inputHidden value="#{bindings.StreetAddress.inputValue}"
+                                       required="true" id="ih1"
+                                       rendered="#{pageFlowScope.CreateEddNRecordBean.dataSourceCode eq 'CALOSHA' ? true : false}"
+                                       requiredMessage="Street Address must be entered"/>
+                        <h:inputHidden value="#{bindings.City.inputValue}"
+                                       required="true" id="ih2"
+                                       rendered="#{pageFlowScope.CreateEddNRecordBean.dataSourceCode eq 'CALOSHA' ? true : false}"
+                                       requiredMessage="City must be entered"/>
+                        <h:inputHidden value="#{bindings.StateCode.inputValue}"
+                                       required="true" id="ih3"
+                                       rendered="#{pageFlowScope.CreateEddNRecordBean.dataSourceCode eq 'CALOSHA' ? true : false}"
+                                       requiredMessage="State must be entered"/>
+                        <h:inputHidden value="#{bindings.ZipCode.inputValue}"
+                                       required="true" id="ih4"
+                                       rendered="#{pageFlowScope.CreateEddNRecordBean.dataSourceCode eq 'CALOSHA' ? true : false}"
+                                       requiredMessage="Zip Code must be entered"/>
+                      </af:panelGroupLayout>
+                    </af:panelLabelAndMessage>
+                  </af:panelFormLayout>
+                </af:panelBox>
+                <af:panelBox text="Optional Address" id="pb3"
+                             styleClass="AFStretchWidth">
+                  <af:panelFormLayout id="panelFormLayout3" rows="4">
+                    <af:selectBooleanCheckbox text="Add Optional Address" id="sbc1"
+                                              value="#{pageFlowScope.addOptionalAddress}"
+                                              autoSubmit="true"
+                                    valueChangeListener="#{pageFlowScope.CreateEddNRecordBean.optionalAddressValueChangeListener}"
+                                              immediate="true"/>
+                    <af:panelLabelAndMessage label="#{bindings.StreetAddress1.hints.label}"
+                                             id="plam85">
+                      <af:inputText value="#{bindings.StreetAddress1.inputValue}"
+                                    id="ot174" readOnly="true"
+                                    partialTriggers="sbc1"
+                                    binding="#{pageFlowScope.CreateEddNRecordBean.streetAddress2}"/>
+                    </af:panelLabelAndMessage>
+                    <af:panelLabelAndMessage label="City"
+                                             id="panelLabelAndMessage16">
+                      <af:panelGroupLayout id="panelGroupLayout9"
+                                           layout="horizontal">
+                        <af:inputText value="#{bindings.City1.inputValue}"
+                                      id="ot175" readOnly="true" contentStyle="width:120px"
+                                      partialTriggers="sbc1"
+                                      binding="#{pageFlowScope.CreateEddNRecordBean.city2}"/>
+                        <af:selectOneChoice value="#{bindings.StateCode1.inputValue}"
+                                            label="#{bindings.StateCode1.label}"
+                                            shortDesc="#{bindings.StateCode1.hints.tooltip}"
+                                            id="soc3"
+                                            readOnly="true"
+                                            partialTriggers="sbc1"
+                                            binding="#{pageFlowScope.CreateEddNRecordBean.stateCode2}">
+                          <f:selectItems value="#{bindings.StateCode1.items}"
+                                         id="si3"/>
+                        </af:selectOneChoice>
+                        <af:inputText value="#{bindings.ZipCode1.inputValue}"
+                                      id="ot177"
+                                      label="#{bindings.ZipCode1.hints.label}"
+                                      maximumLength="9"
+                                      contentStyle="width:75px"
+                                      readOnly = "true"
+                                      partialTriggers="sbc1"
+                                      binding="#{pageFlowScope.CreateEddNRecordBean.zipCode2}"/>
+                      </af:panelGroupLayout>
+                    </af:panelLabelAndMessage>
+                  </af:panelFormLayout>
+                </af:panelBox>
+              </af:panelGroupLayout>
+              <af:panelBox text="Invoice Info" id="pb4"
+                           styleClass="AFStretchWidth">
+                <af:panelFormLayout id="panelFormLayout4" maxColumns="4"
+                                    rows="6">
+                  <af:selectOneChoice value="#{bindings.ReportingId.inputValue}"
+                                      label="#{bindings.ReportingId.label}"
+                                      required="#{bindings.ReportingId.hints.mandatory}"
+                                      readOnly="#{pageFlowScope.CreateEddNRecordBean.dataSourceCode eq 'CALOSHA' ? true : false}"
+                                      shortDesc="#{bindings.ReportingId.hints.tooltip}"
+                                      id="soc4">
+                    <f:selectItems value="#{bindings.ReportingId.items}"
+                                   id="si4"/>
+                  </af:selectOneChoice>
+                  <af:inputDate value="#{bindings.LiabilityFinalityDate.inputValue}"
+                                id="ot193"
+                                label="#{bindings.LiabilityFinalityDate.hints.label}"
+                                contentStyle="width:80px" required="true"
+                                readOnly="#{pageFlowScope.CreateEddNRecordBean.dataSourceCode eq 'CALOSHA' ? true : false}"
+                                autoSubmit="true"
+                                validator="#{pageFlowScope.CreateEddNRecordBean.validNotFutureDate}">
+                    <af:convertDateTime pattern="#{bindings.LiabilityFinalityDate.format}"/>
+                  </af:inputDate>
+                  <af:inputDate value="#{bindings.IssueDate.inputValue}"
+                                label="#{bindings.IssueDate.hints.label}"
+                                required="true" contentStyle="width:80px" autoSubmit="true"
+                                readOnly="#{pageFlowScope.CreateEddNRecordBean.dataSourceCode eq 'CALOSHA' ? true : false}"
+                                validator="#{pageFlowScope.CreateEddNRecordBean.validNotFutureDate}"
+                                id="id2">
+                    <f:validator binding="#{bindings.IssueDate.validator}"/>
+                    <af:convertDateTime pattern="#{bindings.IssueDate.format}"/>
+                  </af:inputDate>
+                  <af:inputDate value="#{bindings.JudgmentDate.inputValue}"
+                                id="ot180"
+                                label="#{bindings.JudgmentDate.hints.label}"
+                                contentStyle="width:80px"
+                                readOnly="#{pageFlowScope.CreateEddNRecordBean.dataSourceCode eq 'CALOSHA' ? true : false}"
+                                validator="#{pageFlowScope.CreateEddNRecordBean.validNotFutureDate}"
+                                required="true"
+                                autoSubmit="true">
+                    <af:convertDateTime pattern="#{bindings.JudgmentDate.format}"/>
+                  </af:inputDate>
+                  <af:inputText value="#{bindings.FiscalYearName.inputValue}"
+                                label="#{bindings.FiscalYearName.hints.label}"
+                                required="true"
+                                columns="#{bindings.FiscalYearName.hints.displayWidth}"
+                                maximumLength="#{bindings.FiscalYearName.hints.precision}"
+                                shortDesc="#{bindings.FiscalYearName.hints.tooltip}"
+                                readOnly="#{pageFlowScope.CreateEddNRecordBean.dataSourceCode eq 'CALOSHA' ? true : false}"
+                                id="it2">
+                    <f:validator binding="#{bindings.FiscalYearName.validator}"/>
+                    <af:convertNumber groupingUsed="false"
+                                      pattern="#{bindings.FiscalYearName.format}"/>
+                  </af:inputText>
+                  <af:selectOneChoice value="#{bindings.FundId.inputValue}"
+                                      label="#{bindings.FundId.label}"
+                                      required="#{bindings.FundId.hints.mandatory}"
+                                      shortDesc="#{bindings.FundId.hints.tooltip}"
+                                      id="soc6"
+                                      readOnly="#{pageFlowScope.CreateEddNRecordBean.dataSourceCode eq 'CALOSHA' ? true : false}">
+                    <f:selectItems value="#{bindings.FundId.items}" id="si6"/>
+                  </af:selectOneChoice>
+                  <af:inputText value="#{bindings.RevenueSourceCode.inputValue}"
+                                id="ot183"
+                                label="#{bindings.RevenueSourceCode.hints.label}"
+                                contentStyle="width:80px"
+                                readOnly="#{pageFlowScope.CreateEddNRecordBean.dataSourceCode eq 'CALOSHA' ? true : false}"/>
+                  <af:selectOneChoice value="#{bindings.AgencySourceCode.inputValue}"
+                                      label="#{bindings.AgencySourceCode.label}"
+                                      required="#{bindings.AgencySourceCode.hints.mandatory}"
+                                      shortDesc="#{bindings.AgencySourceCode.hints.tooltip}"
+                                      id="soc9"
+                                      readOnly="#{pageFlowScope.CreateEddNRecordBean.dataSourceCode eq 'CALOSHA' ? true : false}">
+                    <f:selectItems value="#{bindings.AgencySourceCode.items}"
+                                   id="si9"/>
+                  </af:selectOneChoice>
+                  <af:selectOneChoice value="#{bindings.IndexCode.inputValue}"
+                                      label="#{bindings.IndexCode.label}"
+                                      required="#{bindings.IndexCode.hints.mandatory}"
+                                      shortDesc="#{bindings.IndexCode.hints.tooltip}"
+                                      id="soc7"
+                                      readOnly="#{pageFlowScope.CreateEddNRecordBean.dataSourceCode eq 'CALOSHA' ? true : false}">
+                    <f:selectItems value="#{bindings.IndexCode.items}"
+                                   id="si7"/>
+                  </af:selectOneChoice>
+                  <af:selectOneChoice value="#{bindings.PcaCode.inputValue}"
+                                      label="#{bindings.PcaCode.label}"
+                                      required="#{bindings.PcaCode.hints.mandatory}"
+                                      shortDesc="#{bindings.PcaCode.hints.tooltip}"
+                                      id="soc8"
+                                      readOnly="#{pageFlowScope.CreateEddNRecordBean.dataSourceCode eq 'CALOSHA' ? true : false}">
+                    <f:selectItems value="#{bindings.PcaCode.items}" id="si8"/>
+                  </af:selectOneChoice>
+                  <af:inputDate value="#{bindings.InterestThroughDate.inputValue}"
+                                label="#{bindings.InterestThroughDate.hints.label}"
+                                contentStyle="width:80px"
+                                readOnly="#{pageFlowScope.CreateEddNRecordBean.dataSourceCode eq 'CALOSHA' ? true : false}"
+                                id="ot192" required="true"
+                                validator="#{pageFlowScope.CreateEddNRecordBean.validNotFutureDate}"
+                                autoSubmit="true">
+                    <af:convertDateTime pattern="#{bindings.InterestThroughDate.format}"/>
+                  </af:inputDate>
+                  <af:inputText value="#{bindings.InterestBalance.inputValue}"
+                                label="#{bindings.InterestBalance.hints.label} $"
+                                contentStyle="width:120px"
+                                rendered="#{pageFlowScope.CreateEddNRecordBean.dataSourceCode ne 'CALOSHA' ? true : false}"
+                                id="ot186" autoSubmit="true"
+                                valueChangeListener="#{pageFlowScope.CreateEddNRecordBean.recalculateFinalTotalAmtDue}"/>
+                  <af:inputText value="#{bindings.CourtFilingFeeBalance.inputValue}"
+                                label="#{bindings.CourtFilingFeeBalance.hints.label} $"
+                                contentStyle="width:120px"
+                                rendered="#{pageFlowScope.CreateEddNRecordBean.dataSourceCode ne 'CALOSHA' ? true : false}"
+                                id="ot187" autoSubmit="true"
+                                valueChangeListener="#{pageFlowScope.CreateEddNRecordBean.recalculateFinalTotalAmtDue}"/>
+                  <af:inputText value="#{bindings.CollectionFeeBalance.inputValue}"
+                                label="#{bindings.CollectionFeeBalance.hints.label} $"
+                                contentStyle="width:120px"
+                                rendered="#{pageFlowScope.CreateEddNRecordBean.dataSourceCode ne 'CALOSHA' ? true : false}"
+                                id="ot188" autoSubmit="true"
+                                valueChangeListener="#{pageFlowScope.CreateEddNRecordBean.recalculateFinalTotalAmtDue}"/>
+                  <af:inputText value="#{bindings.NsfFeeBalance.inputValue}"
+                                label="#{bindings.NsfFeeBalance.hints.label} $"
+                                contentStyle="width:120px"
+                                rendered="#{pageFlowScope.CreateEddNRecordBean.dataSourceCode ne 'CALOSHA' ? true : false}"
+                                id="ot189" autoSubmit="true"
+                                valueChangeListener="#{pageFlowScope.CreateEddNRecordBean.recalculateFinalTotalAmtDue}"/>
+                  <af:inputText value="#{bindings.FinalPenalty.inputValue}"
+                                label="#{bindings.FinalPenalty.hints.label} $"
+                                contentStyle="width:120px"
+                                rendered="#{pageFlowScope.CreateEddNRecordBean.dataSourceCode ne 'CALOSHA' ? true : false}"
+                                id="ot190" autoSubmit="true"
+                                valueChangeListener="#{pageFlowScope.CreateEddNRecordBean.recalculateFinalTotalAmtDue}"/>
+                  <af:inputText value="#{bindings.InterestBalance.inputValue}"
+                                label="#{bindings.InterestBalance.hints.label}"
+                                contentStyle="width:120px"
+                                readOnly="true"
+                                rendered="#{pageFlowScope.CreateEddNRecordBean.dataSourceCode eq 'CALOSHA' ? true : false}"
+                                id="ot196" autoSubmit="true">
+                    <af:convertNumber pattern="#{bindings.InterestBalance.format}"
+                                      type="currency"/>
+                  </af:inputText>
+                  <af:inputText value="#{bindings.CourtFilingFeeBalance.inputValue}"
+                                label="#{bindings.CourtFilingFeeBalance.hints.label}"
+                                contentStyle="width:120px"
+                                readOnly="true"
+                                rendered="#{pageFlowScope.CreateEddNRecordBean.dataSourceCode eq 'CALOSHA' ? true : false}"
+                                id="ot197" autoSubmit="true">
+                    <af:convertNumber pattern="#{bindings.CourtFilingFeeBalance.format}"
+                                      type="currency"/>
+                  </af:inputText>
+                  <af:inputText value="#{bindings.CollectionFeeBalance.inputValue}"
+                                label="#{bindings.CollectionFeeBalance.hints.label}"
+                                contentStyle="width:120px"
+                                readOnly="true"
+                                rendered="#{pageFlowScope.CreateEddNRecordBean.dataSourceCode eq 'CALOSHA' ? true : false}"
+                                id="ot198" autoSubmit="true">
+                    <af:convertNumber pattern="#{bindings.CollectionFeeBalance.format}"
+                                      type="currency"/>
+                  </af:inputText>
+                  <af:inputText value="#{bindings.NsfFeeBalance.inputValue}"
+                                label="#{bindings.NsfFeeBalance.hints.label}"
+                                contentStyle="width:120px"
+                                readOnly="true"
+                                rendered="#{pageFlowScope.CreateEddNRecordBean.dataSourceCode eq 'CALOSHA' ? true : false}"
+                                id="ot199" autoSubmit="true">
+                    <af:convertNumber pattern="#{bindings.NsfFeeBalance.format}"
+                                      type="currency"/>
+                  </af:inputText>
+                  <af:inputText value="#{bindings.FinalPenalty.inputValue}"
+                                label="#{bindings.FinalPenalty.hints.label}"
+                                contentStyle="width:120px"
+                                readOnly="true"
+                                rendered="#{pageFlowScope.CreateEddNRecordBean.dataSourceCode eq 'CALOSHA' ? true : false}"
+                                id="ot200" autoSubmit="true">
+                    <af:convertNumber pattern="#{bindings.FinalPenalty.format}"
+                                      type="currency"/>
+                  </af:inputText>
+                  <af:inputText value="#{pageFlowScope.CreateEddNRecordBean.dataSourceCode == 'CALOSHA' ? pageFlowScope.CreateEddNRecordBean.finalTotalAmountDue : pageFlowScope.CreateEddNRecordBean.calculatedFinalTotalAmountDue}"
+                                label="#{bindings.FinalTotalAmountDue.hints.label}"
+                                id="ot191" readOnly="true"
+                                partialTriggers="ot186 ot187 ot188 ot189 ot190">
+                    <af:convertNumber pattern="#{bindings.FinalTotalAmountDue.format}"
+                                      type="currency"/>
+                  </af:inputText>
+                  <h:inputHidden value="#{bindings.LiabilityFinalityDate.inputValue}"
+                                 required="true" id="ih5"
+                                 rendered="#{pageFlowScope.CreateEddNRecordBean.dataSourceCode eq 'CALOSHA' ? true : false}"
+                                 requiredMessage="Liability Finality Date must be entered"/>
+                  <f:facet name="footer">
+                    <af:panelGroupLayout id="pgl1" layout="horizontal"
+                                         halign="right">
+                      <af:toolbar id="t1">
+                        <af:commandToolbarButton text="Save" id="ctb1"
+                                                 action="#{pageFlowScope.CreateEddNRecordBean.checkIfEddDeleteIsValid}"
+                                                 disabled="#{bindings.DataSourceCode.inputValue == 'CALOSHA' &amp;&amp;
+not empty pageFlowScope.CreateEddNRecordBean.thirdPartyCollectionId ? true : false}">
+                          <af:setPropertyListener from="#{bindings.ThirdPartyCollectId.attributeValue}"
+                                                  to="#{pageFlowScope.CreateEddNRecordBean.thirdPartyCollectionAssocToId}"
+                                                  type="action"/>
+                          <af:setPropertyListener from="#{bindings.EntityFirstName.attributeValue}"
+                                                  to="#{pageFlowScope.CreateEddNRecordBean.entityFirstName}"
+                                                  type="action"/>
+                          <af:setPropertyListener from="#{bindings.EntityLastName.attributeValue}"
+                                                  to="#{pageFlowScope.CreateEddNRecordBean.entityLastName}"
+                                                  type="action"/>
+                          <af:setPropertyListener from="commit"
+                                                  to="#{pageFlowScope.CreateEddNRecordBean.navigate}"
+                                                  type="action"/>
+                        </af:commandToolbarButton>
+                        <af:commandToolbarButton text="Undo" id="ctb2"
+                                                 immediate="true"
+                                                 action="rollback">
+                          <af:resetActionListener/>
+                        </af:commandToolbarButton>
+                        <af:commandToolbarButton text="Delete" id="ctb3"
+                                                 action="#{pageFlowScope.CreateEddNRecordBean.checkIfEddDeleteIsValid}"
+                                                 rendered="#{not empty pageFlowScope.CreateEddNRecordBean.thirdPartyCollectionId}">
+                          <af:setPropertyListener from="DeleteNRecord"
+                                                  to="#{pageFlowScope.CreateEddNRecordBean.navigate}"
+                                                  type="action"/>
+                        </af:commandToolbarButton>
+                      </af:toolbar>
+                    </af:panelGroupLayout>
+                  </f:facet>
+                </af:panelFormLayout>
+              </af:panelBox>
+            </af:panelGroupLayout>
+          </f:facet>
+          <f:attribute name="title"
+                       value="#{not empty pageFlowScope.CreateEddNRecordBean.thirdPartyCollectionId ? 'Edit' : 'Create New'} Edd #{pageFlowScope.CreateEddNRecordBean.recordType} Record"/>
+        </af:pageTemplate>
+      </af:form>
+    </af:document>
+  </f:view>
+</jsp:root>

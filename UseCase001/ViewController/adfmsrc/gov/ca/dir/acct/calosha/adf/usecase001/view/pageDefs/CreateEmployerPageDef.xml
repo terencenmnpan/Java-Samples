@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel"
+                version="11.1.1.64.93" id="CreateEmployerPageDef"
+                Package="gov.ca.dir.acct.calosha.adf.usecase001.view.pageDefs"
+                SkipValidation="true">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="PartyView1" RangeSize="25"
+              DataControl="EmployerSearchAMDataControl"
+              id="PartyView1Iterator"/>
+    <iterator Binds="AddressView1" RangeSize="25"
+              DataControl="EmployerSearchAMDataControl"
+              id="AddressView1Iterator"/>
+    <iterator Binds="OrganizationView2" RangeSize="25"
+              DataControl="EmployerSearchAMDataControl"
+              id="OrganizationView2Iterator"/>
+    <iterator Binds="CellphoneView1" RangeSize="25"
+              DataControl="EmployerSearchAMDataControl"
+              id="CellphoneView1Iterator"/>
+    <iterator Binds="EmailView1" RangeSize="25"
+              DataControl="EmployerSearchAMDataControl"
+              id="EmailView1Iterator"/>
+    <iterator Binds="FaxView1" RangeSize="25"
+              DataControl="EmployerSearchAMDataControl" id="FaxView1Iterator"/>
+    <iterator Binds="UrlView1" RangeSize="25"
+              DataControl="EmployerSearchAMDataControl" id="UrlView1Iterator"/>
+    <iterator Binds="Website_View1" RangeSize="25"
+              DataControl="EmployerSearchAMDataControl"
+              id="Website_View1Iterator"/>
+    <iterator Binds="WorkphoneView1" RangeSize="25"
+              DataControl="EmployerSearchAMDataControl"
+              id="WorkphoneView1Iterator"/>
+    <iterator Binds="SiteAddressView1" RangeSize="25"
+              DataControl="EmployerSearchAMDataControl"
+              id="SiteAddressView1Iterator"/>
+    <iterator Binds="PhoneView1" RangeSize="25"
+              DataControl="EmployerSearchAMDataControl"
+              id="PhoneView1Iterator"/>
+    <iterator Binds="PartyClassificationView1" RangeSize="25"
+              DataControl="EmployerSearchAMDataControl"
+              id="PartyClassificationView1Iterator"/>
+  </executables>
+  <bindings>
+    <action id="Commit" DataControl="DefaultAMDataControl"
+            RequiresUpdateModel="true" Action="commitTransaction"/>
+    <action id="Rollback" RequiresUpdateModel="false"
+            Action="rollbackTransaction"
+            DataControl="EmployerSearchAMDataControl"/>
+    <action IterBinding="PhoneView1Iterator" id="PhoneCreateInsert"
+            RequiresUpdateModel="true" Action="createWithParams"
+            InstanceName="EmployerSearchAMDataControl.PhoneView1"
+            DataControl="EmployerSearchAMDataControl">
+      <NamedData NDName="ContactMethodValue"
+                 NDValue="#{requestScope.PhoneNumber}"
+                 NDType="java.lang.String"/>
+      <NamedData NDName="DataSourceCode" NDType="java.lang.String"
+                 NDValue="CALOSHA"/>
+    </action>
+    <action IterBinding="CellphoneView1Iterator" id="CellPhoneCreateInsert"
+            RequiresUpdateModel="true" Action="createWithParams"
+            InstanceName="EmployerSearchAMDataControl.CellphoneView1"
+            DataControl="EmployerSearchAMDataControl">
+      <NamedData NDName="ContactMethodValue"
+                 NDValue="#{requestScope.CellPhoneNumber}"
+                 NDType="java.lang.String"/>
+      <NamedData NDName="DataSourceCode" NDType="java.lang.String"
+                 NDValue="CALOSHA"/>
+    </action>
+    <action IterBinding="WorkphoneView1Iterator" id="WorkPhoneCreateInsert"
+            RequiresUpdateModel="true" Action="createWithParams">
+      <NamedData NDName="ContactMethodValue"
+                 NDValue="#{requestScope.WorkPhoneNumber}"
+                 NDType="java.lang.String"/>
+      <NamedData NDName="DataSourceCode" NDType="java.lang.String"
+                 NDValue="CALOSHA"/>
+    </action>
+    <action IterBinding="EmailView1Iterator" id="EmailCreateInsert"
+            RequiresUpdateModel="true" Action="createWithParams">
+      <NamedData NDName="ContactMethodValue"
+                 NDValue="#{requestScope.Email}"
+                 NDType="java.lang.String"/>
+      <NamedData NDName="DataSourceCode" NDType="java.lang.String"
+                 NDValue="CALOSHA"/>
+    </action>
+    <action IterBinding="FaxView1Iterator" id="FaxCreateInsert"
+            RequiresUpdateModel="true" Action="createWithParams">
+      <NamedData NDName="ContactMethodValue" NDValue="#{requestScope.Fax}"
+                 NDType="java.lang.String"/>
+      <NamedData NDName="DataSourceCode" NDType="java.lang.String"
+                 NDValue="CALOSHA"/>
+    </action>
+    <action IterBinding="UrlView1Iterator" id="UrlCreateInsert"
+            RequiresUpdateModel="true" Action="createWithParams">
+      <NamedData NDName="ContactMethodValue" NDValue="#{requestScope.Url}"
+                 NDType="java.lang.String"/>
+      <NamedData NDName="DataSourceCode" NDType="java.lang.String"
+                 NDValue="CALOSHA"/>
+    </action>
+    <action IterBinding="Website_View1Iterator" id="WebsiteCreateInsert"
+            RequiresUpdateModel="true" Action="createWithParams">
+      <NamedData NDName="ContactMethodValue" NDValue="#{requestScope.Website}"
+                 NDType="java.lang.String"/>
+      <NamedData NDName="DataSourceCode" NDType="java.lang.String"
+                 NDValue="CALOSHA"/>
+    </action>
+    <attributeValues IterBinding="PartyView1Iterator" id="PartyId">
+      <AttrNames>
+        <Item Value="PartyId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="AddressView1Iterator" id="ZipCode">
+      <AttrNames>
+        <Item Value="ZipCode"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="AddressView1Iterator" id="CountryCode">
+      <AttrNames>
+        <Item Value="CountryCode"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="AddressView1Iterator" id="Country">
+      <AttrNames>
+        <Item Value="Country"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="AddressView1Iterator" id="City">
+      <AttrNames>
+        <Item Value="City"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="AddressView1Iterator" id="StreetAddress">
+      <AttrNames>
+        <Item Value="StreetAddress"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="OrganizationView2Iterator"
+                     id="OrganizationName">
+      <AttrNames>
+        <Item Value="OrganizationName"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="OrganizationView2Iterator" id="Dba">
+      <AttrNames>
+        <Item Value="Dba"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="OrganizationView2Iterator" id="LegalName">
+      <AttrNames>
+        <Item Value="LegalName"/>
+      </AttrNames>
+    </attributeValues>
+    <listOfValues StaticList="false" IterBinding="AddressView1Iterator"
+                  id="StateCode" Uses="LOV_StateCode"/>
+    <list IterBinding="AddressView1Iterator" StaticList="false"
+          Uses="LOV_AddressTypeCode" id="AddressTypeCode" DTSupportsMRU="true"/>
+    <list IterBinding="AddressView1Iterator" StaticList="false"
+          Uses="LOV_StateCode" id="StateCode1" DTSupportsMRU="true"/>
+    <list IterBinding="SiteAddressView1Iterator" StaticList="false"
+          Uses="LOV_AddressTypeCode" id="AddressTypeCode1"
+          DTSupportsMRU="true"/>
+    <attributeValues IterBinding="SiteAddressView1Iterator" id="City1">
+      <AttrNames>
+        <Item Value="City"/>
+      </AttrNames>
+    </attributeValues>
+    <list IterBinding="SiteAddressView1Iterator" StaticList="false"
+          Uses="LOV_State" id="State1" DTSupportsMRU="true"/>
+    <list IterBinding="SiteAddressView1Iterator" StaticList="false"
+          Uses="LOV_StateCode" id="StateCode2" DTSupportsMRU="true"/>
+    <attributeValues IterBinding="SiteAddressView1Iterator" id="StreetAddress1">
+      <AttrNames>
+        <Item Value="StreetAddress"/>
+      </AttrNames>
+    </attributeValues>
+    <list IterBinding="SiteAddressView1Iterator" StaticList="false"
+          Uses="LOV_CountyCode" id="CountyCode" DTSupportsMRU="true"/>
+    <attributeValues IterBinding="SiteAddressView1Iterator" id="CountryCode1">
+      <AttrNames>
+        <Item Value="CountryCode"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="SiteAddressView1Iterator" id="Country1">
+      <AttrNames>
+        <Item Value="Country"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="OrganizationView2Iterator" id="Fein">
+      <AttrNames>
+        <Item Value="Fein"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="OrganizationView2Iterator" id="NaicsCode">
+      <AttrNames>
+        <Item Value="NaicsCode"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="OrganizationView2Iterator" id="SicCode">
+      <AttrNames>
+        <Item Value="SicCode"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="SiteAddressView1Iterator" id="ZipCode1">
+      <AttrNames>
+        <Item Value="ZipCode"/>
+      </AttrNames>
+    </attributeValues>
+    <list IterBinding="PartyClassificationView1Iterator" StaticList="false"
+          Uses="LOV_PartyCategoryCode" id="PartyCategoryCode"
+          DTSupportsMRU="true"/>
+    <list IterBinding="PartyClassificationView1Iterator" StaticList="false"
+          Uses="LOV_PartyClassficationCode" id="PartyClassficationCode"
+          DTSupportsMRU="true"/>
+    <action IterBinding="PartyClassificationView1Iterator"
+            id="DeletePartyClassification"
+            InstanceName="EmployerSearchAMDataControl.PartyClassificationView1"
+            DataControl="EmployerSearchAMDataControl"
+            RequiresUpdateModel="false" Action="removeCurrentRow"/>
+    <list IterBinding="AddressView1Iterator" StaticList="false" Uses="LOV_State"
+          id="State" DTSupportsMRU="true"/>
+    <attributeValues IterBinding="AddressView1Iterator" id="Zip4">
+      <AttrNames>
+        <Item Value="Zip4"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="SiteAddressView1Iterator" id="Zip41">
+      <AttrNames>
+        <Item Value="Zip4"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="AddressView1Iterator" id="FsSequenceNumber">
+      <AttrNames>
+        <Item Value="FsSequenceNumber"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="SiteAddressView1Iterator"
+                     id="FsSequenceNumber1">
+      <AttrNames>
+        <Item Value="FsSequenceNumber"/>
+      </AttrNames>
+    </attributeValues>
+  </bindings>
+</pageDefinition>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE AppModule SYSTEM "jbo_03_01.dtd">
+<!---->
+<AppModule
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="ManagePaymentsAM"
+  Version="11.1.1.64.93"
+  InheritPersonalization="true"
+  ClearCacheOnRollback="true">
+  <DesignTime>
+    <Attr Name="_deployType" Value="0"/>
+  </DesignTime>
+  <Properties>
+    <SchemaBasedProperties>
+      <LABEL
+        ResId="gov.ca.dir.acct.calosha.adf.usecase010.model.appmodule.ManagePaymentsAM_LABEL"/>
+    </SchemaBasedProperties>
+  </Properties>
+  <ViewUsage
+    Name="PaymentForInspectionView1"
+    ViewObjectName="gov.ca.dir.acct.calosha.adf.usecase010.model.view.PaymentForInspectionView"/>
+  <ViewUsage
+    Name="InspectionView1"
+    ViewObjectName="gov.ca.dir.acct.calosha.adf.usecase010.model.view.InspectionView"/>
+  <ViewUsage
+    Name="PaymentView1"
+    ViewObjectName="gov.ca.dir.acct.calosha.adf.usecase010.model.view.PaymentView"/>
+  <ViewLinkUsage
+    Name="PaymentForInspectionPaymentViewLink1"
+    ViewLinkObjectName="gov.ca.dir.acct.calosha.adf.usecase010.model.view.PaymentForInspectionPaymentViewLink"
+    SrcViewUsageName="gov.ca.dir.acct.calosha.adf.usecase010.model.appmodule.ManagePaymentsAM.PaymentForInspectionView1"
+    DstViewUsageName="gov.ca.dir.acct.calosha.adf.usecase010.model.appmodule.ManagePaymentsAM.PaymentView1"
+    Reversed="false"/>
+  <ResourceBundle>
+    <PropertiesBundle
+      PropertiesFile="gov.ca.dir.acct.calosha.adf.usecase010.model.ModelBundle"/>
+  </ResourceBundle>
+</AppModule>

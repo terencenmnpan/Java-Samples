@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel"
+                version="11.1.1.64.93"
+                id="create_edd_o_record_create_edd_o_record_updateHeaderIdForNewEddORecordPageDef"
+                Package="gov.ca.dir.acct.calosha.adf.usecase0163.view.pageDefs"
+                SkipValidation="true">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator id="ThirdPartyCollectionHeaderView2Iterator"
+              Binds="ThirdPartyCollectionHeaderView2"
+              DataControl="ReferralSearchInvoiceAMDataControl" RangeSize="25"/>
+    <iterator id="ThirdPartyCollectionOView1Iterator"
+              Binds="ThirdPartyCollectionOView1"
+              DataControl="ReferralSearchInvoiceAMDataControl" RangeSize="25"/>
+  </executables>
+  <bindings/>
+</pageDefinition>

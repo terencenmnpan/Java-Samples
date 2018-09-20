@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="InspectionView"
+  Version="11.1.1.64.93"
+  InheritPersonalization="true"
+  SelectList="Inspection.INSPECTION_ID, 
+       Inspection.INSPECTION_NUMBER"
+  FromList="INSPECTION Inspection"
+  Where="Inspection.INSPECTION_ID = :varInspectionId"
+  BindingStyle="OracleName"
+  CustomQuery="false"
+  PageIterMode="Full"
+  UseGlueCode="false">
+  <Properties>
+    <SchemaBasedProperties>
+      <LABEL
+        ResId="gov.ca.dir.acct.calosha.adf.usecase010.model.view.InspectionView_LABEL"/>
+    </SchemaBasedProperties>
+  </Properties>
+  <Variable
+    Name="varInspectionId"
+    Kind="where"
+    Type="java.lang.String"/>
+  <EntityUsage
+    Name="Inspection"
+    Entity="gov.ca.dir.acct.calosha.adf.common.model.entity.Inspection"/>
+  <ViewAttribute
+    Name="InspectionId"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="InspectionId"
+    EntityUsage="Inspection"
+    AliasName="INSPECTION_ID"/>
+  <ViewAttribute
+    Name="InspectionNumber"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="InspectionNumber"
+    EntityUsage="Inspection"
+    AliasName="INSPECTION_NUMBER"/>
+  <ResourceBundle>
+    <PropertiesBundle
+      PropertiesFile="gov.ca.dir.acct.calosha.adf.usecase010.model.ModelBundle"/>
+  </ResourceBundle>
+</ViewObject>

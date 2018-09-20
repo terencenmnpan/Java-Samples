@@ -1,0 +1,53 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<task-flow-registry xmlns="http://xmlns.oracle.com/adf/controller/rc">
+   <task-flow-descriptor path="WEB-INF/testing.xml" id="testingEddN" type="task-flow-definition" uses-page-fragments="false" library-internal="false" remote-invocable="false" train="false"/>
+   <task-flow-descriptor path="WEB-INF/create-edd-n-record.xml" id="create-edd-n-record" type="task-flow-definition" uses-page-fragments="false" library-internal="false" remote-invocable="false" train="false">
+      <input-parameter name="FinalPenalty"/>
+      <input-parameter name="ThirdPartyCollectionId"/>
+      <input-parameter name="IssueDate"/>
+      <input-parameter name="EntityLegalName"/>
+      <input-parameter name="JudgmentDate"/>
+      <input-parameter name="PhoneType1"/>
+      <input-parameter name="FundId"/>
+      <input-parameter name="ReportingId"/>
+      <input-parameter name="AgencySourceCode"/>
+      <input-parameter name="PhoneType"/>
+      <input-parameter name="StateCode"/>
+      <input-parameter name="EmployerName"/>
+      <input-parameter name="LiabilityFinalityDate"/>
+      <input-parameter name="NsfFeeBalance"/>
+      <input-parameter name="IndexCode"/>
+      <input-parameter name="PhoneAreaCode1"/>
+      <input-parameter name="PartyAgencyFundMapId"/>
+      <input-parameter name="EntityLastName"/>
+      <input-parameter name="DebtorNumber"/>
+      <input-parameter name="StreetAddress1"/>
+      <input-parameter name="CourtFilingFeeBalance"/>
+      <input-parameter name="SubmissionDate"/>
+      <input-parameter name="RevenueSourceCode"/>
+      <input-parameter name="ThirdPartyParentId"/>
+      <input-parameter name="RecordType"/>
+      <input-parameter name="DemandLetterDate"/>
+      <input-parameter name="FinalTotalAmountDue"/>
+      <input-parameter name="DataSourceCode"/>
+      <input-parameter name="PhoneNumber1"/>
+      <input-parameter name="DebtId"/>
+      <input-parameter name="PhoneNumber"/>
+      <input-parameter name="StateCode1"/>
+      <input-parameter name="FiscalYearName"/>
+      <input-parameter name="ZipCode1"/>
+      <input-parameter name="ZipCode"/>
+      <input-parameter name="City"/>
+      <input-parameter name="City1"/>
+      <input-parameter name="DebtorId"/>
+      <input-parameter name="PcaCode"/>
+      <input-parameter name="InterestBalance"/>
+      <input-parameter name="DebtorType"/>
+      <input-parameter name="InterestThroughDate"/>
+      <input-parameter name="CollectionFeeBalance"/>
+      <input-parameter name="PhoneAreaCode"/>
+      <input-parameter name="EntityFirstName"/>
+      <input-parameter name="ReferralId"/>
+      <input-parameter name="StreetAddress"/>
+   </task-flow-descriptor>
+</task-flow-registry>

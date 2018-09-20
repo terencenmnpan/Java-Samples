@@ -1,0 +1,19 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<task-flow-registry xmlns="http://xmlns.oracle.com/adf/controller/rc">
+   <task-flow-descriptor path="META-INF/adfc-config.xml" id="" type="" uses-page-fragments="false" library-internal="false" remote-invocable="false" train="false"/>
+   <task-flow-descriptor path="WEB-INF/process-payment-tf.xml" id="process-payment-tf" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false">
+      <input-parameter name="AuthorizationNumber"/>
+      <input-parameter name="PaymentTypeCode"/>
+      <input-parameter name="PaymentAmount"/>
+      <input-parameter name="InputInspectionId"/>
+      <input-parameter name="PaymentDate"/>
+      <input-parameter name="PaymentId"/>
+      <input-parameter name="BatchNumber"/>
+   </task-flow-descriptor>
+   <task-flow-descriptor path="WEB-INF/process-payment-shared-tf.xml" id="process-payment-shared-tf" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false">
+      <input-parameter name="PaymentAmount"/>
+      <input-parameter name="ReferenceNumber"/>
+      <input-parameter name="InputInspectionId"/>
+      <input-parameter name="PaymentId"/>
+   </task-flow-descriptor>
+</task-flow-registry>

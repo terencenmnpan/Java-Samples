@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
+  <task-flow-definition id="process-payment-tf">
+    <default-activity id="__1">SetShareTransaction</default-activity>
+    <transaction id="__48">
+      <new-transaction/>
+    </transaction>
+    <data-control-scope id="__21">
+      <isolated/>
+    </data-control-scope>
+    <input-parameter-definition id="__8">
+      <name id="__9">InputInspectionId</name>
+      <value>#{pageFlowScope.InspectionId}</value>
+    </input-parameter-definition>
+    <input-parameter-definition id="__4">
+      <name id="__3">PaymentId</name>
+      <value>#{pageFlowScope.PaymentId}</value>
+    </input-parameter-definition>
+    <input-parameter-definition id="__5">
+      <name id="__6">PaymentTypeCode</name>
+      <value>#{pageFlowScope.PaymentTypeCode}</value>
+    </input-parameter-definition>
+    <input-parameter-definition id="__22">
+      <name id="__7">AuthorizationNumber</name>
+      <value>#{pageFlowScope.AuthorizationNumber}</value>
+    </input-parameter-definition>
+    <input-parameter-definition id="__31">
+      <name id="__30">BatchNumber</name>
+      <value>#{pageFlowScope.BatchNumber}</value>
+    </input-parameter-definition>
+    <input-parameter-definition id="__35">
+      <name id="__37">PaymentDate</name>
+      <value>#{pageFlowScope.PaymentDate}</value>
+    </input-parameter-definition>
+    <input-parameter-definition id="__45">
+      <name id="__44">PaymentAmount</name>
+      <value>#{pageFlowScope.PaymentAmount}</value>
+    </input-parameter-definition>
+    <return-value-definition id="__46">
+      <name id="__47">Success</name>
+      <value>#{pageFlowScope.Success}</value>
+    </return-value-definition>
+    <method-call id="SetCurrentRowWithKeyValue">
+      <method>#{bindings.setCurrentRowWithKeyValue.execute}</method>
+      <outcome id="__2">
+        <fixed-outcome>setCurrentRowWithKeyValue</fixed-outcome>
+      </outcome>
+    </method-call>
+    <view id="ProcessPayment">
+      <page>/ProcessPayment.jsff</page>
+    </view>
+    <method-call id="CreateInsert">
+      <method>#{bindings.CreateInsert.execute}</method>
+      <outcome id="__10">
+        <fixed-outcome>CreateInsert</fixed-outcome>
+      </outcome>
+    </method-call>
+    <task-flow-return id="CommitReturn">
+      <outcome id="__23">
+        <name>CommitReturn</name>
+        <commit/>
+      </outcome>
+    </task-flow-return>
+    <task-flow-return id="RollbackReturn">
+      <outcome id="__24">
+        <name>RollbackReturn</name>
+        <rollback/>
+      </outcome>
+    </task-flow-return>
+    <method-call id="SetShareTransaction">
+      <method>#{ProcessPaymentBean.setSharedTransaction}</method>
+      <parameter>
+        <class>java.lang.Boolean</class>
+        <value>false</value>
+      </parameter>
+      <return-value id="__36">#{pageFlowScope.SharedTransaction}</return-value>
+      <outcome id="__43">
+        <fixed-outcome>setShareTransaction</fixed-outcome>
+      </outcome>
+    </method-call>
+    <method-call id="setPaymentId">
+      <method>#{bindings.setPaymentId.execute}</method>
+      <outcome id="__60">
+        <fixed-outcome>setPaymentId</fixed-outcome>
+      </outcome>
+    </method-call>
+    <control-flow-rule id="__11">
+      <from-activity-id id="__12">SetCurrentRowWithKeyValue</from-activity-id>
+      <control-flow-case id="__14">
+        <from-outcome id="__15">setCurrentRowWithKeyValue</from-outcome>
+        <to-activity-id id="__13">CreateInsert</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__25">
+      <from-activity-id id="__26">ProcessPayment</from-activity-id>
+      <control-flow-case id="__27">
+        <from-outcome id="__29">commit</from-outcome>
+        <to-activity-id id="__28">CommitReturn</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__32">
+        <from-outcome id="__34">cancel</from-outcome>
+        <to-activity-id id="__33">RollbackReturn</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__38">
+      <from-activity-id id="__39">SetShareTransaction</from-activity-id>
+      <control-flow-case id="__41">
+        <from-outcome id="__42">setShareTransaction</from-outcome>
+        <to-activity-id id="__40">SetCurrentRowWithKeyValue</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__61">
+      <from-activity-id id="__62">CreateInsert</from-activity-id>
+      <control-flow-case id="__65">
+        <from-outcome id="__64">CreateInsert</from-outcome>
+        <to-activity-id id="__63">setPaymentId</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__66">
+      <from-activity-id id="__67">setPaymentId</from-activity-id>
+      <control-flow-case id="__68">
+        <from-outcome id="__70">setPaymentId</from-outcome>
+        <to-activity-id id="__69">ProcessPayment</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <use-page-fragments/>
+  </task-flow-definition>
+</adfc-config>

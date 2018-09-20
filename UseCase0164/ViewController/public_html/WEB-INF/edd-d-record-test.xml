@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
+  <task-flow-definition id="edd-d-record-test">
+    <default-activity id="__1">create-edd-d-record</default-activity>
+    <transaction id="__11">
+      <new-transaction/>
+    </transaction>
+    <managed-bean id="__10">
+      <managed-bean-name id="__9">CreateEddDRecordBean</managed-bean-name>
+      <managed-bean-class id="__7">gov.ca.dir.acct.calosha.adf.usecase0164.view.beans.createEddDRecordBean</managed-bean-class>
+      <managed-bean-scope id="__8">pageFlow</managed-bean-scope>
+    </managed-bean>
+    <task-flow-call id="create-edd-d-record">
+      <task-flow-reference>
+        <document>/WEB-INF/create-edd-d-record.xml</document>
+        <id>create-edd-d-record</id>
+      </task-flow-reference>
+      <input-parameter id="__2">
+        <name>DebtId</name>
+        <value>CALO</value>
+      </input-parameter>
+      <input-parameter id="__3">
+        <name>DataSourceCode</name>
+        <value>CALOLD</value>
+      </input-parameter>
+      <input-parameter id="__4">
+        <name>DebtorNumber</name>
+        <value>123456797</value>
+      </input-parameter>
+      <input-parameter id="__5">
+        <name>ThirdPartyParentId</name>
+        <value>#{pageFlowScope.CreateEddDRecordBean.testNumber}</value>
+      </input-parameter>
+      <input-parameter id="__14">
+        <name>ThirdPartyCollectionId</name>
+        <value></value>
+      </input-parameter>
+    </task-flow-call>
+    <visibility id="__6">
+      <url-invoke-allowed/>
+    </visibility>
+  </task-flow-definition>
+</adfc-config>

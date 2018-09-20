@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel"
+                version="11.1.1.64.93"
+                id="manage_payments_tf_manage_payments_tf_ExecutePageDef"
+                Package="gov.ca.dir.acct.calosha.adf.usecase010.view.pageDefs"
+                SkipValidation="true">
+  <parameters/>
+  <executables>
+    <iterator Binds="PaymentForInspectionView1" RangeSize="25"
+              DataControl="ManagePaymentsAMDataControl"
+              id="PaymentForInspectionView1Iterator" Refresh="never"/>
+  </executables>
+  <bindings>
+    <action IterBinding="PaymentForInspectionView1Iterator" id="Execute"
+            RequiresUpdateModel="true" Action="iteratorExecute"/>
+  </bindings>
+</pageDefinition>

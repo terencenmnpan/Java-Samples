@@ -1,0 +1,133 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1"
+          xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+          xmlns:f="http://java.sun.com/jsf/core">
+  <af:pageTemplate viewId="/use-case-template.jspx" id="pt1">
+    <f:facet name="main">
+        <af:panelGroupLayout id="pgl1" layout="scroll">
+          <af:panelBox text="Applicable Functions" id="pb1"
+                       visible="#{pageFlowScope.inputModifyPaymentsViewOnly == 'YES' ? false : true}">
+            <f:facet name="toolbar">
+              <af:toolbar id="t2">
+                <af:commandButton text="Reversal" id="cb1" action="Reversal"
+                                  disabled="#{bindings.PaymentTypeCode != 'CASH' &amp;&amp; bindings.PaymentTypeCode != 'MONEY_ORDER' ? false : true}"
+                                  shortDesc="Process Payment Reversal">
+                  <af:setActionListener to="#{pageFlowScope.inputModifyPaymentTypeCode}"
+                                        from="#{bindings.PaymentTypeCode.attributeValue}"/>
+                </af:commandButton>
+                <af:commandButton text="NSF" id="cb2" action="Nsf"
+                                  disabled="true"
+                                  shortDesc="Process NSF for Payment">
+                  <af:setActionListener to="#{pageFlowScope.inputModifyPaymentTypeCode}"
+                                        from="#{bindings.PaymentTypeCode.attributeValue}"/>
+                </af:commandButton>
+                <af:commandButton text="Refund" id="cb7"
+                                  action="PartialRefund"
+                                  shortDesc="Process Partial Refund of Unapplied portion of Payment"
+                                  disabled="#{empty bindings.Unapplied.inputValue ? true : false}"/>
+                <af:commandButton text="Delete" id="cb5"
+                                  disabled="#{not empty bindings.DepositSlipNumber.inputValue ? true : bindings.PaymentTypeCode == 'CHECK' or bindings.PaymentTypeCode == 'EDF' ? false : true}"
+                                  action="Delete"
+                                  shortDesc="Delete Check/EDF Payment not yet in CARS">
+                  <af:setActionListener to="#{pageFlowScope.inputModifyPaymentTypeCode}"
+                                        from="#{bindings.PaymentTypeCode.attributeValue}"/>
+                </af:commandButton>
+                <af:commandButton text="Transfer" id="cb6"
+                                  shortDesc="Transfer Payment to Same and/or Other Invoice"
+                                  action="#{pageFlowScope.modifyPaymentBean.transferProcess}"/>
+                <af:commandButton text="Transfer Unapplied" id="commandButton1"
+                                  action="#{pageFlowScope.modifyPaymentBean.transferUnappliedProcess}"
+                                  disabled="#{empty bindings.Unapplied.inputValue ? true : false}"
+                                  shortDesc="Transfer only Unapplied portion of this payment">
+                  <af:setPropertyListener from="#{bindings.Unapplied.attributeValue}"
+                                          to="#{pageFlowScope.inputTransferUnappliedAmount}"
+                                          type="action"/>
+                </af:commandButton>
+              </af:toolbar>
+            </f:facet>
+          </af:panelBox>
+          <af:panelBox text="Payment Details" id="pb2">
+            <f:facet name="toolbar">
+              <af:toolbar id="t1">
+                <af:commandButton text="Back" id="cb4" action="Back"/>
+              </af:toolbar>
+            </f:facet>
+            <af:panelLabelAndMessage label="#{bindings.PaymentDate.hints.label}"
+                                     id="plam1">
+              <af:outputText value="#{bindings.PaymentDate.inputValue}"
+                             id="ot1">
+                <af:convertDateTime pattern="#{bindings.PaymentDate.format}"/>
+              </af:outputText>
+            </af:panelLabelAndMessage>
+            <af:panelLabelAndMessage label="#{bindings.PaymentControlNumber.hints.label}"
+                                     id="plam2">
+              <af:outputText value="#{bindings.PaymentControlNumber.inputValue}"
+                             id="ot2"/>
+            </af:panelLabelAndMessage>
+            <af:panelLabelAndMessage label="#{bindings.DepositSlipNumber.hints.label}"
+                                     id="plam4">
+              <af:outputText value="#{bindings.DepositSlipNumber.inputValue}"
+                             id="ot4"/>
+            </af:panelLabelAndMessage>
+            <af:panelLabelAndMessage label="#{bindings.TransmittalDate.hints.label}"
+                                     id="plam5">
+              <af:outputText value="#{bindings.TransmittalDate.inputValue}"
+                             id="ot5">
+                <af:convertDateTime pattern="#{bindings.TransmittalDate.format}"/>
+              </af:outputText>
+            </af:panelLabelAndMessage>
+            <af:panelLabelAndMessage label="#{bindings.PaymentTypeCode.hints.label}"
+                                     id="plam3">
+              <af:outputText value="#{bindings.PaymentTypeCode.inputValue}"
+                             id="ot3"/>
+            </af:panelLabelAndMessage>
+          </af:panelBox>
+          <af:treeTable value="#{bindings.InspectionView11.treeModel}"
+                        var="node"
+                        selectionListener="#{bindings.InspectionView11.treeModel.makeCurrent}"
+                        rowSelection="single" id="tt1" initiallyExpanded="true"
+                        styleClass="AFStretchWidth" expandAllEnabled="true">
+            <f:facet name="nodeStamp">
+              <af:column id="c1" headerText="IMIS #">
+                <af:outputText value="#{node.InspectionNumber}" id="ot7"/>
+              </af:column>
+            </f:facet>
+            <f:facet name="pathStamp">
+              <af:outputText value="#{node}" id="ot6"/>
+            </f:facet>
+            <af:column id="c2" headerText="Citation Number" width="50">
+              <af:outputText value="#{node.CitationNumber}" id="ot8"/>
+            </af:column>
+            <af:column id="column1" headerText="Citation Item Number"
+                       width="50">
+              <af:outputText value="#{node.CitationItemNumber}"
+                             id="outputText1"/>
+            </af:column>
+            <af:column id="column2" headerText="Billed Amt" width="60">
+              <af:outputText value="#{node.CitationAmount}" id="outputText2"/>
+            </af:column>
+            <af:column id="c3" headerText="Court Fee" width="50">
+              <af:outputText value="#{node.CourtFee}" id="ot9"/>
+            </af:column>
+            <af:column id="c4" width="50" headerText="Interest">
+              <af:outputText value="#{node.Interest}" id="outputText3"/>
+            </af:column>
+            <af:column id="column3" width="50"
+                       headerText="Post Judgment Interest">
+              <af:outputText value="#{node.PostJudInterest}" id="outputText5"/>
+            </af:column>
+            <af:column id="c5" width="50" headerText="Collection Fee">
+              <af:outputText value="#{node.CollectionFee}" id="outputText4"/>
+            </af:column>
+            <af:column id="column4" width="50" headerText="Unapplied">
+              <af:outputText value="#{node.Unapplied}" id="outputText6"/>
+            </af:column>
+            <af:column id="column5" width="50" headerText="NSF">
+              <af:outputText value="#{node.Nsf}" id="outputText7"/>
+            </af:column>
+          </af:treeTable>
+        </af:panelGroupLayout>
+    </f:facet>
+    <f:attribute name="title" value="Modify Payments"/>
+  </af:pageTemplate>
+</jsp:root>

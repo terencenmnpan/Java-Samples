@@ -1,0 +1,11 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<BC4JConfig version="11.1" xmlns="http://xmlns.oracle.com/bc4j/configuration">
+   <AppModuleConfigBag ApplicationName="gov.ca.dir.acct.calosha.adf.usecase0102.model.appmodule.ProcessPaymentAM">
+      <AppModuleConfig name="165F422101C" java.naming.factory.initial="oracle.jbo.common.JboInitialContextFactory" DBconnection="java:comp/env/jdbc/calodevDS" IsLazyLoadingTrue="true" JDBCName="calodev" jbo.project="gov.ca.dir.acct.calosha.adf.usecase0102.model.Model" BC4JConfigName="ProcessPaymentAMLocal" DeployPlatform="LOCAL" ApplicationName="gov.ca.dir.acct.calosha.adf.usecase0102.model.appmodule.ProcessPaymentAM">
+         <Database jbo.SQLBuilder="Oracle" jbo.TypeMapEntries="Oracle"/>
+         <Security AppModuleJndiName="gov.ca.dir.acct.calosha.adf.usecase0102.model.appmodule.ProcessPaymentAM"/>
+         <Tester FullProxyInterfaceName="gov.ca.dir.acct.calosha.adf.usecase0102.model.appmodule.common.ProcessPaymentAM"/>
+         <Custom LastUsedConfiguration="ProcessPaymentAMLocal" JDBCDataSource="java:comp/env/jdbc/calodevDS"/>
+      </AppModuleConfig>
+   </AppModuleConfigBag>
+</BC4JConfig>

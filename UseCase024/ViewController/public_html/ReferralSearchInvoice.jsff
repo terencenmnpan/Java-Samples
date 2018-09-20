@@ -1,0 +1,2033 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1"
+          xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+          xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+  <af:pageTemplate viewId="/use-case-template.jspx" id="pt1">
+    <f:facet name="main">
+      <af:panelGroupLayout id="pgl1" layout="scroll">
+        <af:panelSplitter id="ps1" orientation="vertical" splitterPosition="135"
+                          dimensionsFrom="auto">
+          <f:facet name="first">
+            <af:query id="qryId1" headerText="Search" disclosed="true"
+                      value="#{bindings.SearchInvoiceCriteriaQuery.queryDescriptor}"
+                      model="#{bindings.SearchInvoiceCriteriaQuery.queryModel}"
+                      queryListener="#{bindings.SearchInvoiceCriteriaQuery.processQuery}"
+                      resultComponentId="::pc1:resId1" displayMode="compact"
+                      saveQueryMode="hidden" modeChangeVisible="false" rows="3"
+                      maxColumns="3"
+                      queryOperationListener="#{backingBeanScope.backing_ReferralSearchInvoice.queryOperationListener}"/>
+          </f:facet>
+          <f:facet name="second">
+            <af:panelGroupLayout id="pgl7" layout="scroll"
+                                 styleClass="AFStretchWidth">
+              <af:panelCollection id="pc1" styleClass="AFStretchWidth">
+                <f:facet name="toolbar">
+                  <af:toolbar id="t10">
+                    <af:commandButton id="cb2" icon="/export_excel_sml.png">
+                      <af:exportCollectionActionListener exportedId="resId1"
+                                                         type="excelHTML"
+                                                         filename="collectionreferraltable.xls"
+                                                         title="Collection Referrals"/>
+                    </af:commandButton>
+                    <af:commandToolbarButton text="COE Process" id="ctb1"
+                                             action="callCoe">
+                      <af:setPropertyListener from="#{bindings.InspectionId.inputValue}"
+                                              to="#{pageFlowScope.pInspectionId}"
+                                              type="action"/>
+                    </af:commandToolbarButton>
+                    <af:commandToolbarButton text="Edit Employer" id="ctb6"
+                                             action="editEmployer">
+                      <af:setActionListener to="#{pageFlowScope.inputPartyId}"
+                                            from="#{bindings.PartyId.inputValue}"/>
+                    </af:commandToolbarButton>
+                    <af:commandToolbarButton text="Judgment" id="ctb2"
+                                             action="processJudgment">
+                      <af:setPropertyListener from="#{bindings.InspectionId.inputValue}"
+                                              to="#{pageFlowScope.pInspectionId}"
+                                              type="action"/>
+                    </af:commandToolbarButton>
+                    <af:commandToolbarButton text="Recommend Writeoff" id="ctb5"
+                                             action="recommendWriteoff">
+                      <af:setPropertyListener from="#{bindings.InspectionId2.inputValue}"
+                                              to="#{pageFlowScope.pInspectionId}"
+                                              type="action"/>
+                      <af:setPropertyListener from="#{bindings.PersonId.inputValue}"
+                                              to="#{pageFlowScope.CollectionPersonId}"
+                                              type="action"/>
+                    </af:commandToolbarButton>
+                    <af:commandToolbarButton text="View Notes" id="ctb3"
+                                             useWindow="true"
+                                             windowHeight="450"
+                                             windowWidth="670">
+                      <af:showPopupBehavior popupId="::popup_viewEditNotes"
+                                            triggerType="action"/>
+                    </af:commandToolbarButton>
+                    <af:commandToolbarButton text="Cancel Referral" id="ctb4"
+                                             actionListener="#{backingBeanScope.backing_ReferralSearchInvoice.cancelReferral}"/>
+                  </af:toolbar>
+                </f:facet>
+                <af:table value="#{bindings.InvoiceView1.collectionModel}"
+                          var="row" rows="#{bindings.InvoiceView1.rangeSize}"
+                          emptyText="#{bindings.InvoiceView1.viewable ? 'No data to display.' : 'Access Denied.'}"
+                          fetchSize="#{bindings.InvoiceView1.rangeSize}"
+                          rowBandingInterval="0"
+                          filterModel="#{bindings.SearchInvoiceCriteriaQuery.queryDescriptor}"
+                          queryListener="#{bindings.SearchInvoiceCriteriaQuery.processQuery}"
+                          filterVisible="true" varStatus="vs"
+                          selectedRowKeys="#{bindings.InvoiceView1.collectionModel.selectedRow}"
+                          rowSelection="single" id="resId1" autoHeightRows="20"
+                          styleClass="AFStretchWidth"
+                          binding="#{backingBeanScope.backing_ReferralSearchInvoice.resId1}"
+                          contentDelivery="immediate"
+                          selectionListener="#{bindings.InvoiceView1.collectionModel.makeCurrent}">
+                  <af:column headerText="#{bindings.InvoiceView1.hints.ReferralDate.label}"
+                             id="c46" sortable="true" filterable="true"
+                             sortProperty="#{bindings.InvoiceView1.hints.ReferralDate.name}"
+                             align="right" width="82">
+                    <af:outputText value="#{row.ReferralDate}" id="ot37">
+                      <af:convertDateTime pattern="#{bindings.InvoiceView1.hints.ReferralDate.format}"/>
+                    </af:outputText>
+                    <f:facet name="filter">
+                      <af:inputDate value="#{vs.filterCriteria.ReferralDate}"
+                                    id="id5" contentStyle="width:60.0px;"/>
+                    </f:facet>
+                    <f:facet name="footer">
+                      <af:group id="group1">
+                        <af:spacer width="10" height="10" id="spacer1"/>
+                        <af:separator id="separator1"/>
+                        <af:outputText value="Record Count:" id="outputText1">
+                          <af:convertNumber groupingUsed="false"
+                                            pattern="#{bindings.InvoiceView1.hints.CountIMIS.format}"/>
+                        </af:outputText>
+                      </af:group>
+                    </f:facet>
+                  </af:column>
+                  <af:column sortProperty="#{bindings.InvoiceView1.hints.Status.name}"
+                             sortable="true"
+                             headerText="#{bindings.InvoiceView1.hints.Status.label}"
+                             id="resId1c12" width="51" filterable="true"
+                             align="center" inlineStyle="text-align:center;">
+                    <af:outputText value="#{row.Status}" id="ot11"/>
+                  </af:column>
+                  <af:column headerText="#{bindings.InvoiceView1.hints.ReferredTo.label}"
+                             id="c45" width="88" sortable="true"
+                             filterable="true"
+                             sortProperty="#{bindings.InvoiceView1.hints.ReferredTo.name}">
+                    <af:outputText value="#{row.ReferredTo}" id="ot15"/>
+                  </af:column>
+                  <af:column sortProperty="#{bindings.InvoiceView1.hints.LegalName.name}"
+                             sortable="true"
+                             headerText="#{bindings.InvoiceView1.hints.LegalName.label}"
+                             id="resId1c4" width="211" align="center"
+                             inlineStyle="text-align:left;" filterable="true">
+                    <af:commandLink text="#{row.LegalName}" id="cl1">
+                      <af:inputText value="#{row.bindings.LegalName.inputValue}"
+                                    label="#{bindings.InvoiceView1.hints.LegalName.label}"
+                                    required="#{bindings.InvoiceView1.hints.LegalName.mandatory}"
+                                    columns="#{bindings.InvoiceView1.hints.LegalName.displayWidth}"
+                                    maximumLength="#{bindings.InvoiceView1.hints.LegalName.precision}"
+                                    shortDesc="#{bindings.InvoiceView1.hints.LegalName.tooltip}"
+                                    id="it1" rendered="false">
+                        <f:validator binding="#{row.bindings.LegalName.validator}"/>
+                      </af:inputText>
+                      <af:showPopupBehavior popupId=":::popup_viewEmployee"/>
+                    </af:commandLink>
+                  </af:column>
+                  <af:column sortProperty="#{bindings.InvoiceView1.hints.InspectionNumber.name}"
+                             sortable="true"
+                             headerText="#{bindings.InvoiceView1.hints.InspectionNumber.label}"
+                             id="column1" width="70" align="center"
+                             filterable="true">
+                    <f:facet name="footer">
+                      <af:group id="g2">
+                        <af:spacer width="10" height="10" id="s2"/>
+                        <af:separator id="s1"/>
+                        <af:outputText value="#{empty bindings.CountIMIS.attributeValue ?  0 : bindings.CountIMIS.attributeValue}"
+                                       id="ot4">
+                          <af:convertNumber groupingUsed="false"
+                                            pattern="#{bindings.InvoiceView1.hints.CountIMIS.format}"/>
+                        </af:outputText>
+                      </af:group>
+                    </f:facet>
+                    <af:commandLink text="#{row.InspectionNumber}" id="cl2">
+                      <af:inputText value="#{row.bindings.InspectionNumber.inputValue}"
+                                    label="#{bindings.InvoiceView1.hints.InspectionNumber.label}"
+                                    required="#{bindings.InvoiceView1.hints.InspectionNumber.mandatory}"
+                                    columns="#{bindings.InvoiceView1.hints.InspectionNumber.displayWidth}"
+                                    maximumLength="#{bindings.InvoiceView1.hints.InspectionNumber.precision}"
+                                    shortDesc="#{bindings.InvoiceView1.hints.InspectionNumber.tooltip}"
+                                    id="it2" rendered="false">
+                        <f:validator binding="#{row.bindings.InspectionNumber.validator}"/>
+                      </af:inputText>
+                      <af:showPopupBehavior popupId=":::popup_viewInvoice"/>
+                    </af:commandLink>
+                  </af:column>
+                  <af:column sortProperty="#{bindings.InvoiceView1.hints.DocketNumber.name}"
+                             filterable="true" sortable="true"
+                             headerText="#{bindings.InvoiceView1.hints.DocketNumber.label}"
+                             id="resId1c2" width="70" align="center"
+                             rendered="false">
+                    <af:outputText value="#{row.DocketNumber}" id="ot7"/>
+                  </af:column>
+                  <af:column sortProperty="#{bindings.InvoiceView1.hints.DocketThroughNumber.name}"
+                             sortable="true"
+                             headerText="#{bindings.InvoiceView1.hints.DocketThroughNumber.label}"
+                             id="c26" align="center" rendered="false"
+                             filterable="true">
+                    <af:outputText value="#{row.DocketThroughNumber}"
+                                   id="ot70"/>
+                  </af:column>
+                  <af:column sortProperty="#{bindings.InvoiceView1.hints.IndexCode.name}"
+                             sortable="true"
+                             headerText="#{bindings.InvoiceView1.hints.IndexCode.label}"
+                             id="resId1c3" width="35" filterable="true"
+                             align="center">
+                    <af:outputText value="#{row.IndexCode}" id="ot1">
+                      <af:convertNumber groupingUsed="false"
+                                        pattern="#{bindings.InvoiceView1.hints.IndexCode.format}"/>
+                    </af:outputText>
+                  </af:column>
+                  <af:column sortProperty="#{bindings.InvoiceView1.hints.Citationissuedate.name}"
+                             sortable="true" headerText="Invoice Date" id="c18"
+                             filterable="true" width="90" align="right"
+                             inlineStyle="text-align:right;">
+                    <af:outputText value="#{row.Citationissuedate}"
+                                   shortDesc="#{bindings.InvoiceView1.hints.Citationissuedate.tooltip}"
+                                   id="id3">
+                      <af:convertDateTime pattern="#{bindings.InvoiceView1.hints.Citationissuedate.format}"/>
+                    </af:outputText>
+                    <f:facet name="filter">
+                      <af:inputDate value="#{vs.filterCriteria.Citationissuedate}"
+                                    id="id1" contentStyle="width:60.0px;"/>
+                    </f:facet>
+                  </af:column>
+                  <af:column sortProperty="#{bindings.InvoiceView1.hints.AppealDate.name}"
+                             sortable="true"
+                             headerText="#{bindings.InvoiceView1.hints.AppealDate.label}"
+                             id="c16" filterable="true" width="82"
+                             inlineStyle="text-align:right;" align="right">
+                    <af:outputText id="ot3" value="#{row.AppealDate}">
+                      <af:convertDateTime pattern="#{bindings.InvoiceView1.hints.AppealDate.format}"/>
+                    </af:outputText>
+                    <f:facet name="filter">
+                      <af:inputDate value="#{vs.filterCriteria.AppealDate}"
+                                    id="id10" contentStyle="width:60.0px;"/>
+                    </f:facet>
+                  </af:column>
+                  <af:column sortProperty="#{bindings.InvoiceView1.hints.ClosedDate.name}"
+                             sortable="true"
+                             headerText="#{bindings.InvoiceView1.hints.ClosedDate.label}"
+                             id="c17" width="82" inlineStyle="text-align:right;"
+                             align="right" filterable="true">
+                    <af:outputText value="#{row.ClosedDate}" id="ot9">
+                      <af:convertDateTime pattern="#{bindings.InvoiceView1.hints.ClosedDate.format}"/>
+                    </af:outputText>
+                    <f:facet name="filter">
+                      <af:inputDate value="#{vs.filterCriteria.ClosedDate}"
+                                    id="id12" contentStyle="width:60.0px;"/>
+                    </f:facet>
+                  </af:column>
+                  <af:column headerText="#{bindings.InvoiceView1.hints.AppealTypeCode.label}"
+                  sortProperty="#{bindings.InvoiceView1.hints.AppealTypeCode.name}"
+                             sortable="true" filterable = "true"
+                             id="c95">
+                    <af:outputText value="#{row.AppealTypeCode}" id="ot159"/>
+                  </af:column>
+                  <af:column sortProperty="#{bindings.InvoiceView1.hints.Judgmentfilingdate.name}"
+                             sortable="true"
+                             headerText="#{bindings.InvoiceView1.hints.Judgmentfilingdate.label}"
+                             id="c19" width="82" align="right"
+                             inlineStyle="text-align:right;" filterable="true">
+                    <af:commandLink text="#{row.bindings.Judgmentfilingdate.inputValue}"
+                                    id="cl3">
+                      <af:inputDate value="#{row.bindings.Judgmentfilingdate.inputValue}"
+                                    label="#{bindings.InvoiceView1.hints.Judgmentfilingdate.label}"
+                                    required="#{bindings.InvoiceView1.hints.Judgmentfilingdate.mandatory}"
+                                    shortDesc="#{bindings.InvoiceView1.hints.Judgmentfilingdate.tooltip}"
+                                    id="id4" rendered="false">
+                        <f:validator binding="#{row.bindings.Judgmentfilingdate.validator}"/>
+                        <af:convertDateTime pattern="#{bindings.InvoiceView1.hints.Judgmentfilingdate.format}"/>
+                      </af:inputDate>
+                      <af:showPopupBehavior popupId=":::popup_viewJudgmentDetails1"/>
+                    </af:commandLink>
+                    <f:facet name="filter">
+                      <af:inputDate id="id9"
+                                    value="#{vs.filterCriteria.Judgmentfilingdate}"
+                                    contentStyle="width:60.0px;"/>
+                    </f:facet>
+                  </af:column>
+                  <af:column sortProperty="#{bindings.InvoiceView1.hints.PmtPlanSetupdate.name}"
+                             sortable="true" filterable="true"
+                             headerText="#{bindings.InvoiceView1.hints.PmtPlanSetupdate.label}"
+                             id="c35" width="82" align="right">
+                    <af:commandLink text="#{row.PmtPlanSetupdate}" id="cl4">
+                      <af:inputDate value="#{row.bindings.PmtPlanSetupdate.inputValue}"
+                                    label="#{bindings.InvoiceView1.hints.PmtPlanSetupdate.label}"
+                                    required="#{bindings.InvoiceView1.hints.PmtPlanSetupdate.mandatory}"
+                                    shortDesc="#{bindings.InvoiceView1.hints.PmtPlanSetupdate.tooltip}"
+                                    id="id8" rendered="false">
+                        <f:validator binding="#{row.bindings.PmtPlanSetupdate.validator}"/>
+                        <af:convertDateTime pattern="#{bindings.InvoiceView1.hints.PmtPlanSetupdate.format}"/>
+                      </af:inputDate>
+                      <af:showPopupBehavior popupId=":::popup_viewPaymentPlan1"/>
+                    </af:commandLink>
+                    <f:facet name="filter">
+                      <af:inputDate id="id14"
+                                    value="#{vs.filterCriteria.PmtPlanSetupdate}"
+                                    contentStyle="width:60.0px;"/>
+                    </f:facet>
+                  </af:column>
+                  <af:column sortProperty="#{bindings.InvoiceView1.hints.Initialamount.name}"
+                             sortable="true" width="70" align="right"
+                             inlineStyle="text-align:right;"
+                             headerText="#{bindings.InvoiceView1.hints.Initialamount.label}"
+                             id="c88" filterable="true">
+                    <af:outputText value="#{row.Initialamount}" id="ot87">
+                      <af:convertNumber groupingUsed="false"
+                                        pattern="#{bindings.InvoiceView1.hints.Initialamount.format}"/>
+                    </af:outputText>
+                  </af:column>
+                  <af:column sortProperty="#{bindings.InvoiceView1.hints.Currentamount.name}"
+                             sortable="true"
+                             headerText="#{bindings.InvoiceView1.hints.Currentamount.label}"
+                             id="c20" width="56" align="right"
+                             inlineStyle="text-align:right;" filterable="true">
+                    <af:outputText value="#{row.Currentamount}" id="ot8"/>
+                  </af:column>
+                  <af:column sortProperty="#{bindings.InvoiceView1.hints.Invoiceappealamount.name}"
+                             sortable="true"
+                             headerText="#{bindings.InvoiceView1.hints.Invoiceappealamount.label}"
+                             id="c21" width="65" filterable="true" align="right"
+                             inlineStyle="text-align:right;">
+                    <af:commandLink id="ot10" text="#{row.Invoiceappealamount}">
+                      <af:showPopupBehavior popupId=":::popup_viewAppealItems"/>
+                    </af:commandLink>
+                  </af:column>
+                  <af:column sortProperty="#{bindings.InvoiceView1.hints.Invoicedecisionamount.name}"
+                             sortable="true"
+                             headerText="#{bindings.InvoiceView1.hints.Invoicedecisionamount.label}"
+                             id="c22" width="65" filterable="true" align="right"
+                             inlineStyle="text-align:right;">
+                    <af:outputText value="#{row.Invoicedecisionamount}"
+                                   id="ot12"/>
+                  </af:column>
+                  <af:column sortProperty="#{bindings.InvoiceView1.hints.Totalpayments.name}"
+                             sortable="true"
+                             headerText="#{bindings.InvoiceView1.hints.Totalpayments.label}"
+                             id="c23" width="65" align="right"
+                             inlineStyle="text-align:right;" filterable="true">
+                    <af:commandLink text="#{row.bindings.Totalpayments.inputValue}"
+                                    id="cl5">
+                      <af:inputText value="#{row.bindings.Totalpayments.inputValue}"
+                                    label="#{bindings.InvoiceView1.hints.Totalpayments.label}"
+                                    required="#{bindings.InvoiceView1.hints.Totalpayments.mandatory}"
+                                    columns="#{bindings.InvoiceView1.hints.Totalpayments.displayWidth}"
+                                    maximumLength="#{bindings.InvoiceView1.hints.Totalpayments.precision}"
+                                    shortDesc="#{bindings.InvoiceView1.hints.Totalpayments.tooltip}"
+                                    id="it3" rendered="false">
+                        <f:validator binding="#{row.bindings.Totalpayments.validator}"/>
+                      </af:inputText>
+                      <af:showPopupBehavior popupId=":::popup_viewPayment"/>
+                    </af:commandLink>
+                  </af:column>
+                  <af:column id="c47" sortable="true" filterable="true"
+                             sortProperty="#{bindings.InvoiceView1.hints.Invoicebalance.name}"
+                             align="right" width="65"
+                             headerText="#{bindings.InvoiceView1.hints.Invoicebalance.label}">
+                    <af:outputText id="ot5" value="#{row.Invoicebalance}"/>
+                  </af:column>
+                  <af:column id="c38" sortable="true"
+                             headerText="#{bindings.InvoiceView1.hints.AcctgLetter.label}"
+                             sortProperty="#{bindings.InvoiceView1.hints.AcctgLetter.name}"
+                             align="right" filterable="true" width="82">
+                    <af:outputText value="#{row.AcctgLetter}" id="ot148">
+                      <af:convertDateTime pattern="#{bindings.InvoiceView1.hints.AcctgLetter.format}"/>
+                    </af:outputText>
+                    <f:facet name="filter">
+                      <af:inputDate value="#{vs.filterCriteria.AcctgLetter}"
+                                    id="id13" contentStyle="width:60.0px;"/>
+                    </f:facet>
+                  </af:column>
+                  <af:column headerText="#{bindings.InvoiceView1.hints.CollLetter.label}"
+                             id="c43" sortable="true" filterable="true"
+                             sortProperty="#{bindings.InvoiceView1.hints.CollLetter.name}"
+                             align="right" filterFeatures="caseInsensitive"
+                             width="82">
+                    <af:outputText value="#{row.CollLetter}" id="ot149">
+                      <af:convertDateTime pattern="#{bindings.InvoiceView1.hints.CollLetter.format}"/>
+                    </af:outputText>
+                    <f:facet name="filter">
+                      <af:inputDate value="#{vs.filterCriteria.CollLetter}"
+                                    id="id11" contentStyle="width:60.0px;"/>
+                    </f:facet>
+                  </af:column>
+                  <af:column headerText="#{bindings.InvoiceView1.hints.OnepLetter.label}"
+                             id="c44" sortable="true" filterable="true"
+                             sortProperty="#{bindings.InvoiceView1.hints.OnepLetter.name}"
+                             align="right" width="82">
+                    <af:outputText value="#{row.OnepLetter}" id="ot150">
+                      <af:convertDateTime pattern="#{bindings.InvoiceView1.hints.OnepLetter.format}"/>
+                    </af:outputText>
+                    <f:facet name="filter">
+                      <af:inputDate id="id35"
+                                    value="#{vs.filterCriteria.OnepLetter}"
+                                    contentStyle="width:60.0px;"/>
+                    </f:facet>
+                  </af:column>
+                  <af:column headerText="#{bindings.InvoiceView1.hints.DemandLetter.label}"
+                             id="column2" sortable="true" filterable="true"
+                             sortProperty="#{bindings.InvoiceView1.hints.DemandLetter.name}"
+                             align="right" width="82">
+                    <af:outputText value="#{row.DemandLetter}"
+                                   id="outputText12">
+                      <af:convertDateTime pattern="#{bindings.InvoiceView1.hints.DemandLetter.format}"/>
+                    </af:outputText>
+                    <f:facet name="filter">
+                      <af:inputDate id="inputDate5"
+                                    value="#{vs.filterCriteria.DemandLetter}"
+                                    contentStyle="width:60.0px;"/>
+                    </f:facet>
+                  </af:column>
+                  <af:column headerText="#{bindings.InvoiceView1.hints.DoshCoeDate.label}"
+                             id="column3" sortable="true" filterable="true"
+                             sortProperty="#{bindings.InvoiceView1.hints.DoshCoeDate.name}"
+                             align="right" width="82">
+                    <af:outputText value="#{row.DoshCoeDate}" id="outputText13">
+                      <af:convertDateTime pattern="#{bindings.InvoiceView1.hints.DoshCoeDate.format}"/>
+                    </af:outputText>
+                    <f:facet name="filter">
+                      <af:inputDate id="inputDate6"
+                                    value="#{vs.filterCriteria.DoshCoeDate}"
+                                    contentStyle="width:60.0px;"/>
+                    </f:facet>
+                  </af:column>
+                  <af:column headerText="#{bindings.InvoiceView1.hints.OshabCoeDate.label}"
+                             id="column4" sortable="true" filterable="true"
+                             sortProperty="#{bindings.InvoiceView1.hints.OshabCoeDate.name}"
+                             align="right" width="82">
+                    <af:outputText value="#{row.OshabCoeDate}"
+                                   id="outputText14">
+                      <af:convertDateTime pattern="#{bindings.InvoiceView1.hints.OshabCoeDate.format}"/>
+                    </af:outputText>
+                    <f:facet name="filter">
+                      <af:inputDate id="inputDate7"
+                                    value="#{vs.filterCriteria.OshabCoeDate}"
+                                    contentStyle="width:60.0px;"/>
+                    </f:facet>
+                  </af:column>
+                  <af:column id="c89"
+                             headerText="#{bindings.InvoiceView1.hints.ReferredEdd.label}"
+                             sortable="true" filterable="true"
+                             sortProperty="#{bindings.InvoiceView1.hints.ReferredEdd.name}"
+                             align="right" width="82">
+                    <af:outputText value="#{row.ReferredEdd}" id="outputText4">
+                      <af:convertDateTime pattern="#{bindings.InvoiceView1.hints.ReferredEdd.format}"/>
+                    </af:outputText>
+                    <f:facet name="filter">
+                      <af:inputDate id="inputDate10"
+                                    value="#{vs.filterCriteria.ReferredEdd}"
+                                    contentStyle="width:60.0px;"/>
+                    </f:facet>
+                  </af:column>
+                </af:table>
+                <f:facet name="menus">
+                  <af:menu text="EDD" id="m1">
+                    <af:commandMenuItem text="Type N - New Debt" id="cmi1"
+                                        windowHeight="520" windowWidth="820"
+                                        action="#{backingBeanScope.EddFunctionsBean.newEddNRecordMenuItemNav}"
+                                        useWindow="true"
+                                        windowEmbedStyle="inlineDocument"
+                                        partialTriggers="::pc1 resId1">
+                      <af:setActionListener from="#{bindings.InspectionNumber.attributeValue}"
+                                            to="#{backingBeanScope.EddFunctionsBean.debtorNumber}"/>
+                      <af:setActionListener from="#{bindings.ReferralId.attributeValue}"
+                                            to="#{backingBeanScope.EddFunctionsBean.referralId}"/>
+                      <af:setActionListener from="UNID"
+                                            to="#{backingBeanScope.EddFunctionsBean.debtorType}"/>
+                      <af:setActionListener from="#{fn:substring(bindings.Dba1.attributeValue,0,74)}"
+                                            to="#{backingBeanScope.EddFunctionsBean.employerName}"/>
+                      <af:setActionListener from="#{fn:substring(bindings.LegalName.attributeValue,0,74)}"
+                                            to="#{backingBeanScope.EddFunctionsBean.entityLegalName}"/>
+                      <af:setActionListener from="#{bindings.FirstName.attributeValue}"
+                                            to="#{backingBeanScope.EddFunctionsBean.entityFirstName}"/>
+                      <af:setActionListener from="#{bindings.LastName.attributeValue}"
+                                            to="#{backingBeanScope.EddFunctionsBean.entityLastName}"/>
+                      <af:setActionListener from="#{bindings.IndexCode.attributeValue}"
+                                            to="#{backingBeanScope.EddFunctionsBean.indexCode}"/>
+                      <af:setActionListener from="#{bindings.RevenueSourceCode.attributeValue}"
+                                            to="#{backingBeanScope.EddFunctionsBean.revenueSourceCode}"/>
+                      <af:setActionListener from="#{bindings.AgencySourceCode.attributeValue}"
+                                            to="#{backingBeanScope.EddFunctionsBean.agencySourceCode}"/>
+                      <af:setActionListener from="#{bindings.PcaCode.attributeValue}"
+                                            to="#{backingBeanScope.EddFunctionsBean.pcaCode}"/>
+                      <af:setActionListener from="#{bindings.FundId.attributeValue}"
+                                            to="#{backingBeanScope.EddFunctionsBean.fundId}"/>
+                      <af:setActionListener from="#{bindings.FiscalYear.attributeValue}"
+                                            to="#{backingBeanScope.EddFunctionsBean.fiscalYearName}"/>
+                      <af:setActionListener from="#{bindings.City.attributeValue}"
+                                            to="#{backingBeanScope.EddFunctionsBean.city}"/>
+                      <af:setActionListener from="#{bindings.StreetAddress.attributeValue}"
+                                            to="#{backingBeanScope.EddFunctionsBean.streetAddress}"/>
+                      <af:setActionListener from="#{bindings.StateCode.attributeValue}"
+                                            to="#{backingBeanScope.EddFunctionsBean.stateCode}"/>
+                      <af:setActionListener from="#{bindings.ZipCode.attributeValue}"
+                                            to="#{backingBeanScope.EddFunctionsBean.zipCode}"/>
+                      <af:setActionListener from="#{bindings.Citationissuedate.attributeValue}"
+                                            to="#{backingBeanScope.EddFunctionsBean.issueDateSqlDate}"/>
+                      <af:setActionListener from="#{bindings.EddEligible.attributeValue}"
+                                            to="#{backingBeanScope.EddFunctionsBean.liabilityFinalityDateSqlDate}"/>
+                      <af:setActionListener from="#{bindings.DemandLetter.attributeValue}"
+                                            to="#{backingBeanScope.EddFunctionsBean.demandLetterDateSqlDate}"/>
+                      <af:setActionListener from="#{bindings.FilingDate.attributeValue}"
+                                            to="#{backingBeanScope.EddFunctionsBean.judgmentDate}"/>
+                      <af:setActionListener from="#{bindings.InterestThruDate.attributeValue}"
+                                            to="#{backingBeanScope.EddFunctionsBean.interestThroughDateSqlDate}"/>
+                      <af:setActionListener from="#{bindings.Amount.attributeValue}"
+                                            to="#{backingBeanScope.EddFunctionsBean.collectionFeeBalance}"/>
+                      <af:setActionListener from="#{bindings.CourtDue.attributeValue}"
+                                            to="#{backingBeanScope.EddFunctionsBean.courtFilingFeeBalance}"/>
+                      <af:setActionListener from="#{bindings.InterestDue.attributeValue}"
+                                            to="#{backingBeanScope.EddFunctionsBean.interestBalance}"/>
+                      <af:setActionListener from="#{bindings.NsfDue.attributeValue}"
+                                            to="#{backingBeanScope.EddFunctionsBean.nsfFeeBalance}"/>
+                      <af:setActionListener from="#{bindings.Invoicebalance.attributeValue}"
+                                            to="#{backingBeanScope.EddFunctionsBean.finalPenalty}"/>
+                      <af:setActionListener from="#{bindings.FinalTotalAmtDue.attributeValue}"
+                                            to="#{backingBeanScope.EddFunctionsBean.finalTotalAmountDue}"/>
+                      <af:setActionListener from="#{bindings.PartyAgencyFundMapIdCollectFee.attributeValue}"
+                                            to="#{backingBeanScope.EddFunctionsBean.partyAgencyFundMapIdCollectFee}"/>
+                      <af:setActionListener from="#{bindings.ReportingId.attributeValue}"
+                                            to="#{backingBeanScope.EddFunctionsBean.reportingId}"/>
+                    </af:commandMenuItem>
+                    <af:commandMenuItem text="Type R - Reinstate Debt" id="cmi2"
+                                        windowHeight="480" windowWidth="800"
+                                        action="#{backingBeanScope.EddFunctionsBean.newEddRRecordMenuItemNav}"
+                                        useWindow="true"
+                                        windowEmbedStyle="inlineDocument">
+                      <af:setActionListener from="#{bindings.InspectionNumber.attributeValue}"
+                                            to="#{backingBeanScope.EddFunctionsBean.debtorNumber}"/>
+                      <af:setActionListener from="#{bindings.ReferralId.attributeValue}"
+                                            to="#{backingBeanScope.EddFunctionsBean.referralId}"/>
+                      <af:setActionListener from="UNID"
+                                            to="#{backingBeanScope.EddFunctionsBean.debtorType}"/>
+                      <af:setActionListener from="#{bindings.Dba1.attributeValue}"
+                                            to="#{backingBeanScope.EddFunctionsBean.employerName}"/>
+                      <af:setActionListener from="#{bindings.LegalName.attributeValue}"
+                                            to="#{backingBeanScope.EddFunctionsBean.entityLegalName}"/>
+                      <af:setActionListener from="#{bindings.FirstName.attributeValue}"
+                                            to="#{backingBeanScope.EddFunctionsBean.entityFirstName}"/>
+                      <af:setActionListener from="#{bindings.LastName.attributeValue}"
+                                            to="#{backingBeanScope.EddFunctionsBean.entityLastName}"/>
+                      <af:setActionListener from="#{bindings.IndexCode.attributeValue}"
+                                            to="#{backingBeanScope.EddFunctionsBean.indexCode}"/>
+                      <af:setActionListener from="#{bindings.RevenueSourceCode.attributeValue}"
+                                            to="#{backingBeanScope.EddFunctionsBean.revenueSourceCode}"/>
+                      <af:setActionListener from="#{bindings.AgencySourceCode.attributeValue}"
+                                            to="#{backingBeanScope.EddFunctionsBean.agencySourceCode}"/>
+                      <af:setActionListener from="#{bindings.PcaCode.attributeValue}"
+                                            to="#{backingBeanScope.EddFunctionsBean.pcaCode}"/>
+                      <af:setActionListener from="#{bindings.FundId.attributeValue}"
+                                            to="#{backingBeanScope.EddFunctionsBean.fundId}"/>
+                      <af:setActionListener from="#{bindings.FiscalYear.attributeValue}"
+                                            to="#{backingBeanScope.EddFunctionsBean.fiscalYearName}"/>
+                      <af:setActionListener from="#{bindings.City.attributeValue}"
+                                            to="#{backingBeanScope.EddFunctionsBean.city}"/>
+                      <af:setActionListener from="#{bindings.StreetAddress.attributeValue}"
+                                            to="#{backingBeanScope.EddFunctionsBean.streetAddress}"/>
+                      <af:setActionListener from="#{bindings.StateCode.attributeValue}"
+                                            to="#{backingBeanScope.EddFunctionsBean.stateCode}"/>
+                      <af:setActionListener from="#{bindings.ZipCode.attributeValue}"
+                                            to="#{backingBeanScope.EddFunctionsBean.zipCode}"/>
+                      <af:setActionListener from="#{bindings.Citationissuedate.attributeValue}"
+                                            to="#{backingBeanScope.EddFunctionsBean.issueDateSqlDate}"/>
+                      <af:setActionListener from="#{bindings.EddEligible.attributeValue}"
+                                            to="#{backingBeanScope.EddFunctionsBean.liabilityFinalityDateSqlDate}"/>
+                      <af:setActionListener from="#{bindings.DemandLetter.attributeValue}"
+                                            to="#{backingBeanScope.EddFunctionsBean.demandLetterDateSqlDate}"/>
+                      <af:setActionListener from="#{bindings.FilingDate.attributeValue}"
+                                            to="#{backingBeanScope.EddFunctionsBean.judgmentDate}"/>
+                      <af:setActionListener from="#{bindings.InterestThruDate.attributeValue}"
+                                            to="#{backingBeanScope.EddFunctionsBean.interestThroughDateSqlDate}"/>
+                      <af:setActionListener from="#{bindings.CollectFeeDue.attributeValue}"
+                                            to="#{backingBeanScope.EddFunctionsBean.collectionFeeBalance}"/>
+                      <af:setActionListener from="#{bindings.CourtDue.attributeValue}"
+                                            to="#{backingBeanScope.EddFunctionsBean.courtFilingFeeBalance}"/>
+                      <af:setActionListener from="#{bindings.InterestDue.attributeValue}"
+                                            to="#{backingBeanScope.EddFunctionsBean.interestBalance}"/>
+                      <af:setActionListener from="#{bindings.NsfDue.attributeValue}"
+                                            to="#{backingBeanScope.EddFunctionsBean.nsfFeeBalance}"/>
+                      <af:setActionListener from="#{bindings.Invoicebalance.attributeValue}"
+                                            to="#{backingBeanScope.EddFunctionsBean.finalPenalty}"/>
+                      <af:setActionListener from="#{bindings.FinalTotalAmtDueR.attributeValue}"
+                                            to="#{backingBeanScope.EddFunctionsBean.finalTotalAmountDue}"/>
+                      <af:setActionListener from="#{bindings.PartyAgencyFundMapIdCollectFee.attributeValue}"
+                                            to="#{backingBeanScope.EddFunctionsBean.partyAgencyFundMapIdCollectFee}"/>
+                      <af:setActionListener from="#{bindings.ReportingId.attributeValue}"
+                                            to="#{backingBeanScope.EddFunctionsBean.reportingId}"/>
+                      <af:setActionListener from="#{bindings.ThirdPartyCollectRParentId.attributeValue}"
+                                            to="#{backingBeanScope.EddFunctionsBean.thirdPartyParentId}"/>
+                    </af:commandMenuItem>
+                    <af:commandMenuItem text="Type O - Additional Name"
+                                        id="cmi3"
+                                        action="#{backingBeanScope.EddFunctionsBean.newEddORecordMenuItemNav}"
+                                        useWindow="true" windowHeight="300"
+                                        windowWidth="600">
+                      <af:setActionListener from="#{bindings.InspectionNumber.attributeValue}"
+                                            to="#{backingBeanScope.EddFunctionsBean.debtorNumber}"/>
+                      <af:setActionListener from="#{bindings.ThirdPartyCollectParentId.attributeValue}"
+                                            to="#{backingBeanScope.EddFunctionsBean.thirdPartyParentId}"/>
+                      <af:setActionListener from="#{bindings.ReferralId.attributeValue}"
+                                            to="#{backingBeanScope.EddFunctionsBean.referralId}"/>
+                    </af:commandMenuItem>
+                    <af:commandMenuItem text="Type D - Debt Recall" id="cmi4"
+                                        action="#{backingBeanScope.EddFunctionsBean.newEddDRecordMenuItemNav}"
+                                        useWindow="true" windowWidth="600"
+                                        windowHeight="300">
+                      <af:setActionListener from="#{bindings.InspectionNumber.attributeValue}"
+                                            to="#{backingBeanScope.EddFunctionsBean.debtorNumber}"/>
+                      <af:setActionListener from="#{bindings.ThirdPartyCollectParentId.attributeValue}"
+                                            to="#{backingBeanScope.EddFunctionsBean.thirdPartyParentId}"/>
+                      <af:setActionListener from="#{bindings.ReferralId.attributeValue}"
+                                            to="#{backingBeanScope.EddFunctionsBean.referralId}"/>
+                      <af:setActionListener from="#{bindings.PartyAgencyFundMapIdCollectFee.attributeValue}"
+                                            to="#{backingBeanScope.EddFunctionsBean.partyAgencyFundMapIdCollectFee}"/>
+                    </af:commandMenuItem>
+                  </af:menu>
+                </f:facet>
+              </af:panelCollection>
+            </af:panelGroupLayout>
+          </f:facet>
+        </af:panelSplitter>
+        <af:popup id="popup_viewPayment" contentDelivery="lazyUncached">
+          <af:dialog id="d2" type="cancel" resize="on" stretchChildren="none"
+                     contentWidth="750"
+                     title="Payment History for #{bindings.InspectionNumber.inputValue} #{bindings.LegalName.inputValue}">
+            <af:panelStretchLayout id="psl7" dimensionsFrom="auto">
+              <f:facet name="center">
+                <af:panelGroupLayout id="pgl5">
+                  <af:panelTabbed id="pt9" dimensionsFrom="auto">
+                    <af:showDetailItem text="Invoice" id="sdi8">
+                      <af:panelFormLayout id="pfl9" labelAlignment="top"
+                                          rows="1" maxColumns="8">
+                        <af:panelLabelAndMessage label="IMIS Number"
+                                                 id="plam47">
+                          <af:outputText value="#{bindings.InspectionNumber.inputValue}"
+                                         id="ot36"/>
+                        </af:panelLabelAndMessage>
+                        <af:panelLabelAndMessage label="#{bindings.Initialamount.hints.label}"
+                                                 id="panelLabelAndMessage2">
+                          <af:outputText value="#{bindings.Initialamount.inputValue}"
+                                         id="outputText3">
+                            <af:convertNumber groupingUsed="false"
+                                              pattern="#{bindings.Initialamount.format}"/>
+                          </af:outputText>
+                        </af:panelLabelAndMessage>
+                        <af:panelLabelAndMessage label="Current Amount"
+                                                 id="plam2">
+                          <af:outputText value="#{bindings.Currentamount.inputValue}"
+                                         id="ot6">
+                            <af:convertNumber groupingUsed="false"
+                                              pattern="#{bindings.Currentamount.format}"/>
+                          </af:outputText>
+                        </af:panelLabelAndMessage>
+                        <af:panelLabelAndMessage label="Appeal Amount"
+                                                 id="plam3">
+                          <af:outputText value="#{bindings.Invoiceappealamount.inputValue}"
+                                         id="ot13">
+                            <af:convertNumber groupingUsed="false"
+                                              pattern="#{bindings.Invoiceappealamount.format}"/>
+                          </af:outputText>
+                        </af:panelLabelAndMessage>
+                        <af:panelLabelAndMessage label="Decision Amount"
+                                                 id="plam33">
+                          <af:outputText value="#{bindings.Invoicedecisionamount.inputValue}"
+                                         id="ot60">
+                            <af:convertNumber groupingUsed="false"
+                                              pattern="#{bindings.Invoicedecisionamount.format}"/>
+                          </af:outputText>
+                        </af:panelLabelAndMessage>
+                        <af:panelLabelAndMessage label="Unbilled Paid"
+                                                 id="plam32">
+                          <af:outputText value="#{bindings.Totalunbillpayments.inputValue}"
+                                         id="ot57">
+                            <af:convertNumber groupingUsed="false"
+                                              pattern="#{bindings.Totalunbillpayments.format}"/>
+                          </af:outputText>
+                        </af:panelLabelAndMessage>
+                        <af:panelLabelAndMessage label="Invoice Paid"
+                                                 id="plam31">
+                          <af:outputText value="#{bindings.Totalpayments.inputValue}"
+                                         id="ot40">
+                            <af:convertNumber groupingUsed="false"
+                                              pattern="#{bindings.Totalpayments.format}"/>
+                          </af:outputText>
+                        </af:panelLabelAndMessage>
+                        <af:panelLabelAndMessage label="Balance" id="plam4">
+                          <af:outputText value="#{bindings.Invoicebalance.inputValue}"
+                                         id="ot38">
+                            <af:convertNumber groupingUsed="false"
+                                              pattern="#{bindings.Invoicebalance.format}"/>
+                          </af:outputText>
+                        </af:panelLabelAndMessage>
+                      </af:panelFormLayout>
+                    </af:showDetailItem>
+                  </af:panelTabbed>
+                  <af:panelTabbed id="pt10" dimensionsFrom="auto">
+                    <af:showDetailItem text="Payment Details" id="sdi9">
+                      <af:table value="#{bindings.InvoiceAllPaymentView2.collectionModel}"
+                                var="row"
+                                rows="#{bindings.InvoiceAllPaymentView2.rangeSize}"
+                                emptyText="#{bindings.InvoiceAllPaymentView2.viewable ? 'No data to display.' : 'Access Denied.'}"
+                                fetchSize="#{bindings.InvoiceAllPaymentView2.rangeSize}"
+                                rowBandingInterval="0" filterVisible="true"
+                                varStatus="vs" id="t3" autoHeightRows="0"
+                                styleClass="AFStretchWidth"
+                                columnStretching="last">
+                        <af:column sortProperty="#{bindings.InvoiceAllPaymentView2.hints.DepositSlipNumber.name}"
+                                   filterable="true" sortable="true"
+                                   headerText="DepositSlip #" id="c41"
+                                   align="center">
+                          <af:outputText value="#{row.DepositSlipNumber}"
+                                         id="ot90"/>
+                        </af:column>
+                        <af:column sortProperty="#{bindings.InvoiceAllPaymentView2.hints.TransmittalDate.name}"
+                                   filterable="true" sortable="true"
+                                   headerText="Transmittal Date" id="c7"
+                                   align="right">
+                          <f:facet name="filter">
+                            <af:inputDate value="#{vs.filterCriteria.TransmittalDate}"
+                                          id="id6"/>
+                          </f:facet>
+                          <af:outputText value="#{row.TransmittalDate}"
+                                         id="ot91">
+                            <af:convertDateTime pattern="#{bindings.InvoiceAllPaymentView2.hints.TransmittalDate.format}"/>
+                          </af:outputText>
+                        </af:column>
+                        <af:column sortProperty="#{bindings.InvoiceAllPaymentView2.hints.PaymentControlNumber.name}"
+                                   filterable="true" sortable="true"
+                                   headerText="Payment Control#" id="c42"
+                                   align="right">
+                          <af:outputText value="#{row.PaymentControlNumber}"
+                                         id="ot17"/>
+                        </af:column>
+                        <af:column sortProperty="#{bindings.InvoiceAllPaymentView2.hints.PaymentTypeCode.name}"
+                                   filterable="true" sortable="true"
+                                   headerText="Payment Type" id="c14"
+                                   align="left">
+                          <af:outputText value="#{row.PaymentTypeCode}"
+                                         id="ot89"/>
+                        </af:column>
+                        <af:column sortProperty="#{bindings.InvoiceAllPaymentView2.hints.PaymentDate.name}"
+                                   filterable="true" sortable="true"
+                                   headerText="Payment Date" id="c39"
+                                   align="right">
+                          <f:facet name="filter">
+                            <af:inputDate value="#{vs.filterCriteria.PaymentDate}"
+                                          id="id7"/>
+                          </f:facet>
+                          <af:outputText value="#{row.PaymentDate}" id="ot29">
+                            <af:convertDateTime pattern="#{bindings.InvoiceAllPaymentView2.hints.PaymentDate.format}"/>
+                          </af:outputText>
+                        </af:column>
+                        <af:column headerText="Allocation Date" id="c71"
+                                   sortProperty="#{bindings.InvoiceAllPaymentView2.hints.AllocationDate.name}"
+                                   sortable="true" filterable="true">
+                          <af:outputText value="#{row.AllocationDate}"
+                                         id="ot48">
+                            <af:convertDateTime pattern="#{bindings.InvoiceAllPaymentView2.hints.AllocationDate.format}"/>
+                          </af:outputText>
+                        </af:column>
+                        <af:column sortProperty="#{bindings.InvoiceAllPaymentView2.hints.AllocatedAmount.name}"
+                                   filterable="true" sortable="true"
+                                   headerText="Allocated Amount" id="c13"
+                                   align="right"
+                                   inlineStyle="text-align:right;">
+                          <af:outputText value="#{row.AllocatedAmount}"
+                                         id="ot20"/>
+                        </af:column>
+                        <af:column sortProperty="#{bindings.InvoiceAllPaymentView2.hints.BillTypeCode.name}"
+                                   filterable="true" sortable="true"
+                                   headerText="Bill Type" id="c40"
+                                   align="center">
+                          <af:outputText value="#{row.BillTypeCode}" id="ot92"/>
+                        </af:column>
+                      </af:table>
+                    </af:showDetailItem>
+                  </af:panelTabbed>
+                </af:panelGroupLayout>
+              </f:facet>
+            </af:panelStretchLayout>
+          </af:dialog>
+        </af:popup>
+        <af:popup id="popup_viewPaymentPlan1" contentDelivery="lazyUncached">
+          <af:dialog id="dialog3" type="cancel" resize="on"
+                     stretchChildren="none" contentWidth="750"
+                     title="Payment Plan Details for #{bindings.InspectionNumber.inputValue} #{bindings.LegalName.inputValue}">
+            <af:panelStretchLayout id="panelStretchLayout2"
+                                   dimensionsFrom="auto">
+              <f:facet name="center">
+                <af:panelGroupLayout id="panelGroupLayout3">
+                  <af:panelTabbed id="panelTabbed3" dimensionsFrom="auto">
+                    <af:showDetailItem text="Payment Agreement"
+                                       id="showDetailItem3">
+                      <af:table value="#{bindings.PaymentPlanView1.collectionModel}"
+                                var="row"
+                                rows="#{bindings.PaymentPlanView1.rangeSize}"
+                                emptyText="#{bindings.PaymentPlanView1.viewable ? 'No data to display.' : 'Access Denied.'}"
+                                fetchSize="#{bindings.PaymentPlanView1.rangeSize}"
+                                rowBandingInterval="0" id="t8"
+                                autoHeightRows="0" styleClass="AFStretchWidth"
+                                rowSelection="single"
+                                selectionListener="#{bindings.PaymentPlanView1.collectionModel.makeCurrent}">
+                        <af:column sortProperty="#{bindings.PaymentPlanView1.hints.PayPlanAgreementId.name}"
+                                   sortable="false" headerText="ID" id="c67"
+                                   width="50" rendered="false">
+                          <af:outputText value="#{row.PayPlanAgreementId}"
+                                         id="ot128">
+                            <af:convertNumber groupingUsed="false"
+                                              pattern="#{bindings.PaymentPlanView1.hints.PayPlanAgreementId.format}"/>
+                          </af:outputText>
+                        </af:column>
+                        <af:column sortProperty="#{bindings.PaymentPlanView1.hints.AgreementReferenceNumber.name}"
+                                   sortable="false" headerText="Reference#"
+                                   id="c61" width="70">
+                          <af:outputText value="#{row.AgreementReferenceNumber}"
+                                         id="ot119"/>
+                        </af:column>
+                        <af:column sortProperty="#{bindings.PaymentPlanView1.hints.SetupDate.name}"
+                                   sortable="false" headerText="Setup Date"
+                                   id="c64" width="70" align="right">
+                          <af:outputText value="#{row.SetupDate}" id="ot118">
+                            <af:convertDateTime pattern="#{bindings.PaymentPlanView1.hints.SetupDate.format}"/>
+                          </af:outputText>
+                        </af:column>
+                        <af:column sortProperty="#{bindings.PaymentPlanView1.hints.PaymentPlanStartDate.name}"
+                                   sortable="false" headerText="Plan Start Date"
+                                   id="c65" width="70" align="right">
+                          <af:outputText value="#{row.PaymentPlanStartDate}"
+                                         id="ot122">
+                            <af:convertDateTime pattern="#{bindings.PaymentPlanView1.hints.PaymentPlanStartDate.format}"/>
+                          </af:outputText>
+                        </af:column>
+                        <af:column sortProperty="#{bindings.PaymentPlanView1.hints.EffectiveStartDate.name}"
+                                   sortable="false"
+                                   headerText="Effective Start Date" id="c70"
+                                   align="right" width="70">
+                          <af:outputText value="#{row.EffectiveStartDate}"
+                                         id="ot126">
+                            <af:convertDateTime pattern="#{bindings.PaymentPlanView1.hints.EffectiveStartDate.format}"/>
+                          </af:outputText>
+                        </af:column>
+                        <af:column sortProperty="#{bindings.PaymentPlanView1.hints.EffectiveEndDate.name}"
+                                   sortable="false"
+                                   headerText="Effective End Date" id="c69"
+                                   width="70" align="right">
+                          <af:outputText value="#{row.EffectiveEndDate}"
+                                         id="ot120">
+                            <af:convertDateTime pattern="#{bindings.PaymentPlanView1.hints.EffectiveEndDate.format}"/>
+                          </af:outputText>
+                        </af:column>
+                        <af:column sortProperty="#{bindings.PaymentPlanView1.hints.StatusDate.name}"
+                                   sortable="false" headerText="Status Date"
+                                   id="c66" width="70" align="right">
+                          <af:outputText value="#{row.StatusDate}" id="ot124">
+                            <af:convertDateTime pattern="#{bindings.PaymentPlanView1.hints.StatusDate.format}"/>
+                          </af:outputText>
+                        </af:column>
+                        <af:column sortProperty="#{bindings.PaymentPlanView1.hints.Status.name}"
+                                   sortable="false" headerText="Status" id="c62"
+                                   width="50" align="left">
+                          <af:outputText value="#{row.Status}"
+                                         id="ot117"/>
+                        </af:column>
+                        <af:column sortProperty="#{bindings.PaymentPlanView1.hints.TotalInstallment.name}"
+                                   sortable="false"
+                                   headerText="Total Installment" id="c60"
+                                   width="50" align="right">
+                          <af:outputText value="#{row.TotalInstallment}"
+                                         id="ot116">
+                            <af:convertNumber groupingUsed="false"
+                                              pattern="#{bindings.PaymentPlanView1.hints.TotalInstallment.format}"/>
+                          </af:outputText>
+                        </af:column>
+                        <af:column sortProperty="#{bindings.PaymentPlanView1.hints.DownPayment.name}"
+                                   sortable="false" headerText="Down Payment"
+                                   id="c72" width="80" align="right">
+                          <af:outputText value="#{row.DownPayment}" id="ot125">
+                            <af:convertNumber groupingUsed="false"
+                                              pattern="#{bindings.PaymentPlanView1.hints.DownPayment.format}"/>
+                          </af:outputText>
+                        </af:column>
+                        <af:column sortProperty="#{bindings.PaymentPlanView1.hints.AmountDue.name}"
+                                   sortable="false" headerText="Amount Due"
+                                   id="c68" width="80" align="right">
+                          <af:outputText value="#{row.AmountDue}" id="ot121">
+                            <af:convertNumber groupingUsed="false"
+                                              pattern="#{bindings.PaymentPlanView1.hints.AmountDue.format}"/>
+                          </af:outputText>
+                        </af:column>
+                      </af:table>
+                    </af:showDetailItem>
+                  </af:panelTabbed>
+                  <af:panelTabbed id="panelTabbed4" dimensionsFrom="auto">
+                    <af:showDetailItem text="Payment Agreement Details"
+                                       id="showDetailItem4">
+                      <af:table value="#{bindings.PaymentPlanDetailView1.collectionModel}"
+                                var="row"
+                                rows="#{bindings.PaymentPlanDetailView1.rangeSize}"
+                                emptyText="#{bindings.PaymentPlanDetailView1.viewable ? 'No data to display.' : 'Access Denied.'}"
+                                fetchSize="#{bindings.PaymentPlanDetailView1.rangeSize}"
+                                rowBandingInterval="0"
+                                selectedRowKeys="#{bindings.PaymentPlanDetailView1.collectionModel.selectedRow}"
+                                selectionListener="#{bindings.PaymentPlanDetailView1.collectionModel.makeCurrent}"
+                                rowSelection="single" id="t9" autoHeightRows="0"
+                                styleClass="AFStretchWidth"
+                                partialTriggers="::t8">
+                        <af:column sortProperty="#{bindings.PaymentPlanDetailView1.hints.PayPlanAgreementId.name}"
+                                   sortable="true" headerText="ID" id="c75"
+                                   width="50" rendered="false">
+                          <af:outputText value="#{row.PayPlanAgreementId}"
+                                         id="ot129">
+                            <af:convertNumber groupingUsed="false"
+                                              pattern="#{bindings.PaymentPlanDetailView1.hints.PayPlanAgreementId.format}"/>
+                          </af:outputText>
+                        </af:column>
+                        <af:column sortProperty="#{bindings.PaymentPlanDetailView1.hints.PaymentPlanDetailId.name}"
+                                   sortable="true" headerText="Line ID" id="c78"
+                                   width="50" rendered="false">
+                          <af:outputText value="#{row.PaymentPlanDetailId}"
+                                         id="ot131">
+                            <af:convertNumber groupingUsed="false"
+                                              pattern="#{bindings.PaymentPlanDetailView1.hints.PaymentPlanDetailId.format}"/>
+                          </af:outputText>
+                        </af:column>
+                        <af:column sortProperty="#{bindings.PaymentPlanDetailView1.hints.InstallmentNumber.name}"
+                                   sortable="true"
+                                   headerText="Installment Number" id="c73"
+                                   width="50" align="right">
+                          <af:outputText value="#{row.InstallmentNumber}"
+                                         id="ot130">
+                            <af:convertNumber groupingUsed="false"
+                                              pattern="#{bindings.PaymentPlanDetailView1.hints.InstallmentNumber.format}"/>
+                          </af:outputText>
+                        </af:column>
+                        <af:column sortProperty="#{bindings.PaymentPlanDetailView1.hints.AmountDue.name}"
+                                   sortable="true" headerText="Amount Due"
+                                   id="c77" width="80" align="right">
+                          <af:outputText value="#{row.AmountDue}" id="ot133">
+                            <af:convertNumber groupingUsed="false"
+                                              pattern="#{bindings.PaymentPlanDetailView1.hints.AmountDue.format}"/>
+                          </af:outputText>
+                        </af:column>
+                        <af:column sortProperty="#{bindings.PaymentPlanDetailView1.hints.DueDate.name}"
+                                   sortable="true" headerText="Due Date"
+                                   id="c74" width="70" align="right">
+                          <af:outputText value="#{row.DueDate}" id="ot134">
+                            <af:convertDateTime pattern="#{bindings.PaymentPlanDetailView1.hints.DueDate.format}"/>
+                          </af:outputText>
+                        </af:column>
+                        <af:column sortProperty="#{bindings.PaymentPlanDetailView1.hints.StatusDate.name}"
+                                   sortable="true" headerText="Status Date"
+                                   id="c79" width="70" align="right">
+                          <af:outputText value="#{row.StatusDate}" id="ot132">
+                            <af:convertDateTime pattern="#{bindings.PaymentPlanDetailView1.hints.StatusDate.format}"/>
+                          </af:outputText>
+                        </af:column>
+                        <af:column headerText="Amount Paid" id="c82" width="70">
+                          <af:outputText value="#{row.PaymentPlanDetailPaidAmount}"
+                                         id="ot69">
+                            <af:convertNumber groupingUsed="false"
+                                              pattern="#{bindings.PaymentPlanDetailView1.hints.PaymentPlanDetailPaidAmount.format}"/>
+                          </af:outputText>
+                        </af:column>
+                        <af:column headerText="Date Paid" id="c83" width="70">
+                          <af:outputText value="#{row.PaymentPlanDetailPaidDate}"
+                                         id="ot71">
+                            <af:convertDateTime pattern="#{bindings.PaymentPlanDetailView1.hints.PaymentPlanDetailPaidDate.format}"/>
+                          </af:outputText>
+                        </af:column>
+                        <af:column sortProperty="#{bindings.PaymentPlanDetailView1.hints.Status.name}"
+                                   sortable="true" headerText="Status" id="c76"
+                                   width="50" align="left">
+                          <af:outputText value="#{row.PaymentPlanInstallmentStatus}"
+                                         id="ot135"/>
+                        </af:column>
+                      </af:table>
+                    </af:showDetailItem>
+                  </af:panelTabbed>
+                </af:panelGroupLayout>
+              </f:facet>
+            </af:panelStretchLayout>
+          </af:dialog>
+        </af:popup>
+        <af:popup id="popup_viewJudgmentDetails1"
+                  contentDelivery="lazyUncached">
+          <af:dialog id="dialog2" type="cancel" resize="on"
+                     stretchChildren="none" contentWidth="750"
+                     title="Judgment History for #{bindings.InspectionNumber.inputValue} #{bindings.LegalName.inputValue}">
+            <af:panelStretchLayout id="panelStretchLayout1"
+                                   dimensionsFrom="auto">
+              <f:facet name="center">
+                <af:panelGroupLayout id="panelGroupLayout2">
+                  <af:panelTabbed id="panelTabbed1"
+                                  dimensionsFrom="disclosedChild">
+                    <af:showDetailItem text="Judgment" id="showDetailItem1">
+                      <af:table value="#{bindings.JudgmentView1.collectionModel}"
+                                var="row"
+                                rows="#{bindings.JudgmentView1.rangeSize}"
+                                emptyText="#{bindings.JudgmentView1.viewable ? 'No data to display.' : 'Access Denied.'}"
+                                fetchSize="#{bindings.JudgmentView1.rangeSize}"
+                                rowBandingInterval="0"
+                                selectedRowKeys="#{bindings.JudgmentView1.collectionModel.selectedRow}"
+                                selectionListener="#{bindings.JudgmentView1.collectionModel.makeCurrent}"
+                                rowSelection="single" id="t6" autoHeightRows="0"
+                                styleClass="AFStretchWidth">
+                        <af:column sortProperty="#{bindings.JudgmentView1.hints.JudgmentId.name}"
+                                   sortable="true" headerText="ID" id="c12"
+                                   width="50" align="center">
+                          <af:outputText value="#{row.JudgmentId}" id="ot97">
+                            <af:convertNumber groupingUsed="false"
+                                              pattern="#{bindings.JudgmentView1.hints.JudgmentId.format}"/>
+                          </af:outputText>
+                        </af:column>
+                        <af:column sortProperty="#{bindings.JudgmentView1.hints.JudgmentFromId.name}"
+                                   sortable="true" headerText="From ID" id="c37"
+                                   width="50" align="center">
+                          <af:outputText value="#{row.JudgmentFromId}"
+                                         id="ot99">
+                            <af:convertNumber groupingUsed="false"
+                                              pattern="#{bindings.JudgmentView1.hints.JudgmentFromId.format}"/>
+                          </af:outputText>
+                        </af:column>
+                        <af:column sortProperty="#{bindings.JudgmentView1.hints.JudgmentFileTypeCode.name}"
+                                   sortable="true" headerText="File Type"
+                                   id="c33" align="center">
+                          <af:outputText value="#{row.JudgmentFileTypeCode}"
+                                         id="ot98"/>
+                        </af:column>
+                        <af:column sortProperty="#{bindings.JudgmentView1.hints.Status.name}"
+                                   sortable="false"
+                                   headerText="#{bindings.JudgmentView1.hints.Status.label}"
+                                   id="c87">
+                          <af:outputText value="#{row.Status}" id="ot86"/>
+                        </af:column>
+                        <af:column sortProperty="#{bindings.JudgmentView1.hints.CourtNumber.name}"
+                                   sortable="true" headerText="Court Number"
+                                   id="c36" align="center">
+                          <af:outputText value="#{row.CourtNumber}" id="ot100"/>
+                        </af:column>
+                        <af:column sortProperty="#{bindings.JudgmentView1.hints.StateCaseNumber.name}"
+                                   sortable="true" headerText="State Case#"
+                                   id="c34" align="end">
+                          <af:outputText value="#{row.StateCaseNumber}"
+                                         id="ot103"/>
+                        </af:column>
+                      </af:table>
+                    </af:showDetailItem>
+                  </af:panelTabbed>
+                  <af:panelTabbed id="panelTabbed2"
+                                  dimensionsFrom="disclosedChild">
+                    <af:showDetailItem text="Judgment Details"
+                                       id="showDetailItem2">
+                      <af:table value="#{bindings.JudgmentDetailsView1.collectionModel}"
+                                var="row"
+                                rows="#{bindings.JudgmentDetailsView1.rangeSize}"
+                                emptyText="#{bindings.JudgmentDetailsView1.viewable ? 'No data to display.' : 'Access Denied.'}"
+                                fetchSize="#{bindings.JudgmentDetailsView1.rangeSize}"
+                                rowBandingInterval="0"
+                                selectedRowKeys="#{bindings.JudgmentDetailsView1.collectionModel.selectedRow}"
+                                selectionListener="#{bindings.JudgmentDetailsView1.collectionModel.makeCurrent}"
+                                rowSelection="single" id="t7" autoHeightRows="0"
+                                styleClass="AFStretchWidth"
+                                columnStretching="last">
+                        <af:column sortProperty="#{bindings.JudgmentDetailsView1.hints.JudgmentId.name}"
+                                   sortable="true" headerText="ID" id="c55"
+                                   width="50" align="center" rendered="false">
+                          <af:outputText value="#{row.JudgmentId}" id="ot108">
+                            <af:convertNumber groupingUsed="false"
+                                              pattern="#{bindings.JudgmentDetailsView1.hints.JudgmentId.format}"/>
+                          </af:outputText>
+                        </af:column>
+                        <af:column sortProperty="#{bindings.JudgmentDetailsView1.hints.JudgmentDetailId.name}"
+                                   sortable="true" headerText="Line ID" id="c57"
+                                   width="50" align="center" rendered="false">
+                          <af:outputText value="#{row.JudgmentDetailId}"
+                                         id="ot110">
+                            <af:convertNumber groupingUsed="false"
+                                              pattern="#{bindings.JudgmentDetailsView1.hints.JudgmentDetailId.format}"/>
+                          </af:outputText>
+                        </af:column>
+                        <af:column sortProperty="#{bindings.JudgmentDetailsView1.hints.FilingDate.name}"
+                                   sortable="true" headerText="Filing Date"
+                                   id="c59" width="70" align="center">
+                          <af:outputText value="#{row.FilingDate}" id="ot105">
+                            <af:convertDateTime pattern="#{bindings.JudgmentDetailsView1.hints.FilingDate.format}"/>
+                          </af:outputText>
+                        </af:column>
+                        <af:column sortProperty="#{bindings.JudgmentDetailsView1.hints.EnterDate.name}"
+                                   sortable="true" headerText="Enter Date"
+                                   id="c51" width="70" align="center">
+                          <af:outputText value="#{row.EnterDate}" id="ot115">
+                            <af:convertDateTime pattern="#{bindings.JudgmentDetailsView1.hints.EnterDate.format}"/>
+                          </af:outputText>
+                        </af:column>
+                        <af:column sortProperty="#{bindings.JudgmentDetailsView1.hints.ReceiptDate.name}"
+                                   sortable="true" headerText="Receipt Date"
+                                   id="c58" width="70" align="center">
+                          <af:outputText value="#{row.ReceiptDate}" id="ot109">
+                            <af:convertDateTime pattern="#{bindings.JudgmentDetailsView1.hints.ReceiptDate.format}"/>
+                          </af:outputText>
+                        </af:column>
+                        <af:column sortProperty="#{bindings.JudgmentDetailsView1.hints.RejectDate.name}"
+                                   sortable="true" headerText="Reject Date"
+                                   id="c50" width="70" align="center">
+                          <af:outputText value="#{row.RejectDate}" id="ot106">
+                            <af:convertDateTime pattern="#{bindings.JudgmentDetailsView1.hints.RejectDate.format}"/>
+                          </af:outputText>
+                        </af:column>
+                        <af:column sortProperty="#{bindings.JudgmentDetailsView1.hints.RenewalDate.name}"
+                                   sortable="true" headerText="Renewal Date"
+                                   id="c56" width="70" align="center">
+                          <af:outputText value="#{row.RenewalDate}" id="ot111">
+                            <af:convertDateTime pattern="#{bindings.JudgmentDetailsView1.hints.RenewalDate.format}"/>
+                          </af:outputText>
+                        </af:column>
+                        <af:column sortProperty="#{bindings.JudgmentDetailsView1.hints.ReversalDate.name}"
+                                   sortable="true" headerText="Reversal Date"
+                                   id="c54" width="70" align="center">
+                          <af:outputText value="#{row.ReversalDate}" id="ot107">
+                            <af:convertDateTime pattern="#{bindings.JudgmentDetailsView1.hints.ReversalDate.format}"/>
+                          </af:outputText>
+                        </af:column>
+                        <af:column sortProperty="#{bindings.JudgmentDetailsView1.hints.InvoiceAmount.name}"
+                                   sortable="true" headerText="Invoice Amt"
+                                   id="c53" width="50" align="center">
+                          <af:outputText value="#{row.InvoiceAmount}"
+                                         id="ot114">
+                            <af:convertNumber groupingUsed="false"
+                                              pattern="#{bindings.JudgmentDetailsView1.hints.InvoiceAmount.format}"/>
+                          </af:outputText>
+                        </af:column>
+                        <af:column sortProperty="#{bindings.JudgmentDetailsView1.hints.PreJudgmentInterest.name}"
+                                   sortable="true"
+                                   headerText="PreJudgment Interest" id="c52"
+                                   width="60" align="center">
+                          <af:outputText value="#{row.PreJudgmentInterest}"
+                                         id="ot113">
+                            <af:convertNumber groupingUsed="false"
+                                              pattern="#{bindings.JudgmentDetailsView1.hints.PreJudgmentInterest.format}"/>
+                          </af:outputText>
+                        </af:column>
+                        <af:column sortProperty="#{bindings.JudgmentDetailsView1.hints.CourtFilingFee.name}"
+                                   sortable="true" headerText="Court Fee"
+                                   id="c49" width="50" align="center">
+                          <af:outputText value="#{row.CourtFilingFee}"
+                                         id="ot112">
+                            <af:convertNumber groupingUsed="false"
+                                              pattern="#{bindings.JudgmentDetailsView1.hints.CourtFilingFee.format}"/>
+                          </af:outputText>
+                        </af:column>
+                      </af:table>
+                    </af:showDetailItem>
+                  </af:panelTabbed>
+                </af:panelGroupLayout>
+              </f:facet>
+            </af:panelStretchLayout>
+          </af:dialog>
+        </af:popup>
+        <af:popup id="popup_viewAppealItems" contentDelivery="lazyUncached"
+                  eventContext="launcher">
+          <af:dialog id="dialog1" type="cancel"
+                     title="Appeal Details for #{bindings.InspectionNumber.inputValue} #{bindings.LegalName.inputValue}"
+                     resize="on" contentWidth="850">
+            <af:panelStretchLayout id="psl6" dimensionsFrom="children">
+              <f:facet name="center">
+                <af:panelGroupLayout layout="vertical" id="panelGroupLayout1">
+                  <af:panelTabbed id="pt7" dimensionsFrom="auto">
+                    <af:showDetailItem text="Appeal" id="sdi6">
+                      <af:panelFormLayout id="pfl7" maxColumns="6" rows="1"
+                                          labelAlignment="top" labelWidth="125">
+                        <af:panelLabelAndMessage label="IMIS Number"
+                                                 id="plam44">
+                          <af:outputText value="#{bindings.InspectionNumber.inputValue}"
+                                         id="ot82"/>
+                        </af:panelLabelAndMessage>
+                        <af:panelLabelAndMessage label="Invoice Date"
+                                                 id="plam23">
+                          <af:outputText value="#{bindings.Citationissuedate.inputValue}"
+                                         id="ot2">
+                            <af:convertDateTime pattern="#{bindings.Citationissuedate.format}"/>
+                          </af:outputText>
+                        </af:panelLabelAndMessage>
+                        <af:panelLabelAndMessage label="Appeal Date"
+                                                 id="plam25">
+                          <af:outputText value="#{bindings.AppealDate.inputValue}"
+                                         id="ot24">
+                            <af:convertDateTime pattern="#{bindings.AppealDate.format}"/>
+                          </af:outputText>
+                        </af:panelLabelAndMessage>
+                        <af:panelLabelAndMessage label="Appeal Close Date"
+                                                 id="plam27">
+                          <af:outputText value="#{bindings.ClosedDate.inputValue}"
+                                         id="ot27">
+                            <af:convertDateTime pattern="#{bindings.ClosedDate.format}"/>
+                          </af:outputText>
+                        </af:panelLabelAndMessage>
+                      </af:panelFormLayout>
+                      <af:separator id="s3"/>
+                      <af:panelFormLayout id="pfl2" rows="1" maxColumns="6"
+                                          labelAlignment="top" labelWidth="125">
+                        <af:panelLabelAndMessage label="#{bindings.Initialamount.hints.label}"
+                                                 id="panelLabelAndMessage1">
+                          <af:outputText value="#{bindings.Initialamount.inputValue}"
+                                         id="outputText2">
+                            <af:convertNumber groupingUsed="false"
+                                              pattern="#{bindings.Initialamount.format}"/>
+                          </af:outputText>
+                        </af:panelLabelAndMessage>
+                        <af:panelLabelAndMessage label="Current Amount"
+                                                 id="plam34">
+                          <af:outputText value="#{bindings.Currentamount.inputValue}"
+                                         id="ot61">
+                            <af:convertNumber groupingUsed="false"
+                                              pattern="#{bindings.Currentamount.format}"/>
+                          </af:outputText>
+                        </af:panelLabelAndMessage>
+                        <af:panelLabelAndMessage label="Appeal Amount"
+                                                 id="plam35">
+                          <af:outputText value="#{bindings.Invoiceappealamount.inputValue}"
+                                         id="ot62">
+                            <af:convertNumber groupingUsed="false"
+                                              pattern="#{bindings.Invoiceappealamount.format}"/>
+                          </af:outputText>
+                        </af:panelLabelAndMessage>
+                        <af:panelLabelAndMessage label="Decision Amount"
+                                                 id="plam36">
+                          <af:outputText value="#{bindings.Invoicedecisionamount.inputValue}"
+                                         id="ot63">
+                            <af:convertNumber groupingUsed="false"
+                                              pattern="#{bindings.Invoicedecisionamount.format}"/>
+                          </af:outputText>
+                        </af:panelLabelAndMessage>
+                        <af:panelLabelAndMessage label="Unbilled Paid"
+                                                 id="plam37">
+                          <af:outputText value="#{bindings.Totalunbillpayments.inputValue}"
+                                         id="ot64">
+                            <af:convertNumber groupingUsed="false"
+                                              pattern="#{bindings.Totalunbillpayments.format}"/>
+                          </af:outputText>
+                        </af:panelLabelAndMessage>
+                        <af:panelLabelAndMessage label="Invoice Paid"
+                                                 id="plam38">
+                          <af:outputText value="#{bindings.Totalpayments.inputValue}"
+                                         id="ot65">
+                            <af:convertNumber groupingUsed="false"
+                                              pattern="#{bindings.Totalpayments.format}"/>
+                          </af:outputText>
+                        </af:panelLabelAndMessage>
+                        <af:panelLabelAndMessage label="Balance" id="plam39">
+                          <af:outputText value="#{bindings.Invoicebalance.inputValue}"
+                                         id="ot66">
+                            <af:convertNumber groupingUsed="false"
+                                              pattern="#{bindings.Invoicebalance.format}"/>
+                          </af:outputText>
+                        </af:panelLabelAndMessage>
+                      </af:panelFormLayout>
+                    </af:showDetailItem>
+                  </af:panelTabbed>
+                  <af:panelTabbed id="pt8" dimensionsFrom="auto">
+                    <af:showDetailItem text="Appeal Details" id="sdi7">
+                      <af:table value="#{bindings.AppealDetailView1.collectionModel}"
+                                var="row"
+                                rows="#{bindings.AppealDetailView1.rangeSize}"
+                                emptyText="#{bindings.AppealDetailView1.viewable ? 'No data to display.' : 'Access Denied.'}"
+                                fetchSize="#{bindings.AppealDetailView1.rangeSize}"
+                                rowBandingInterval="0" id="t4"
+                                autoHeightRows="0" scrollPolicy="page"
+                                styleClass="AFStretchWidth"
+                                columnStretching="column:c4">
+                        <af:column sortProperty="#{bindings.AppealDetailView1.hints.CitationNumber.name}"
+                                   sortable="false"
+                                   headerText="#{bindings.AppealDetailView1.hints.CitationNumber.label}"
+                                   id="c29" width="60" align="right">
+                          <af:outputText value="#{row.CitationNumber}"
+                                         id="ot81">
+                            <af:convertNumber groupingUsed="false"
+                                              pattern="#{bindings.AppealDetailView1.hints.CitationNumber.format}"/>
+                          </af:outputText>
+                        </af:column>
+                        <af:column sortProperty="#{bindings.AppealDetailView1.hints.CitationItemNumber.name}"
+                                   sortable="false"
+                                   headerText="#{bindings.AppealDetailView1.hints.CitationItemNumber.label}"
+                                   id="c3" width="60" align="right">
+                          <af:outputText value="#{row.CitationItemNumber}"
+                                         id="ot32">
+                            <af:convertNumber groupingUsed="false"
+                                              pattern="#{bindings.AppealDetailView1.hints.CitationItemNumber.format}"/>
+                          </af:outputText>
+                        </af:column>
+                        <af:column sortProperty="#{bindings.AppealDetailView1.hints.DocketNumber.name}"
+                                   sortable="false"
+                                   headerText="#{bindings.AppealDetailView1.hints.DocketNumber.label}"
+                                   id="c32" width="100" align="center">
+                          <af:outputText value="#{row.DocketNumber}" id="ot78"/>
+                        </af:column>
+                        <af:column sortProperty="#{bindings.AppealDetailView1.hints.DocketThroughNumber.name}"
+                                   sortable="false" id="c10" align="center"
+                                   headerText="#{bindings.AppealDetailView1.hints.DocketThroughNumber.label}">
+                          <af:outputText value="#{row.DocketThroughNumber}"
+                                         id="ot30"/>
+                        </af:column>
+                        <af:column sortProperty="#{bindings.AppealDetailView1.hints.DocketDate.name}"
+                                   sortable="false"
+                                   headerText="#{bindings.AppealDetailView1.hints.DocketDate.label}"
+                                   id="c9" width="70" align="right">
+                          <af:outputText value="#{row.DocketDate}" id="ot31">
+                            <af:convertDateTime pattern="#{bindings.AppealDetailView1.hints.DocketDate.format}"/>
+                          </af:outputText>
+                        </af:column>
+                        <af:column sortProperty="#{bindings.AppealDetailView1.hints.DecisionDate.name}"
+                                   sortable="false"
+                                   headerText="#{bindings.AppealDetailView1.hints.DocketDate.label}"
+                                   id="c30" width="70" align="right">
+                          <af:outputText value="#{row.DecisionDate}" id="ot28">
+                            <af:convertDateTime pattern="#{bindings.AppealDetailView1.hints.DecisionDate.format}"/>
+                          </af:outputText>
+                        </af:column>
+                        <af:column sortProperty="#{bindings.AppealDetailView1.hints.InitialAmount.name}"
+                                   sortable="false"
+                                   headerText="#{bindings.AppealDetailView1.hints.InitialAmount.label}"
+                                   id="c86">
+                          <af:outputText value="#{row.InitialAmount}" id="ot85">
+                            <af:convertNumber groupingUsed="false"
+                                              pattern="#{bindings.AppealDetailView1.hints.InitialAmount.format}"/>
+                          </af:outputText>
+                        </af:column>
+                        <af:column sortProperty="#{bindings.AppealDetailView1.hints.CurrentAmount.name}"
+                                   sortable="false"
+                                   headerText="#{bindings.AppealDetailView1.hints.CurrentAmount.label}"
+                                   id="c4" align="right"
+                                   inlineStyle="text-align:right;">
+                          <af:outputText value="#{row.CurrentAmount}" id="ot79">
+                            <af:convertNumber groupingUsed="false"
+                                              pattern="#{bindings.AppealDetailView1.hints.CurrentAmount.format}"/>
+                          </af:outputText>
+                        </af:column>
+                        <af:column sortProperty="#{bindings.AppealDetailView1.hints.AppealedAmount.name}"
+                                   sortable="false"
+                                   headerText="#{bindings.AppealDetailView1.hints.AppealedAmount.label}"
+                                   id="c31" align="right"
+                                   inlineStyle="text-align:right;">
+                          <af:outputText value="#{row.AppealedAmount}"
+                                         id="ot35">
+                            <af:convertNumber groupingUsed="false"
+                                              pattern="#{bindings.AppealDetailView1.hints.AppealedAmount.format}"/>
+                          </af:outputText>
+                        </af:column>
+                        <af:column sortProperty="#{bindings.AppealDetailView1.hints.DecisionAmount.name}"
+                                   sortable="false"
+                                   headerText="#{bindings.AppealDetailView1.hints.DecisionAmount.label}"
+                                   id="c5" align="right"
+                                   inlineStyle="text-align:right;">
+                          <af:outputText value="#{row.DecisionAmount}"
+                                         id="ot80">
+                            <af:convertNumber groupingUsed="false"
+                                              pattern="#{bindings.AppealDetailView1.hints.DecisionAmount.format}"/>
+                          </af:outputText>
+                        </af:column>
+                        <af:column headerText="#{bindings.AppealDetailView1.hints.CreatedDate.label}"
+                                   id="c80" width="80">
+                          <af:outputText value="#{row.CreatedDate}" id="ot56">
+                            <af:convertDateTime pattern="#{bindings.AppealDetailView1.hints.CreatedDate.format}"/>
+                          </af:outputText>
+                        </af:column>
+                        <af:column headerText="#{bindings.AppealDetailView1.hints.ModifiedDate.label}"
+                                   id="c81" width="80">
+                          <af:outputText value="#{row.ModifiedDate}" id="ot68">
+                            <af:convertDateTime pattern="#{bindings.AppealDetailView1.hints.ModifiedDate.format}"/>
+                          </af:outputText>
+                        </af:column>
+                      </af:table>
+                    </af:showDetailItem>
+                  </af:panelTabbed>
+                </af:panelGroupLayout>
+              </f:facet>
+            </af:panelStretchLayout>
+          </af:dialog>
+        </af:popup>
+        <af:popup id="popup_viewEmployee" contentDelivery="lazyUncached">
+          <af:dialog id="d3" type="cancel" resize="on" stretchChildren="none"
+                     contentWidth="700"
+                     title="Employer Details for #{bindings.InspectionNumber.inputValue} #{bindings.LegalName.inputValue}">
+            <af:panelStretchLayout id="psl1" topHeight="50px"
+                                   styleClass="AFStretchWidth"
+                                   dimensionsFrom="children">
+              <f:facet name="center">
+                <af:panelGroupLayout layout="vertical"
+                                     xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+                                     id="pgl4">
+                  <af:panelGroupLayout id="pgl9" layout="horizontal">
+                    <af:panelTabbed id="pt2" dimensionsFrom="disclosedChild">
+                      <af:showDetailItem text="Employer Info" id="sdi1"
+                                         stretchChildren="first">
+                        <af:panelFormLayout id="pfl11">
+                          <af:panelLabelAndMessage label="#{bindings.LegalName.hints.label}"
+                                                   id="plam78">
+                            <af:outputText value="#{bindings.LegalName.inputValue}"
+                                           id="ot156"/>
+                          </af:panelLabelAndMessage>
+                          <af:panelLabelAndMessage label="#{bindings.Dba1.hints.label}"
+                                                   id="plam74">
+                            <af:outputText value="#{bindings.Dba1.inputValue}"
+                                           id="ot151"/>
+                          </af:panelLabelAndMessage>
+                          <af:panelLabelAndMessage label="#{bindings.Fein1.hints.label}"
+                                                   id="plam75">
+                            <af:outputText value="#{bindings.Fein1.inputValue}"
+                                           id="ot152"/>
+                          </af:panelLabelAndMessage>
+                          <af:panelLabelAndMessage label="#{bindings.NaicsCode.hints.label}"
+                                                   id="plam73">
+                            <af:outputText value="#{bindings.NaicsCode.inputValue}"
+                                           id="ot153">
+                              <af:convertNumber groupingUsed="false"
+                                                pattern="#{bindings.NaicsCode.format}"/>
+                            </af:outputText>
+                          </af:panelLabelAndMessage>
+                          <af:panelLabelAndMessage label="#{bindings.PartyClassficationCode1.hints.label}"
+                                                   id="plam77">
+                            <af:outputText value="#{bindings.PartyClassficationCode1.inputValue}"
+                                           id="ot155"/>
+                          </af:panelLabelAndMessage>
+                          <af:panelLabelAndMessage label="#{bindings.PartyCategoryCode1.hints.label}"
+                                                   id="plam76">
+                            <af:outputText value="#{bindings.PartyCategoryCode1.inputValue}"
+                                           id="ot154"/>
+                          </af:panelLabelAndMessage>
+                        </af:panelFormLayout>
+                      </af:showDetailItem>
+                    </af:panelTabbed>
+                    <af:panelTabbed id="pt3" dimensionsFrom="disclosedChild">
+                      <af:showDetailItem text="Owner Info" id="sdi2"
+                                         stretchChildren="first">
+                        <af:panelFormLayout id="pfl4">
+                          <af:panelLabelAndMessage label="#{bindings.FirstName.hints.label}"
+                                                   id="plam6">
+                            <af:outputText value="#{bindings.FirstName.inputValue}"
+                                           id="ot42"/>
+                          </af:panelLabelAndMessage>
+                          <af:panelLabelAndMessage label="#{bindings.LastName.hints.label}"
+                                                   id="plam5">
+                            <af:outputText value="#{bindings.LastName.inputValue}"
+                                           id="ot41"/>
+                          </af:panelLabelAndMessage>
+                          <af:panelLabelAndMessage label="#{bindings.DriversLicence.hints.label}"
+                                                   id="plam41">
+                            <af:outputText value="#{bindings.DriversLicence.inputValue}"
+                                           id="ot73"/>
+                          </af:panelLabelAndMessage>
+                          <af:panelLabelAndMessage label="#{bindings.DateOfBirth.hints.label}"
+                                                   id="plam42">
+                            <af:outputText value="#{bindings.DateOfBirth.inputValue}"
+                                           id="ot74">
+                              <af:convertDateTime pattern="#{bindings.DateOfBirth.format}"/>
+                            </af:outputText>
+                          </af:panelLabelAndMessage>
+                          <af:panelLabelAndMessage label="#{bindings.DateOfDeath.hints.label}"
+                                                   id="plam43">
+                            <af:outputText value="#{bindings.DateOfDeath.inputValue}"
+                                           id="ot75">
+                              <af:convertDateTime pattern="#{bindings.DateOfDeath.format}"/>
+                            </af:outputText>
+                          </af:panelLabelAndMessage>
+                        </af:panelFormLayout>
+                      </af:showDetailItem>
+                    </af:panelTabbed>
+                  </af:panelGroupLayout>
+                  <af:panelGroupLayout id="pgl10" layout="horizontal">
+                    <af:panelTabbed id="pt6" dimensionsFrom="disclosedChild">
+                      <af:showDetailItem text="Contact Methods" id="sdi5">
+                        <af:table value="#{bindings.ContactMethodView1.collectionModel}"
+                                  var="row"
+                                  rows="#{bindings.ContactMethodView1.rangeSize}"
+                                  emptyText="#{bindings.ContactMethodView1.viewable ? 'No data to display.' : 'Access Denied.'}"
+                                  fetchSize="#{bindings.ContactMethodView1.rangeSize}"
+                                  rowBandingInterval="0" id="t5"
+                                  autoHeightRows="0" columnStretching="last">
+                          <af:column sortProperty="#{bindings.ContactMethodView1.hints.ContactMethodTypeCode.name}"
+                                     sortable="false" headerText="Type"
+                                     id="c28">
+                            <af:outputText value="#{row.ContactMethodTypeCode}"
+                                           id="ot77"/>
+                          </af:column>
+                          <af:column sortProperty="#{bindings.ContactMethodView1.hints.ContactMethodValue.name}"
+                                     sortable="false" headerText="Value"
+                                     id="c27">
+                            <af:outputText value="#{row.ContactMethodValue}"
+                                           id="ot76"/>
+                          </af:column>
+                        </af:table>
+                      </af:showDetailItem>
+                    </af:panelTabbed>
+                  </af:panelGroupLayout>
+                  <af:panelGroupLayout id="pgl11" layout="horizontal">
+                    <af:panelTabbed id="pt5" dimensionsFrom="disclosedChild">
+                      <af:showDetailItem text="Site Address" id="sdi4">
+                        <af:panelFormLayout id="pfl6">
+                          <af:panelLabelAndMessage label="#{bindings.StreetAddress1.hints.label}"
+                                                   id="plam18">
+                            <af:outputText value="#{bindings.StreetAddress1.inputValue}"
+                                           id="ot54"/>
+                          </af:panelLabelAndMessage>
+                          <af:panelLabelAndMessage label="#{bindings.AddressLine21.hints.label}"
+                                                   id="plam20">
+                            <af:outputText value="#{bindings.AddressLine21.inputValue}"
+                                           id="ot51"/>
+                          </af:panelLabelAndMessage>
+                          <af:panelLabelAndMessage label="#{bindings.City1.hints.label}"
+                                                   id="plam19">
+                            <af:outputText value="#{bindings.City1.inputValue}"
+                                           id="ot53"/>
+                          </af:panelLabelAndMessage>
+                          <af:panelLabelAndMessage label="#{bindings.State1.hints.label}"
+                                                   id="plam24">
+                            <af:outputText value="#{bindings.State1.inputValue}"
+                                           id="ot50"/>
+                          </af:panelLabelAndMessage>
+                          <af:panelLabelAndMessage label="#{bindings.StateCode1.hints.label}"
+                                                   id="plam22">
+                            <af:outputText value="#{bindings.StateCode1.inputValue}"
+                                           id="ot55"/>
+                          </af:panelLabelAndMessage>
+                          <af:panelLabelAndMessage label="#{bindings.ZipCode1.hints.label}"
+                                                   id="plam21">
+                            <af:outputText value="#{bindings.ZipCode1.inputValue}"
+                                           id="ot52">
+                              <af:convertNumber groupingUsed="false"
+                                                pattern="#{bindings.ZipCode1.format}"/>
+                            </af:outputText>
+                          </af:panelLabelAndMessage>
+                        </af:panelFormLayout>
+                      </af:showDetailItem>
+                    </af:panelTabbed>
+                    <af:panelTabbed id="pt4" dimensionsFrom="disclosedChild">
+                      <af:showDetailItem text="Mailing Address" id="sdi3"
+                                         inflexibleHeight="100">
+                        <af:panelFormLayout id="pfl5">
+                          <af:panelLabelAndMessage label="#{bindings.StreetAddress.hints.label}"
+                                                   id="plam12">
+                            <af:outputText value="#{bindings.StreetAddress.inputValue}"
+                                           id="ot45"/>
+                          </af:panelLabelAndMessage>
+                          <af:panelLabelAndMessage label="#{bindings.AddressLine2.hints.label}"
+                                                   id="plam15">
+                            <af:outputText value="#{bindings.AddressLine2.inputValue}"
+                                           id="ot43"/>
+                          </af:panelLabelAndMessage>
+                          <af:panelLabelAndMessage label="#{bindings.City.hints.label}"
+                                                   id="plam13">
+                            <af:outputText value="#{bindings.City.inputValue}"
+                                           id="ot46"/>
+                          </af:panelLabelAndMessage>
+                          <af:panelLabelAndMessage label="#{bindings.State.hints.label}"
+                                                   id="plam9">
+                            <af:outputText value="#{bindings.State.inputValue}"
+                                           id="ot49"/>
+                          </af:panelLabelAndMessage>
+                          <af:panelLabelAndMessage label="#{bindings.StateCode.hints.label}"
+                                                   id="plam10">
+                            <af:outputText value="#{bindings.StateCode.inputValue}"
+                                           id="ot47"/>
+                          </af:panelLabelAndMessage>
+                          <af:panelLabelAndMessage label="#{bindings.ZipCode.hints.label}"
+                                                   id="plam14">
+                            <af:outputText value="#{bindings.ZipCode.inputValue}"
+                                           id="ot44">
+                              <af:convertNumber groupingUsed="false"
+                                                pattern="#{bindings.ZipCode.format}"/>
+                            </af:outputText>
+                          </af:panelLabelAndMessage>
+                        </af:panelFormLayout>
+                      </af:showDetailItem>
+                    </af:panelTabbed>
+                  </af:panelGroupLayout>
+                </af:panelGroupLayout>
+              </f:facet>
+            </af:panelStretchLayout>
+          </af:dialog>
+        </af:popup>
+        <af:popup id="popup_viewInvoice" contentDelivery="lazyUncached"
+                  eventContext="launcher">
+          <af:dialog id="d1" type="cancel"
+                     title="Invoice Details for #{bindings.InspectionNumber.inputValue} #{bindings.LegalName.inputValue}"
+                     resize="on">
+            <af:panelStretchLayout id="psl4" dimensionsFrom="children">
+              <f:facet name="center">
+                <af:panelGroupLayout layout="vertical" id="pgl3">
+                  <af:panelHeader text="Organization" id="ph1">
+                    <af:panelGroupLayout id="pgl6" valign="top"
+                                         layout="horizontal">
+                      <af:panelFormLayout id="pfl12"
+                                          inlineStyle="vertical-align:top;">
+                        <af:panelLabelAndMessage label="#{bindings.LegalName.hints.label}"
+                                                 id="plam59">
+                          <af:outputText value="#{bindings.LegalName.inputValue}"
+                                         id="ot101"/>
+                        </af:panelLabelAndMessage>
+                        <af:panelLabelAndMessage label="#{bindings.Dba1.hints.label}"
+                                                 id="plam51">
+                          <af:outputText value="#{bindings.Dba1.inputValue}"
+                                         id="ot93"/>
+                        </af:panelLabelAndMessage>
+                        <af:panelLabelAndMessage label="#{bindings.Fein1.hints.label}"
+                                                 id="plam52">
+                          <af:outputText value="#{bindings.Fein1.inputValue}"
+                                         id="ot95"/>
+                        </af:panelLabelAndMessage>
+                        <af:panelLabelAndMessage label="#{bindings.NaicsCode.hints.label}"
+                                                 id="plam57">
+                          <af:outputText value="#{bindings.NaicsCode.inputValue}"
+                                         id="ot96">
+                            <af:convertNumber groupingUsed="false"
+                                              pattern="#{bindings.NaicsCode.format}"/>
+                          </af:outputText>
+                        </af:panelLabelAndMessage>
+                        <af:panelLabelAndMessage label="#{bindings.PartyId.hints.label}"
+                                                 id="plam55" rendered="false">
+                          <af:outputText value="#{bindings.PartyId.inputValue}"
+                                         id="ot104"/>
+                        </af:panelLabelAndMessage>
+                        <af:panelLabelAndMessage label="#{bindings.Sein.hints.label}"
+                                                 id="plam53" rendered="false">
+                          <af:outputText value="#{bindings.Sein.inputValue}"
+                                         id="ot123">
+                            <af:convertNumber groupingUsed="false"
+                                              pattern="#{bindings.Sein.format}"/>
+                          </af:outputText>
+                        </af:panelLabelAndMessage>
+                        <af:panelLabelAndMessage label="#{bindings.SicCode.hints.label}"
+                                                 id="plam58" rendered="false">
+                          <af:outputText value="#{bindings.SicCode.inputValue}"
+                                         id="ot88">
+                            <af:convertNumber groupingUsed="false"
+                                              pattern="#{bindings.SicCode.format}"/>
+                          </af:outputText>
+                        </af:panelLabelAndMessage>
+                        <af:panelLabelAndMessage label="#{bindings.PartyCategoryCode1.hints.label}"
+                                                 id="plam56">
+                          <af:outputText value="#{bindings.PartyCategoryCode1.inputValue}"
+                                         id="ot94"/>
+                        </af:panelLabelAndMessage>
+                        <af:panelLabelAndMessage label="#{bindings.PartyClassficationCode1.hints.label}"
+                                                 id="plam54">
+                          <af:outputText value="#{bindings.PartyClassficationCode1.inputValue}"
+                                         id="ot102"/>
+                        </af:panelLabelAndMessage>
+                      </af:panelFormLayout>
+                      <af:panelFormLayout id="pfl10"
+                                          styleClass="AFStretchWidth">
+                        <af:panelLabelAndMessage label="#{bindings.AddressTypeCode.hints.label}"
+                                                 id="plam68">
+                          <af:outputText value="#{bindings.AddressTypeCode.inputValue}"
+                                         id="ot137"/>
+                        </af:panelLabelAndMessage>
+                        <af:panelLabelAndMessage label="#{bindings.StreetAddress1.hints.label}"
+                                                 id="plam71">
+                          <af:outputText value="#{bindings.StreetAddress1.inputValue}"
+                                         id="ot136"/>
+                        </af:panelLabelAndMessage>
+                        <af:panelLabelAndMessage label="#{bindings.AddressLine21.hints.label}"
+                                                 id="plam69">
+                          <af:outputText value="#{bindings.AddressLine21.inputValue}"
+                                         id="ot127"/>
+                        </af:panelLabelAndMessage>
+                        <af:panelLabelAndMessage label="#{bindings.City1.hints.label}"
+                                                 id="plam60">
+                          <af:outputText value="#{bindings.City1.inputValue}"
+                                         id="ot145"/>
+                        </af:panelLabelAndMessage>
+                        <af:panelLabelAndMessage label="#{bindings.State1.hints.label}"
+                                                 id="plam66" rendered="false">
+                          <af:outputText value="#{bindings.State1.inputValue}"
+                                         id="ot142"/>
+                        </af:panelLabelAndMessage>
+                        <af:panelLabelAndMessage label="#{bindings.StateCode1.hints.label}"
+                                                 id="plam63">
+                          <af:outputText value="#{bindings.StateCode1.inputValue}"
+                                         id="ot141"/>
+                        </af:panelLabelAndMessage>
+                        <af:panelLabelAndMessage label="#{bindings.ZipCode1.hints.label}"
+                                                 id="plam62">
+                          <af:outputText value="#{bindings.ZipCode1.inputValue}"
+                                         id="ot147">
+                            <af:convertNumber groupingUsed="false"
+                                              pattern="#{bindings.ZipCode1.format}"/>
+                          </af:outputText>
+                        </af:panelLabelAndMessage>
+                        <af:panelLabelAndMessage label="#{bindings.Zip4.hints.label}"
+                                                 id="plam72">
+                          <af:outputText value="#{bindings.Zip4.inputValue}"
+                                         id="ot143">
+                            <af:convertNumber groupingUsed="false"
+                                              pattern="#{bindings.Zip4.format}"/>
+                          </af:outputText>
+                        </af:panelLabelAndMessage>
+                        <af:panelLabelAndMessage label="#{bindings.CountyCode.hints.label}"
+                                                 id="plam70" rendered="false">
+                          <af:outputText value="#{bindings.CountyCode.inputValue}"
+                                         id="ot139"/>
+                        </af:panelLabelAndMessage>
+                        <af:panelLabelAndMessage label="#{bindings.Country.hints.label}"
+                                                 id="plam64" rendered="false">
+                          <af:outputText value="#{bindings.Country.inputValue}"
+                                         id="ot138"/>
+                        </af:panelLabelAndMessage>
+                        <af:panelLabelAndMessage label="#{bindings.CountryCode.hints.label}"
+                                                 id="plam67" rendered="false">
+                          <af:outputText value="#{bindings.CountryCode.inputValue}"
+                                         id="ot144"/>
+                        </af:panelLabelAndMessage>
+                        <af:panelLabelAndMessage label="#{bindings.AddressId.hints.label}"
+                                                 id="plam65" rendered="false">
+                          <af:outputText value="#{bindings.AddressId.inputValue}"
+                                         id="ot146">
+                            <af:convertNumber groupingUsed="false"
+                                              pattern="#{bindings.AddressId.format}"/>
+                          </af:outputText>
+                        </af:panelLabelAndMessage>
+                        <af:panelLabelAndMessage label="#{bindings.PartyId1.hints.label}"
+                                                 id="plam61" rendered="false">
+                          <af:outputText value="#{bindings.PartyId1.inputValue}"
+                                         id="ot140">
+                            <af:convertNumber groupingUsed="false"
+                                              pattern="#{bindings.PartyId1.format}"/>
+                          </af:outputText>
+                        </af:panelLabelAndMessage>
+                      </af:panelFormLayout>
+                    </af:panelGroupLayout>
+                  </af:panelHeader>
+                  <af:panelHeader text="Inspection Info" id="ph2"
+                                  styleClass="AFStretchWidth">
+                    <af:panelStretchLayout id="psl2" dimensionsFrom="children">
+                      <f:facet name="center">
+                        <af:panelFormLayout id="pfl1" maxColumns="3" rows="2"
+                                            styleClass="AFStretchWidth">
+                          <af:panelLabelAndMessage label="#{bindings.InspectionNumber.hints.label}"
+                                                   id="plam7"
+                                                   inlineStyle="text-align:right;">
+                            <af:outputText value="#{bindings.InspectionNumber.inputValue}"
+                                           id="ot19"
+                                           inlineStyle="text-align:left;"/>
+                          </af:panelLabelAndMessage>
+                          <af:panelLabelAndMessage label="#{bindings.CshoId.hints.label}"
+                                                   id="plam1"
+                                                   inlineStyle="text-align:center;">
+                            <af:outputText value="#{bindings.CshoId.inputValue}"
+                                           id="ot67"/>
+                          </af:panelLabelAndMessage>
+                          <af:panelLabelAndMessage label="#{bindings.IndexCode.hints.label}"
+                                                   id="plam11"
+                                                   inlineStyle="text-align:right;">
+                            <af:outputText value="#{bindings.IndexCode.inputValue}"
+                                           id="ot16">
+                              <af:convertNumber groupingUsed="false"
+                                                pattern="#{bindings.IndexCode.format}"/>
+                            </af:outputText>
+                          </af:panelLabelAndMessage>
+                          <af:panelLabelAndMessage label="#{bindings.Initialamount.hints.label}"
+                                                   id="plam16">
+                            <af:outputText value="#{bindings.Initialamount.inputValue}"
+                                           id="ot72">
+                              <af:convertNumber groupingUsed="false"
+                                                pattern="#{bindings.Initialamount.format}"/>
+                            </af:outputText>
+                          </af:panelLabelAndMessage>
+                          <af:panelLabelAndMessage label="Invoice Date"
+                                                   id="plam8"
+                                                   inlineStyle="text-align:right;">
+                            <af:outputText value="#{bindings.Citationissuedate.inputValue}"
+                                           id="ot34">
+                              <af:convertDateTime pattern="#{bindings.Citationissuedate.format}"/>
+                            </af:outputText>
+                          </af:panelLabelAndMessage>
+                          <af:panelLabelAndMessage label="Current Amount"
+                                                   id="plam17"
+                                                   inlineStyle="text-align:right;">
+                            <af:outputText value="#{bindings.Currentamount.inputValue}"
+                                           id="ot25"/>
+                          </af:panelLabelAndMessage>
+                        </af:panelFormLayout>
+                      </f:facet>
+                    </af:panelStretchLayout>
+                  </af:panelHeader>
+                  <af:panelHeader text="Citations" id="ph4" size="-1"
+                                  styleClass="AFstretchWidth">
+                    <f:facet name="context"/>
+                    <f:facet name="menuBar"/>
+                    <f:facet name="toolbar"/>
+                    <f:facet name="legend"/>
+                    <f:facet name="info"/>
+                    <af:panelStretchLayout id="psl5" dimensionsFrom="children">
+                      <f:facet name="center">
+                        <af:table value="#{bindings.CitationView1.collectionModel}"
+                                  var="row"
+                                  rows="#{bindings.CitationView1.rangeSize}"
+                                  emptyText="#{bindings.CitationView1.viewable ? 'No data to display.' : 'Access Denied.'}"
+                                  fetchSize="#{bindings.CitationView1.rangeSize}"
+                                  rowBandingInterval="0" id="t2"
+                                  autoHeightRows="0"
+                                  styleClass="AFStretchWidth">
+                          <af:column sortProperty="#{bindings.CitationView1.hints.CitationNumber.name}"
+                                     sortable="false"
+                                     headerText="#{bindings.CitationView1.hints.CitationNumber.label}"
+                                     id="c1" width="80" align="right">
+                            <af:outputText value="#{row.CitationNumber}"
+                                           id="ot59">
+                              <af:convertNumber groupingUsed="false"
+                                                pattern="#{bindings.CitationView1.hints.CitationNumber.format}"/>
+                            </af:outputText>
+                          </af:column>
+                          <af:column headerText="#{bindings.CitationView1.hints.CitationInitialTotal.label}"
+                                     id="c84">
+                            <af:outputText value="#{row.CitationInitialTotal}"
+                                           id="ot83">
+                              <af:convertNumber groupingUsed="false"
+                                                pattern="#{bindings.CitationView1.hints.CitationInitialTotal.format}"/>
+                            </af:outputText>
+                          </af:column>
+                          <af:column headerText="#{bindings.CitationView1.hints.CitationLineTotal.label}"
+                                     id="c2" inlineStyle="text-align:right;"
+                                     align="right">
+                            <af:outputText value="#{row.CitationLineTotal}"
+                                           id="ot14">
+                              <af:convertNumber groupingUsed="false"
+                                                pattern="#{bindings.CitationView1.hints.CitationLineTotal.format}"/>
+                            </af:outputText>
+                          </af:column>
+                        </af:table>
+                      </f:facet>
+                    </af:panelStretchLayout>
+                  </af:panelHeader>
+                  <af:panelHeader text="Citation Items" id="ph3">
+                    <af:panelStretchLayout id="psl3" dimensionsFrom="auto">
+                      <f:facet name="center">
+                        <af:table rows="#{bindings.CitationItemView1.rangeSize}"
+                                  fetchSize="#{bindings.CitationItemView1.rangeSize}"
+                                  emptyText="#{bindings.CitationItemView1.viewable ? 'No data to display.' : 'Access Denied.'}"
+                                  var="row"
+                                  value="#{bindings.CitationItemView1.collectionModel}"
+                                  rowBandingInterval="0"
+                                  selectedRowKeys="#{bindings.CitationItemView1.collectionModel.selectedRow}"
+                                  selectionListener="#{bindings.CitationItemView1.collectionModel.makeCurrent}"
+                                  rowSelection="single" id="t1"
+                                  autoHeightRows="0" scrollPolicy="page"
+                                  columnBandingInterval="0"
+                                  styleClass="AFStretchWidth">
+                          <af:column sortProperty="#{bindings.CitationItemView1.hints.CitationNumber.name}"
+                                     sortable="false"
+                                     headerText="#{bindings.CitationItemView1.hints.CitationNumber.label}"
+                                     id="c25" width="80" align="right">
+                            <af:outputText value="#{row.CitationNumber}"
+                                           id="ot58">
+                              <af:convertNumber groupingUsed="false"
+                                                pattern="#{bindings.CitationItemView1.hints.CitationNumber.format}"/>
+                            </af:outputText>
+                          </af:column>
+                          <af:column headerText="#{bindings.CitationItemView1.hints.CitationItemNumber.label}"
+                                     sortProperty="#{bindings.CitationItemView1.hints.CitationItemNumber.name}"
+                                     sortable="false" id="c15" width="80"
+                                     align="right">
+                            <af:outputText value="#{row.CitationItemNumber}"
+                                           id="ot18">
+                              <af:convertNumber groupingUsed="false"
+                                                pattern="#{bindings.CitationItemView1.hints.CitationItemNumber.format}"/>
+                            </af:outputText>
+                          </af:column>
+                          <af:column headerText="#{bindings.CitationItemView1.hints.ViolationCode.label}"
+                                     sortProperty="#{bindings.CitationItemView1.hints.ViolationCode.name}"
+                                     sortable="false" id="c6" width="80"
+                                     align="left">
+                            <af:outputText value="#{row.ViolationCode}"
+                                           id="ot33"/>
+                          </af:column>
+                          <af:column headerText="#{bindings.CitationItemView1.hints.CitationIssueDate.label}"
+                                     sortProperty="#{bindings.CitationItemView1.hints.CitationIssueDate.name}"
+                                     sortable="false" id="c11" width="80"
+                                     align="right">
+                            <af:outputText value="#{row.CitationIssueDate}"
+                                           id="ot39">
+                              <af:convertDateTime pattern="#{bindings.CitationItemView1.hints.CitationIssueDate.format}"/>
+                            </af:outputText>
+                          </af:column>
+                          <af:column headerText="#{bindings.CitationItemView1.hints.InitialAmount.label}"
+                                     id="c85">
+                            <af:outputText value="#{row.InitialAmount}"
+                                           id="ot84">
+                              <af:convertNumber groupingUsed="false"
+                                                pattern="#{bindings.CitationItemView1.hints.InitialAmount.format}"/>
+                            </af:outputText>
+                          </af:column>
+                          <af:column headerText="#{bindings.CitationItemView1.hints.CurrentAmount.label}"
+                                     sortProperty="#{bindings.CitationItemView1.hints.CurrentAmount.name}"
+                                     sortable="false" id="c8" width="80"
+                                     inlineStyle="text-align:right;"
+                                     align="right">
+                            <af:outputText value="#{row.CurrentAmount}"
+                                           id="ot26">
+                              <af:convertNumber groupingUsed="false"
+                                                pattern="#{bindings.CitationItemView1.hints.CurrentAmount.format}"/>
+                            </af:outputText>
+                          </af:column>
+                          <af:column headerText="#{bindings.CitationItemView1.hints.CreatedBy.label}"
+                                     id="c24" width="80">
+                            <af:outputText value="#{row.CreatedBy}" id="ot21"/>
+                          </af:column>
+                          <af:column headerText="#{bindings.CitationItemView1.hints.CreatedDate.label}"
+                                     id="c48" width="80">
+                            <af:outputText value="#{row.CreatedDate}" id="ot22">
+                              <af:convertDateTime pattern="#{bindings.CitationItemView1.hints.CreatedDate.format}"/>
+                            </af:outputText>
+                          </af:column>
+                          <af:column headerText="#{bindings.CitationItemView1.hints.ModifiedDate.label}"
+                                     id="c63" width="80">
+                            <af:outputText value="#{row.ModifiedDate}"
+                                           id="ot23">
+                              <af:convertDateTime pattern="#{bindings.CitationItemView1.hints.ModifiedDate.format}"/>
+                            </af:outputText>
+                          </af:column>
+                        </af:table>
+                      </f:facet>
+                    </af:panelStretchLayout>
+                  </af:panelHeader>
+                </af:panelGroupLayout>
+              </f:facet>
+            </af:panelStretchLayout>
+          </af:dialog>
+        </af:popup>
+        <af:popup id="popup_viewEditNotes" contentDelivery="lazyUncached">
+          <af:dialog id="d4" contentWidth="525" contentHeight="325">
+            <af:panelGroupLayout id="pgl2" layout="scroll">
+              <af:panelHeader text="View/Edit Notes for Inspection #{bindings.InspectionNumber.inputValue}" id="ph5">
+                <af:panelCollection id="pc2" partialTriggers="ctb7 ctb8">
+                  <f:facet name="toolbar">
+                    <af:toolbar id="t12">
+                      <af:commandToolbarButton text="Add Note"
+                                               id="ctb7"
+                                               actionListener="#{bindings.CreateCallLogNote.execute}"
+                                               disabled="#{!bindings.CreateCallLogNote.enabled}"
+                                               partialTriggers="t11"/>
+                      <af:commandToolbarButton text="Delete Note"
+                                               id="ctb8"
+                                               actionListener="#{bindings.DeleteCallLogNote.execute}"
+                                               disabled="#{!bindings.DeleteCallLogNote.enabled}"
+                                               partialTriggers="t11"/>
+                      <af:commandToolbarButton text="Save Notes"
+                                               id="ctb9"
+                                               actionListener="#{bindings.Commit.execute}"/>
+                    </af:toolbar>
+                  </f:facet>
+                  <af:table value="#{bindings.CallLogView1.collectionModel}"
+                            var="row" rows="#{bindings.CallLogView1.rangeSize}"
+                            emptyText="#{bindings.CallLogView1.viewable ? 'No data to display.' : 'Access Denied.'}"
+                            fetchSize="#{bindings.CallLogView1.rangeSize}"
+                            rowBandingInterval="0"
+                            filterModel="#{bindings.CallLogView1Query.queryDescriptor}"
+                            queryListener="#{bindings.CallLogView1Query.processQuery}"
+                            filterVisible="true" varStatus="vs"
+                            selectedRowKeys="#{bindings.CallLogView1.collectionModel.selectedRow}"
+                            selectionListener="#{bindings.CallLogView1.collectionModel.makeCurrent}"
+                            rowSelection="single" id="t11"
+                            columnStretching="column:c91"
+                            partialTriggers="::ctb7 ::ctb8 ::ctb9">
+                    <af:column sortProperty="#{bindings.CallLogView1.hints.CreatedBy.name}" sortable="true"
+                               headerText="#{bindings.CallLogView1.hints.CreatedBy.label}"
+                               id="c90" width="80">
+                      <af:outputText value="#{row.CreatedBy}" id="ot157"/>
+                    </af:column>
+                    <af:column sortProperty="#{bindings.CallLogView1.hints.CallDate.name}"
+                               filterable="true" sortable="true"
+                               headerText="#{bindings.CallLogView1.hints.CallDate.label}"
+                               id="c94" width="80">
+                      <f:facet name="filter">
+                        <af:inputDate value="#{vs.filterCriteria.CallDate}"
+                                      id="id15"/>
+                      </f:facet>
+                      <af:inputDate value="#{row.bindings.CallDate.inputValue}"
+                                    label="#{bindings.CallLogView1.hints.CallDate.label}"
+                                    required="#{bindings.CallLogView1.hints.CallDate.mandatory}"
+                                    shortDesc="#{bindings.CallLogView1.hints.CallDate.tooltip}"
+                                    id="id17">
+                        <f:validator binding="#{row.bindings.CallDate.validator}"/>
+                        <af:convertDateTime pattern="#{bindings.CallLogView1.hints.CallDate.format}"/>
+                      </af:inputDate>
+                    </af:column>
+                    <af:column sortProperty="#{bindings.CallLogView1.hints.TelephoneNumber.name}"
+                               filterable="true" sortable="true"
+                               headerText="#{bindings.CallLogView1.hints.TelephoneNumber.label}"
+                               id="c92" width="80">
+                      <af:inputText value="#{row.bindings.TelephoneNumber.inputValue}"
+                                    label="#{bindings.CallLogView1.hints.TelephoneNumber.label}"
+                                    required="#{bindings.CallLogView1.hints.TelephoneNumber.mandatory}"
+                                    columns="#{bindings.CallLogView1.hints.TelephoneNumber.displayWidth}"
+                                    maximumLength="#{bindings.CallLogView1.hints.TelephoneNumber.precision}"
+                                    shortDesc="#{bindings.CallLogView1.hints.TelephoneNumber.tooltip}"
+                                    id="it5">
+                        <f:validator binding="#{row.bindings.TelephoneNumber.validator}"/>
+                      </af:inputText>
+                    </af:column>
+                    <af:column sortProperty="#{bindings.CallLogView1.hints.Comments.name}"
+                               filterable="true" sortable="true"
+                               headerText="#{bindings.CallLogView1.hints.Comments.label}"
+                               id="c91">
+                      <af:inputText value="#{row.bindings.Comments.inputValue}"
+                                    label="#{bindings.CallLogView1.hints.Comments.label}"
+                                    required="#{bindings.CallLogView1.hints.Comments.mandatory}"
+                                    columns="#{bindings.CallLogView1.hints.Comments.displayWidth}"
+                                    maximumLength="#{bindings.CallLogView1.hints.Comments.precision}"
+                                    shortDesc="#{bindings.CallLogView1.hints.Comments.tooltip}"
+                                    id="it4">
+                        <f:validator binding="#{row.bindings.Comments.validator}"/>
+                      </af:inputText>
+                    </af:column>
+                    <af:column sortProperty="#{bindings.CallLogView1.hints.CreatedDate.name}" sortable="true"
+                               headerText="#{bindings.CallLogView1.hints.CreatedDate.label}"
+                               id="c93" width="80">
+                      <af:outputText value="#{row.CreatedDate}" id="ot158">
+                        <af:convertDateTime pattern="#{bindings.CallLogView1.hints.CreatedDate.format}"/>
+                      </af:outputText>
+                    </af:column>
+                  </af:table>
+                </af:panelCollection>
+              </af:panelHeader>
+            </af:panelGroupLayout>
+          </af:dialog>
+        </af:popup>
+        <af:popup id="popup_cancelReferral" contentDelivery="lazyUncached"
+                  binding="#{backingBeanScope.backing_ReferralSearchInvoice.cancelReferralPopup}">
+          <af:dialog id="d5" contentWidth="300" contentHeight="120"
+                     dialogListener="#{backingBeanScope.backing_ReferralSearchInvoice.cancelReferralDialogListener}"
+                     type="yesNo">
+            <af:panelGroupLayout id="pg13" layout="scroll"
+                                 styleClass="AFStretchWidth">
+              <af:panelHeader text="Save Cancel Referral for Inspection #{bindings.InspectionNumber.inputValue}" id="ph6"
+                              styleClass="AFStretchWidth">
+                <af:inputText value="#{bindings.Comments.inputValue}"
+                              label="Cancel Notes"
+                              required="true"
+                              columns="#{bindings.Comments.hints.displayWidth}"
+                              maximumLength="#{bindings.Comments.hints.precision}"
+                              shortDesc="#{bindings.Comments.hints.tooltip}"
+                              id="it6" rows="4"
+                              inlineStyle="width:150.0px;" wrap="soft">
+                  <f:validator binding="#{bindings.Comments.validator}"/>
+                </af:inputText>
+              </af:panelHeader>
+            </af:panelGroupLayout>
+          </af:dialog>
+        </af:popup>
+      </af:panelGroupLayout>
+    </f:facet>
+    <f:attribute name="title" value="Search Referred Invoice"/>
+  </af:pageTemplate>
+</jsp:root>

@@ -1,0 +1,10 @@
+<?xml version = '1.0' standalone = 'yes' ?>
+<ojdeploy-build>
+  <deploy>
+    <parameter name="forcerewrite" value="true"/>
+    <parameter name="workspace" value="C:\Eclipse\workspace\CaloshaADF\CaloshaUseCaseImplementation\UseCase0164\CaloUseCase0164.jws"/>
+    <parameter name="project" value="ViewController"/>
+    <parameter name="profile" value="*"/>
+    <parameter name="outputfile" value="C:\Temp\caloshalibrary\UIDeploy\${profile.name}"/>
+  </deploy>
+</ojdeploy-build>

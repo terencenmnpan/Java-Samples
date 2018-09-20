@@ -1,0 +1,80 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1"
+          xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+          xmlns:c="http://java.sun.com/jsp/jstl/core">
+  <c:set var="viewcontrollerBundle"
+         value="#{adfBundle['gov.ca.dir.acct.calosha.adf.master.viewcontroller.ViewControllerBundle']}"/>
+  <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+  <f:view>
+    <af:document id="d1" title="CALOSHA Administration">
+      <af:form id="f1">
+<af:pageTemplate viewId="/oracle/ui/pattern/dynamicShell/dynamicTabShell.jspx"
+                         value="#{bindings.pageTemplateBinding}" id="pt1">
+          <f:facet name="about">
+            <af:goLink text="#{viewcontrollerBundle.ABOUT_CALOSHA}" id="cl1"
+                       targetFrame="_blank" destination="http://www.osha.gov"/>
+          </f:facet>
+          <f:facet name="navigation">
+            <af:panelAccordion id="pa1">
+              <af:showDetailItem text="Tasks" id="sdi1">
+                <af:panelList id="pl2" rows="100">
+                  <af:commandLink text="Manage Users" id="cl7" disabled="true"/>
+                  <af:commandLink text="Manage Modules" id="cl8" disabled="true"/>
+                  <af:separator id="s2"/>
+                  <af:commandLink text="Edit Court Fees" id="cl2" actionListener="#{backingBeanScope.moduleLauncher.launchEditCourtFees}"/>
+                  <af:commandLink text="Search Collection Staff" id="cl3"
+                                  actionListener="#{backingBeanScope.moduleLauncher.launchSearchCollectionStaff}"/>
+                </af:panelList>
+              </af:showDetailItem>
+            </af:panelAccordion>
+          </f:facet>
+          <f:facet name="status">
+            <af:inputText label="Signed In As" id="it1"
+                          value="#{securityContext.userName} on #{currentDateMBean}"/>
+          </f:facet>
+          <f:facet name="globalSearch">
+            <af:panelGroupLayout id="pgl2" layout="horizontal">
+              <af:commandLink text="#{viewcontrollerBundle.HELP}" id="cl5"/>
+              <af:spacer width="10" height="10" id="s1"/>
+              <af:commandLink text="#{viewcontrollerBundle.PREFERENCES}" id="cl4"/>
+              <af:spacer width="10" height="10" id="spacer1"/>
+              <af:commandLink text="#{viewcontrollerBundle.SIGN_OUT}" id="cl6"
+                              action="#{securityBean.doLogout}"
+                              immediate="true"/>
+            </af:panelGroupLayout>
+          </f:facet>
+          <f:facet name="globalTabs">
+            <af:navigationPane id="np1">
+              <af:commandNavigationItem text="Accounts Receivable" id="cni1"
+                                        selected="false"
+                                        action="gotoMainScreen"/>
+              <af:commandNavigationItem text="Administration" id="cni2" selected="true"/>
+            </af:navigationPane>
+          </f:facet>
+          <f:facet name="innerToolbar">
+            <af:toolbar id="t1">
+              <af:commandToolbarButton text="Close All Tabs" id="ctb1" actionListener="#{backingBeanScope.tabManagerBean.closeAllTabs}"/>
+              <af:commandToolbarButton text="Close Other Tabs" id="ctb2" actionListener="#{backingBeanScope.tabManagerBean.closeOtherTabs}"/>
+            </af:toolbar>
+          </f:facet>
+          <f:facet name="copyright">
+            <af:group id="g1">
+              <af:panelGroupLayout id="pgl3" layout="vertical">
+                <af:outputText value="#{viewcontrollerBundle.CALOSHA_TITLE}" id="ot2"
+                               inlineStyle="font-size:small; font-weight:bold;"/>
+                <af:goLink id="ot1"
+                           text="#{viewcontrollerBundle.DIR_COPYRIGHT}"
+                           targetFrame="_blank"
+                           destination="http://www.dir.ca.gov/"/>
+              </af:panelGroupLayout>
+            </af:group>
+          </f:facet>
+          <f:attribute name="brandingTitle"
+                       value="Department of Industrial Relations"/>
+          <f:attribute name="statusWidth" value="300px"/>
+        </af:pageTemplate>
+      </af:form>
+    </af:document>
+  </f:view>
+</jsp:root>

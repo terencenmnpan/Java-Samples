@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
+  <task-flow-definition id="modify-payment-tf">
+    <default-activity id="__3">SetPaymentRowWithKeyValue</default-activity>
+    <transaction id="__36">
+      <new-transaction/>
+    </transaction>
+    <data-control-scope id="__35">
+      <isolated/>
+    </data-control-scope>
+    <input-parameter-definition id="__1">
+      <name id="__2">inputPaymentId</name>
+      <value>#{pageFlowScope.inputModifyPaymentId}</value>
+      <class>java.lang.String</class>
+      <required/>
+    </input-parameter-definition>
+    <input-parameter-definition id="__28">
+      <name id="__27">inputModifyPaymentsViewOnly</name>
+      <value>#{pageFlowScope.inputModifyPaymentsViewOnly}</value>
+      <class>java.lang.String</class>
+    </input-parameter-definition>
+    <managed-bean id="__42">
+      <managed-bean-name id="__44">expandTreeTableRows</managed-bean-name>
+      <managed-bean-class id="__41">gov.ca.dir.acct.calosha.adf.usecase011.view.ExpandTreeTable</managed-bean-class>
+      <managed-bean-scope id="__43">pageFlow</managed-bean-scope>
+    </managed-bean>
+    <managed-bean id="__52">
+      <managed-bean-name id="__54">expandedAllNodes</managed-bean-name>
+      <managed-bean-class id="__53">java.lang.String</managed-bean-class>
+      <managed-bean-scope id="__51">pageFlow</managed-bean-scope>
+    </managed-bean>
+    <managed-bean id="__94">
+      <managed-bean-name id="__95">modifyPaymentBean</managed-bean-name>
+      <managed-bean-class id="__97">gov.ca.dir.acct.calosha.adf.usecase011.view.beans.modifyPaymentBean</managed-bean-class>
+      <managed-bean-scope id="__96">pageFlow</managed-bean-scope>
+    </managed-bean>
+    <view id="ModifyPayments">
+      <page>/ModifyPayments.jsff</page>
+    </view>
+    <method-call id="SetPaymentRowWithKeyValue">
+      <method>#{bindings.setCurrentRowWithKeyValue.execute}</method>
+      <outcome id="__18">
+        <fixed-outcome>setCurrentRowWithKeyValue</fixed-outcome>
+      </outcome>
+    </method-call>
+    <task-flow-return id="taskFlowReturn1">
+      <outcome id="__37">
+        <name>taskFlowReturn1</name>
+        <rollback/>
+      </outcome>
+    </task-flow-return>
+    <task-flow-call id="reverse-payment-tf">
+      <task-flow-reference>
+        <document>/WEB-INF/reverse-payment-tf.xml</document>
+        <id>reverse-payment-tf</id>
+      </task-flow-reference>
+      <input-parameter id="__29">
+        <name>PaymentTypeCode</name>
+        <value>#{pageFlowScope.inputModifyPaymentTypeCode}</value>
+      </input-parameter>
+      <input-parameter id="__30">
+        <name>PaymentId</name>
+        <value>#{pageFlowScope.inputModifyPaymentId}</value>
+      </input-parameter>
+    </task-flow-call>
+    <task-flow-call id="transfer-payment-tf">
+      <task-flow-reference>
+        <document>/WEB-INF/transfer-payment-tf.xml</document>
+        <id>transfer-payment-tf</id>
+      </task-flow-reference>
+      <input-parameter id="__12">
+        <name>inputTransferPaymentId</name>
+        <value>#{pageFlowScope.inputModifyPaymentId}</value>
+      </input-parameter>
+    </task-flow-call>
+    <task-flow-return id="taskFlowReturn2">
+      <outcome id="__24">
+        <name>taskFlowReturn2</name>
+        <commit/>
+      </outcome>
+    </task-flow-return>
+    <task-flow-call id="nsf-process-tf">
+      <task-flow-reference>
+        <document>/WEB-INF/nsf-process-tf.xml</document>
+        <id>nsf-process-tf</id>
+      </task-flow-reference>
+      <input-parameter id="__46">
+        <name>PaymentId</name>
+        <value>#{pageFlowScope.inputModifyPaymentId}</value>
+      </input-parameter>
+    </task-flow-call>
+    <task-flow-call id="delete-checkedf-payments-tf">
+      <task-flow-reference>
+        <document>/WEB-INF/delete-checkedf-payments-tf.xml</document>
+        <id>delete-checkedf-payments-tf</id>
+      </task-flow-reference>
+      <input-parameter id="__74">
+        <name>inputPaymentId</name>
+        <value>#{pageFlowScope.inputModifyPaymentId}</value>
+      </input-parameter>
+    </task-flow-call>
+    <task-flow-call id="transfer-payment-unapplied">
+      <task-flow-reference>
+        <document>/WEB-INF/transfer-payment-tf.xml</document>
+        <id>transfer-payment-tf</id>
+      </task-flow-reference>
+      <input-parameter id="__75">
+        <name>inputTransferPaymentId</name>
+        <value>#{pageFlowScope.inputModifyPaymentId}</value>
+      </input-parameter>
+      <input-parameter id="__84">
+        <name>inputTransferUnappliedAmount</name>
+        <value>#{pageFlowScope.inputTransferUnappliedAmount}</value>
+        <pass-by-value/>
+      </input-parameter>
+    </task-flow-call>
+    <task-flow-call id="partial-refund">
+      <task-flow-reference>
+        <document>/WEB-INF/partial-refund.xml</document>
+        <id>partial-refund</id>
+      </task-flow-reference>
+      <input-parameter id="__85">
+        <name>paymentId</name>
+        <value>#{pageFlowScope.inputModifyPaymentId}</value>
+      </input-parameter>
+    </task-flow-call>
+    <control-flow-rule id="__4">
+      <from-activity-id id="__5">ModifyPayments</from-activity-id>
+      <control-flow-case id="__6">
+        <from-outcome id="__8">Reversal</from-outcome>
+        <to-activity-id id="__7">reverse-payment-tf</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__38">
+        <from-outcome id="__40">Back</from-outcome>
+        <to-activity-id id="__39">taskFlowReturn1</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__10">
+        <from-outcome id="__11">Transfer</from-outcome>
+        <to-activity-id id="__9">transfer-payment-tf</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__61">
+        <from-outcome id="__63">Nsf</from-outcome>
+        <to-activity-id id="__62">nsf-process-tf</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__67">
+        <from-outcome id="__68">Delete</from-outcome>
+        <to-activity-id id="__45">delete-checkedf-payments-tf</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__77">
+        <from-outcome id="__78">TransferUnapplied</from-outcome>
+        <to-activity-id id="__76">transfer-payment-unapplied</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__87">
+        <from-outcome id="__88">PartialRefund</from-outcome>
+        <to-activity-id id="__86">partial-refund</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__19">
+      <from-activity-id id="__20">SetPaymentRowWithKeyValue</from-activity-id>
+      <control-flow-case id="__22">
+        <from-outcome id="__21">setCurrentRowWithKeyValue</from-outcome>
+        <to-activity-id id="__23">ModifyPayments</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__13">
+      <from-activity-id id="__14">transfer-payment-tf</from-activity-id>
+      <control-flow-case id="__31">
+        <from-outcome id="__25">taskFlowReturnSave</from-outcome>
+        <to-activity-id id="__26">taskFlowReturn2</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__34">
+        <from-outcome id="__33">taskFlowReturnCancel</from-outcome>
+        <to-activity-id id="__32">ModifyPayments</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__50">
+      <from-activity-id id="__55">reverse-payment-tf</from-activity-id>
+      <control-flow-case id="__57">
+        <from-outcome id="__58">BackToModifyPayment</from-outcome>
+        <to-activity-id id="__56">ModifyPayments</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__15">
+        <from-outcome id="__16">GotoSaveReverseCreditCardPayment</from-outcome>
+        <to-activity-id id="__17">taskFlowReturn2</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__47">
+      <from-activity-id id="__48">nsf-process-tf</from-activity-id>
+      <control-flow-case id="__60">
+        <from-outcome id="__49">Cancel</from-outcome>
+        <to-activity-id id="__59">ModifyPayments</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__66">
+        <from-outcome id="__65">Save</from-outcome>
+        <to-activity-id id="__64">taskFlowReturn2</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__69">
+      <from-activity-id id="__70">delete-checkedf-payments-tf</from-activity-id>
+      <control-flow-case id="__71">
+        <from-outcome id="__73">cancelReturn</from-outcome>
+        <to-activity-id id="__72">ModifyPayments</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__79">
+      <from-activity-id id="__80">transfer-payment-unapplied</from-activity-id>
+      <control-flow-case id="__82">
+        <from-outcome id="__83">taskFlowReturnCancel</from-outcome>
+        <to-activity-id id="__81">ModifyPayments</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__89">
+      <from-activity-id id="__90">partial-refund</from-activity-id>
+      <control-flow-case id="__91">
+        <from-outcome id="__93">Commit</from-outcome>
+        <to-activity-id id="__92">taskFlowReturn2</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__99">
+        <from-outcome id="__98">Cancel</from-outcome>
+        <to-activity-id id="__100">ModifyPayments</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <use-page-fragments/>
+  </task-flow-definition>
+</adfc-config>

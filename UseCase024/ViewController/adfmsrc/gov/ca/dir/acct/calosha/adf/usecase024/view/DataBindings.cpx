@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Application xmlns="http://xmlns.oracle.com/adfm/application"
+             version="11.1.1.64.93" id="DataBindings" SeparateXMLFiles="false"
+             Package="gov.ca.dir.acct.calosha.adf.usecase024.view" ClientType="Generic">
+  <definitionFactories>
+    <factory nameSpace="http://xmlns.oracle.com/adf/controller/binding"
+             className="oracle.adf.controller.internal.binding.TaskFlowBindingDefFactoryImpl"/>
+    <dtfactory className="oracle.adf.controller.internal.dtrt.binding.BindingDTObjectFactory"/>
+  </definitionFactories>
+  <pageMap>
+    <page path="/main7.jspx"
+          usageId="gov_ca_dir_acct_calosha_adf_usecase024_view_mainPageDef"/>
+    <page path="/ReferralSearchInvoice.jsff"
+          usageId="gov_ca_dir_acct_calosha_adf_usecase024_view_SearchInvoicePageDef"/>
+    <page path="/WEB-INF/referral-search-invoice-tf.xml#referral-search-invoice-tf@populateEddPhoneNumbers"
+          usageId="gov_ca_dir_acct_calosha_adf_usecase024_view_referral_search_invoice_tf_referral_search_invoice_tf_populateEddPhoneNumbersPageDef"/>
+    <page path="/WEB-INF/referral-search-invoice-tf.xml#referral-search-invoice-tf@populateEddPhoneNumbers1"
+          usageId="gov_ca_dir_acct_calosha_adf_usecase024_view_referral_search_invoice_tf_referral_search_invoice_tf_populateEddPhoneNumbers1PageDef"/>
+  </pageMap>
+  <pageDefinitionUsages>
+    <page id="gov_ca_dir_acct_calosha_adf_usecase024_view_mainPageDef"
+          path="gov.ca.dir.acct.calosha.adf.usecase024.view.pageDefs.mainPageDef"/>
+    <page id="gov_ca_dir_acct_calosha_adf_usecase024_view_SearchInvoicePageDef"
+          path="gov.ca.dir.acct.calosha.adf.usecase024.view.pageDefs.SearchInvoicePageDef"/>
+    <page id="gov_ca_dir_acct_calosha_adf_usecase024_view_referral_search_invoice_tf_referral_search_invoice_tf_populateEddPhoneNumbersPageDef"
+          path="gov.ca.dir.acct.calosha.adf.usecase024.view.pageDefs.referral_search_invoice_tf_referral_search_invoice_tf_populateEddPhoneNumbersPageDef"/>
+    <page id="gov_ca_dir_acct_calosha_adf_usecase024_view_referral_search_invoice_tf_referral_search_invoice_tf_populateEddPhoneNumbers1PageDef"
+          path="gov.ca.dir.acct.calosha.adf.usecase024.view.pageDefs.referral_search_invoice_tf_referral_search_invoice_tf_populateEddPhoneNumbers1PageDef"/>
+  </pageDefinitionUsages>
+  <dataControlUsages>
+    <BC4JDataControl id="ReferralSearchInvoiceAMDataControl"
+                     Package="gov.ca.dir.acct.calosha.adf.usecase024.model.view.appmodule"
+                     FactoryClass="oracle.adf.model.bc4j.DataControlFactoryImpl"
+                     SupportsTransactions="true" SupportsFindMode="true"
+                     SupportsRangesize="true" SupportsResetState="true"
+                     SupportsSortCollection="true"
+                     Configuration="SearchInvoiceAMLocal" syncMode="Immediate"
+                     xmlns="http://xmlns.oracle.com/adfm/datacontrol"/>
+  </dataControlUsages>
+</Application>

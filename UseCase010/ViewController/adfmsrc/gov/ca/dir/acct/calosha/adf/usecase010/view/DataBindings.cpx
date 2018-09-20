@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Application xmlns="http://xmlns.oracle.com/adfm/application"
+             version="11.1.1.64.93" id="DataBindings" SeparateXMLFiles="false"
+             Package="gov.ca.dir.acct.calosha.adf.usecase010.view" ClientType="Generic">
+  <definitionFactories>
+    <factory nameSpace="http://xmlns.oracle.com/adf/controller/binding"
+             className="oracle.adf.controller.internal.binding.TaskFlowBindingDefFactoryImpl"/>
+    <dtfactory className="oracle.adf.controller.internal.dtrt.binding.BindingDTObjectFactory"/>
+  </definitionFactories>
+  <pageMap>
+    <page path="/WEB-INF/manage-payments-tf.xml#manage-payments-tf@ExecuteWithParams"
+          usageId="gov_ca_dir_acct_calosha_adf_usecase010_view_manage_payments_tf_manage_payments_tf_ExecuteWithParamsPageDef"/>
+    <page path="/ManagePayments.jsff"
+          usageId="gov_ca_dir_acct_calosha_adf_usecase010_view_ManagePaymentsPageDef"/>
+    <page path="/ManagePaymentsMain.jspx"
+          usageId="gov_ca_dir_acct_calosha_adf_usecase010_view_ManagePaymentsMainPageDef"/>
+    <page path="/WEB-INF/manage-payments-tf.xml#manage-payments-tf@Execute"
+          usageId="gov_ca_dir_acct_calosha_adf_usecase010_view_manage_payments_tf_manage_payments_tf_ExecutePageDef"/>
+    <page path="/WEB-INF/manage-payments-tf.xml#manage-payments-tf@ExecuteWithParams1"
+          usageId="gov_ca_dir_acct_calosha_adf_usecase010_view_manage_payments_tf_manage_payments_tf_ExecuteWithParams1PageDef"/>
+  </pageMap>
+  <pageDefinitionUsages>
+    <page id="gov_ca_dir_acct_calosha_adf_usecase010_view_manage_payments_tf_manage_payments_tf_ExecuteWithParamsPageDef"
+          path="gov.ca.dir.acct.calosha.adf.usecase010.view.pageDefs.manage_payments_tf_manage_payments_tf_ExecuteWithParamsPageDef"/>
+    <page id="gov_ca_dir_acct_calosha_adf_usecase010_view_ManagePaymentsPageDef"
+          path="gov.ca.dir.acct.calosha.adf.usecase010.view.pageDefs.ManagePaymentsPageDef"/>
+    <page id="gov_ca_dir_acct_calosha_adf_usecase010_view_ManagePaymentsMainPageDef"
+          path="gov.ca.dir.acct.calosha.adf.usecase010.view.pageDefs.ManagePaymentsMainPageDef"/>
+    <page id="gov_ca_dir_acct_calosha_adf_usecase010_view_manage_payments_tf_manage_payments_tf_ExecutePageDef"
+          path="gov.ca.dir.acct.calosha.adf.usecase010.view.pageDefs.manage_payments_tf_manage_payments_tf_ExecutePageDef"/>
+    <page id="gov_ca_dir_acct_calosha_adf_usecase010_view_manage_payments_tf_manage_payments_tf_ExecuteWithParams1PageDef"
+          path="gov.ca.dir.acct.calosha.adf.usecase010.view.pageDefs.manage_payments_tf_manage_payments_tf_ExecuteWithParams1PageDef"/>
+  </pageDefinitionUsages>
+  <dataControlUsages>
+    <BC4JDataControl id="ManagePaymentsAMDataControl"
+                     Package="gov.ca.dir.acct.calosha.adf.usecase010.model.appmodule"
+                     FactoryClass="oracle.adf.model.bc4j.DataControlFactoryImpl"
+                     SupportsTransactions="true" SupportsFindMode="true"
+                     SupportsRangesize="true" SupportsResetState="true"
+                     SupportsSortCollection="true"
+                     Configuration="ManagePaymentsAMLocal" syncMode="Immediate"
+                     xmlns="http://xmlns.oracle.com/adfm/datacontrol"/>
+    <BC4JDataControl id="ModifyPaymentAMDataControl"
+                     Package="gov.ca.dir.acct.calosha.adf.usecase011.model.appmodule"
+                     FactoryClass="oracle.adf.model.bc4j.DataControlFactoryImpl"
+                     SupportsTransactions="true" SupportsFindMode="true"
+                     SupportsRangesize="true" SupportsResetState="true"
+                     SupportsSortCollection="true"
+                     Configuration="ModifyPaymentAMLocal" syncMode="Immediate"
+                     xmlns="http://xmlns.oracle.com/adfm/datacontrol"/>
+  </dataControlUsages>
+</Application>

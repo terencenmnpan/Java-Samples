@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel"
+                version="11.1.1.64.93"
+                id="create_edd_n_record_create_edd_n_record_ExecuteWithParamsPageDef"
+                Package="gov.ca.dir.acct.calosha.adf.usecase0161.view.pageDefs"
+                SkipValidation="true">
+  <parameters/>
+  <executables>
+    <iterator Binds="ThirdPartyCollectionLastNRCeasedRecall" RangeSize="25"
+              DataControl="ReferralSearchInvoiceAMDataControl"
+              id="ThirdPartyCollectionLastNRCeasedRecallIterator"
+              Refresh="never"/>
+  </executables>
+  <bindings>
+    <action IterBinding="ThirdPartyCollectionLastNRCeasedRecallIterator"
+            id="ExecuteWithParams" RequiresUpdateModel="true"
+            Action="executeWithParams">
+      <NamedData NDName="varInspectionNumber"
+                 NDValue="#{pageFlowScope.CreateEddNRecordBean.debtorNumber}"
+                 NDType="java.lang.String"/>
+    </action>
+  </bindings>
+</pageDefinition>

@@ -1,0 +1,547 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="EmployerSearchView"
+  Version="11.1.1.64.93"
+  InheritPersonalization="true"
+  BindingStyle="OracleName"
+  CustomQuery="true"
+  PageIterMode="Full"
+  UseGlueCode="false">
+  <DesignTime>
+    <Attr Name="_isExpertMode" Value="true"/>
+  </DesignTime>
+  <Properties>
+    <SchemaBasedProperties>
+      <LABEL
+        ResId="gov.ca.dir.acct.calosha.adf.usecase001.model.view.EmployerSearchView_LABEL"/>
+    </SchemaBasedProperties>
+  </Properties>
+  <SQLQuery>
+    <![CDATA[/* Formatted on 4/24/2014 11:06:48 AM (QP5 v5.256.13226.35538) */
+SELECT DISTINCT
+       PARTY.PARTY_ID,
+       NVL (
+          ORGANIZATION.LEGAL_NAME,
+             PERSON.FIRST_NAME
+          || ' '
+          || NVL2 (PERSON.MIDDLE_NAME, PERSON.MIDDLE_NAME || ' ', '')
+          || PERSON.LAST_NAME)
+          AS LEGAL_NAME,
+       ORGANIZATION_NAME,
+       STREET_ADDRESS,
+       CITY,
+       STATE_CODE,
+       ZIP_CODE,
+       PHONE,
+       EMAIL,
+       FAX,
+       CELL_PHONE,
+       URL,
+       WEB_SITE,
+       WORK_PHONE,
+COUNTY_CODE,
+ADDRESS_LINE2,
+PARTY_CLASSIFICATION.PARTY_CATEGORY_CODE
+  FROM PARTY
+       LEFT OUTER JOIN PARTY_CLASSIFICATION ON PARTY.PARTY_ID = PARTY_CLASSIFICATION.PARTY_ID
+       LEFT OUTER JOIN ORGANIZATION ON PARTY.PARTY_ID = ORGANIZATION.PARTY_ID
+       LEFT OUTER JOIN PERSON ON PARTY.PARTY_ID = PERSON.PARTY_ID
+       LEFT OUTER JOIN (SELECT ADDRESS.PARTY_ID, ADDRESS_ID
+                          FROM ADDRESS
+                               INNER JOIN
+                               (SELECT PARTY_ID
+                                  FROM (SELECT PARTY_ID
+                                          FROM ADDRESS
+                                         WHERE ADDRESS_TYPE_CODE = 'SITE'
+                                        INTERSECT
+                                        SELECT PARTY_ID
+                                          FROM ADDRESS
+                                         WHERE ADDRESS_TYPE_CODE = 'MAILING'))
+                               MAILING_ADDRESS
+                                  ON ADDRESS.PARTY_ID = MAILING_ADDRESS.PARTY_ID
+                                  WHERE ADDRESS_TYPE_CODE = 'MAILING'
+                        UNION
+                        SELECT ADDRESS.PARTY_ID, ADDRESS_ID
+                          FROM ADDRESS
+                               INNER JOIN
+                               (SELECT PARTY_ID
+                                  FROM (SELECT PARTY_ID
+                                          FROM ADDRESS
+                                         WHERE ADDRESS_TYPE_CODE = 'SITE'
+                                        MINUS
+                                        SELECT party_Id
+                                          FROM (SELECT PARTY_ID
+                                                  FROM ADDRESS
+                                                 WHERE ADDRESS_TYPE_CODE =
+                                                          'SITE'
+                                                INTERSECT
+                                                SELECT PARTY_ID
+                                                  FROM ADDRESS
+                                                 WHERE ADDRESS_TYPE_CODE =
+                                                          'MAILING')))
+                               SITE_ADD_WITH_NO_MAIL_ADD
+                                  ON address.party_id = SITE_ADD_WITH_NO_MAIL_ADD.party_id) SITE_ADD_WITH_NO_MAIL_ADD
+          ON SITE_ADD_WITH_NO_MAIL_ADD.PARTY_ID = PARTY.PARTY_ID
+       LEFT OUTER JOIN ADDRESS ON ADDRESS.ADDRESS_ID = SITE_ADD_WITH_NO_MAIL_ADD.ADDRESS_ID
+       LEFT OUTER JOIN CONTACT_METHOD
+          ON PARTY.PARTY_ID = CONTACT_METHOD.PARTY_ID
+       LEFT OUTER JOIN
+       (SELECT PARTY_ID FROM PARTY
+        MINUS
+        SELECT PARTY_ID FROM RELATED_PARTY) RELATED_PARTY_PARTY_IDS
+          ON PARTY.PARTY_ID = RELATED_PARTY_PARTY_IDS.PARTY_ID
+       LEFT OUTER JOIN
+       (  SELECT PARTY_ID,
+                 MAX (PHONE) PHONE,
+                 MAX (EMAIL) EMAIL,
+                 MAX (FAX) FAX,
+                 MAX (CELL_PHONE) CELL_PHONE,
+                 MAX (URL) URL,
+                 MAX (WEB_SITE) WEB_SITE,
+                 MAX (WORK_PHONE) WORK_PHONE
+            FROM CONTACT_METHOD PIVOT (MAX (CONTACT_METHOD_VALUE)
+                                FOR CONTACT_METHOD_TYPE_CODE
+                                IN  ('PHONE' PHONE,
+                                    'EMAIL' EMAIL,
+                                    'FAX' FAX,
+                                    'CELL_PHONE' CELL_PHONE,
+                                    'URL' URL,
+                                    'WEB_SITE' WEB_SITE,
+                                    'WORK_PHONE' WORK_PHONE))
+           WHERE EFFECTIVE_END_DATE IS NULL
+        GROUP BY PARTY_ID) CONTACT_INFO
+          ON PARTY.PARTY_ID = CONTACT_INFO.PARTY_ID
+
+WHERE PARTY_CATEGORY_CODE is not null and PARTY_CATEGORY_CODE <> 'OTHER']]>
+  </SQLQuery>
+  <ViewAttribute
+    Name="PartyId"
+    IsUpdateable="false"
+    IsPersistent="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="PARTY_ID"
+    Expression="PARTY_ID"
+    SQLType="NUMERIC">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="39"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="LegalName"
+    IsUpdateable="false"
+    IsPersistent="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="LEGAL_NAME"
+    Expression="LEGAL_NAME"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="100"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="gov.ca.dir.acct.calosha.adf.usecase001.model.view.EmployerSearchView.LegalName_LABEL"/>
+        <DISPLAYWIDTH
+          Value="75"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="OrganizationName"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="100"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="ORGANIZATION_NAME"
+    Expression="ORGANIZATION_NAME"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="100"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="gov.ca.dir.acct.calosha.adf.usecase001.model.view.EmployerSearchView.OrganizationName_LABEL"/>
+        <DISPLAYWIDTH
+          Value="75"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="StreetAddress"
+    IsUpdateable="false"
+    IsPersistent="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    Precision="50"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="STREET_ADDRESS"
+    Expression="STREET_ADDRESS"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="50"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="gov.ca.dir.acct.calosha.adf.usecase001.model.view.EmployerSearchView.StreetAddress_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="City"
+    IsUpdateable="false"
+    IsPersistent="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    Precision="50"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="CITY"
+    Expression="CITY"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="50"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="StateCode"
+    IsUpdateable="false"
+    IsPersistent="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    Precision="2"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="STATE_CODE"
+    Expression="STATE_CODE"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="2"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="gov.ca.dir.acct.calosha.adf.usecase001.model.view.EmployerSearchView.StateCode_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="ZipCode"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="5"
+    Scale="0"
+    Type="java.lang.String"
+    ColumnType="NUMBER"
+    AliasName="ZIP_CODE"
+    Expression="ZIP_CODE"
+    SQLType="NUMERIC">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="6"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="gov.ca.dir.acct.calosha.adf.usecase001.model.view.EmployerSearchView.ZipCode_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="Phone"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="100"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="PHONE"
+    Expression="PHONE"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="100"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="Email"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="100"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="EMAIL"
+    Expression="EMAIL"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="100"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="Fax"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="100"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="FAX"
+    Expression="FAX"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="100"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="CellPhone"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="100"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="CELL_PHONE"
+    Expression="CELL_PHONE"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="100"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="gov.ca.dir.acct.calosha.adf.usecase001.model.view.EmployerSearchView.CellPhone_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="Url"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="100"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="URL"
+    Expression="URL"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="100"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="WebSite"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="100"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="WEB_SITE"
+    Expression="WEB_SITE"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="100"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="gov.ca.dir.acct.calosha.adf.usecase001.model.view.EmployerSearchView.WebSite_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="WorkPhone"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="100"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="WORK_PHONE"
+    Expression="WORK_PHONE"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="100"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="gov.ca.dir.acct.calosha.adf.usecase001.model.view.EmployerSearchView.WorkPhone_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="CountyCode"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="25"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="COUNTY_CODE"
+    Expression="COUNTY_CODE"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="25"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="AddressLine2"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="50"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="ADDRESS_LINE2"
+    Expression="ADDRESS_LINE2"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="50"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="PartyCategoryCode"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="25"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="PARTY_CATEGORY_CODE"
+    Expression="PARTY_CATEGORY_CODE"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="25"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewCriteria
+    Name="EmployerSearchViewCriteria"
+    ViewObjectName="gov.ca.dir.acct.calosha.adf.usecase001.model.view.EmployerSearchView"
+    Conjunction="AND">
+    <Properties>
+      <CustomProperties>
+        <Property
+          Name="displayOperators"
+          Value="InAdvancedMode"/>
+        <Property
+          Name="autoExecute"
+          Value="false"/>
+        <Property
+          Name="allowConjunctionOverride"
+          Value="true"/>
+        <Property
+          Name="showInList"
+          Value="true"/>
+        <Property
+          Name="mode"
+          Value="Basic"/>
+      </CustomProperties>
+    </Properties>
+    <ViewCriteriaRow
+      Name="vcrow0"
+      UpperColumns="1">
+      <ViewCriteriaItem
+        Name="LegalName"
+        ViewAttribute="LegalName"
+        Operator="CONTAINS"
+        Conjunction="AND"
+        Required="Optional"/>
+      <ViewCriteriaItem
+        Name="OrganizationName"
+        ViewAttribute="OrganizationName"
+        Operator="CONTAINS"
+        Conjunction="AND"
+        Required="Optional"/>
+      <ViewCriteriaItem
+        Name="StreetAddress"
+        ViewAttribute="StreetAddress"
+        Operator="CONTAINS"
+        Conjunction="AND"
+        Required="Optional"/>
+      <ViewCriteriaItem
+        Name="City"
+        ViewAttribute="City"
+        Operator="CONTAINS"
+        Conjunction="AND"
+        Required="Optional"/>
+      <ViewCriteriaItem
+        Name="StateCode"
+        ViewAttribute="StateCode"
+        Operator="CONTAINS"
+        Conjunction="AND"
+        Required="Optional"/>
+      <ViewCriteriaItemCompound
+        ViewAttribute="PartyCategoryCode">
+        <ViewCriteria
+          Name="EmployerSearchViewCriteria_vcrow0_PartyCategoryCode_itemHolder"
+          ViewObjectName="gov.ca.dir.acct.calosha.adf.usecase001.model.view.EmployerSearchView"
+          Conjunction="OR">
+          <ViewCriteriaRow
+            Name="vcrow21"
+            Conjunction="AND">
+            <ViewCriteriaItem
+              Name="PartyCategoryCode"
+              ViewAttribute="PartyCategoryCode"
+              Operator="ISNOTBLANK"
+              Conjunction="AND"
+              Required="Optional">
+              <Properties>
+                <CustomProperties>
+                  <Property
+                    Name="renderedMode"
+                    Value="Never"/>
+                </CustomProperties>
+              </Properties>
+            </ViewCriteriaItem>
+          </ViewCriteriaRow>
+          <ViewCriteriaRow
+            Name="vcrow22"
+            Conjunction="AND">
+            <ViewCriteriaItem
+              Name="EmployerSearchViewCriteria_vcrow0_PartyCategoryCode_EmployerSearchViewCriteria_vcrow0_PartyCategoryCode_itemHolder_vcrow22_PartyCategoryCode"
+              ViewAttribute="PartyCategoryCode"
+              Operator="DOESNOTCONTAIN"
+              Conjunction="AND"
+              Value="OTHER"
+              Required="Optional">
+              <Properties>
+                <CustomProperties>
+                  <Property
+                    Name="renderedMode"
+                    Value="Never"/>
+                </CustomProperties>
+              </Properties>
+            </ViewCriteriaItem>
+          </ViewCriteriaRow>
+        </ViewCriteria>
+      </ViewCriteriaItemCompound>
+    </ViewCriteriaRow>
+  </ViewCriteria>
+  <AttrArray Name="KeyAttributes">
+    <Item Value="PartyId"/>
+  </AttrArray>
+  <ViewLinkAccessor
+    Name="PartyView"
+    ViewLink="gov.ca.dir.acct.calosha.adf.usecase001.model.view.EmployerSearchViewPartyLink"
+    Type="oracle.jbo.Row"
+    IsUpdateable="false"/>
+  <ResourceBundle>
+    <PropertiesBundle
+      PropertiesFile="gov.ca.dir.acct.calosha.adf.usecase001.model.ModelBundle"/>
+  </ResourceBundle>
+</ViewObject>

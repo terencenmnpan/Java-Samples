@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel"
+                version="11.1.1.64.93"
+                id="modify_payment_tf_modify_payment_tf_SetCurrentRowWithKeyValuePageDef"
+                Package="gov.ca.dir.acct.calosha.adf.usecase011.view.pageDefs"
+                SkipValidation="true">
+  <parameters/>
+  <executables>
+    <iterator Binds="PaymentView1" RangeSize="25"
+              DataControl="ModifyPaymentAMDataControl"
+              id="PaymentView1Iterator"/>
+  </executables>
+  <bindings>
+    <action IterBinding="PaymentView1Iterator" id="setCurrentRowWithKeyValue"
+            RequiresUpdateModel="false" Action="setCurrentRowWithKeyValue">
+      <NamedData NDName="rowKey" NDValue="#{pageFlowScope.inputModifyPaymentId}"
+                 NDType="java.lang.String"/>
+    </action>
+  </bindings>
+</pageDefinition>

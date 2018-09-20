@@ -1,0 +1,161 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1"
+          xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+          xmlns:f="http://java.sun.com/jsf/core">
+  <af:pageTemplate viewId="/use-case-template.jspx" id="pt1">
+    <f:facet name="main">
+        <af:panelSplitter id="ps1" orientation="vertical"
+                          splitterPosition="145">
+          <f:facet name="first">
+            <af:query id="qryId1" headerText="Search" disclosed="true"
+                      value="#{bindings.EmployerSearchViewCriteriaQuery.queryDescriptor}"
+                      model="#{bindings.EmployerSearchViewCriteriaQuery.queryModel}"
+                      queryListener="#{bindings.EmployerSearchViewCriteriaQuery.processQuery}"
+                      queryOperationListener="#{bindings.EmployerSearchViewCriteriaQuery.processQueryOperation}"
+                      resultComponentId="::pc1" rows="3" maxColumns="3"
+                      saveQueryMode="hidden"/>
+          </f:facet>
+          <f:facet name="second">
+            <af:panelCollection id="pc1">
+              <f:facet name="menus"/>
+              <f:facet name="toolbar">
+              <af:toolbar id="t1">
+                <af:commandToolbarButton text="New Employer"
+                                         id="ctb1" action="createEmployer"/>
+                <af:commandToolbarButton text="Back"
+                                         id="ctb2" action="selectEmployer"/>
+              </af:toolbar>
+            </f:facet>
+              <f:facet name="statusbar"/>
+              <af:table value="#{bindings.EmployerSearchView1.collectionModel}"
+                        var="row"
+                        rows="#{bindings.EmployerSearchView1.rangeSize}"
+                        emptyText="#{bindings.EmployerSearchView1.viewable ? 'No employers matching search criteria, 
+                        perform a search or revise search criteria.' : 'Something Wrong.'}"
+                        fetchSize="#{bindings.EmployerSearchView1.rangeSize}"
+                        rowBandingInterval="0"
+                        filterModel="#{bindings.EmployerSearchViewCriteriaQuery.queryDescriptor}"
+                        queryListener="#{bindings.EmployerSearchViewCriteriaQuery.processQuery}"
+                        filterVisible="true" varStatus="vs"
+                        selectedRowKeys="#{bindings.EmployerSearchView1.collectionModel.selectedRow}"
+                        selectionListener="#{bindings.EmployerSearchView1.collectionModel.makeCurrent}" id="resId1" displayRow="selected"
+                        immediate="true" rowSelection="single"
+                        columnStretching="column:c1 column:c2 column:c3">
+              <af:column id="c1" width="46">
+                <af:commandButton text="Select" id="cb1"
+                                  action="selectEmployer">
+                  <af:setActionListener to="#{pageFlowScope.UseCase001EmployerName}"
+                                        from="#{row.LegalName}"/>
+                  <af:setActionListener from="#{row.PartyId}"
+                                        to="#{pageFlowScope.UseCase001EmployerPartyId}"/>
+                  <af:setActionListener from="#{row.StreetAddress}"
+                                        to="#{pageFlowScope.UseCase001EmployerStreetAddress}"/>
+                  <af:setActionListener from="#{row.City}"
+                                        to="#{pageFlowScope.UseCase001EmployerCity}"/>
+                  <af:setActionListener from="#{row.StateCode}"
+                                        to="#{pageFlowScope.UseCase001EmployerStateCode}"/>
+                  <af:setActionListener from="#{row.ZipCode}"
+                                        to="#{pageFlowScope.UseCase001EmployerZipCode}"/>
+                  <af:setActionListener from="#{row.Phone}"
+                                        to="#{pageFlowScope.UseCase001EmployerPhone}"/>
+                </af:commandButton>
+              </af:column>
+              <af:column id="c2" width="39">
+                <af:commandButton text="Edit" id="cb2"
+                                  actionListener="#{bindings.setCurrentRowWithKeyValue.execute}"
+                                  disabled="#{!bindings.setCurrentRowWithKeyValue.enabled}"
+                                  action="updateEmployer">
+                  <af:setActionListener to="#{pageFlowScope.UseCase001EmployerPartyId}"
+                                        from="#{row.PartyId}"/>
+                </af:commandButton>
+              </af:column>
+              <af:column sortProperty="#{bindings.EmployerSearchView1.hints.LegalName.name}"
+                           filterable="true" sortable="true"
+                           headerText="#{bindings.EmployerSearchView1.hints.LegalName.label}"
+                           id="resId1c1" width="150">
+                  <af:outputText value="#{row.LegalName}" id="ot4"/>
+                </af:column>
+                <af:column sortProperty="#{bindings.EmployerSearchView1.hints.OrganizationName.name}"
+                           filterable="true" sortable="true"
+                           headerText="#{bindings.EmployerSearchView1.hints.OrganizationName.label}"
+                           id="resId1c2" width="150">
+                  <af:outputText value="#{row.OrganizationName}" id="ot10"/>
+                </af:column>
+                <af:column sortProperty="#{bindings.EmployerSearchView1.hints.StreetAddress.name}"
+                           filterable="true" sortable="true"
+                           headerText="#{bindings.EmployerSearchView1.hints.StreetAddress.label}"
+                           id="resId1c3" width="150">
+                  <af:outputText value="#{row.StreetAddress}" id="ot2"/>
+                </af:column>
+                <af:column sortProperty="#{bindings.EmployerSearchView1.hints.City.name}"
+                           filterable="true" sortable="true"
+                           headerText="#{bindings.EmployerSearchView1.hints.City.label}"
+                           id="resId1c4" width="80">
+                  <af:outputText value="#{row.City}" id="ot11"/>
+                </af:column>
+                <af:column sortProperty="#{bindings.EmployerSearchView1.hints.StateCode.name}"
+                           filterable="true" sortable="true"
+                           headerText="#{bindings.EmployerSearchView1.hints.StateCode.label}"
+                           id="resId1c5" width="30">
+                  <af:outputText value="#{row.StateCode}" id="ot3"/>
+                </af:column>
+                <af:column sortProperty="#{bindings.EmployerSearchView1.hints.ZipCode.name}"
+                           filterable="true" sortable="true"
+                           headerText="#{bindings.EmployerSearchView1.hints.ZipCode.label}"
+                           id="resId1c6" width="50">
+                  <af:outputText value="#{row.ZipCode}" id="ot6">
+                    <af:convertNumber groupingUsed="false"
+                                      pattern="#{bindings.EmployerSearchView1.hints.ZipCode.format}"/>
+                  </af:outputText>
+                </af:column>
+                <af:column sortProperty="#{bindings.EmployerSearchView1.hints.Phone.name}"
+                           filterable="true" sortable="true"
+                           headerText="#{bindings.EmployerSearchView1.hints.Phone.label}"
+                           id="resId1c7" width="80">
+                  <af:outputText value="#{row.Phone}" id="ot8"/>
+                </af:column>
+              <af:column sortProperty="#{bindings.EmployerSearchView1.hints.WorkPhone.name}"
+                         filterable="true" sortable="true"
+                         headerText="#{bindings.EmployerSearchView1.hints.WorkPhone.label}"
+                         id="resId1c13" width="80">
+                <af:outputText value="#{row.WorkPhone}" id="ot12"/>
+              </af:column>
+              <af:column sortProperty="#{bindings.EmployerSearchView1.hints.Email.name}"
+                           filterable="true" sortable="true"
+                           headerText="#{bindings.EmployerSearchView1.hints.Email.label}"
+                           id="resId1c8" width="80">
+                  <af:outputText value="#{row.Email}" id="ot9"/>
+                </af:column>
+                <af:column sortProperty="#{bindings.EmployerSearchView1.hints.Fax.name}"
+                           filterable="true" sortable="true"
+                           headerText="#{bindings.EmployerSearchView1.hints.Fax.label}"
+                           id="resId1c9" width="80">
+                  <af:outputText value="#{row.Fax}" id="ot13"/>
+                </af:column>
+                <af:column sortProperty="#{bindings.EmployerSearchView1.hints.CellPhone.name}"
+                           filterable="true" sortable="true"
+                           headerText="#{bindings.EmployerSearchView1.hints.CellPhone.label}"
+                           id="resId1c10" width="80">
+                  <af:outputText value="#{row.CellPhone}" id="ot7"/>
+                </af:column>
+                <af:column sortProperty="#{bindings.EmployerSearchView1.hints.Url.name}"
+                           filterable="true" sortable="true"
+                           headerText="#{bindings.EmployerSearchView1.hints.Url.label}"
+                           id="resId1c11" width="80">
+                  <af:outputText value="#{row.Url}" id="ot1"/>
+                </af:column>
+                <af:column sortProperty="#{bindings.EmployerSearchView1.hints.WebSite.name}"
+                           filterable="true" sortable="true"
+                           headerText="#{bindings.EmployerSearchView1.hints.WebSite.label}"
+                           id="resId1c12" width="80">
+                  <af:outputText value="#{row.WebSite}" id="ot5"/>
+                </af:column>
+              </af:table>
+            </af:panelCollection>
+          </f:facet>
+        </af:panelSplitter>
+      
+    </f:facet>
+    <f:attribute name="title" value="Employer Search"/>
+  </af:pageTemplate>
+</jsp:root>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel"
+                version="11.1.1.64.93" id="EmployerMainPageDef"
+                Package="gov.ca.dir.acct.calosha.adf.usecase001.view.pageDefs">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator id="UpdateEmployerView1Iterator" Binds="UpdateEmployerView1"
+              DataControl="EmployerSearchAMDataControl" RangeSize="25"
+              Refresh="ifNeeded"/>
+    <taskFlow id="employersearchtf1"
+              taskFlowId="/WEB-INF/employer-search-tf.xml#employer-search-tf"
+              activation="deferred"
+              xmlns="http://xmlns.oracle.com/adf/controller/binding"/>
+  </executables>
+  <bindings/>
+</pageDefinition>

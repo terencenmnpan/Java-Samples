@@ -1,0 +1,24 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<JLibraryNode nselem="JLibraryNode" class="oracle.jdeveloper.library.JLibraryNode" deployedByDefault="true" xmlns="http://xmlns.oracle.com/jdeveloper/110000jlibrarynode">
+   <classPath>
+      <entries>
+         <Item path="/C:/Temp/caloshalibrary/adflibCaloshaFrameworkExtension.jar" jar-entry=""/>
+         <Item path="/C:/Temp/caloshalibrary/adflibCaloshaCommonCode.jar" jar-entry=""/>
+         <Item path="/C:/Temp/caloshalibrary/adflibCarsWebServiceClientInterface.jar" jar-entry=""/>
+         <Item path="/C:/Temp/caloshalibrary/UIDeploy/adflibCaloshaUseCase001.jar" jar-entry=""/>
+         <Item path="/C:/Temp/caloshalibrary/UIDeploy/adflibCaloshaUseCase0072.jar" jar-entry=""/>
+         <Item path="/C:/Temp/caloshalibrary/UIDeploy/adflibCaloshaUseCase0073.jar" jar-entry=""/>
+         <Item path="/C:/Temp/caloshalibrary/UIDeploy/adflibCaloshaUseCase022.jar" jar-entry=""/>
+         <Item path="/C:/Temp/caloshalibrary/UIDeploy/adflibCaloshaUseCase0071.jar" jar-entry=""/>
+         <Item path="/C:/Temp/caloshalibrary/UIDeploy/adflibCaloshaUseCase003.jar" jar-entry=""/>
+         <Item path="/C:/Temp/caloshalibrary/UIDeploy/adflibCaloshaUseCase007.jar" jar-entry=""/>
+         <Item path="/C:/Temp/caloshalibrary/UIDeploy/adflibCaloshaUseCase006.jar" jar-entry=""/>
+         <Item path="/C:/Temp/caloshalibrary/UIDeploy/adflibCaloshaUseCase071.jar" jar-entry=""/>
+         <Item path="/C:/Temp/caloshalibrary/UIDeploy/adflibCaloshaUseCase0161.jar" jar-entry=""/>
+      </entries>
+   </classPath>
+   <docPath/>
+   <locked>true</locked>
+   <name>ADF Library Dependencies</name>
+   <sourcePath/>
+</JLibraryNode>

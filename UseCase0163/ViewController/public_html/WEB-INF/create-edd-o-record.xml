@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
+  <task-flow-definition id="create-edd-o-record">
+    <default-activity id="__1">EditOrCreateRouter</default-activity>
+    <transaction id="__78">
+      <new-transaction/>
+    </transaction>
+    <data-control-scope id="__79">
+      <isolated/>
+    </data-control-scope>
+    <input-parameter-definition id="__69">
+      <name id="__68">DebtId</name>
+      <value>#{pageFlowScope.CreateEddORecordBean.debtId}</value>
+      <class>java.lang.String</class>
+    </input-parameter-definition>
+    <input-parameter-definition id="__71">
+      <name id="__70">DebtorNumber</name>
+      <value>#{pageFlowScope.CreateEddORecordBean.debtorNumber}</value>
+      <class>java.lang.String</class>
+    </input-parameter-definition>
+    <input-parameter-definition id="__73">
+      <name id="__72">ThirdPartyParentId</name>
+      <value>#{pageFlowScope.CreateEddORecordBean.thirdPartyParentId}</value>
+      <class>oracle.jbo.domain.Number</class>
+    </input-parameter-definition>
+    <input-parameter-definition id="__75">
+      <name id="__74">ThirdPartyCollectionId</name>
+      <value>#{pageFlowScope.CreateEddORecordBean.thirdPartyCollectionId}</value>
+      <class>oracle.jbo.domain.Number</class>
+    </input-parameter-definition>
+    <input-parameter-definition id="__76">
+      <name id="__77">DataSourceCode</name>
+      <value>#{pageFlowScope.CreateEddORecordBean.dataSourceCode}</value>
+      <class>java.lang.String</class>
+    </input-parameter-definition>
+    <input-parameter-definition id="__107">
+      <name id="__106">ReferralId</name>
+      <value>#{pageFlowScope.CreateEddORecordBean.referralId}</value>
+      <class>oracle.jbo.domain.Number</class>
+    </input-parameter-definition>
+    <managed-bean id="__49">
+      <managed-bean-name id="__51">CreateEddORecordBean</managed-bean-name>
+      <managed-bean-class id="__52">gov.ca.dir.acct.calosha.adf.usecase0163.view.beans.createEddORecordBean</managed-bean-class>
+      <managed-bean-scope id="__50">pageFlow</managed-bean-scope>
+    </managed-bean>
+    <view id="CreateEddORecord">
+      <page>/CreateEddORecord.jspx</page>
+    </view>
+    <router id="EditOrCreateRouter">
+      <case id="__3">
+        <expression id="__4">#{empty
+                             pageFlowScope.CreateEddORecordBean.thirdPartyCollectionId}</expression>
+        <outcome id="__118">CreateNewORecord</outcome>
+      </case>
+      <case id="__2">
+        <expression id="__6">#{not empty
+                             pageFlowScope.CreateEddORecordBean.thirdPartyCollectionId}</expression>
+        <outcome id="__133">EditCurrentPretransmittalORecord</outcome>
+      </case>
+      <default-outcome id="__5">CreateNewNRecord</default-outcome>
+    </router>
+    <method-call id="SetCurrentRowWithKeyValue">
+      <method>#{bindings.setCurrentRowWithKeyValue.execute}</method>
+      <outcome id="__7">
+        <fixed-outcome>setCurrentRowWithKeyValue</fixed-outcome>
+      </outcome>
+    </method-call>
+    <method-call id="CreateWithParamsEddORecord">
+      <method>#{bindings.CreateWithParams.execute}</method>
+      <outcome id="__18">
+        <fixed-outcome>CreateWithParams</fixed-outcome>
+      </outcome>
+    </method-call>
+    <method-call id="DeleteORecord">
+      <method>#{bindings.Delete.execute}</method>
+      <outcome id="__27">
+        <fixed-outcome>Delete</fixed-outcome>
+      </outcome>
+    </method-call>
+    <task-flow-return id="commit">
+      <outcome id="__43">
+        <name>commit</name>
+        <commit/>
+      </outcome>
+    </task-flow-return>
+    <method-call id="updateHeaderIdForNewEddORecord">
+      <method>#{pageFlowScope.CreateEddORecordBean.updateHeaderIdForNewTpcRecord}</method>
+      <outcome id="__58">
+        <fixed-outcome>updateHeaderIdForNewEddORecord</fixed-outcome>
+      </outcome>
+    </method-call>
+    <method-call id="Execute">
+      <method>#{bindings.Execute.execute}</method>
+      <outcome id="__62">
+        <fixed-outcome>Execute</fixed-outcome>
+      </outcome>
+    </method-call>
+    <task-flow-return id="rollback">
+      <outcome id="__80">
+        <name>rollback</name>
+        <rollback/>
+      </outcome>
+    </task-flow-return>
+    <method-call id="DeleteOAssoc">
+      <method>#{bindings.Delete.execute}</method>
+      <outcome id="__81">
+        <fixed-outcome>Delete</fixed-outcome>
+      </outcome>
+    </method-call>
+    <method-call id="CreateWithParamsEddOAssoc">
+      <method>#{bindings.CreateWithParams.execute}</method>
+      <outcome id="__33">
+        <fixed-outcome>CreateWithParams</fixed-outcome>
+      </outcome>
+    </method-call>
+    <router id="EditOrNewRouter">
+      <case>
+        <expression>#{empty
+                    pageFlowScope.CreateEddORecordBean.thirdPartyCollectionId}</expression>
+        <outcome id="__94">new</outcome>
+      </case>
+      <case>
+        <expression>#{not empty
+                    pageFlowScope.CreateEddORecordBean.thirdPartyCollectionId}</expression>
+        <outcome id="__95">editOnly</outcome>
+      </case>
+      <default-outcome>editOnly</default-outcome>
+    </router>
+    <view id="invalidHeader">
+      <page id="__96">/invalidHeader.jspx</page>
+    </view>
+    <router id="checkIfIndividual">
+      <case>
+        <expression>#{not empty
+                    pageFlowScope.CreateEddORecordBean.entityFirstName &amp;&amp;
+                    not empty pageFlowScope.CreateEddORecordBean.entityLastName
+                    &amp;&amp; pageFlowScope.CreateEddORecordBean.dataSourceCode
+                    == 'CALOSHA'}</expression>
+        <outcome id="__108">individual</outcome>
+      </case>
+      <default-outcome>notAny</default-outcome>
+    </router>
+    <method-call id="createPersonRelatedParty">
+      <method>#{pageFlowScope.CreateEddORecordBean.createPersonRelatedParty}</method>
+      <outcome id="__123">
+        <fixed-outcome>createPersonRelatedParty</fixed-outcome>
+      </outcome>
+    </method-call>
+    <control-flow-rule id="__8">
+      <from-activity-id id="__9">EditOrCreateRouter</from-activity-id>
+      <control-flow-case id="__12">
+        <from-outcome id="__11">EditCurrentPretransmittalORecord</from-outcome>
+        <to-activity-id id="__10">SetCurrentRowWithKeyValue</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__19">
+        <from-outcome id="__21">CreateNewORecord</from-outcome>
+        <to-activity-id id="__20">CreateWithParamsEddORecord</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__13">
+      <from-activity-id id="__14">SetCurrentRowWithKeyValue</from-activity-id>
+      <control-flow-case id="__16">
+        <from-outcome id="__15">setCurrentRowWithKeyValue</from-outcome>
+        <to-activity-id id="__17">CreateEddORecord</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__22">
+      <from-activity-id id="__23">CreateWithParamsEddORecord</from-activity-id>
+      <control-flow-case id="__24">
+        <from-outcome id="__25">CreateWithParams</from-outcome>
+        <to-activity-id id="__26">CreateEddORecord</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__28">
+      <from-activity-id id="__29">CreateEddORecord</from-activity-id>
+      <control-flow-case id="__30">
+        <from-outcome id="__32">DeleteORecord</from-outcome>
+        <to-activity-id id="__31">DeleteOAssoc</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__41">
+        <from-outcome id="__42">rollback</from-outcome>
+        <to-activity-id id="__40">rollback</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__59">
+        <from-outcome id="__61">commit</from-outcome>
+        <to-activity-id id="__60">EditOrNewRouter</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__97">
+        <from-outcome id="__104">invalidHeaderStatus</from-outcome>
+        <to-activity-id id="__98">invalidHeader</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__34">
+      <from-activity-id id="__35">DeleteORecord</from-activity-id>
+      <control-flow-case id="__36">
+        <from-outcome id="__38">Delete</from-outcome>
+        <to-activity-id id="__37">commit</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__53">
+      <from-activity-id id="__54">updateHeaderIdForNewEddORecord</from-activity-id>
+      <control-flow-case id="__56">
+        <from-outcome id="__57">updateHeaderIdForNewEddORecord</from-outcome>
+        <to-activity-id id="__55">commit</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__63">
+      <from-activity-id id="__64">Execute</from-activity-id>
+      <control-flow-case id="__67">
+        <from-outcome id="__66">Execute</from-outcome>
+        <to-activity-id id="__65">updateHeaderIdForNewEddORecord</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__82">
+      <from-activity-id id="__83">DeleteOAssoc</from-activity-id>
+      <control-flow-case id="__86">
+        <from-outcome id="__84">Delete</from-outcome>
+        <to-activity-id id="__85">DeleteORecord</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__39">
+      <from-activity-id id="__44">CreateWithParamsEddOAssoc</from-activity-id>
+      <control-flow-case id="__45">
+        <from-outcome id="__46">CreateWithParams</from-outcome>
+        <to-activity-id id="__47">Execute</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__48">
+      <from-activity-id id="__87">EditOrNewRouter</from-activity-id>
+      <control-flow-case id="__88">
+        <from-outcome id="__90">editOnly</from-outcome>
+        <to-activity-id id="__89">Execute</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__92">
+        <from-outcome id="__93">new</from-outcome>
+        <to-activity-id id="__91">checkIfIndividual</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__99">
+      <from-activity-id id="__100">invalidHeader</from-activity-id>
+      <control-flow-case id="__101">
+        <from-outcome id="__103">rollback</from-outcome>
+        <to-activity-id id="__102">rollback</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__109">
+      <from-activity-id id="__110">checkIfIndividual</from-activity-id>
+      <control-flow-case id="__113">
+        <from-outcome id="__112">notAny</from-outcome>
+        <to-activity-id id="__111">CreateWithParamsEddOAssoc</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__114">
+        <from-outcome id="__116">individual</from-outcome>
+        <to-activity-id id="__115">createPersonRelatedParty</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__117">
+      <from-activity-id id="__119">createPersonRelatedParty</from-activity-id>
+      <control-flow-case id="__120">
+        <from-outcome id="__122">createPersonRelatedParty</from-outcome>
+        <to-activity-id id="__121">CreateWithParamsEddOAssoc</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <visibility id="__105">
+      <url-invoke-allowed/>
+    </visibility>
+  </task-flow-definition>
+</adfc-config>

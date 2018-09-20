@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel"
+                version="11.1.1.64.93" id="mainScreenPageDef"
+                Package="gov.ca.dir.acct.calosha.adf.master.viewcontroller.pageDefs"
+                SkipValidation="true">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <page path="oracle.ui.pattern.dynamicShell.model.dynamicTabShellDefinition"
+          id="pageTemplateBinding" Refresh="ifNeeded"/>
+    <iterator Binds="ReportsListView1" RangeSize="10"
+              DataControl="MasterUIAMDataControl"
+              id="ReportsListView1Iterator"/>
+    <iterator Binds="AccountingCollectionStaffView1" RangeSize="25"
+              DataControl="PartyUtilsAMDataControl"
+              id="AccountingCollectionStaffView1Iterator"/>
+  </executables>
+  <bindings>
+    <tree IterBinding="ReportsListView1Iterator" id="ReportsListView1">
+      <nodeDefinition DefName="gov.ca.dir.acct.calosha.adf.master.view.ReportsListView"
+                      Name="ReportsListView10">
+        <AttrNames>
+          <Item Value="ReportName"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <list IterBinding="AccountingCollectionStaffView1Iterator"
+          StaticList="false" Uses="LOV_CollectionStaffName"
+          id="CollectionStaffName" DTSupportsMRU="true"/>
+  </bindings>
+</pageDefinition>

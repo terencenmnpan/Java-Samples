@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel"
+                version="11.1.1.64.93" id="CreateEddNRecordPageDef"
+                Package="gov.ca.dir.acct.calosha.adf.usecase0161.view.pageDefs">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="ThirdPartyCollectionNView2" RangeSize="25"
+              DataControl="ReferralSearchInvoiceAMDataControl"
+              id="ThirdPartyCollectionNView2Iterator"/>
+    <iterator id="ThirdPartyCollectionHeaderView1Iterator"
+              Binds="ThirdPartyCollectionHeaderView1"
+              DataControl="ReferralSearchInvoiceAMDataControl" RangeSize="25"/>
+    <iterator id="ThirdPartyCollectionHeaderView2Iterator"
+              Binds="ThirdPartyCollectionHeaderView2"
+              DataControl="ReferralSearchInvoiceAMDataControl" RangeSize="25"
+              Refresh="always"/>
+  </executables>
+  <bindings>
+    <attributeValues IterBinding="ThirdPartyCollectionNView2Iterator" id="City">
+      <AttrNames>
+        <Item Value="City"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="ThirdPartyCollectionNView2Iterator"
+                     id="CollectionFeeBalance">
+      <AttrNames>
+        <Item Value="CollectionFeeBalance"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="ThirdPartyCollectionNView2Iterator"
+                     id="CourtFilingFeeBalance">
+      <AttrNames>
+        <Item Value="CourtFilingFeeBalance"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="ThirdPartyCollectionNView2Iterator"
+                     id="DebtId">
+      <AttrNames>
+        <Item Value="DebtId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="ThirdPartyCollectionNView2Iterator"
+                     id="DebtorNumber">
+      <AttrNames>
+        <Item Value="DebtorNumber"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="ThirdPartyCollectionNView2Iterator"
+                     id="EmployerName">
+      <AttrNames>
+        <Item Value="EmployerName"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="ThirdPartyCollectionNView2Iterator"
+                     id="EntityFirstName">
+      <AttrNames>
+        <Item Value="EntityFirstName"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="ThirdPartyCollectionNView2Iterator"
+                     id="EntityLastName">
+      <AttrNames>
+        <Item Value="EntityLastName"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="ThirdPartyCollectionNView2Iterator"
+                     id="EntityLegalName">
+      <AttrNames>
+        <Item Value="EntityLegalName"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="ThirdPartyCollectionNView2Iterator"
+                     id="FinalPenalty">
+      <AttrNames>
+        <Item Value="FinalPenalty"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="ThirdPartyCollectionNView2Iterator"
+                     id="FinalTotalAmountDue">
+      <AttrNames>
+        <Item Value="FinalTotalAmountDue"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="ThirdPartyCollectionNView2Iterator"
+                     id="InterestBalance">
+      <AttrNames>
+        <Item Value="InterestBalance"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="ThirdPartyCollectionNView2Iterator"
+                     id="InterestThroughDate">
+      <AttrNames>
+        <Item Value="InterestThroughDate"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="ThirdPartyCollectionNView2Iterator"
+                     id="JudgmentDate">
+      <AttrNames>
+        <Item Value="JudgmentDate"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="ThirdPartyCollectionNView2Iterator"
+                     id="LiabilityFinalityDate">
+      <AttrNames>
+        <Item Value="LiabilityFinalityDate"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="ThirdPartyCollectionNView2Iterator"
+                     id="NsfFeeBalance">
+      <AttrNames>
+        <Item Value="NsfFeeBalance"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="ThirdPartyCollectionNView2Iterator"
+                     id="PhoneAreaCode">
+      <AttrNames>
+        <Item Value="PhoneAreaCode"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="ThirdPartyCollectionNView2Iterator"
+                     id="PhoneAreaCode1">
+      <AttrNames>
+        <Item Value="PhoneAreaCode1"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="ThirdPartyCollectionNView2Iterator"
+                     id="PhoneNumber">
+      <AttrNames>
+        <Item Value="PhoneNumber"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="ThirdPartyCollectionNView2Iterator"
+                     id="PhoneNumber1">
+      <AttrNames>
+        <Item Value="PhoneNumber1"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="ThirdPartyCollectionNView2Iterator"
+                     id="RevenueSourceCode">
+      <AttrNames>
+        <Item Value="RevenueSourceCode"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="ThirdPartyCollectionNView2Iterator"
+                     id="StreetAddress">
+      <AttrNames>
+        <Item Value="StreetAddress"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="ThirdPartyCollectionNView2Iterator"
+                     id="StreetAddress1">
+      <AttrNames>
+        <Item Value="StreetAddress1"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="ThirdPartyCollectionNView2Iterator"
+                     id="ZipCode">
+      <AttrNames>
+        <Item Value="ZipCode"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="ThirdPartyCollectionNView2Iterator"
+                     id="ZipCode1">
+      <AttrNames>
+        <Item Value="ZipCode1"/>
+      </AttrNames>
+    </attributeValues>
+    <list IterBinding="ThirdPartyCollectionNView2Iterator" id="PhoneType"
+          DTSupportsMRU="true" StaticList="true"
+          NullValueId="${adfBundle['oracle.javatools.resourcebundle.SystemBundle']['NULL_VALUE_RESID']}"
+          NullValueFlag="start">
+      <AttrNames>
+        <Item Value="PhoneType"/>
+      </AttrNames>
+      <ValueList>
+        <Item Value=" "/>
+        <Item Value="BSN"/>
+        <Item Value="CELL"/>
+        <Item Value="HOM"/>
+      </ValueList>
+    </list>
+    <list IterBinding="ThirdPartyCollectionNView2Iterator" id="PhoneType2"
+          DTSupportsMRU="true" StaticList="true"
+          NullValueId="${adfBundle['oracle.javatools.resourcebundle.SystemBundle']['NULL_VALUE_RESID']}"
+          NullValueFlag="start">
+      <AttrNames>
+        <Item Value="PhoneType1"/>
+      </AttrNames>
+      <ValueList>
+        <Item Value=" "/>
+        <Item Value="BSN"/>
+        <Item Value="CELL"/>
+        <Item Value="HOM"/>
+      </ValueList>
+    </list>
+    <list IterBinding="ThirdPartyCollectionNView2Iterator" StaticList="false"
+          Uses="LOV_StateCode" id="StateCode" DTSupportsMRU="true"/>
+    <list IterBinding="ThirdPartyCollectionNView2Iterator" StaticList="false"
+          Uses="LOV_StateCode1" id="StateCode1" DTSupportsMRU="true"/>
+    <list IterBinding="ThirdPartyCollectionNView2Iterator" StaticList="false"
+          Uses="LOV_ReportingId" id="ReportingId" DTSupportsMRU="true"/>
+    <list IterBinding="ThirdPartyCollectionNView2Iterator" StaticList="false"
+          Uses="LOV_FundId" id="FundId" DTSupportsMRU="true"/>
+    <list IterBinding="ThirdPartyCollectionNView2Iterator" StaticList="false"
+          Uses="LOV_IndexCode" id="IndexCode" DTSupportsMRU="true"/>
+    <list IterBinding="ThirdPartyCollectionNView2Iterator" StaticList="false"
+          Uses="LOV_PcaCode" id="PcaCode" DTSupportsMRU="true"/>
+    <list IterBinding="ThirdPartyCollectionNView2Iterator" StaticList="false"
+          Uses="LOV_AgencySourceCode" id="AgencySourceCode"
+          DTSupportsMRU="true"/>
+    <list IterBinding="ThirdPartyCollectionNView2Iterator" StaticList="false"
+          Uses="LOV_LegalEntityType" id="LegalEntityType" DTSupportsMRU="true"/>
+    <action IterBinding="ThirdPartyCollectionHeaderView2Iterator" id="Execute"
+            InstanceName="ReferralSearchInvoiceAMDataControl.ThirdPartyCollectionHeaderView2"
+            DataControl="ReferralSearchInvoiceAMDataControl"
+            RequiresUpdateModel="true" Action="iteratorExecute"/>
+    <attributeValues IterBinding="ThirdPartyCollectionNView2Iterator"
+                     id="DebtorId">
+      <AttrNames>
+        <Item Value="DebtorId"/>
+      </AttrNames>
+    </attributeValues>
+    <list IterBinding="ThirdPartyCollectionNView2Iterator" StaticList="false"
+          Uses="LOV_DebtorType" id="DebtorType" DTSupportsMRU="true"/>
+    <attributeValues IterBinding="ThirdPartyCollectionNView2Iterator"
+                     id="ThirdPartyCollectId">
+      <AttrNames>
+        <Item Value="ThirdPartyCollectId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="ThirdPartyCollectionNView2Iterator"
+                     id="DataSourceCode">
+      <AttrNames>
+        <Item Value="DataSourceCode"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="ThirdPartyCollectionNView2Iterator"
+                     id="City1">
+      <AttrNames>
+        <Item Value="City1"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="ThirdPartyCollectionNView2Iterator"
+                     id="FiscalYearName">
+      <AttrNames>
+        <Item Value="FiscalYearName"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="ThirdPartyCollectionNView2Iterator"
+                     id="IssueDate">
+      <AttrNames>
+        <Item Value="IssueDate"/>
+      </AttrNames>
+    </attributeValues>
+  </bindings>
+</pageDefinition>

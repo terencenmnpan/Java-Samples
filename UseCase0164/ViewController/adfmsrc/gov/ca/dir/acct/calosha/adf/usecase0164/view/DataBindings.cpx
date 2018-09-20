@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Application xmlns="http://xmlns.oracle.com/adfm/application"
+             version="11.1.1.64.93" id="DataBindings" SeparateXMLFiles="false"
+             Package="gov.ca.dir.acct.calosha.adf.usecase0164.view" ClientType="Generic">
+  <pageMap>
+    <page path="/WEB-INF/create-edd-d-record.xml#create-edd-d-record@CreateWithParamsEddDRecord"
+          usageId="gov_ca_dir_acct_calosha_adf_usecase0164_view_create_edd_d_record_create_edd_d_record_CreateWithParametersPageDef"/>
+    <page path="/WEB-INF/create-edd-d-record.xml#create-edd-d-record@SetCurrentRowWithKeyValue"
+          usageId="gov_ca_dir_acct_calosha_adf_usecase0164_view_create_edd_d_record_create_edd_d_record_SetCurrentRowWithKeyValuePageDef"/>
+    <page path="/WEB-INF/create-edd-d-record.xml#create-edd-d-record@updateHeaderIdForNewEddDRecord"
+          usageId="gov_ca_dir_acct_calosha_adf_usecase0164_view_create_edd_d_record_create_edd_d_record_methodCall1PageDef"/>
+    <page path="/CreateEddDRecord.jspx"
+          usageId="gov_ca_dir_acct_calosha_adf_usecase0164_view_CreateEddDRecordPageDef"/>
+    <page path="/WEB-INF/create-edd-d-record.xml#create-edd-d-record@DeleteDRecord"
+          usageId="gov_ca_dir_acct_calosha_adf_usecase0164_view_create_edd_d_record_create_edd_d_record_DeletePageDef"/>
+    <page path="/WEB-INF/create-edd-d-record.xml#create-edd-d-record@DeleteDAssoc"
+          usageId="gov_ca_dir_acct_calosha_adf_usecase0164_view_create_edd_d_record_create_edd_d_record_Delete1PageDef"/>
+    <page path="/WEB-INF/create-edd-d-record.xml#create-edd-d-record@CreateWithParamsEddDAssoc"
+          usageId="gov_ca_dir_acct_calosha_adf_usecase0164_view_create_edd_d_record_create_edd_d_record_CreateWithParametersPageDef1"/>
+    <page path="/WEB-INF/create-edd-d-record.xml#create-edd-d-record@Execute"
+          usageId="gov_ca_dir_acct_calosha_adf_usecase0164_view_create_edd_d_record_create_edd_d_record_ExecutePageDef"/>
+  </pageMap>
+  <pageDefinitionUsages>
+    <page id="gov_ca_dir_acct_calosha_adf_usecase0164_view_create_edd_d_record_create_edd_d_record_CreateWithParametersPageDef"
+          path="gov.ca.dir.acct.calosha.adf.usecase0164.view.pageDefs.create_edd_d_record_create_edd_d_record_CreateWithParametersPageDef"/>
+    <page id="gov_ca_dir_acct_calosha_adf_usecase0164_view_create_edd_d_record_create_edd_d_record_SetCurrentRowWithKeyValuePageDef"
+          path="gov.ca.dir.acct.calosha.adf.usecase0164.view.pageDefs.create_edd_d_record_create_edd_d_record_SetCurrentRowWithKeyValuePageDef"/>
+    <page id="gov_ca_dir_acct_calosha_adf_usecase0164_view_create_edd_d_record_create_edd_d_record_DeletePageDef"
+          path="gov.ca.dir.acct.calosha.adf.usecase0164.view.pageDefs.create_edd_d_record_create_edd_d_record_DeletePageDef"/>
+    <page id="gov_ca_dir_acct_calosha_adf_usecase0164_view_create_edd_d_record_create_edd_d_record_methodCall1PageDef"
+          path="gov.ca.dir.acct.calosha.adf.usecase0164.view.pageDefs.create_edd_d_record_create_edd_d_record_methodCall1PageDef"/>
+    <page id="gov_ca_dir_acct_calosha_adf_usecase0164_view_CreateEddDRecordPageDef"
+          path="gov.ca.dir.acct.calosha.adf.usecase0164.view.pageDefs.CreateEddDRecordPageDef"/>
+    <page id="gov_ca_dir_acct_calosha_adf_usecase0164_view_create_edd_d_record_create_edd_d_record_Delete1PageDef"
+          path="gov.ca.dir.acct.calosha.adf.usecase0164.view.pageDefs.create_edd_d_record_create_edd_d_record_Delete1PageDef"/>
+    <page id="gov_ca_dir_acct_calosha_adf_usecase0164_view_create_edd_d_record_create_edd_d_record_CreateWithParametersPageDef1"
+          path="gov.ca.dir.acct.calosha.adf.usecase0164.view.pageDefs.create_edd_d_record_create_edd_d_record_CreateWithParametersPageDef1"/>
+    <page id="gov_ca_dir_acct_calosha_adf_usecase0164_view_create_edd_d_record_create_edd_d_record_ExecutePageDef"
+          path="gov.ca.dir.acct.calosha.adf.usecase0164.view.pageDefs.create_edd_d_record_create_edd_d_record_ExecutePageDef"/>
+  </pageDefinitionUsages>
+  <dataControlUsages>
+    <BC4JDataControl id="ReferralSearchInvoiceAMDataControl"
+                     Package="gov.ca.dir.acct.calosha.adf.usecase024.model.view.appmodule"
+                     FactoryClass="oracle.adf.model.bc4j.DataControlFactoryImpl"
+                     SupportsTransactions="true" SupportsFindMode="true"
+                     SupportsRangesize="true" SupportsResetState="true"
+                     SupportsSortCollection="true"
+                     Configuration="SearchInvoiceAMLocal" syncMode="Immediate"
+                     xmlns="http://xmlns.oracle.com/adfm/datacontrol"/>
+  </dataControlUsages>
+</Application>

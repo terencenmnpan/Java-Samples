@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel"
+                version="11.1.1.64.93"
+                id="create_edd_o_record_create_edd_o_record_CreateWithParametersPageDef1"
+                Package="gov.ca.dir.acct.calosha.adf.usecase0163.view.pageDefs"
+                SkipValidation="true">
+  <parameters/>
+  <executables>
+    <iterator Binds="ThirdPartyCollAssocView2" RangeSize="25"
+              DataControl="ReferralSearchInvoiceAMDataControl"
+              id="ThirdPartyCollAssocView2Iterator"/>
+  </executables>
+  <bindings>
+    <action IterBinding="ThirdPartyCollAssocView2Iterator" id="CreateWithParams"
+            RequiresUpdateModel="true" Action="createWithParams">
+      <NamedData NDName="ThirdPartyCollFromId"
+                 NDType="oracle.jbo.domain.Number"
+                 NDValue="#{pageFlowScope.CreateEddORecordBean.thirdPartyParentId}"/>
+      <NamedData NDName="ThirdPartyCollToId" NDType="oracle.jbo.domain.Number"
+                 NDValue="#{pageFlowScope.CreateEddORecordBean.thirdPartyCollectionAssocToId}"/>
+      <NamedData NDName="DataSourceCode"
+                 NDValue="#{pageFlowScope.CreateEddORecordBean.dataSourceCode}"
+                 NDType="java.lang.String"/>
+    </action>
+  </bindings>
+</pageDefinition>

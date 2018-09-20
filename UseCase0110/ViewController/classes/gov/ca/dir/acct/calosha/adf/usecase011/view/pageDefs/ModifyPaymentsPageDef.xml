@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel"
+                version="11.1.1.64.93" id="ModifyPaymentsPageDef"
+                Package="gov.ca.dir.acct.calosha.adf.usecase011.view.pageDefs">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="PaymentView1" RangeSize="25"
+              DataControl="ModifyPaymentAMDataControl"
+              id="PaymentView1Iterator"/>
+    <iterator Binds="DepositTransmittalView1" RangeSize="25"
+              DataControl="ModifyPaymentAMDataControl"
+              id="DepositTransmittalView1Iterator"/>
+    <iterator id="PaymentAllocationInspectionView1Iterator"
+              Binds="PaymentAllocationInspectionView1"
+              DataControl="ModifyPaymentAMDataControl" RangeSize="25"/>
+  </executables>
+  <bindings>
+    <attributeValues IterBinding="PaymentView1Iterator" id="PaymentDate">
+      <AttrNames>
+        <Item Value="PaymentDate"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PaymentView1Iterator"
+                     id="PaymentControlNumber">
+      <AttrNames>
+        <Item Value="PaymentControlNumber"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PaymentView1Iterator" id="PaymentTypeCode">
+      <AttrNames>
+        <Item Value="PaymentTypeCode"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="DepositTransmittalView1Iterator"
+                     id="DepositSlipNumber">
+      <AttrNames>
+        <Item Value="DepositSlipNumber"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="DepositTransmittalView1Iterator"
+                     id="TransmittalDate">
+      <AttrNames>
+        <Item Value="TransmittalDate"/>
+      </AttrNames>
+    </attributeValues>
+    <tree IterBinding="PaymentAllocationInspectionView1Iterator"
+          id="InspectionView11">
+      <nodeDefinition DefName="gov.ca.dir.acct.calosha.adf.usecase011.model.view.PaymentAllocationInspectionView"
+                      Name="PaymentAllocationInspectionView10">
+        <AttrNames>
+          <Item Value="PaymentId"/>
+          <Item Value="CollectionFee"/>
+          <Item Value="CourtFee"/>
+          <Item Value="InspectionId"/>
+          <Item Value="InspectionNumber"/>
+          <Item Value="Interest"/>
+          <Item Value="Nsf"/>
+          <Item Value="PostJudInterest"/>
+          <Item Value="Unapplied"/>
+        </AttrNames>
+        <Accessors>
+          <Item Value="CitationPaymentIdView"/>
+        </Accessors>
+      </nodeDefinition>
+      <nodeDefinition DefName="gov.ca.dir.acct.calosha.adf.usecase011.model.view.CitationPaymentIdView"
+                      Name="InspectionView111">
+        <AttrNames>
+          <Item Value="CitationId"/>
+          <Item Value="CitationNumber"/>
+          <Item Value="InspectionId"/>
+          <Item Value="PaymentId"/>
+        </AttrNames>
+        <Accessors>
+          <Item Value="CitationItemPaymentIdView"/>
+        </Accessors>
+      </nodeDefinition>
+      <nodeDefinition DefName="gov.ca.dir.acct.calosha.adf.usecase011.model.view.CitationItemPaymentIdView"
+                      Name="InspectionView112">
+        <AttrNames>
+          <Item Value="CitationItemId"/>
+          <Item Value="CitationAmount"/>
+          <Item Value="CitationId"/>
+          <Item Value="CitationItemNumber"/>
+          <Item Value="InspectionId"/>
+          <Item Value="PaymentId"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <attributeValues IterBinding="PaymentView1Iterator" id="Status">
+      <AttrNames>
+        <Item Value="Status"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PaymentAllocationInspectionView1Iterator"
+                     id="Unapplied">
+      <AttrNames>
+        <Item Value="Unapplied"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PaymentAllocationInspectionView1Iterator"
+                     id="InspectionNumber">
+      <AttrNames>
+        <Item Value="InspectionNumber"/>
+      </AttrNames>
+    </attributeValues>
+  </bindings>
+</pageDefinition>

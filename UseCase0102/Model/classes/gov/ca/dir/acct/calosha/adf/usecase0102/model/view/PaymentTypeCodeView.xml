@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="PaymentTypeCodeView"
+  Version="11.1.1.64.93"
+  InheritPersonalization="true"
+  SelectList="PaymentType.PAYMENT_TYPE_CODE, 
+       PaymentType.DESCRIPTION"
+  FromList="PAYMENT_TYPE PaymentType"
+  BindingStyle="OracleName"
+  CustomQuery="false"
+  PageIterMode="Full"
+  UseGlueCode="false"
+  Where="PaymentType.EFFECTIVE_END_DATE IS NULL">
+  <DesignTime>
+    <Attr Name="_codeGenFlag2" Value="Access|VarAccess"/>
+  </DesignTime>
+  <Properties>
+    <SchemaBasedProperties>
+      <LABEL
+        ResId="gov.ca.dir.acct.calosha.adf.usecase0102.model.view.PaymentTypeCodeView_LABEL"/>
+    </SchemaBasedProperties>
+  </Properties>
+  <EntityUsage
+    Name="PaymentType"
+    Entity="gov.ca.dir.acct.calosha.adf.common.model.entity.PaymentType"/>
+  <ViewAttribute
+    Name="PaymentTypeCode"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="PaymentTypeCode"
+    EntityUsage="PaymentType"
+    AliasName="PAYMENT_TYPE_CODE"/>
+  <ViewAttribute
+    Name="Description"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="Description"
+    EntityUsage="PaymentType"
+    AliasName="DESCRIPTION"/>
+  <ResourceBundle>
+    <PropertiesBundle
+      PropertiesFile="gov.ca.dir.acct.calosha.adf.usecase0102.model.ModelBundle"/>
+  </ResourceBundle>
+</ViewObject>

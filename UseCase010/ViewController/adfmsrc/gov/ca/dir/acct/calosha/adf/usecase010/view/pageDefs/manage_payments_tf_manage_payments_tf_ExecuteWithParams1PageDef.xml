@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel"
+                version="11.1.1.64.93"
+                id="manage_payments_tf_manage_payments_tf_ExecuteWithParams1PageDef"
+                Package="gov.ca.dir.acct.calosha.adf.usecase010.view.pageDefs"
+                SkipValidation="true">
+  <parameters/>
+  <executables>
+    <iterator Binds="InspectionView1" RangeSize="25"
+              DataControl="ManagePaymentsAMDataControl"
+              id="InspectionView1Iterator" Refresh="never"/>
+  </executables>
+  <bindings>
+    <action IterBinding="InspectionView1Iterator" id="ExecuteWithParams"
+            RequiresUpdateModel="true" Action="executeWithParams">
+      <NamedData NDName="varInspectionId"
+                 NDValue="#{not empty pageFlowScope.returnManagePaymentInspectionId ? pageFlowScope.returnManagePaymentInspectionId : pageFlowScope.inputManagePaymentsInspectionId}"
+                 NDType="java.lang.String"/>
+    </action>
+  </bindings>
+</pageDefinition>

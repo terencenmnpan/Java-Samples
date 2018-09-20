@@ -1,0 +1,599 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
+  <task-flow-definition id="referral-search-invoice-tf">
+    <default-activity id="__1">ReferralSearchInvoice</default-activity>
+    <data-control-scope id="__49">
+      <isolated/>
+    </data-control-scope>
+    <input-parameter-definition id="__9">
+      <name id="__10">calledIndicator</name>
+      <class>java.lang.String</class>
+    </input-parameter-definition>
+    <managed-bean id="__23">
+      <managed-bean-name id="__20">backing_ReferralSearchInvoice</managed-bean-name>
+      <managed-bean-class id="__22">gov.ca.dir.acct.calosha.adf.usecase024.view.backing.ReferralSearchInvoice</managed-bean-class>
+      <managed-bean-scope id="__21">backingBean</managed-bean-scope>
+    </managed-bean>
+    <managed-bean id="__38">
+      <managed-bean-name id="__35">EddFunctionsBean</managed-bean-name>
+      <managed-bean-class id="__36">gov.ca.dir.acct.calosha.adf.usecase024.view.backing.eddFunctionsBean</managed-bean-class>
+      <managed-bean-scope id="__37">backingBean</managed-bean-scope>
+    </managed-bean>
+    <view id="ReferralSearchInvoice">
+      <page>/ReferralSearchInvoice.jsff</page>
+    </view>
+    <task-flow-call id="Coe-Process-tf">
+      <task-flow-reference>
+        <document>/WEB-INF/Coe-Process-tf.xml</document>
+        <id>Coe-Process-tf</id>
+      </task-flow-reference>
+      <input-parameter id="__19">
+        <name>inputInspectionId</name>
+        <value>#{pageFlowScope.pInspectionId}</value>
+      </input-parameter>
+    </task-flow-call>
+    <task-flow-call id="employer-search-tf">
+      <task-flow-reference>
+        <document>/WEB-INF/employer-search-tf.xml</document>
+        <id>employer-search-tf</id>
+      </task-flow-reference>
+      <input-parameter id="__17">
+        <name>inputPartyId</name>
+        <value>#{pageFlowScope.inputPartyId}</value>
+      </input-parameter>
+    </task-flow-call>
+    <task-flow-call id="SearchPaymentPlan-tf">
+      <task-flow-reference>
+        <document>/WEB-INF/SearchPaymentPlan-tf.xml</document>
+        <id>SearchPaymentPlan-tf</id>
+      </task-flow-reference>
+    </task-flow-call>
+    <task-flow-call id="process-judgment-tf">
+      <task-flow-reference>
+        <document>/WEB-INF/process-judgment-tf.xml</document>
+        <id>process-judgment-tf</id>
+      </task-flow-reference>
+      <input-parameter id="__30">
+        <name>inputParameter1</name>
+        <value>#{pageFlowScope.pInspectionId}</value>
+      </input-parameter>
+    </task-flow-call>
+    <task-flow-call id="recommended-writeoff-tf">
+      <task-flow-reference>
+        <document>/WEB-INF/recommended-writeoff-tf.xml</document>
+        <id>recommended-writeoff-tf</id>
+      </task-flow-reference>
+      <input-parameter id="__33">
+        <name>inputInspectionId</name>
+        <value>#{pageFlowScope.pInspectionId}</value>
+      </input-parameter>
+      <input-parameter id="__167">
+        <name>inputPartyId</name>
+        <value>#{pageFlowScope.CollectionPersonId}</value>
+      </input-parameter>
+    </task-flow-call>
+    <task-flow-call id="create-edd-n-record">
+      <task-flow-reference>
+        <document>/WEB-INF/create-edd-n-record.xml</document>
+        <id>create-edd-n-record</id>
+      </task-flow-reference>
+      <input-parameter id="__47">
+        <name>DebtId</name>
+        <value>CALO</value>
+      </input-parameter>
+      <input-parameter id="__48">
+        <name>DebtorNumber</name>
+        <value>#{backingBeanScope.EddFunctionsBean.debtorNumber}</value>
+      </input-parameter>
+      <input-parameter id="__50">
+        <name>ReferralId</name>
+        <value>#{backingBeanScope.EddFunctionsBean.referralId}</value>
+      </input-parameter>
+      <input-parameter id="__52">
+        <name>DebtorId</name>
+        <value>#{backingBeanScope.EddFunctionsBean.debtorId}</value>
+      </input-parameter>
+      <input-parameter id="__53">
+        <name>DebtorType</name>
+        <value>#{backingBeanScope.EddFunctionsBean.debtorType}</value>
+      </input-parameter>
+      <input-parameter id="__54">
+        <name>EmployerName</name>
+        <value>#{backingBeanScope.EddFunctionsBean.employerName}</value>
+      </input-parameter>
+      <input-parameter id="__55">
+        <name>EntityLegalName</name>
+        <value>#{backingBeanScope.EddFunctionsBean.entityLegalName}</value>
+      </input-parameter>
+      <input-parameter id="__56">
+        <name>DataSourceCode</name>
+        <value>CALOSHA</value>
+      </input-parameter>
+      <input-parameter id="__57">
+        <name>IndexCode</name>
+        <value>#{backingBeanScope.EddFunctionsBean.indexCode}</value>
+      </input-parameter>
+      <input-parameter id="__58">
+        <name>RevenueSourceCode</name>
+        <value>#{backingBeanScope.EddFunctionsBean.revenueSourceCode}</value>
+      </input-parameter>
+      <input-parameter id="__59">
+        <name>AgencySourceCode</name>
+        <value>#{backingBeanScope.EddFunctionsBean.agencySourceCode}</value>
+      </input-parameter>
+      <input-parameter id="__60">
+        <name>PcaCode</name>
+        <value>#{backingBeanScope.EddFunctionsBean.pcaCode}</value>
+      </input-parameter>
+      <input-parameter id="__61">
+        <name>FundId</name>
+        <value>#{backingBeanScope.EddFunctionsBean.fundId}</value>
+      </input-parameter>
+      <input-parameter id="__62">
+        <name>FiscalYearName</name>
+        <value>#{backingBeanScope.EddFunctionsBean.fiscalYearName}</value>
+      </input-parameter>
+      <input-parameter id="__63">
+        <name>City</name>
+        <value>#{backingBeanScope.EddFunctionsBean.city}</value>
+      </input-parameter>
+      <input-parameter id="__64">
+        <name>StreetAddress</name>
+        <value>#{backingBeanScope.EddFunctionsBean.streetAddress}</value>
+      </input-parameter>
+      <input-parameter id="__65">
+        <name>StateCode</name>
+        <value>#{backingBeanScope.EddFunctionsBean.stateCode}</value>
+      </input-parameter>
+      <input-parameter id="__66">
+        <name>ZipCode</name>
+        <value>#{backingBeanScope.EddFunctionsBean.zipCode}</value>
+      </input-parameter>
+      <input-parameter id="__67">
+        <name>City1</name>
+        <value>#{backingBeanScope.EddFunctionsBean.city1}</value>
+      </input-parameter>
+      <input-parameter id="__68">
+        <name>ZipCode1</name>
+        <value>#{backingBeanScope.EddFunctionsBean.zipCode1}</value>
+      </input-parameter>
+      <input-parameter id="__69">
+        <name>StateCode1</name>
+        <value>#{backingBeanScope.EddFunctionsBean.stateCode1}</value>
+      </input-parameter>
+      <input-parameter id="__70">
+        <name>StreetAddress1</name>
+        <value>#{backingBeanScope.EddFunctionsBean.streetAddress1}</value>
+      </input-parameter>
+      <input-parameter id="__71">
+        <name>IssueDate</name>
+        <value>#{backingBeanScope.EddFunctionsBean.issueDate}</value>
+      </input-parameter>
+      <input-parameter id="__72">
+        <name>SubmissionDate</name>
+        <value>#{backingBeanScope.EddFunctionsBean.submissionDate}</value>
+      </input-parameter>
+      <input-parameter id="__73">
+        <name>LiabilityFinalityDate</name>
+        <value>#{backingBeanScope.EddFunctionsBean.liabilityFinalityDate}</value>
+      </input-parameter>
+      <input-parameter id="__74">
+        <name>DemandLetterDate</name>
+        <value>#{backingBeanScope.EddFunctionsBean.demandLetterDate}</value>
+      </input-parameter>
+      <input-parameter id="__75">
+        <name>JudgmentDate</name>
+        <value>#{backingBeanScope.EddFunctionsBean.judgmentDate}</value>
+      </input-parameter>
+      <input-parameter id="__76">
+        <name>InterestThroughDate</name>
+        <value>#{backingBeanScope.EddFunctionsBean.interestThroughDate}</value>
+      </input-parameter>
+      <input-parameter id="__77">
+        <name>CollectionFeeBalance</name>
+        <value>#{backingBeanScope.EddFunctionsBean.collectionFeeBalance}</value>
+      </input-parameter>
+      <input-parameter id="__78">
+        <name>CourtFilingFeeBalance</name>
+        <value>#{backingBeanScope.EddFunctionsBean.courtFilingFeeBalance}</value>
+      </input-parameter>
+      <input-parameter id="__79">
+        <name>InterestBalance</name>
+        <value>#{backingBeanScope.EddFunctionsBean.interestBalance}</value>
+      </input-parameter>
+      <input-parameter id="__80">
+        <name>NsfFeeBalance</name>
+        <value>#{backingBeanScope.EddFunctionsBean.nsfFeeBalance}</value>
+      </input-parameter>
+      <input-parameter id="__81">
+        <name>FinalPenalty</name>
+        <value>#{backingBeanScope.EddFunctionsBean.finalPenalty}</value>
+      </input-parameter>
+      <input-parameter id="__82">
+        <name>FinalTotalAmountDue</name>
+        <value>#{backingBeanScope.EddFunctionsBean.finalTotalAmountDue}</value>
+      </input-parameter>
+      <input-parameter id="__83">
+        <name>PhoneType</name>
+        <value>#{backingBeanScope.EddFunctionsBean.phoneType}</value>
+      </input-parameter>
+      <input-parameter id="__84">
+        <name>PhoneType1</name>
+        <value>#{backingBeanScope.EddFunctionsBean.phoneType1}</value>
+      </input-parameter>
+      <input-parameter id="__85">
+        <name>PhoneAreaCode</name>
+        <value>#{backingBeanScope.EddFunctionsBean.phoneAreaCode}</value>
+      </input-parameter>
+      <input-parameter id="__86">
+        <name>PhoneAreaCode1</name>
+        <value>#{backingBeanScope.EddFunctionsBean.phoneAreaCode1}</value>
+      </input-parameter>
+      <input-parameter id="__87">
+        <name>PhoneNumber</name>
+        <value>#{backingBeanScope.EddFunctionsBean.phoneNumber}</value>
+      </input-parameter>
+      <input-parameter id="__88">
+        <name>PhoneNumber1</name>
+        <value>#{backingBeanScope.EddFunctionsBean.phoneNumber1}</value>
+      </input-parameter>
+      <input-parameter id="__8">
+        <name>RecordType</name>
+        <value>N</value>
+      </input-parameter>
+      <input-parameter id="__95">
+        <name>PartyAgencyFundMapId</name>
+        <value>#{backingBeanScope.EddFunctionsBean.partyAgencyFundMapIdCollectFee}</value>
+      </input-parameter>
+      <input-parameter id="__44">
+        <name>EntityFirstName</name>
+        <value>#{backingBeanScope.EddFunctionsBean.entityFirstName}</value>
+      </input-parameter>
+      <input-parameter id="__45">
+        <name>EntityLastName</name>
+        <value>#{backingBeanScope.EddFunctionsBean.entityLastName}</value>
+      </input-parameter>
+      <input-parameter id="__149">
+        <name>ReportingId</name>
+        <value>#{backingBeanScope.EddFunctionsBean.reportingId}</value>
+      </input-parameter>
+      <run-as-dialog>
+        <display-type id="__51">
+          <inline-popup/>
+        </display-type>
+      </run-as-dialog>
+    </task-flow-call>
+    <method-call id="populateEddPhoneNumbers">
+      <method>#{backingBeanScope.EddFunctionsBean.populateEddPhoneNumbers}</method>
+      <outcome id="__94">
+        <fixed-outcome>createEddNRecord</fixed-outcome>
+      </outcome>
+    </method-call>
+    <task-flow-call id="create-edd-r-record">
+      <task-flow-reference>
+        <document>/WEB-INF/create-edd-n-record.xml</document>
+        <id>create-edd-n-record</id>
+      </task-flow-reference>
+      <input-parameter id="__96">
+        <name>DebtId</name>
+        <value>CALO</value>
+      </input-parameter>
+      <input-parameter id="__97">
+        <name>DebtorNumber</name>
+        <value>#{backingBeanScope.EddFunctionsBean.debtorNumber}</value>
+      </input-parameter>
+      <input-parameter id="__98">
+        <name>ReferralId</name>
+        <value>#{backingBeanScope.EddFunctionsBean.referralId}</value>
+      </input-parameter>
+      <input-parameter id="__99">
+        <name>DebtorId</name>
+        <value>#{backingBeanScope.EddFunctionsBean.debtorId}</value>
+      </input-parameter>
+      <input-parameter id="__100">
+        <name>DebtorType</name>
+        <value>#{backingBeanScope.EddFunctionsBean.debtorType}</value>
+      </input-parameter>
+      <input-parameter id="__101">
+        <name>EmployerName</name>
+        <value>#{backingBeanScope.EddFunctionsBean.employerName}</value>
+      </input-parameter>
+      <input-parameter id="__102">
+        <name>EntityLegalName</name>
+        <value>#{backingBeanScope.EddFunctionsBean.entityLegalName}</value>
+      </input-parameter>
+      <input-parameter id="__103">
+        <name>DataSourceCode</name>
+        <value>CALOSHA</value>
+      </input-parameter>
+      <input-parameter id="__104">
+        <name>IndexCode</name>
+        <value>#{backingBeanScope.EddFunctionsBean.indexCode}</value>
+      </input-parameter>
+      <input-parameter id="__105">
+        <name>RevenueSourceCode</name>
+        <value>#{backingBeanScope.EddFunctionsBean.revenueSourceCode}</value>
+      </input-parameter>
+      <input-parameter id="__106">
+        <name>AgencySourceCode</name>
+        <value>#{backingBeanScope.EddFunctionsBean.agencySourceCode}</value>
+      </input-parameter>
+      <input-parameter id="__107">
+        <name>PcaCode</name>
+        <value>#{backingBeanScope.EddFunctionsBean.pcaCode}</value>
+      </input-parameter>
+      <input-parameter id="__108">
+        <name>FundId</name>
+        <value>#{backingBeanScope.EddFunctionsBean.fundId}</value>
+      </input-parameter>
+      <input-parameter id="__109">
+        <name>FiscalYearName</name>
+        <value>#{backingBeanScope.EddFunctionsBean.fiscalYearName}</value>
+      </input-parameter>
+      <input-parameter id="__110">
+        <name>City</name>
+        <value>#{backingBeanScope.EddFunctionsBean.city}</value>
+      </input-parameter>
+      <input-parameter id="__111">
+        <name>StreetAddress</name>
+        <value>#{backingBeanScope.EddFunctionsBean.streetAddress}</value>
+      </input-parameter>
+      <input-parameter id="__112">
+        <name>StateCode</name>
+        <value>#{backingBeanScope.EddFunctionsBean.stateCode}</value>
+      </input-parameter>
+      <input-parameter id="__113">
+        <name>ZipCode</name>
+        <value>#{backingBeanScope.EddFunctionsBean.zipCode}</value>
+      </input-parameter>
+      <input-parameter id="__114">
+        <name>City1</name>
+        <value>#{backingBeanScope.EddFunctionsBean.city1}</value>
+      </input-parameter>
+      <input-parameter id="__115">
+        <name>ZipCode1</name>
+        <value>#{backingBeanScope.EddFunctionsBean.zipCode1}</value>
+      </input-parameter>
+      <input-parameter id="__116">
+        <name>StateCode1</name>
+        <value>#{backingBeanScope.EddFunctionsBean.stateCode1}</value>
+      </input-parameter>
+      <input-parameter id="__117">
+        <name>StreetAddress1</name>
+        <value>#{backingBeanScope.EddFunctionsBean.streetAddress1}</value>
+      </input-parameter>
+      <input-parameter id="__118">
+        <name>IssueDate</name>
+        <value>#{backingBeanScope.EddFunctionsBean.issueDate}</value>
+      </input-parameter>
+      <input-parameter id="__119">
+        <name>SubmissionDate</name>
+        <value>#{backingBeanScope.EddFunctionsBean.submissionDate}</value>
+      </input-parameter>
+      <input-parameter id="__120">
+        <name>LiabilityFinalityDate</name>
+        <value>#{backingBeanScope.EddFunctionsBean.liabilityFinalityDate}</value>
+      </input-parameter>
+      <input-parameter id="__121">
+        <name>DemandLetterDate</name>
+        <value>#{backingBeanScope.EddFunctionsBean.demandLetterDate}</value>
+      </input-parameter>
+      <input-parameter id="__122">
+        <name>JudgmentDate</name>
+        <value>#{backingBeanScope.EddFunctionsBean.judgmentDate}</value>
+      </input-parameter>
+      <input-parameter id="__123">
+        <name>InterestThroughDate</name>
+        <value>#{backingBeanScope.EddFunctionsBean.interestThroughDate}</value>
+      </input-parameter>
+      <input-parameter id="__124">
+        <name>CollectionFeeBalance</name>
+        <value>#{backingBeanScope.EddFunctionsBean.collectionFeeBalance}</value>
+      </input-parameter>
+      <input-parameter id="__125">
+        <name>CourtFilingFeeBalance</name>
+        <value>#{backingBeanScope.EddFunctionsBean.courtFilingFeeBalance}</value>
+      </input-parameter>
+      <input-parameter id="__126">
+        <name>InterestBalance</name>
+        <value>#{backingBeanScope.EddFunctionsBean.interestBalance}</value>
+      </input-parameter>
+      <input-parameter id="__127">
+        <name>NsfFeeBalance</name>
+        <value>#{backingBeanScope.EddFunctionsBean.nsfFeeBalance}</value>
+      </input-parameter>
+      <input-parameter id="__128">
+        <name>FinalPenalty</name>
+        <value>#{backingBeanScope.EddFunctionsBean.finalPenalty}</value>
+      </input-parameter>
+      <input-parameter id="__129">
+        <name>FinalTotalAmountDue</name>
+        <value>#{backingBeanScope.EddFunctionsBean.finalTotalAmountDue}</value>
+      </input-parameter>
+      <input-parameter id="__130">
+        <name>PhoneType</name>
+        <value>#{backingBeanScope.EddFunctionsBean.phoneType}</value>
+      </input-parameter>
+      <input-parameter id="__131">
+        <name>PhoneType1</name>
+        <value>#{backingBeanScope.EddFunctionsBean.phoneType1}</value>
+      </input-parameter>
+      <input-parameter id="__132">
+        <name>PhoneAreaCode</name>
+        <value>#{backingBeanScope.EddFunctionsBean.phoneAreaCode}</value>
+      </input-parameter>
+      <input-parameter id="__133">
+        <name>PhoneAreaCode1</name>
+        <value>#{backingBeanScope.EddFunctionsBean.phoneAreaCode1}</value>
+      </input-parameter>
+      <input-parameter id="__134">
+        <name>PhoneNumber</name>
+        <value>#{backingBeanScope.EddFunctionsBean.phoneNumber}</value>
+      </input-parameter>
+      <input-parameter id="__135">
+        <name>PhoneNumber1</name>
+        <value>#{backingBeanScope.EddFunctionsBean.phoneNumber1}</value>
+      </input-parameter>
+      <input-parameter id="__7">
+        <name>RecordType</name>
+        <value>R</value>
+      </input-parameter>
+      <input-parameter id="__163">
+        <name>PartyAgencyFundMapId</name>
+        <value>#{backingBeanScope.EddFunctionsBean.partyAgencyFundMapIdCollectFee}</value>
+      </input-parameter>
+      <input-parameter id="__46">
+        <name>EntityFirstName</name>
+        <value>#{backingBeanScope.EddFunctionsBean.entityFirstName}</value>
+      </input-parameter>
+      <input-parameter id="__148">
+        <name>EntityLastName</name>
+        <value>#{backingBeanScope.EddFunctionsBean.entityLastName}</value>
+      </input-parameter>
+      <input-parameter id="__150">
+        <name>ReportingId</name>
+        <value>#{backingBeanScope.EddFunctionsBean.reportingId}</value>
+      </input-parameter>
+      <input-parameter id="__165">
+        <name>ThirdPartyParentId</name>
+        <value>#{backingBeanScope.EddFunctionsBean.thirdPartyParentId}</value>
+      </input-parameter>
+      <run-as-dialog>
+        <display-type id="__136">
+          <inline-popup/>
+        </display-type>
+      </run-as-dialog>
+    </task-flow-call>
+    <method-call id="populateEddPhoneNumbers1">
+      <method id="__137">#{backingBeanScope.EddFunctionsBean.populateEddPhoneNumbers}</method>
+      <outcome id="__138">
+        <fixed-outcome id="__139">createEddRRecord</fixed-outcome>
+      </outcome>
+    </method-call>
+    <task-flow-call id="create-edd-d-record">
+      <task-flow-reference>
+        <document>/WEB-INF/create-edd-d-record.xml</document>
+        <id>create-edd-d-record</id>
+      </task-flow-reference>
+      <input-parameter id="__158">
+        <name>DataSourceCode</name>
+        <value>CALOSHA</value>
+        <pass-by-value/>
+      </input-parameter>
+      <input-parameter id="__159">
+        <name>DebtId</name>
+        <value>CALO</value>
+      </input-parameter>
+      <input-parameter id="__162">
+        <name>DebtorNumber</name>
+        <value>#{backingBeanScope.EddFunctionsBean.debtorNumber}</value>
+      </input-parameter>
+      <input-parameter id="__6">
+        <name>ThirdPartyParentId</name>
+        <value>#{backingBeanScope.EddFunctionsBean.thirdPartyParentId}</value>
+      </input-parameter>
+      <input-parameter id="__43">
+        <name>PartyAgencyFundMapId</name>
+        <value>#{backingBeanScope.EddFunctionsBean.partyAgencyFundMapIdCollectFee}</value>
+      </input-parameter>
+      <input-parameter id="__166">
+        <name>ReferralId</name>
+        <value>#{backingBeanScope.EddFunctionsBean.referralId}</value>
+      </input-parameter>
+      <run-as-dialog>
+        <display-type id="__155">
+          <inline-popup/>
+        </display-type>
+      </run-as-dialog>
+    </task-flow-call>
+    <task-flow-call id="create-edd-o-record">
+      <task-flow-reference>
+        <document>/WEB-INF/create-edd-o-record.xml</document>
+        <id>create-edd-o-record</id>
+      </task-flow-reference>
+      <input-parameter id="__157">
+        <name>DataSourceCode</name>
+        <value>CALOSHA</value>
+      </input-parameter>
+      <input-parameter id="__160">
+        <name>DebtId</name>
+        <value>CALO</value>
+      </input-parameter>
+      <input-parameter id="__161">
+        <name>DebtorNumber</name>
+        <value>#{backingBeanScope.EddFunctionsBean.debtorNumber}</value>
+      </input-parameter>
+      <input-parameter id="__5">
+        <name>ThirdPartyParentId</name>
+        <value>#{backingBeanScope.EddFunctionsBean.thirdPartyParentId}</value>
+      </input-parameter>
+      <input-parameter id="__164">
+        <name>ReferralId</name>
+        <value>#{backingBeanScope.EddFunctionsBean.referralId}</value>
+      </input-parameter>
+      <run-as-dialog>
+        <display-type id="__156">
+          <inline-popup/>
+        </display-type>
+      </run-as-dialog>
+    </task-flow-call>
+    <control-flow-rule id="__13">
+      <from-activity-id id="__14">ReferralSearchInvoice</from-activity-id>
+      <control-flow-case id="__12">
+        <from-outcome id="__18">callCoe</from-outcome>
+        <to-activity-id id="__11">Coe-Process-tf</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__2">
+        <from-outcome id="__16">editEmployer</from-outcome>
+        <to-activity-id id="__15">employer-search-tf</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__24">
+        <from-outcome id="__26">searchPaymentPlans</from-outcome>
+        <to-activity-id id="__25">SearchPaymentPlan-tf</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__28">
+        <from-outcome id="__29">processJudgment</from-outcome>
+        <to-activity-id id="__27">process-judgment-tf</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__32">
+        <from-outcome id="__34">recommendWriteoff</from-outcome>
+        <to-activity-id id="__31">recommended-writeoff-tf</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__40">
+        <from-outcome id="__41">newEddNRecord</from-outcome>
+        <to-activity-id id="__39">populateEddPhoneNumbers</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__147">
+        <from-outcome id="__140">newEddRRecord</from-outcome>
+        <to-activity-id id="__141">populateEddPhoneNumbers1</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__3">
+        <from-outcome id="__154">newEddORecord</from-outcome>
+        <to-activity-id id="__4">create-edd-o-record</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__151">
+        <from-outcome id="__153">newEddDRecord</from-outcome>
+        <to-activity-id id="__152">create-edd-d-record</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__89">
+      <from-activity-id id="__90">populateEddPhoneNumbers</from-activity-id>
+      <control-flow-case id="__91">
+        <from-outcome id="__93">createEddNRecord</from-outcome>
+        <to-activity-id id="__92">create-edd-n-record</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__142">
+      <from-activity-id id="__143">populateEddPhoneNumbers1</from-activity-id>
+      <control-flow-case id="__144">
+        <from-outcome id="__145">createEddRRecord</from-outcome>
+        <to-activity-id id="__146">create-edd-r-record</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <use-page-fragments/>
+    <visibility id="__42">
+      <url-invoke-allowed/>
+      <remote-invocable/>
+    </visibility>
+  </task-flow-definition>
+</adfc-config>

@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
+  <task-flow-definition id="process-payment-shared-tf">
+    <default-activity id="__1">SetShareTransaction</default-activity>
+    <no-save-point/>
+<data-control-scope id="__21">
+      <shared/>
+    </data-control-scope>
+    <input-parameter-definition id="__8">
+      <name id="__9">InputInspectionId</name>
+      <value>#{pageFlowScope.InspectionId}</value>
+    </input-parameter-definition>
+    <input-parameter-definition id="__4">
+      <name id="__3">PaymentId</name>
+      <value>#{pageFlowScope.PaymentId}</value>
+    </input-parameter-definition>
+    <input-parameter-definition id="__15">
+      <name id="__14">PaymentAmount</name>
+      <value>#{pageFlowScope.PaymentAmount}</value>
+    </input-parameter-definition>
+    <input-parameter-definition id="__52">
+      <name id="__53">ReferenceNumber</name>
+      <value>#{pageFlowScope.ReferenceNumber}</value>
+    </input-parameter-definition>
+    <return-value-definition id="__46">
+      <name id="__47">Success</name>
+      <value>#{pageFlowScope.Success}</value>
+    </return-value-definition>
+    <managed-bean id="__2">
+      <managed-bean-name id="__23">ProcessPaymentBean</managed-bean-name>
+      <managed-bean-class id="__34">gov.ca.dir.acct.calosha.adf.usecase0102.view.ProcessPaymentBean</managed-bean-class>
+      <managed-bean-scope id="__24">request</managed-bean-scope>
+    </managed-bean>
+    <view id="ProcessPayment">
+      <page>/ProcessPayment.jsff</page>
+    </view>
+    <method-call id="SetCurrentRowWithKeyValueInspection">
+      <method>#{bindings.setCurrentRowWithKeyValue.execute}</method>
+      <outcome id="__11">
+        <fixed-outcome>setCurrentRowWithKeyValue</fixed-outcome>
+      </outcome>
+    </method-call>
+    <task-flow-return id="success">
+      <outcome id="__39">
+        <name>success</name>
+      </outcome>
+    </task-flow-return>
+    <method-call id="SetShareTransaction">
+      <method>#{ProcessPaymentBean.setSharedTransaction}</method>
+      <parameter>
+        <class>java.lang.Boolean</class>
+        <value>true</value>
+      </parameter>
+      <return-value id="__33">#{pageFlowScope.SharedTransaction}</return-value>
+      <outcome id="__32">
+        <fixed-outcome>setShareTransaction</fixed-outcome>
+      </outcome>
+    </method-call>
+    <method-call id="SetCurrentRowWithKeyValuePayment">
+      <method>#{bindings.setCurrentRowWithKeyValue.execute}</method>
+      <outcome id="__65">
+        <fixed-outcome>setCurrentRowWithKeyValue</fixed-outcome>
+      </outcome>
+    </method-call>
+    <method-call id="setPaymentId">
+      <method>#{bindings.setPaymentId.execute}</method>
+      <outcome id="__5">
+        <fixed-outcome>setPaymentId</fixed-outcome>
+      </outcome>
+    </method-call>
+    <method-call id="setIsPaymentExist">
+      <method>#{bindings.setIsPaymentExist.execute}</method>
+      <outcome id="__19">
+        <fixed-outcome>setIsPaymentExist</fixed-outcome>
+      </outcome>
+    </method-call>
+    <method-call id="processPayments">
+      <method>#{bindings.processPayments.execute}</method>
+      <outcome id="__36">
+        <fixed-outcome>success</fixed-outcome>
+      </outcome>
+    </method-call>
+    <method-call id="allocatePaymentAmount">
+      <method>#{bindings.allocatePaymentAmount.execute}</method>
+      <outcome id="__54">
+        <fixed-outcome>allocatePaymentAmount</fixed-outcome>
+      </outcome>
+    </method-call>
+    <task-flow-return id="cancel">
+      <outcome id="__16">
+        <name>cancel</name>
+      </outcome>
+    </task-flow-return>
+    <method-call id="setReferenceNumber">
+      <method>#{bindings.setVarReferenceNumber.execute}</method>
+      <outcome id="__76">
+        <fixed-outcome>setReferenceNumber</fixed-outcome>
+      </outcome>
+    </method-call>
+    <method-call id="prepareInputFields">
+      <method>#{requestScope.ProcessPaymentBean.prepareInputFieldsForTPConSharedModule}</method>
+      <outcome id="__82">
+        <fixed-outcome>prepartInputFields</fixed-outcome>
+      </outcome>
+    </method-call>
+    <control-flow-rule id="__66">
+      <from-activity-id id="__67">SetCurrentRowWithKeyValueInspection</from-activity-id>
+      <control-flow-case id="__69">
+        <from-outcome id="__70">setCurrentRowWithKeyValue</from-outcome>
+        <to-activity-id id="__68">SetCurrentRowWithKeyValuePayment</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__6">
+      <from-activity-id id="__7">SetCurrentRowWithKeyValuePayment</from-activity-id>
+      <control-flow-case id="__12">
+        <from-outcome id="__10">setCurrentRowWithKeyValue</from-outcome>
+        <to-activity-id id="__13">setReferenceNumber</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__20">
+      <from-activity-id id="__22">SetShareTransaction</from-activity-id>
+      <control-flow-case id="__27">
+        <from-outcome id="__26">setShareTransaction</from-outcome>
+        <to-activity-id id="__25">setIsPaymentExist</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__28">
+      <from-activity-id id="__29">setIsPaymentExist</from-activity-id>
+      <control-flow-case id="__35">
+        <from-outcome id="__30">setIsPaymentExist</from-outcome>
+        <to-activity-id id="__31">SetCurrentRowWithKeyValueInspection</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__37">
+      <from-activity-id id="__40">ProcessPayment</from-activity-id>
+      <control-flow-case id="__42">
+        <from-outcome id="__43">submit</from-outcome>
+        <to-activity-id id="__41">processPayments</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__17">
+        <from-outcome id="__51">cancel</from-outcome>
+        <to-activity-id id="__18">cancel</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__44">
+      <from-activity-id id="__45">processPayments</from-activity-id>
+      <control-flow-case id="__48">
+        <from-outcome id="__50">success</from-outcome>
+        <to-activity-id id="__49">success</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__55">
+      <from-activity-id id="__56">setPaymentId</from-activity-id>
+      <control-flow-case id="__59">
+        <from-outcome id="__57">setPaymentId</from-outcome>
+        <to-activity-id id="__58">allocatePaymentAmount</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__60">
+      <from-activity-id id="__61">allocatePaymentAmount</from-activity-id>
+      <control-flow-case id="__64">
+        <from-outcome id="__62">allocatePaymentAmount</from-outcome>
+        <to-activity-id id="__63">ProcessPayment</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__71">
+      <from-activity-id id="__72">setReferenceNumber</from-activity-id>
+      <control-flow-case id="__73">
+        <from-outcome id="__75">setReferenceNumber</from-outcome>
+        <to-activity-id id="__74">setPaymentId</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <use-page-fragments/>
+  </task-flow-definition>
+</adfc-config>

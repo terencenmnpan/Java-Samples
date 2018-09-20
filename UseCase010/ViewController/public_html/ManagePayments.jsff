@@ -1,0 +1,227 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1"
+          xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+          xmlns:f="http://java.sun.com/jsf/core">
+  <af:pageTemplate viewId="/use-case-template.jspx" id="pt1">
+    <f:facet name="main">
+      <af:panelGroupLayout id="pgl1" layout="scroll">
+        <af:panelCollection id="pc1" styleClass="AFStretchWidth">
+          <f:facet name="menus"/>
+          <f:facet name="toolbar">
+            <af:toolbar id="t2">
+              <af:commandToolbarButton text="New" id="ctb1"
+                                       action="ProcessPayment"/>
+              <af:commandToolbarButton text="View" id="ctb2"
+                                       action="ViewPayment"
+                                       disabled="#{bindings.Status != 'REVERSED' &amp;&amp; bindings.Status != 'REFUNDED' ? false : true}"
+                                       partialTriggers="t1">
+                <af:setActionListener from="#{bindings.PaymentId.attributeValue}"
+                                      to="#{pageFlowScope.ManagePaymentsPaymentId}"/>
+              </af:commandToolbarButton>
+              <af:commandToolbarButton text="Modify" id="ctb3"
+                                       action="ModifyPayment"
+                                       disabled="#{bindings.Status != 'REVERSED' &amp;&amp; bindings.Status != 'REFUNDED' ? false : true}"
+                                       partialTriggers="t1">
+                <af:setActionListener from="#{bindings.PaymentId.attributeValue}"
+                                      to="#{pageFlowScope.ManagePaymentsPaymentId}"/>
+              </af:commandToolbarButton>
+              <af:commandToolbarButton text="Edit Note" id="ctb5">
+                <af:showPopupBehavior triggerType="click" popupId="p1"/>
+              </af:commandToolbarButton>
+              <af:popup id="p1">
+                <af:dialog id="d1" contentHeight="100" contentWidth="300"
+                           resize="on"
+                           dialogListener="#{pageFlowScope.modifyPaymentBean.viewNotesDialogListener}">
+                  <af:inputText value="#{bindings.Comments.inputValue}"
+                                label="#{bindings.Comments.hints.label}"
+                                required="#{bindings.Comments.hints.mandatory}"
+                                columns="#{bindings.Comments.hints.displayWidth}"
+                                maximumLength="#{bindings.Comments.hints.precision}"
+                                shortDesc="#{bindings.Comments.hints.tooltip}"
+                                id="it1" rows="5">
+                    <f:validator binding="#{bindings.Comments.validator}"/>
+                  </af:inputText>
+                </af:dialog>
+              </af:popup>
+              <af:commandToolbarButton text="Back to Invoice Search" id="ctb4"
+                                       action="backToNoInspectionIdProvided"
+                                       rendered="true"/>
+            </af:toolbar>
+          </f:facet>
+          <f:facet name="statusbar"/>
+          <af:table value="#{bindings.PaymentForInspectionView1.collectionModel}"
+                    var="row"
+                    rows="#{bindings.PaymentForInspectionView1.rangeSize}"
+                    emptyText="#{bindings.PaymentForInspectionView1.viewable ? 'No data to display.' : 'Access Denied.'}"
+                    fetchSize="#{bindings.PaymentForInspectionView1.rangeSize}"
+                    rowBandingInterval="0"
+                    selectedRowKeys="#{bindings.PaymentForInspectionView1.collectionModel.selectedRow}"
+                    selectionListener="#{bindings.PaymentForInspectionView1.collectionModel.makeCurrent}"
+                    rowSelection="single" id="t1"
+                    binding="#{pageFlowScope.modifyPaymentBean.paymentTable}">
+            <af:column sortProperty="#{bindings.PaymentForInspectionView1.hints.PaymentDate.name}"
+                       sortable="false"
+                       headerText="#{bindings.PaymentForInspectionView1.hints.PaymentDate.label}"
+                       id="c6" width="85">
+              <af:outputText value="#{row.PaymentDate}" id="ot1">
+                <af:convertDateTime pattern="#{bindings.PaymentForInspectionView1.hints.PaymentDate.format}"/>
+              </af:outputText>
+            </af:column>
+            <af:column sortProperty="#{bindings.PaymentForInspectionView1.hints.PaymentControlNumber.name}"
+                       sortable="false"
+                       headerText="#{bindings.PaymentForInspectionView1.hints.PaymentControlNumber.label}"
+                       id="c4" width="85">
+              <af:outputText value="#{row.PaymentControlNumber}" id="ot13"/>
+            </af:column>
+            <af:column sortProperty="#{bindings.PaymentForInspectionView1.hints.DepositSlipNumber.name}"
+                       sortable="false"
+                       headerText="#{bindings.PaymentForInspectionView1.hints.DepositSlipNumber.label}"
+                       id="c9" width="85">
+              <af:outputText value="#{row.DepositSlipNumber}" id="ot9"/>
+            </af:column>
+            <af:column sortProperty="#{bindings.PaymentForInspectionView1.hints.TransmittalDate.name}"
+                       sortable="false"
+                       headerText="#{bindings.PaymentForInspectionView1.hints.TransmittalDate.label}"
+                       id="c16" width="85">
+              <af:outputText value="#{row.TransmittalDate}" id="ot3">
+                <af:convertDateTime pattern="#{bindings.PaymentForInspectionView1.hints.TransmittalDate.format}"/>
+              </af:outputText>
+            </af:column>
+            <af:column sortProperty="#{bindings.PaymentForInspectionView1.hints.PaymentTypeCode.name}"
+                       sortable="false"
+                       headerText="#{bindings.PaymentForInspectionView1.hints.PaymentTypeCode.label}"
+                       id="c14" width="83">
+              <af:outputText value="#{row.PaymentTypeCode}" id="ot14"/>
+            </af:column>
+            <af:column sortProperty="#{bindings.PaymentForInspectionView1.hints.TotalAmount.name}"
+                       sortable="false"
+                       headerText="#{bindings.PaymentForInspectionView1.hints.TotalAmount.label}"
+                       id="c7" width="97">
+              <af:outputText value="#{row.TotalAmount}" id="ot8">
+                <af:convertNumber groupingUsed="false"
+                                  pattern="#{bindings.PaymentForInspectionView1.hints.TotalAmount.format}"/>
+              </af:outputText>
+              <f:facet name="footer">
+                <af:outputText value="#{bindings.PaymentsTotal.inputValue}" id="ot17"/>
+              </f:facet>
+            </af:column>
+            <af:column sortProperty="#{bindings.PaymentForInspectionView1.hints.Billed.name}"
+                       sortable="false"
+                       headerText="#{bindings.PaymentForInspectionView1.hints.Billed.label}"
+                       id="c2" width="95">
+              <af:outputText value="#{row.Billed}" id="ot10">
+                <af:convertNumber groupingUsed="false"
+                                  pattern="#{bindings.PaymentForInspectionView1.hints.Billed.format}"/>
+              </af:outputText>
+              <f:facet name="footer">
+                <af:outputText value="#{bindings.BilledTotal.inputValue}" id="ot18"/>
+              </f:facet>
+            </af:column>
+            <af:column sortProperty="#{bindings.PaymentForInspectionView1.hints.CourtFee.name}"
+                       sortable="false"
+                       headerText="#{bindings.PaymentForInspectionView1.hints.CourtFee.label}"
+                       id="c1" width="75">
+              <af:outputText value="#{row.CourtFee}" id="ot2">
+                <af:convertNumber groupingUsed="false"
+                                  pattern="#{bindings.PaymentForInspectionView1.hints.CourtFee.format}"/>
+              </af:outputText>
+              <f:facet name="footer">
+                <af:outputText value="#{bindings.CourtTotal.inputValue}" id="ot19"/>
+              </f:facet>
+            </af:column>
+            <af:column sortProperty="#{bindings.PaymentForInspectionView1.hints.CollectionFee.name}"
+                       sortable="false"
+                       headerText="#{bindings.PaymentForInspectionView1.hints.CollectionFee.label}"
+                       id="c15" width="75">
+              <af:outputText value="#{row.CollectionFee}" id="ot12">
+                <af:convertNumber groupingUsed="false"
+                                  pattern="#{bindings.PaymentForInspectionView1.hints.CollectionFee.format}"/>
+              </af:outputText>
+              <f:facet name="footer">
+                <af:outputText value="#{bindings.CollectionTotal.inputValue}" id="ot20"/>
+              </f:facet>
+            </af:column>
+            <af:column sortProperty="#{bindings.PaymentForInspectionView1.hints.Interest.name}"
+                       sortable="false"
+                       headerText="#{bindings.PaymentForInspectionView1.hints.Interest.label}"
+                       id="c5" width="75">
+              <af:outputText value="#{row.Interest}" id="ot6">
+                <af:convertNumber groupingUsed="false"
+                                  pattern="#{bindings.PaymentForInspectionView1.hints.Interest.format}"/>
+              </af:outputText>
+              <f:facet name="footer">
+                <af:outputText value="#{bindings.InterestTotal.inputValue}" id="ot21"/>
+              </f:facet>
+            </af:column>
+            <af:column sortProperty="#{bindings.PaymentForInspectionView1.hints.PostJudInterest.name}"
+                       sortable="false"
+                       headerText="#{bindings.PaymentForInspectionView1.hints.PostJudInterest.label}"
+                       id="c11" width="75">
+              <af:outputText value="#{row.PostJudInterest}" id="ot16">
+                <af:convertNumber groupingUsed="false"
+                                  pattern="#{bindings.PaymentForInspectionView1.hints.PostJudInterest.format}"/>
+              </af:outputText>
+              <f:facet name="footer">
+                <af:outputText value="#{bindings.PosJudIntTotal.inputValue}" id="outputText2"/>
+              </f:facet>
+            </af:column>
+            <af:column sortProperty="#{bindings.PaymentForInspectionView1.hints.Unapplied.name}"
+                       sortable="false"
+                       headerText="#{bindings.PaymentForInspectionView1.hints.Unapplied.label}"
+                       id="c13" width="41">
+              <af:outputText value="#{row.Unapplied}" id="ot5">
+                <af:convertNumber groupingUsed="false"
+                                  pattern="#{bindings.PaymentForInspectionView1.hints.Unapplied.format}"/>
+              </af:outputText>
+              <f:facet name="footer">
+                <af:outputText value="#{bindings.UnappliedTotal.inputValue}" id="ot22"/>
+              </f:facet>
+            </af:column>
+            <af:column sortProperty="#{bindings.PaymentForInspectionView1.hints.NsfFee.name}"
+                       sortable="false"
+                       headerText="#{bindings.PaymentForInspectionView1.hints.NsfFee.label}"
+                       id="c3" width="70">
+              <af:outputText value="#{row.NsfFee}" id="ot11">
+                <af:convertNumber groupingUsed="false"
+                                  pattern="#{bindings.PaymentForInspectionView1.hints.NsfFee.format}"/>
+              </af:outputText>
+              <f:facet name="footer">
+                <af:outputText value="#{bindings.NsfFeeTotal.inputValue}" id="ot23"/>
+              </f:facet>
+            </af:column>
+            <af:column sortProperty="#{bindings.PaymentForInspectionView1.hints.NsfAmount.name}"
+                       sortable="false"
+                       headerText="#{bindings.PaymentForInspectionView1.hints.NsfAmount.label}"
+                       id="c10" width="70">
+              <af:outputText value="#{row.NsfAmount}" id="ot4">
+                <af:convertNumber groupingUsed="false"
+                                  pattern="#{bindings.PaymentForInspectionView1.hints.NsfAmount.format}"/>
+              </af:outputText>
+              <f:facet name="footer">
+                <af:outputText value="#{bindings.NsfTotal.inputValue}" id="ot24"/>
+              </f:facet>
+            </af:column>
+            <af:column id="c12"
+                       headerText="#{bindings.PaymentForInspectionView1.hints.Status.label}">
+              <af:outputText value="#{row.Status}" id="ot7"/>
+            </af:column>
+            <af:column id="c17"
+                       headerText="#{bindings.PaymentForInspectionView1.hints.StatusDate.label}">
+              <af:outputText value="#{row.StatusDate}" id="ot25"/>
+            </af:column>
+            <af:column id="column1"
+                       headerText="#{bindings.PaymentForInspectionView1.hints.ReferenceNumber.label}">
+              <af:outputText value="#{row.ReferenceNumber}" id="outputText1"/>
+            </af:column>
+            <af:column headerText="#{bindings.PaymentForInspectionView1.hints.Comments.label}"
+                       id="c8" width="200">
+              <af:outputText value="#{row.Comments}" id="ot15"/>
+            </af:column>
+          </af:table>
+        </af:panelCollection>
+      </af:panelGroupLayout>
+    </f:facet>
+    <f:attribute name="title"
+                 value="Manage Payments for Inspection #{bindings.InspectionNumber.attributeValue}"/>
+  </af:pageTemplate>
+</jsp:root>
